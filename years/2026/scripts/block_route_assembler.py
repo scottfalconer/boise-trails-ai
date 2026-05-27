@@ -23,6 +23,8 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
 from block_route_candidate_pass import (  # noqa: E402
     PALETTE,
+    candidate_field_track_miles,
+    candidate_planned_on_foot_miles,
     line_feature,
     multiline_feature,
     parking_feature,
@@ -59,11 +61,9 @@ from personal_route_planner import (  # noqa: E402
     load_trailheads_from_geojson,
     merge_planning_trailheads,
     normalize_name,
+    order_trails_by_legal_connector_cost,
     read_json,
-    reverse_trail_orientation,
     round_miles,
-    shortest_connector_path,
-    trail_is_reversible,
 )
 from route_block_planner import build_block_index, normalize_trail_name  # noqa: E402
 
@@ -75,55 +75,21 @@ DEFAULT_BASENAME = "block-assembled-route-pass-v1"
 TOTAL_OFFICIAL_MILES = 164.43
 
 
-def connector_or_gap_distance(
-    start: tuple[float, float],
-    end: tuple[float, float],
-    connector_graph: dict[str, Any] | None,
-    snap_tolerance_miles: float,
-) -> float:
-    mapped = shortest_connector_path(start, end, connector_graph, snap_tolerance_miles)
-    if mapped:
-        return float(mapped["distance_miles"])
-    return haversine_miles(start, end) * 1.25
-
-
-def trail_options(trail: dict[str, Any]) -> list[dict[str, Any]]:
-    options = [trail]
-    if trail_is_reversible(trail):
-        options.append(reverse_trail_orientation(trail))
-    return options
-
-
 def order_trails_by_connector_cost(
     trails: list[dict[str, Any]],
     start_point: tuple[float, float],
     connector_graph: dict[str, Any] | None,
     snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
 ) -> list[dict[str, Any]]:
-    """Nearest-neighbor ordering using graph distance, not straight-line distance."""
-    remaining = list(trails)
-    ordered: list[dict[str, Any]] = []
-    current = start_point
-    while remaining:
-        best_index = 0
-        best_trail = remaining[0]
-        best_distance = float("inf")
-        for index, trail in enumerate(remaining):
-            for option in trail_options(trail):
-                distance = connector_or_gap_distance(
-                    current,
-                    option["start"],
-                    connector_graph,
-                    snap_tolerance_miles,
-                )
-                if distance < best_distance:
-                    best_index = index
-                    best_trail = option
-                    best_distance = distance
-        remaining.pop(best_index)
-        ordered.append(best_trail)
-        current = best_trail["end"]
-    return ordered
+    """Compatibility wrapper for legal connector-cost ordering."""
+    return order_trails_by_legal_connector_cost(
+        trails,
+        start_point,
+        connector_graph,
+        snap_tolerance_miles,
+        avoid_official_segment_ids=avoid_official_segment_ids,
+    )
 
 
 def block_center(trails: list[dict[str, Any]]) -> tuple[float, float]:
@@ -212,7 +178,7 @@ def block_acceptance_status(
 
     reasons = []
     official = float(candidate.get("official_new_miles") or 0.0)
-    total = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
+    total = candidate_planned_on_foot_miles(candidate)
     ratio = total / official if official else 99.0
     preferred_ratio = float(acceptance.get("preferred_max_on_foot_to_official_ratio") or 1.6)
     min_official = float(acceptance.get("min_official_miles_unless_geography_locked") or 5.0)
@@ -238,6 +204,7 @@ def block_acceptance_status(
 def build_block_routes(
     blocks_config: dict[str, Any],
     context: dict[str, Any],
+    official_index: dict[int, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     trail_to_block, duplicates = build_block_index(blocks_config)
     _ = trail_to_block
@@ -272,6 +239,12 @@ def build_block_routes(
             start_point,
             context["connector_graph"],
             snap_tolerance,
+            avoid_official_segment_ids={
+                int(seg_id)
+                for trail in block_trails
+                for seg_id in trail.get("remaining_segment_ids") or []
+                if str(seg_id).isdigit()
+            },
         )
         candidate = candidate_from_trail_group(
             ordered,
@@ -287,30 +260,40 @@ def build_block_routes(
         candidate["block_status"] = block.get("status")
         candidate["block_rationale"] = block.get("rationale")
         candidate["planned_order_start_trailhead"] = start_trailhead.get("name") if start_trailhead else None
+        if official_index is not None:
+            track_miles = candidate_field_track_miles(candidate, official_index, context["connector_graph"])
+            modeled = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
+            if track_miles > 0:
+                candidate["field_track_miles"] = round_miles(track_miles)
+                candidate["modeled_on_foot_miles"] = round_miles(modeled)
+                candidate["field_track_mileage_delta"] = round_miles(track_miles - modeled)
         status, reasons = block_acceptance_status(block, candidate, acceptance)
         official = float(candidate.get("official_new_miles") or 0.0)
-        total = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
-        routes.append(
-            {
-                "route_number": block_index,
-                "candidate_id": candidate["candidate_id"],
-                "block_id": candidate["block_id"],
-                "block_name": candidate["block_name"],
-                "block_status": candidate["block_status"],
-                "planning_status": status,
-                "planning_reasons": reasons,
-                "trail_names": candidate.get("trail_names") or [],
-                "official_miles": round_miles(official),
-                "on_foot_miles": round_miles(total),
-                "ratio": round(total / official, 2) if official else None,
-                "total_minutes": candidate.get("total_minutes"),
-                "trailhead": (candidate.get("trailhead") or {}).get("name"),
-                "route_status": candidate.get("route_status"),
-                "less_optimal_flags": candidate.get("less_optimal_flags") or [],
-                "segment_ids": candidate.get("segment_ids") or [],
-                "candidate": candidate,
-            }
-        )
+        total = candidate_planned_on_foot_miles(candidate)
+        row = {
+            "route_number": block_index,
+            "candidate_id": candidate["candidate_id"],
+            "block_id": candidate["block_id"],
+            "block_name": candidate["block_name"],
+            "block_status": candidate["block_status"],
+            "planning_status": status,
+            "planning_reasons": reasons,
+            "trail_names": candidate.get("trail_names") or [],
+            "official_miles": round_miles(official),
+            "on_foot_miles": round_miles(total),
+            "ratio": round(total / official, 2) if official else None,
+            "total_minutes": candidate.get("total_minutes"),
+            "trailhead": (candidate.get("trailhead") or {}).get("name"),
+            "route_status": candidate.get("route_status"),
+            "less_optimal_flags": candidate.get("less_optimal_flags") or [],
+            "segment_ids": candidate.get("segment_ids") or [],
+            "candidate": candidate,
+        }
+        if candidate.get("field_track_miles") is not None:
+            row["field_track_miles"] = candidate.get("field_track_miles")
+            row["modeled_on_foot_miles"] = candidate.get("modeled_on_foot_miles")
+            row["field_track_mileage_delta"] = candidate.get("field_track_mileage_delta")
+        routes.append(row)
 
     covered_segments = {int(seg_id) for route in routes for seg_id in route.get("segment_ids") or []}
     total_on_foot = sum(float(route.get("on_foot_miles") or 0.0) for route in routes)
@@ -359,7 +342,12 @@ def build_map_data(
     for route in route_pass.get("routes") or []:
         candidate = candidate_index[str(route["candidate_id"])]
         color = PALETTE[(int(route["route_number"]) - 1) % len(PALETTE)]
-        coords = candidate_track_coordinates(candidate, official_index, connector_graph=connector_graph)
+        coords = candidate_track_coordinates(
+            candidate,
+            official_index,
+            connector_graph=connector_graph,
+            densify_source_lines=True,
+        )
         source_validation = validate_track_segments([coords], max_gap_miles=0.1)
         rendered_parts = split_coords_on_gaps(coords, max_gap_miles=0.1)
         render_validation = validate_track_segments(rendered_parts, max_gap_miles=0.1)
@@ -497,8 +485,8 @@ def main() -> int:
     args = parse_args()
     blocks_config = read_json(args.blocks_json)
     context = load_planning_context(args)
-    route_pass = build_block_routes(blocks_config, context)
     official_index = load_official_segment_index(args.official_geojson)
+    route_pass = build_block_routes(blocks_config, context, official_index)
     map_data = build_map_data(route_pass, official_index, context["connector_graph"])
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / f"{args.basename}.json"

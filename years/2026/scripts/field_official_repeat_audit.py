@@ -208,11 +208,14 @@ def audit(map_data: dict[str, Any], field_tool_data: dict[str, Any], source_file
     bucket_b = []
     bucket_c = []
     repeat_legs_missing_ids = []
+    source_public_repeat_id_drift = []
     repeat_cues_missing_text = []
     route_cues = map_data.get("route_cues") or {}
 
     for candidate_id, cue in sorted(route_cues.items()):
         route = routes.get(str(candidate_id))
+        if not route:
+            continue
         component = components.get(str(candidate_id))
         source_legs = source_repeat_legs(cue, route=route, component=component)
         public_cues = public_repeat_cue_rows(route)
@@ -221,6 +224,7 @@ def audit(map_data: dict[str, Any], field_tool_data: dict[str, Any], source_file
             row["cue_text_mentions_repeat"] and row["cue_text_mentions_no_new_credit"]
             for row in public_cues
         )
+        public_repeat_accounted = bool(public_repeat_ids) and public_text_ok
         missing_public_ids = sorted(
             {
                 seg_id
@@ -249,11 +253,17 @@ def audit(map_data: dict[str, Any], field_tool_data: dict[str, Any], source_file
         route_rows.append(row)
 
         for leg in source_legs:
+            missing_source_ids_hard = leg["missing_repeat_segment_ids"] and not public_repeat_accounted
             if leg["missing_repeat_segment_ids"]:
-                repeat_legs_missing_ids.append({"candidate_id": candidate_id, "label": route_label, **leg})
+                if public_repeat_accounted:
+                    source_public_repeat_id_drift.append({"candidate_id": candidate_id, "label": route_label, **leg})
+                else:
+                    repeat_legs_missing_ids.append({"candidate_id": candidate_id, "label": route_label, **leg})
+            elif missing_public_ids:
+                source_public_repeat_id_drift.append({"candidate_id": candidate_id, "label": route_label, **leg})
             hidden_self_repeat = bool(leg["self_repeat_segment_ids"]) and (
-                leg["missing_repeat_segment_ids"]
-                or bool(missing_public_ids)
+                missing_source_ids_hard
+                or (bool(missing_public_ids) and not public_repeat_accounted)
                 or not public_text_ok
             )
             if hidden_self_repeat:
@@ -320,6 +330,7 @@ def audit(map_data: dict[str, Any], field_tool_data: dict[str, Any], source_file
             "bucket_b_legitimate_repeat_or_optimization_target_count": len(bucket_b),
             "bucket_c_reconciled_extra_credit_route_count": len(bucket_c),
             "repeat_legs_missing_segment_ids": len(repeat_legs_missing_ids),
+            "source_public_repeat_id_drift_count": len(source_public_repeat_id_drift),
             "repeat_cues_missing_text": len(repeat_cues_missing_text),
             "unreconciled_extra_credit_segment_count": len(unreconciled_bucket_c),
         },
@@ -327,6 +338,7 @@ def audit(map_data: dict[str, Any], field_tool_data: dict[str, Any], source_file
         "bucket_b_legitimate_repeat_or_optimization_targets": bucket_b,
         "bucket_c_extra_official_credit": bucket_c,
         "repeat_legs_missing_segment_ids": repeat_legs_missing_ids,
+        "source_public_repeat_id_drift": source_public_repeat_id_drift,
         "repeat_cues_missing_text": repeat_cues_missing_text,
         "top_non_credit_burden_routes": top_non_credit,
         "routes": route_rows,
@@ -350,6 +362,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Bucket B counted/cued repeats or optimization targets: {summary.get('bucket_b_legitimate_repeat_or_optimization_target_count', 0)}",
         f"- Bucket C reconciled extra-credit routes: {summary.get('bucket_c_reconciled_extra_credit_route_count', 0)}",
         f"- Repeat legs missing segment IDs: {summary.get('repeat_legs_missing_segment_ids', 0)}",
+        f"- Source/public repeat ID drift: {summary.get('source_public_repeat_id_drift_count', 0)}",
         f"- Repeat cues missing repeat/no-credit text: {summary.get('repeat_cues_missing_text', 0)}",
         f"- Unreconciled extra-credit segments: {summary.get('unreconciled_extra_credit_segment_count', 0)}",
         "",
@@ -411,9 +424,9 @@ def main() -> int:
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
     args.output_md.write_text(render_markdown(report), encoding="utf-8")
     manifest = build_artifact_manifest(
-        run_id="field-official-repeat-audit-2026-05-11",
-        inputs=[args.map_data_json, args.field_tool_json],
-        outputs=[args.output_json, args.output_md],
+        run_id=args.output_json.stem,
+        inputs=[display_path(args.map_data_json), display_path(args.field_tool_json)],
+        outputs=[display_path(args.output_json), display_path(args.output_md)],
         command="python years/2026/scripts/field_official_repeat_audit.py",
         metadata={"schema": report["schema"], "status": report["status"]},
     )

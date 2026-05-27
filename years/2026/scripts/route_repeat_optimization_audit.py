@@ -1639,9 +1639,13 @@ def main(argv: list[str] | None = None) -> int:
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
     args.output_md.write_text(render_markdown(audit), encoding="utf-8")
     manifest = build_artifact_manifest(
-        run_id="route-repeat-optimization-audit-2026-05-12",
-        inputs=[args.field_tool_data_json, args.official_geojson, args.connector_geojson],
-        outputs=[args.output_json, args.output_md],
+        run_id=args.output_json.stem,
+        inputs=[
+            display_path(args.field_tool_data_json),
+            display_path(args.official_geojson),
+            display_path(args.connector_geojson),
+        ],
+        outputs=[display_path(args.output_json), display_path(args.output_md)],
         command="python years/2026/scripts/route_repeat_optimization_audit.py",
         metadata={"schema": audit["schema"], "status": audit["status"]},
     )

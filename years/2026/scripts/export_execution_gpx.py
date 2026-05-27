@@ -114,7 +114,10 @@ def candidate_segment_coordinates(
 ) -> list[tuple[float, float]]:
     seg_id = int(segment["seg_id"])
     official = official_index[seg_id]
-    coords = list(official["coordinates"])
+    coords = [
+        (float(coord[0]), float(coord[1]))
+        for coord in (segment.get("coordinates") or official["coordinates"])
+    ]
     special_management_direction = special_management_segment_direction_overrides().get(str(seg_id))
     if special_management_direction == "forward":
         if densify_source_lines:
@@ -134,6 +137,7 @@ def candidate_segment_coordinates(
     elif (
         (candidate.get("route_orientation") or {}).get("direction") == "reversed"
         and official.get("direction") == "both"
+        and not candidate.get("custom_traversal_order")
     ):
         coords = list(reversed(coords))
     if densify_source_lines:
@@ -436,6 +440,48 @@ def raise_unstitched_gap(candidate: dict[str, Any], from_point: tuple[float, flo
     )
 
 
+def stitch_remaining_coordinate_gaps(
+    coords: list[tuple[float, float]],
+    connector_graph: dict[str, Any] | None,
+    *,
+    stitch_gap_threshold_miles: float,
+    stitch_snap_tolerance_miles: float,
+    densify_source_lines: bool,
+    densify_max_gap_miles: float,
+    candidate: dict[str, Any],
+    fail_on_unstitched_gap: bool,
+) -> list[tuple[float, float]]:
+    if len(coords) < 2:
+        return coords
+    stitched = [coords[0]]
+    for point in coords[1:]:
+        gap = haversine_miles(stitched[-1], point)
+        if gap > stitch_gap_threshold_miles:
+            stitch = (
+                shortest_connector_path(
+                    stitched[-1],
+                    point,
+                    connector_graph,
+                    stitch_snap_tolerance_miles,
+                )
+                if connector_graph
+                else None
+            )
+            if stitch:
+                dedupe_append(
+                    stitched,
+                    path_coordinate_tuples(
+                        stitch.get("path_coordinates") or [],
+                        densify_source_lines=densify_source_lines,
+                        densify_max_gap_miles=densify_max_gap_miles,
+                    ),
+                )
+            elif fail_on_unstitched_gap:
+                raise_unstitched_gap(candidate, stitched[-1], point, gap)
+        dedupe_append(stitched, [point])
+    return stitched
+
+
 def candidate_track_coordinates(
     candidate: dict[str, Any],
     official_index: dict[int, dict[str, Any]],
@@ -456,12 +502,32 @@ def candidate_track_coordinates(
             densify_max_gap_miles=densify_max_gap_miles,
         ),
     )
-    between_links = list(((candidate.get("between_trail_links") or {}).get("links")) or [])
+    inter_segment_links = list(((candidate.get("inter_segment_links") or {}).get("links")) or [])
+    link_by_to_segment_id = {
+        str(link.get("to_segment_id")): link
+        for link in inter_segment_links
+        if link.get("to_segment_id") is not None
+    }
+    between_links = (
+        []
+        if inter_segment_links
+        else list(((candidate.get("between_trail_links") or {}).get("links")) or [])
+    )
     next_link_index = 0
     previous_trail = None
     for segment in candidate_segments_for_track(candidate, official_index, coords[-1] if coords else None):
         trail_name = segment.get("trail_name")
         seg_id = int(segment["seg_id"])
+        pre_link = link_by_to_segment_id.get(str(segment.get("seg_id")))
+        if previous_trail is not None and pre_link:
+            dedupe_append(
+                coords,
+                path_coordinate_tuples(
+                    pre_link.get("path_coordinates") or [],
+                    densify_source_lines=densify_source_lines,
+                    densify_max_gap_miles=densify_max_gap_miles,
+                ),
+            )
         segment_coords = candidate_segment_coordinates(
             candidate,
             segment,
@@ -609,7 +675,16 @@ def candidate_track_coordinates(
             elif fail_on_unstitched_gap:
                 raise_unstitched_gap(candidate, coords[-1], trailhead_return_path[0], gap)
     dedupe_append(coords, trailhead_return_path)
-    return coords
+    return stitch_remaining_coordinate_gaps(
+        coords,
+        connector_graph,
+        stitch_gap_threshold_miles=stitch_gap_threshold_miles,
+        stitch_snap_tolerance_miles=stitch_snap_tolerance_miles,
+        densify_source_lines=densify_source_lines,
+        densify_max_gap_miles=densify_max_gap_miles,
+        candidate=candidate,
+        fail_on_unstitched_gap=fail_on_unstitched_gap,
+    )
 
 
 def recommendation_candidate_ids(recommendation: dict[str, Any]) -> list[str]:

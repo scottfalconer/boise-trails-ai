@@ -122,3 +122,68 @@ def test_audit_accepts_counted_and_cued_self_repeat_and_reconciled_extra_credit(
     assert report["summary"]["bucket_a_bad_hidden_self_repeat_count"] == 0
     assert report["summary"]["bucket_b_legitimate_repeat_or_optimization_target_count"] == 1
     assert report["summary"]["bucket_c_reconciled_extra_credit_route_count"] == 1
+
+
+def test_audit_accepts_source_repeat_ids_superseded_by_final_public_cue():
+    module = load_module()
+    report = module.audit(
+        map_data_with_repeat_leg(
+            {
+                "official_repeat_miles": 0.4,
+                "official_repeat_segment_ids": [1, 2],
+                "connector_miles": 0.1,
+                "connector_classes": ["official_repeat"],
+            }
+        ),
+        field_tool_with_repeat_cue(
+            {
+                "seq": 2,
+                "cue_type": "connector_named_trail",
+                "official_repeat_miles": 0.2,
+                "official_repeat_segment_ids": ["1"],
+                "note": "Connector includes 0.2 mi repeat official; no new credit.",
+            }
+        ),
+    )
+
+    assert report["status"] == "passed"
+    assert report["summary"]["bucket_a_bad_hidden_self_repeat_count"] == 0
+    assert report["summary"]["source_public_repeat_id_drift_count"] == 1
+
+
+def test_audit_skips_source_route_cues_that_are_not_in_field_tool():
+    module = load_module()
+    map_data = map_data_with_repeat_leg(
+        {
+            "official_repeat_miles": 0.2,
+            "official_repeat_segment_ids": [1],
+            "connector_miles": 0.1,
+            "connector_classes": ["official_repeat"],
+        }
+    )
+    map_data["route_cues"]["stale-route"] = {
+        "candidate_id": "stale-route",
+        "between_links": [
+            {
+                "official_repeat_miles": 0.2,
+                "official_repeat_segment_ids": [1],
+                "connector_classes": ["official_repeat"],
+            }
+        ],
+    }
+
+    report = module.audit(
+        map_data,
+        field_tool_with_repeat_cue(
+            {
+                "seq": 2,
+                "cue_type": "connector_named_trail",
+                "official_repeat_miles": 0.2,
+                "official_repeat_segment_ids": ["1"],
+                "note": "Connector includes 0.2 mi repeat official; no new credit.",
+            }
+        ),
+    )
+
+    assert report["status"] == "passed"
+    assert report["summary"]["route_count"] == 1

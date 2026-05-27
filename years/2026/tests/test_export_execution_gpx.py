@@ -247,6 +247,51 @@ def test_candidate_track_coordinates_orients_unplanned_bidirectional_segments_to
     ]
 
 
+def test_candidate_track_coordinates_preserves_custom_traversal_geometry():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Ridge",
+            "direction": "both",
+            "coordinates": [(-116.10, 43.10), (-116.11, 43.11)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Ridge",
+            "direction": "both",
+            "coordinates": [(-116.11, 43.11), (-116.12, 43.12)],
+        },
+    }
+    candidate = {
+        "candidate_id": "custom-reversed-route",
+        "segments": [
+            {
+                "seg_id": 2,
+                "trail_name": "Ridge",
+                "coordinates": [(-116.12, 43.12), (-116.11, 43.11)],
+            },
+            {
+                "seg_id": 1,
+                "trail_name": "Ridge",
+                "coordinates": [(-116.11, 43.11), (-116.10, 43.10)],
+            },
+        ],
+        "custom_traversal_order": True,
+        "route_orientation": {"direction": "reversed"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    coords = exporter.candidate_track_coordinates(candidate, official_index)
+
+    assert coords == [
+        (-116.12, 43.12),
+        (-116.11, 43.11),
+        (-116.10, 43.10),
+    ]
+
+
 def test_candidate_segments_for_track_reorders_special_management_loop_to_legal_flow():
     exporter = load_exporter()
     official_index = {
@@ -338,6 +383,37 @@ def test_candidate_segments_for_track_reorders_special_management_loop_to_legal_
         1602,
         1597,
     ]
+
+
+def test_candidate_track_coordinates_can_densify_sparse_source_lines():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Sparse",
+            "direction": "both",
+            "coordinates": [(-116.10, 43.10), (-116.12, 43.12)],
+        }
+    }
+    candidate = {
+        "candidate_id": "sparse-route",
+        "segments": [{"seg_id": 1, "trail_name": "Sparse"}],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    coords = exporter.candidate_track_coordinates(
+        candidate,
+        official_index,
+        densify_source_lines=True,
+        densify_max_gap_miles=0.05,
+    )
+
+    assert coords[0] == (-116.10, 43.10)
+    assert coords[-1] == (-116.12, 43.12)
+    assert len(coords) > 2
+    assert exporter.validate_track_segments([coords], max_gap_miles=0.1)["passed"] is True
 
 
 def test_candidate_track_coordinates_can_fail_on_unstitched_source_gap():
@@ -539,6 +615,62 @@ def test_candidate_track_coordinates_replaces_stale_unsafe_between_link():
     assert links[0]["connector_names"] == ["Safe Connector"]
     assert links[0]["official_repeat_segment_ids"] == [1]
     assert links[0]["replaced_unsafe_connector_names"] == ["unsafe trail"]
+
+
+def test_candidate_track_coordinates_uses_declared_inter_segment_link_before_stitching():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Split",
+            "direction": "both",
+            "coordinates": [(-116.10, 43.10), (-116.11, 43.11)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Split",
+            "direction": "both",
+            "coordinates": [(-116.20, 43.20), (-116.21, 43.21)],
+        },
+    }
+    candidate = {
+        "candidate_id": "split-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "Split"},
+            {"seg_id": 2, "trail_name": "Split"},
+        ],
+        "inter_segment_links": {
+            "links": [
+                {
+                    "to_segment_id": 2,
+                    "path_coordinates": [
+                        [-116.11, 43.11],
+                        [-116.12, 43.12],
+                        [-116.20, 43.20],
+                    ],
+                }
+            ]
+        },
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    coords = exporter.candidate_track_coordinates(
+        candidate,
+        official_index,
+        connector_graph=None,
+        stitch_gap_threshold_miles=20,
+        fail_on_unstitched_gap=True,
+    )
+
+    assert coords == [
+        (-116.10, 43.10),
+        (-116.11, 43.11),
+        (-116.12, 43.12),
+        (-116.20, 43.20),
+        (-116.21, 43.21),
+    ]
 
 
 def test_render_gpx_outputs_track_points():

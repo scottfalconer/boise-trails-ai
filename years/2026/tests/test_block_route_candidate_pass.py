@@ -75,6 +75,32 @@ def test_summarize_selection_reports_fragment_counts():
     assert route_pass["routes"][0]["block_id"] == "beta"
 
 
+def test_summarize_selection_keeps_field_track_miles_diagnostic_only():
+    module = load_pass()
+    selected = [
+        {
+            "candidate_id": "alpha",
+            "trail_names": ["Alpha Trail"],
+            "segments": [{"seg_id": 1, "trail_name": "Alpha Trail", "official_miles": 1.0}],
+            "segment_ids": [1],
+            "official_new_miles": 1.0,
+            "estimated_total_on_foot_miles": 1.2,
+            "field_track_miles": 2.4,
+            "modeled_on_foot_miles": 1.2,
+            "field_track_mileage_delta": 1.2,
+            "trailhead": {"name": "A"},
+            "route_status": "graph_validated",
+        }
+    ]
+
+    route_pass = module.summarize_selection(selected, {"blocks": []})
+
+    assert route_pass["summary"]["total_on_foot_miles"] == 1.2
+    assert route_pass["routes"][0]["on_foot_miles"] == 1.2
+    assert route_pass["routes"][0]["field_track_miles"] == 2.4
+    assert route_pass["routes"][0]["modeled_on_foot_miles"] == 1.2
+
+
 def test_render_html_includes_direction_arrow_controls():
     module = load_pass()
     html = module.render_html(

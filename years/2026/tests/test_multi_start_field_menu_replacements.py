@@ -298,7 +298,7 @@ def test_segment_ownership_promotion_claims_latent_segment_on_target_route(tmp_p
         ]
     }
 
-    applied = module.apply_segment_ownership_promotions(
+    applied, skipped = module.apply_segment_ownership_promotions(
         replacement_entries,
         promotions,
         current_map=current_map,
@@ -308,6 +308,7 @@ def test_segment_ownership_promotion_claims_latent_segment_on_target_route(tmp_p
     package = replacement_entries[0]["replace_package"]
     component = package["components"][0]
     cue_segments = replacement_entries[0]["route_cues"]["target"]["segments"]
+    assert skipped == []
     assert applied[0]["segment_id"] == 1656
     assert component["segment_ids"] == [1542, 1546, 1656]
     assert component["official_miles"] == 11.73
@@ -468,13 +469,14 @@ def test_same_package_promotion_creates_baseline_entry_and_removes_source_card(t
         ]
     }
 
-    applied = module.apply_segment_ownership_promotions(
+    applied, skipped = module.apply_segment_ownership_promotions(
         replacement_entries,
         promotions,
         current_map=current_map,
         context={"official_segments": [{"seg_id": 1610, "trail_name": "Quick Draw", "official_miles": 0.48}]},
     )
 
+    assert skipped == []
     assert applied[0]["segment_id"] == 1610
     assert len(replacement_entries) == 1
     entry = replacement_entries[0]
@@ -490,6 +492,54 @@ def test_same_package_promotion_creates_baseline_entry_and_removes_source_card(t
         for feature in entry["feature_collections"]["routes"]["features"]
     ] == ["target", "kept"]
     assert [row["candidate_id"] for row in entry["route_validations"]] == ["target", "kept"]
+
+
+def test_obsolete_segment_promotion_target_is_skipped_before_evidence_lookup(tmp_path, monkeypatch):
+    module = load_module()
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    replacement_entries = []
+    current_map = {
+        "packages": [
+            {
+                "package_number": 15,
+                "components": [{"candidate_id": "current-target"}],
+            }
+        ]
+    }
+    promotions = {
+        "promotions": [
+            {
+                "status": "promoted",
+                "segment_id": 1610,
+                "from": {"package_number": 114, "candidate_id": "quick-draw"},
+                "to": {"package_number": 114, "candidate_id": "chbh-connector"},
+                "evidence": {
+                    "field_latent_credit_audit_json": "missing-obsolete-evidence.json",
+                    "route_key": "114-2",
+                    "required_status": "reconciled_owned_elsewhere",
+                },
+            }
+        ]
+    }
+
+    applied, skipped = module.apply_segment_ownership_promotions(
+        replacement_entries,
+        promotions,
+        current_map=current_map,
+        context={"official_segments": []},
+    )
+
+    assert applied == []
+    assert replacement_entries == []
+    assert skipped == [
+        {
+            "segment_id": 1610,
+            "status": "skipped",
+            "reason": "target_package_not_in_current_map",
+            "from": {"package_number": 114, "candidate_id": "quick-draw"},
+            "to": {"package_number": 114, "candidate_id": "chbh-connector"},
+        }
+    ]
 
 
 def test_cross_package_promotion_can_remove_later_source_card(tmp_path, monkeypatch):
@@ -584,13 +634,15 @@ def test_cross_package_promotion_can_remove_later_source_card(tmp_path, monkeypa
         ]
     }
 
-    module.apply_segment_ownership_promotions(
+    applied, skipped = module.apply_segment_ownership_promotions(
         replacement_entries,
         promotions,
         current_map=current_map,
         context={"official_segments": [{"seg_id": 1576, "trail_name": "Highlands Trail", "official_miles": 1.06}]},
     )
 
+    assert skipped == []
+    assert applied[0]["segment_id"] == 1576
     entries_by_package = {
         str(entry["replace_package"]["package_number"]): entry
         for entry in replacement_entries

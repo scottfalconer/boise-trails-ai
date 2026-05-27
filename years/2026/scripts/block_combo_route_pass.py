@@ -22,6 +22,8 @@ from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
 from block_route_assembler import load_planning_context  # noqa: E402
 from block_route_candidate_pass import (  # noqa: E402
     PALETTE,
+    candidate_field_track_miles,
+    candidate_planned_on_foot_miles,
     line_feature,
     multiline_feature,
     parking_feature,
@@ -46,9 +48,10 @@ from personal_route_planner import (  # noqa: E402
     DEFAULT_STRAVA_DETAILS_DIR,
     DEFAULT_TRAILHEAD_CANDIDATES_GEOJSON,
     candidate_from_trail_group,
+    get_outing_model,
     group_remaining_by_trail,
     load_official_segments,
-    order_trails_nearest_neighbor,
+    order_trails_by_legal_connector_cost,
     read_json,
     round_miles,
     slugify,
@@ -96,7 +99,21 @@ def build_combo_candidate(
     if len(trails) < 2:
         return None
     start_point = trails[0]["start"]
-    ordered = order_trails_nearest_neighbor(trails, start_point)
+    outing_model = get_outing_model(context["state"])
+    snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
+    required_segment_ids = {
+        int(seg_id)
+        for trail in trails
+        for seg_id in trail.get("remaining_segment_ids") or []
+        if str(seg_id).isdigit()
+    }
+    ordered = order_trails_by_legal_connector_cost(
+        trails,
+        start_point,
+        context["connector_graph"],
+        snap_tolerance,
+        avoid_official_segment_ids=required_segment_ids,
+    )
     candidate = candidate_from_trail_group(
         ordered,
         context["state"],
@@ -119,7 +136,7 @@ def combo_is_acceptable(
     if combo_candidate.get("route_status") != "graph_validated":
         return False
     original_miles = sum(float(component.get("on_foot_miles") or 0.0) for component in components)
-    combo_miles = float(combo_candidate.get("estimated_total_on_foot_miles") or 0.0)
+    combo_miles = candidate_planned_on_foot_miles(combo_candidate)
     saved_routes = max(0, len(components) - 1)
     return combo_miles <= original_miles + max_extra_miles_per_saved_route * saved_routes
 
@@ -165,9 +182,28 @@ def generate_combo_candidates(
 
 
 def local_candidate_cost(candidate: dict[str, Any], route_count_weight: float) -> float:
-    on_foot = float(candidate.get("estimated_total_on_foot_miles") or candidate.get("on_foot_miles") or 0.0)
+    on_foot = candidate_planned_on_foot_miles(candidate)
     ratio = on_foot / float(candidate.get("official_new_miles") or candidate.get("official_miles") or 1.0)
     return on_foot + route_count_weight + max(0.0, ratio - 2.2)
+
+
+def original_component_candidate(
+    component: dict[str, Any],
+    original_candidate_index: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    candidate = dict(original_candidate_index[str(component["candidate_id"])])
+    candidate["block_id"] = component.get("block_id")
+    candidate["block_name"] = component.get("block_name")
+    candidate["field_track_miles"] = component.get("field_track_miles") or component.get("on_foot_miles")
+    candidate["modeled_on_foot_miles"] = component.get("modeled_on_foot_miles") or candidate.get(
+        "estimated_total_on_foot_miles"
+    )
+    if candidate.get("field_track_miles") is not None and candidate.get("modeled_on_foot_miles") is not None:
+        candidate["field_track_mileage_delta"] = round_miles(
+            float(candidate.get("field_track_miles") or 0.0)
+            - float(candidate.get("modeled_on_foot_miles") or 0.0)
+        )
+    return candidate
 
 
 def select_package_candidates(
@@ -178,10 +214,7 @@ def select_package_candidates(
 ) -> list[dict[str, Any]]:
     pool = []
     for component in original_components:
-        candidate = dict(original_candidate_index[str(component["candidate_id"])])
-        candidate["block_id"] = component.get("block_id")
-        candidate["block_name"] = component.get("block_name")
-        pool.append(candidate)
+        pool.append(original_component_candidate(component, original_candidate_index))
     pool.extend(combo_candidates)
     segment_ids = sorted({segment_id for candidate in pool for segment_id in candidate_segment_ids(candidate)})
     segment_index = {segment_id: index for index, segment_id in enumerate(segment_ids)}
@@ -202,8 +235,37 @@ def select_package_candidates(
         options={"time_limit": 20, "mip_rel_gap": 0.0},
     )
     if not result.success:
-        return [original_candidate_index[str(component["candidate_id"])] for component in original_components]
+        return [original_component_candidate(component, original_candidate_index) for component in original_components]
     return [candidate for candidate, value in zip(pool, result.x) if value > 0.5]
+
+
+def guard_selected_combos_with_field_track_miles(
+    selected: list[dict[str, Any]],
+    components: list[dict[str, Any]],
+    original_candidate_index: dict[str, dict[str, Any]],
+    context: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+    max_extra_miles_per_saved_route: float,
+) -> list[dict[str, Any]]:
+    component_by_id = {str(component["candidate_id"]): component for component in components}
+    guarded = []
+    for candidate in selected:
+        source_ids = [str(value) for value in candidate.get("source_component_candidate_ids") or []]
+        if not source_ids:
+            guarded.append(candidate)
+            continue
+        checked = dict(candidate)
+        track_miles = candidate_field_track_miles(checked, official_index, context["connector_graph"])
+        modeled = float(checked.get("estimated_total_on_foot_miles") or 0.0)
+        if track_miles > 0:
+            checked["field_track_miles"] = round_miles(track_miles)
+            checked["modeled_on_foot_miles"] = round_miles(modeled)
+            checked["field_track_mileage_delta"] = round_miles(track_miles - modeled)
+        source_components = [component_by_id[source_id] for source_id in source_ids if source_id in component_by_id]
+        if not combo_is_acceptable(checked, source_components, max_extra_miles_per_saved_route):
+            return [original_component_candidate(component, original_candidate_index) for component in components]
+        guarded.append(checked)
+    return guarded
 
 
 def route_row(
@@ -212,8 +274,8 @@ def route_row(
     package: dict[str, Any],
 ) -> dict[str, Any]:
     official = float(candidate.get("official_new_miles") or 0.0)
-    on_foot = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
-    return {
+    on_foot = candidate_planned_on_foot_miles(candidate)
+    row = {
         "route_number": route_number,
         "candidate_id": candidate.get("candidate_id"),
         "block_id": package["block_id"],
@@ -232,6 +294,11 @@ def route_row(
         "source_component_candidate_ids": source_component_ids(candidate),
         "is_combo": bool(candidate.get("source_component_candidate_ids")),
     }
+    if candidate.get("field_track_miles") is not None:
+        row["field_track_miles"] = candidate.get("field_track_miles")
+        row["modeled_on_foot_miles"] = candidate.get("modeled_on_foot_miles")
+        row["field_track_mileage_delta"] = candidate.get("field_track_mileage_delta")
+    return row
 
 
 def build_combo_route_pass(
@@ -240,6 +307,7 @@ def build_combo_route_pass(
     original_candidate_index: dict[str, dict[str, Any]],
     trail_by_name: dict[str, dict[str, Any]],
     context: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
     max_combo_size: int = 5,
     max_extra_miles_per_saved_route: float = 2.0,
     route_count_weight: float = 2.0,
@@ -273,6 +341,14 @@ def build_combo_route_pass(
             combos,
             original_candidate_index,
             route_count_weight=route_count_weight,
+        )
+        chosen = guard_selected_combos_with_field_track_miles(
+            chosen,
+            components,
+            original_candidate_index,
+            context,
+            official_index,
+            max_extra_miles_per_saved_route,
         )
         combo_count += sum(1 for candidate in chosen if candidate.get("source_component_candidate_ids"))
         selected_routes.extend((package, candidate) for candidate in chosen)
@@ -321,7 +397,12 @@ def build_map_data(
     for route in combo_pass.get("routes") or []:
         candidate = candidate_index[str(route["candidate_id"])]
         color = PALETTE[(int(route["route_number"]) - 1) % len(PALETTE)]
-        coords = candidate_track_coordinates(candidate, official_index, connector_graph=connector_graph)
+        coords = candidate_track_coordinates(
+            candidate,
+            official_index,
+            connector_graph=connector_graph,
+            densify_source_lines=True,
+        )
         source_validation = validate_track_segments([coords], max_gap_miles=0.1)
         rendered_parts = split_coords_on_gaps(coords, max_gap_miles=0.1)
         render_validation = validate_track_segments(rendered_parts, max_gap_miles=0.1)
@@ -463,17 +544,18 @@ def main() -> int:
     trails = group_remaining_by_trail(official_segments)
     trail_by_name = {normalize_trail_name(trail["trail_name"]): trail for trail in trails}
     original_candidate_index = load_candidate_index(plan)
+    official_index = load_official_segment_index(args.official_geojson)
     combo_pass = build_combo_route_pass(
         route_pass,
         package_pass,
         original_candidate_index,
         trail_by_name,
         context,
+        official_index,
         max_combo_size=args.max_combo_size,
         max_extra_miles_per_saved_route=args.max_extra_miles_per_saved_route,
         route_count_weight=args.route_count_weight,
     )
-    official_index = load_official_segment_index(args.official_geojson)
     map_data = build_map_data(combo_pass, plan, official_index, context["connector_graph"])
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / f"{args.basename}.json"

@@ -12,6 +12,23 @@ def load_packager():
     return module
 
 
+def test_connector_cue_preserves_source_path_endpoints():
+    packager = load_packager()
+
+    cue = packager.connector_cue(
+        {
+            "from_trail": "Kemper",
+            "to_trail": "Kemper",
+            "distance_miles": 0.25,
+            "path_coordinates": [[-116.1, 43.1], [-116.101, 43.101], [-116.102, 43.102]],
+        }
+    )
+
+    assert cue["path_start"] == [-116.1, 43.1]
+    assert cue["path_end"] == [-116.102, 43.102]
+    assert cue["path_coordinates"] == [[-116.1, 43.1], [-116.101, 43.101], [-116.102, 43.102]]
+
+
 def test_build_packages_absorbs_tiny_routes_into_block():
     packager = load_packager()
     route_pass = {

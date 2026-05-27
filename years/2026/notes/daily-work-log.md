@@ -4580,6 +4580,48 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     packet. Standard same-day condition and closure checks still apply before
     running any route.
 
+## 2026-05-27 - Post-credit connector invariant follow-up
+
+- Objective:
+  - Treat the West Climb/Kemper connector miss as a route-packet invariant
+    failure, not a one-off 70-foot savings issue.
+- Result:
+  - Added a post-credit connector audit for connector, repeat, exit, car-pass,
+    and return cues after official credit has started.
+  - Updated route-cue and wayfinding repair logic so stale scalar mileage
+    cannot hide a shorter legal connector when source geometry is longer.
+  - Preserved connector graph source geometry and avoided-unearned segment ids
+    so shortest-path proof can use the actual legal connector line.
+  - Optimized walkthrough edge-name enrichment to filter the graph to local
+    route edges before preferred-text matching.
+  - The current tracked field packet fails the new audit, confirming the issue
+    is systemic: 49 / 49 routes failed with 76 shorter-connector findings and
+    8 unproved connector findings.
+  - A refreshed diagnostic packet with the merged repair logic reduced shorter
+    legal connector findings to 0, but still has 15 unproved connector-proof
+    blockers. The certifiable public export is also blocked by route-source
+    issues outside this connector class: 5B and 17 special-management
+    direction failures, plus 15A-1 and 15A-2 missing track/parking data.
+- Validation:
+  - `python -m py_compile years/2026/scripts/personal_route_planner.py years/2026/scripts/export_execution_gpx.py years/2026/scripts/block_day_packager.py years/2026/scripts/export_mobile_field_packet.py years/2026/scripts/post_credit_connector_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_export_execution_gpx.py years/2026/tests/test_personal_route_planner.py years/2026/tests/test_export_mobile_field_packet.py -k 'custom_traversal_geometry or declared_inter_segment_link or shortest_connector_path_preserves_source_edge_geometry or shortest_connector_path_reports_connector_edge_classes or shortest_connector_path_can_avoid_required_official_repeat_edges or track_segments_for_route_cues_follow_cue_source_order or select_track_segments or apply_shortest_connector_repairs or return_wayfinding_cue_uses_total_repaired_distance or apply_shortest_repairs_to_wayfinding_cues or turn_step_sync or live_gps_map_uses_consistent_active_leg_direction_arrows'`
+    passed 16 tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k 'prices_stale_source_mileage_from_geometry or apply_shortest_repairs_to_wayfinding_cues'`
+    passed 3 tests.
+  - `python years/2026/scripts/multi_start_field_menu_replacements.py` passed.
+  - `python years/2026/scripts/human_loop_plan.py` passed.
+  - `python years/2026/scripts/export_mobile_field_packet.py` failed certification as expected on the route-source blockers above.
+  - `python years/2026/scripts/export_mobile_field_packet.py --allow-uncertified --output-dir /tmp/btc-post-credit-rebase` wrote a diagnostic packet.
+  - `python years/2026/scripts/post_credit_connector_audit.py --field-tool-data-json /tmp/btc-post-credit-rebase/field-tool-data.json --packet-dir /tmp/btc-post-credit-rebase --output-json years/2026/checkpoints/post-credit-connector-audit-2026-05-27.json --output-md years/2026/checkpoints/post-credit-connector-audit-2026-05-27.md --manifest-json years/2026/checkpoints/post-credit-connector-audit-2026-05-27-manifest.json --report-only`
+    completed with 0 shorter-connector findings and 15 unproved connector
+    findings.
+- Current blocker:
+  - Do not publish a regenerated field packet yet. Repair or replace the
+    special-management/missing-parking route sources, then resolve the 15
+    remaining unproved connector-proof findings and rerun the full certification
+    chain.
+
 ## 2026-05-26 - Closed edge-cover guard and FD12A source repair
 
 - Objective: prevent one-car route cards from being generated as trailhead-

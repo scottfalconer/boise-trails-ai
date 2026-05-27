@@ -595,6 +595,47 @@ def test_shortest_connector_path_reports_connector_edge_classes(tmp_path):
     }
 
 
+def test_shortest_connector_path_preserves_source_edge_geometry(tmp_path):
+    planner = load_planner()
+    connector = tmp_path / "curved.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "TrailName": "Curved Connector",
+                            "source": "openstreetmap",
+                            "highway": "path",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [-116.205123, 43.626123],
+                                [-116.204555, 43.626777],
+                                [-116.204001, 43.626002],
+                            ],
+                        },
+                    }
+                ],
+            }
+        )
+    )
+    graph = planner.load_connector_graph(connector)
+
+    path = planner.shortest_connector_path(
+        (-116.205123, 43.626123),
+        (-116.204001, 43.626002),
+        graph,
+        0.01,
+    )
+
+    assert path["path_coordinates"][1] == [-116.204555, 43.626777]
+    assert path["connector_edges"][0]["coordinates"][0] == [-116.205123, 43.626123]
+
+
 def test_shortest_connector_path_can_avoid_required_official_repeat_edges(tmp_path):
     planner = load_planner()
     official = tmp_path / "official.geojson"
@@ -843,7 +884,86 @@ def test_between_trail_links_avoid_required_official_repeat_when_connector_exist
 
     assert repeat_links["links"][0]["official_repeat_segment_ids"] == [2]
     assert avoided_links["links"][0]["official_repeat_segment_ids"] == []
+    assert avoided_links["links"][0]["earned_segment_ids_before_link"] == [1]
+    assert avoided_links["links"][0]["avoided_unearned_segment_ids"] == [2]
     assert avoided_links["links"][0]["connector_names"] == ["Public Connector"]
+
+
+def route_order_trail(name, seg_id, start, end):
+    return {
+        "trail_name": name,
+        "segments": [
+            {
+                "direction": "ascent",
+                "start": start,
+                "end": end,
+                "coordinates": [start, end],
+            }
+        ],
+        "start": start,
+        "end": end,
+        "remaining_segment_ids": [seg_id],
+    }
+
+
+def test_legal_connector_order_uses_graph_cost_instead_of_point_gap(monkeypatch):
+    planner = load_planner()
+    start = (0.0, 0.0)
+    near_by_point = route_order_trail("Near By Point", 1, (0.1, 0.0), (0.2, 0.0))
+    cheaper_by_graph = route_order_trail("Cheaper By Graph", 2, (0.2, 0.0), (0.3, 0.0))
+
+    def fake_connector_distances(start_point, target_points, connector_graph, snap_tolerance, avoid_official_segment_ids=None):
+        _ = (start_point, connector_graph, snap_tolerance, avoid_official_segment_ids)
+        return {
+            near_by_point["start"]: 5.0,
+            cheaper_by_graph["start"]: 1.0,
+        }
+
+    monkeypatch.setattr(planner, "connector_distances_to_targets", fake_connector_distances)
+
+    ordered = planner.order_trails_by_legal_connector_cost(
+        [near_by_point, cheaper_by_graph],
+        start,
+        connector_graph=None,
+        snap_tolerance_miles=0.02,
+    )
+
+    assert [trail["trail_name"] for trail in ordered] == ["Cheaper By Graph", "Near By Point"]
+
+
+def test_legal_connector_order_avoids_unearned_official_shortcuts(monkeypatch):
+    planner = load_planner()
+    alpha = route_order_trail("Alpha", 1, (1.0, 0.0), (2.0, 0.0))
+    bravo = route_order_trail("Bravo", 2, (3.0, 0.0), (4.0, 0.0))
+    calls = []
+
+    def fake_connector_distances(start_point, target_points, connector_graph, snap_tolerance, avoid_official_segment_ids=None):
+        _ = (start_point, connector_graph, snap_tolerance)
+        avoided = set(avoid_official_segment_ids or set())
+        calls.extend((point, avoided) for point in target_points)
+        distances = {}
+        for point in target_points:
+            if point == bravo["start"] and 2 in avoided:
+                distances[point] = 10.0
+            elif point == alpha["start"]:
+                distances[point] = 1.0
+            else:
+                distances[point] = 0.1
+        return distances
+
+    monkeypatch.setattr(planner, "connector_distances_to_targets", fake_connector_distances)
+
+    ordered = planner.order_trails_by_legal_connector_cost(
+        [bravo, alpha],
+        (0.0, 0.0),
+        connector_graph=None,
+        snap_tolerance_miles=0.02,
+        avoid_official_segment_ids={1, 2},
+    )
+
+    assert [trail["trail_name"] for trail in ordered] == ["Alpha", "Bravo"]
+    assert (bravo["start"], {1, 2}) in calls
+    assert (bravo["start"], {2}) in calls
 
 
 def test_connector_graph_rejects_raw_private_or_no_foot_access(tmp_path):
@@ -1044,7 +1164,7 @@ def test_conservative_time_estimates_include_elevation_and_wayfinding_penalty():
     assert estimates["recommended_door_to_door"] == 141
 
 
-def test_build_plan_treats_required_return_repeat_as_explicit_out_and_back(tmp_path):
+def test_build_plan_allows_completed_segment_as_shortest_return_repeat(tmp_path):
     planner = load_planner()
     official = tmp_path / "official.geojson"
     write_geojson(official, [feature(1, "Repeat Return 1", 5280, -116.205, 43.626)])
@@ -1059,7 +1179,7 @@ def test_build_plan_treats_required_return_repeat_as_explicit_out_and_back(tmp_p
     )
 
     candidate = plan["route_menu"]["all_candidates"][0]
-    assert candidate["return_to_car"]["strategy"] == "out_and_back"
+    assert candidate["return_to_car"]["strategy"] == "mapped_official_repeat_return"
     assert candidate["return_to_car"]["official_repeat_miles"] == 1.0
     assert candidate["return_to_car"]["official_repeat_segment_ids"] == [1]
     assert [round(value, 3) for value in candidate["return_to_car"]["path_coordinates"][0]] == [
@@ -1109,6 +1229,13 @@ def test_bidirectional_candidate_orients_to_practical_trailhead_endpoint(tmp_pat
 
     candidate = plan["route_menu"]["all_candidates"][0]
     assert candidate["route_orientation"]["direction"] == "reversed"
+    assert candidate["custom_traversal_order"] is True
+    assert candidate["segments"][0]["coordinates"] == [
+        (-116.205, 43.626),
+        (-116.25, 43.66),
+    ]
+    assert candidate["segments"][0]["start"] == (-116.205, 43.626)
+    assert candidate["segments"][0]["end"] == (-116.25, 43.66)
     assert candidate["validation"]["trailhead_snap_confidence"] == "high"
     assert candidate["validation"]["trailhead_snap"]["direct_gap_miles"] == 0
     assert candidate["route_status"] == "graph_validated"
@@ -1177,6 +1304,211 @@ def test_candidate_counts_trailhead_access_out_and_back(tmp_path):
         + candidate["connector_miles"]
         + candidate["road_miles"]
     )
+
+
+def test_same_trail_segment_gap_is_priced_as_inter_segment_connector(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    first_start = (-116.205, 43.626)
+    first_end = (-116.204, 43.626)
+    second_start = (-116.202, 43.626)
+    second_end = (-116.201, 43.626)
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Split Trail 1",
+                    "LengthFt": 5280,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {"type": "LineString", "coordinates": [list(first_start), list(first_end)]},
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 2,
+                    "segName": "Split Trail 2",
+                    "LengthFt": 5280,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {"type": "LineString", "coordinates": [list(second_start), list(second_end)]},
+            },
+        ],
+    )
+    connector = tmp_path / "connectors.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "Split Connector"},
+                        "geometry": {"type": "LineString", "coordinates": [list(first_end), list(second_start)]},
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "Return Connector"},
+                        "geometry": {"type": "LineString", "coordinates": [list(second_end), list(first_start)]},
+                    },
+                ],
+            }
+        )
+    )
+
+    plan = planner.build_plan(
+        official_geojson=official,
+        state=base_state(),
+        generated_at="2026-05-04T12:00:00Z",
+        connector_geojson=connector,
+    )
+
+    candidate = next(
+        item for item in plan["route_menu"]["all_candidates"] if item["trail_names"] == ["Split Trail"]
+    )
+    links = candidate["inter_segment_links"]["links"]
+
+    assert len(links) == 1
+    assert links[0]["from_segment_id"] == 1
+    assert links[0]["to_segment_id"] == 2
+    assert links[0]["source"] == "mapped_graph"
+    assert candidate["segments"][1]["pre_connector_link"]["to_segment_id"] == 2
+    assert candidate["connector_miles"] > candidate["return_to_car"]["connector_miles"]
+    assert candidate["estimated_total_on_foot_miles"] == planner.round_miles(
+        candidate["official_new_miles"]
+        + candidate["official_repeat_miles"]
+        + candidate["connector_miles"]
+        + candidate["road_miles"]
+    )
+
+
+def test_same_trail_segments_are_oriented_before_connector_pricing(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    shared = (-116.205, 43.626)
+    west = (-116.206, 43.626)
+    east = (-116.204, 43.626)
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Touching Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {"type": "LineString", "coordinates": [list(shared), list(west)]},
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 2,
+                    "segName": "Touching Trail 2",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {"type": "LineString", "coordinates": [list(east), list(shared)]},
+            },
+        ],
+    )
+
+    segments, _ = planner.load_official_segments(official)
+    trail = planner.group_remaining_by_trail(segments)[0]
+    links = planner.build_inter_segment_links(
+        trail["segments"],
+        planner.get_outing_model(base_state()),
+        connector_graph=None,
+        avoid_official_segment_ids=set(trail["remaining_segment_ids"]),
+    )
+
+    assert [segment["seg_id"] for segment in trail["segments"]] == [1, 2]
+    assert trail["segments"][0]["end"] == shared
+    assert trail["segments"][1]["start"] == shared
+    assert links["links"] == []
+    assert links["all_graph_validated"] is True
+
+
+def test_inter_segment_connector_allows_tiny_target_segment_snap(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    first_start = (-116.205, 43.626)
+    first_end = (-116.204, 43.626)
+    target_start = (-116.202, 43.626)
+    target_snap_node = (-116.20215, 43.626)
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Snap Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {"type": "LineString", "coordinates": [list(first_start), list(first_end)]},
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 2,
+                    "segName": "Snap Trail 2",
+                    "LengthFt": 40,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {"type": "LineString", "coordinates": [list(target_start), list(target_snap_node)]},
+            },
+        ],
+    )
+    connector = tmp_path / "connectors.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "Approach Connector"},
+                        "geometry": {"type": "LineString", "coordinates": [list(first_end), list(target_snap_node)]},
+                    }
+                ],
+            }
+        )
+    )
+
+    segments, _ = planner.load_official_segments(official)
+    graph = planner.load_connector_graph(connector, official_segments=segments)
+    links = planner.build_inter_segment_links(
+        segments,
+        planner.get_outing_model(base_state()),
+        graph,
+        avoid_official_segment_ids={1, 2},
+    )
+
+    link = links["links"][0]
+    assert link["source"] == "mapped_graph_target_snap"
+    assert link["target_snap_segment_id"] == 2
+    assert link["target_snap_official_miles"] > 0
+    assert link["official_repeat_miles"] == 0.0
+    assert link["official_repeat_segment_ids"] == []
+    assert links["all_graph_validated"] is True
 
 
 def test_mapped_access_within_configured_limit_is_graph_validated(tmp_path):

@@ -107,6 +107,8 @@ TIME_BUCKETS = [
 ]
 ON_FOOT_SPORTS = {"Run", "TrailRun", "Hike", "Walk"}
 ElevationSampler = Callable[[tuple[float, float]], float | None]
+GRAPH_VALIDATED_LINK_SOURCES = {"mapped_graph", "mapped_graph_target_snap"}
+TARGET_SNAP_OFFICIAL_TOLERANCE_MILES = 0.03
 NAME_STOPWORDS = {
     "trail",
     "trails",
@@ -906,6 +908,9 @@ def estimate_segment_time(
         "trail_name": segment["trail_name"],
         "official_miles": round_miles(segment["official_miles"]),
         "direction": segment["direction"],
+        "start": segment["start"],
+        "end": segment["end"],
+        "coordinates": segment["coordinates"],
         "estimated_moving_minutes": moving,
         "time_source": source,
     }
@@ -923,6 +928,7 @@ def add_graph_edge(
     source: str | None = None,
     highway: str | None = None,
     access_properties: dict[str, Any] | None = None,
+    coordinates: list[tuple[float, float]] | None = None,
 ) -> None:
     if distance <= 0:
         return
@@ -937,6 +943,7 @@ def add_graph_edge(
             "source": source,
             "highway": highway,
             "access_properties": access_properties or {},
+            "coordinates": [[point[0], point[1]] for point in coordinates or [start, end]],
         }
     )
 
@@ -991,6 +998,7 @@ def add_polyline_to_graph(
             edge_source,
             highway,
             edge_access_properties,
+            [start_raw, end_raw],
         )
         if bidirectional:
             reverse_override = (official_edge_overrides or {}).get((end, start)) or override
@@ -1020,6 +1028,7 @@ def add_polyline_to_graph(
                 reverse_source,
                 highway,
                 reverse_access_properties,
+                [end_raw, start_raw],
             )
         nodes.extend([start, end])
 
@@ -1322,8 +1331,21 @@ def shortest_connector_path(
             official_repeat_miles = 0.0
             connector_edges = []
             connector_classes = []
+            path_coordinates: list[list[float]] = []
             for from_node, edge in zip(path_nodes, path_edges):
                 edge_class = str(edge.get("connector_class") or "unknown_connector")
+                edge_coordinates = edge.get("coordinates") or [
+                    [from_node[0], from_node[1]],
+                    [edge["to"][0], edge["to"][1]],
+                ]
+                for coord in edge_coordinates:
+                    point = [float(coord[0]), float(coord[1])]
+                    if path_coordinates and haversine_miles(
+                        (path_coordinates[-1][0], path_coordinates[-1][1]),
+                        (point[0], point[1]),
+                    ) <= 0.000001:
+                        continue
+                    path_coordinates.append(point)
                 connector_classes.append(edge_class)
                 connector_edges.append(
                     {
@@ -1337,6 +1359,7 @@ def shortest_connector_path(
                         "highway": edge.get("highway"),
                         "access_properties": edge.get("access_properties") or {},
                         "seg_id": edge.get("seg_id"),
+                        "coordinates": edge_coordinates,
                     }
                 )
                 if edge["edge_type"] == "official_repeat":
@@ -1354,7 +1377,7 @@ def shortest_connector_path(
                 "connector_classes": sorted(set(connector_classes)),
                 "connector_edges": connector_edges,
                 "official_repeat_segment_ids": sorted(set(official_repeat_segment_ids)),
-                "path_coordinates": [[point[0], point[1]] for point in path_nodes],
+                "path_coordinates": path_coordinates or [[point[0], point[1]] for point in path_nodes],
                 "snap_start_miles": start_node[1],
                 "snap_end_miles": end_node[1],
             }
@@ -1415,15 +1438,50 @@ def serialize_trailhead(trailhead: dict[str, Any]) -> dict[str, Any]:
     return {field: trailhead.get(field) for field in fields if field in trailhead}
 
 
+def reverse_segment_orientation(segment: dict[str, Any]) -> dict[str, Any]:
+    reversed_segment = dict(segment)
+    reversed_segment["start"] = segment["end"]
+    reversed_segment["end"] = segment["start"]
+    reversed_segment["coordinates"] = list(reversed(segment["coordinates"]))
+    return reversed_segment
+
+
+def segment_orientation_options(segment: dict[str, Any]) -> list[dict[str, Any]]:
+    if segment.get("direction") == "both":
+        return [dict(segment), reverse_segment_orientation(segment)]
+    return [dict(segment)]
+
+
+def orient_segments_for_continuity(segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if len(segments) < 2:
+        return [dict(segment) for segment in segments]
+
+    options_by_segment = [segment_orientation_options(segment) for segment in segments]
+    states: dict[int, tuple[float, list[dict[str, Any]]]] = {
+        index: (0.0, [option])
+        for index, option in enumerate(options_by_segment[0])
+    }
+    for options in options_by_segment[1:]:
+        next_states: dict[int, tuple[float, list[dict[str, Any]]]] = {}
+        for _, (cost, path) in states.items():
+            previous = path[-1]
+            for index, option in enumerate(options):
+                gap = haversine_miles(previous["end"], option["start"])
+                next_cost = cost + gap
+                current = next_states.get(index)
+                if current is None or next_cost < current[0]:
+                    next_states[index] = (next_cost, path + [option])
+        states = next_states
+
+    _, best_path = min(states.values(), key=lambda item: item[0])
+    return best_path
+
+
 def reverse_trail_orientation(trail: dict[str, Any]) -> dict[str, Any]:
     reversed_trail = dict(trail)
     reversed_segments = []
     for segment in reversed(trail["segments"]):
-        reversed_segment = dict(segment)
-        reversed_segment["start"] = segment["end"]
-        reversed_segment["end"] = segment["start"]
-        reversed_segment["coordinates"] = list(reversed(segment["coordinates"]))
-        reversed_segments.append(reversed_segment)
+        reversed_segments.append(reverse_segment_orientation(segment))
     reversed_trail["segments"] = reversed_segments
     reversed_trail["remaining_segment_ids"] = list(reversed(trail["remaining_segment_ids"]))
     reversed_trail["start"] = trail["end"]
@@ -1511,7 +1569,9 @@ def group_remaining_by_trail(segments: list[dict[str, Any]]) -> list[dict[str, A
 
     trails = []
     for trail_name, trail_segments in grouped.items():
-        ordered = sorted(trail_segments, key=lambda segment: natural_key(segment["seg_name"]))
+        ordered = orient_segments_for_continuity(
+            sorted(trail_segments, key=lambda segment: natural_key(segment["seg_name"]))
+        )
         coords = [point for segment in ordered for point in segment["coordinates"]]
         direction_counts = Counter(segment["direction"] for segment in ordered)
         trails.append(
@@ -1683,19 +1743,27 @@ def build_between_trail_links(
 ) -> dict[str, Any]:
     snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
     connector_factor = float(outing_model.get("connector_return_factor") or 1.0)
+    required_ids = {int(seg_id) for seg_id in avoid_official_segment_ids or set()}
+    earned_ids: set[int] = set()
     links = []
     connector_miles = 0.0
     official_repeat_miles = 0.0
     estimated_miles = 0.0
     all_graph_validated = True
     for left, right in zip(trails, trails[1:]):
+        earned_ids.update(
+            int(seg_id)
+            for seg_id in left.get("remaining_segment_ids") or []
+            if str(seg_id).isdigit()
+        )
+        avoid_ids = required_ids - earned_ids if avoid_official_segment_ids is not None else None
         endpoint_gap = haversine_miles(left["end"], right["start"])
         mapped = shortest_connector_path(
             left["end"],
             right["start"],
             connector_graph,
             snap_tolerance,
-            avoid_official_segment_ids=avoid_official_segment_ids,
+            avoid_official_segment_ids=avoid_ids,
         )
         if mapped:
             link_connector = float(mapped["connector_miles"])
@@ -1714,6 +1782,8 @@ def build_between_trail_links(
                     "connector_classes": mapped.get("connector_classes", []),
                     "connector_edges": mapped.get("connector_edges", []),
                     "official_repeat_segment_ids": mapped["official_repeat_segment_ids"],
+                    "earned_segment_ids_before_link": sorted(earned_ids),
+                    "avoided_unearned_segment_ids": sorted(avoid_ids or []),
                     "path_coordinates": mapped["path_coordinates"],
                     "endpoint_gap_miles": round_miles(endpoint_gap),
                 }
@@ -1734,6 +1804,8 @@ def build_between_trail_links(
                     "connector_classes": [],
                     "connector_edges": [],
                     "official_repeat_segment_ids": [],
+                    "earned_segment_ids_before_link": sorted(earned_ids),
+                    "avoided_unearned_segment_ids": sorted(avoid_ids or []),
                     "endpoint_gap_miles": round_miles(endpoint_gap),
                 }
             )
@@ -1743,6 +1815,159 @@ def build_between_trail_links(
         "official_repeat_miles": round_miles(official_repeat_miles),
         "estimated_connector_miles": round_miles(estimated_miles),
         "all_graph_validated": all_graph_validated,
+    }
+
+
+def allow_small_target_snap_on_path(
+    mapped: dict[str, Any] | None,
+    target_segment_id: int | None,
+    tolerance_miles: float = TARGET_SNAP_OFFICIAL_TOLERANCE_MILES,
+) -> dict[str, Any] | None:
+    if not mapped or target_segment_id is None:
+        return None
+    repeat_ids = {
+        int(seg_id)
+        for seg_id in (mapped.get("official_repeat_segment_ids") or [])
+        if str(seg_id).isdigit()
+    }
+    repeat_miles = float(mapped.get("official_repeat_miles") or 0.0)
+    if not repeat_ids or repeat_ids - {target_segment_id} or repeat_miles > tolerance_miles:
+        return None
+
+    adjusted = dict(mapped)
+    adjusted["source"] = "mapped_graph_target_snap"
+    adjusted["target_snap_segment_id"] = target_segment_id
+    adjusted["target_snap_official_miles"] = round_miles(repeat_miles)
+    adjusted["connector_miles"] = round_miles(
+        float(mapped.get("connector_miles") or 0.0) + repeat_miles
+    )
+    adjusted["official_repeat_miles"] = 0.0
+    adjusted["official_repeat_segment_ids"] = []
+    adjusted["connector_classes"] = sorted(
+        set(mapped.get("connector_classes") or []) | {"target_official_snap"}
+    )
+    return adjusted
+
+
+def build_inter_segment_links(
+    segments: list[dict[str, Any]],
+    outing_model: dict[str, Any],
+    connector_graph: dict[str, Any] | None,
+    avoid_official_segment_ids: set[int] | None = None,
+) -> dict[str, Any]:
+    snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
+    connector_factor = float(outing_model.get("connector_return_factor") or 1.0)
+    gap_tolerance = float(outing_model.get("closed_loop_gap_tolerance_miles", 0.05))
+    required_ids = {int(seg_id) for seg_id in avoid_official_segment_ids or set()}
+    earned_ids: set[int] = set()
+    links = []
+    connector_miles = 0.0
+    official_repeat_miles = 0.0
+    estimated_miles = 0.0
+    all_graph_validated = True
+
+    for index, (left, right) in enumerate(zip(segments, segments[1:]), start=1):
+        if str(left.get("seg_id") or "").isdigit():
+            earned_ids.add(int(left["seg_id"]))
+        avoid_ids = required_ids - earned_ids if avoid_official_segment_ids is not None else None
+        endpoint_gap = haversine_miles(left["end"], right["start"])
+        if endpoint_gap <= gap_tolerance:
+            continue
+        mapped = shortest_connector_path(
+            left["end"],
+            right["start"],
+            connector_graph,
+            snap_tolerance,
+            avoid_official_segment_ids=avoid_ids,
+        )
+        target_segment_id = (
+            int(right["seg_id"]) if str(right.get("seg_id") or "").isdigit() else None
+        )
+        if mapped is None and avoid_ids and target_segment_id in avoid_ids:
+            relaxed = shortest_connector_path(
+                left["end"],
+                right["start"],
+                connector_graph,
+                snap_tolerance,
+                avoid_official_segment_ids=set(avoid_ids) - {target_segment_id},
+            )
+            mapped = allow_small_target_snap_on_path(relaxed, target_segment_id)
+        base = {
+            "from_segment_id": left.get("seg_id"),
+            "to_segment_id": right.get("seg_id"),
+            "from_trail": left.get("trail_name"),
+            "to_trail": right.get("trail_name"),
+            "transition_index": index,
+            "earned_segment_ids_before_link": sorted(earned_ids),
+            "avoided_unearned_segment_ids": sorted(avoid_ids or []),
+            "endpoint_gap_miles": round_miles(endpoint_gap),
+        }
+        if mapped:
+            link_connector = float(mapped["connector_miles"])
+            link_repeat = float(mapped["official_repeat_miles"])
+            connector_miles += link_connector
+            official_repeat_miles += link_repeat
+            links.append(
+                {
+                    **base,
+                    "source": mapped.get("source") or "mapped_graph",
+                    "distance_miles": round_miles(mapped["distance_miles"]),
+                    "connector_miles": round_miles(link_connector),
+                    "official_repeat_miles": round_miles(link_repeat),
+                    "target_snap_segment_id": mapped.get("target_snap_segment_id"),
+                    "target_snap_official_miles": mapped.get("target_snap_official_miles"),
+                    "connector_names": mapped["connector_names"],
+                    "connector_classes": mapped.get("connector_classes", []),
+                    "connector_edges": mapped.get("connector_edges", []),
+                    "official_repeat_segment_ids": mapped["official_repeat_segment_ids"],
+                    "path_coordinates": mapped["path_coordinates"],
+                }
+            )
+        else:
+            estimate = endpoint_gap * connector_factor
+            estimated_miles += estimate
+            all_graph_validated = False
+            links.append(
+                {
+                    **base,
+                    "source": "estimated_gap",
+                    "distance_miles": round_miles(estimate),
+                    "connector_miles": round_miles(estimate),
+                    "official_repeat_miles": 0,
+                    "connector_names": [],
+                    "connector_classes": [],
+                    "connector_edges": [],
+                    "official_repeat_segment_ids": [],
+                    "path_coordinates": [
+                        [float(left["end"][0]), float(left["end"][1])],
+                        [float(right["start"][0]), float(right["start"][1])],
+                    ],
+                }
+            )
+
+    return {
+        "links": links,
+        "connector_miles": round_miles(connector_miles + estimated_miles),
+        "official_repeat_miles": round_miles(official_repeat_miles),
+        "estimated_connector_miles": round_miles(estimated_miles),
+        "all_graph_validated": all_graph_validated,
+    }
+
+
+def summarize_between_trail_links(inter_segment_links: dict[str, Any]) -> dict[str, Any]:
+    links = [
+        link
+        for link in inter_segment_links.get("links") or []
+        if str(link.get("from_trail") or "") != str(link.get("to_trail") or "")
+    ]
+    return {
+        "links": links,
+        "connector_miles": round_miles(sum(float(link.get("connector_miles") or 0) for link in links)),
+        "official_repeat_miles": round_miles(sum(float(link.get("official_repeat_miles") or 0) for link in links)),
+        "estimated_connector_miles": round_miles(
+            sum(float(link.get("distance_miles") or 0) for link in links if link.get("source") == "estimated_gap")
+        ),
+        "all_graph_validated": all(link.get("source") in GRAPH_VALIDATED_LINK_SOURCES for link in links),
     }
 
 
@@ -2173,29 +2398,39 @@ def candidate_from_trail_group(
         trail["segments"],
         elevation_sampler,
     )
+    inter_segment_links = build_inter_segment_links(
+        trail["segments"],
+        outing_model,
+        connector_graph,
+        avoid_official_segment_ids=required_segment_ids,
+    )
+    link_by_to_segment_id = {
+        str(link.get("to_segment_id")): link
+        for link in inter_segment_links.get("links") or []
+        if link.get("to_segment_id") is not None
+    }
+    for segment in segment_estimates:
+        link = link_by_to_segment_id.get(str(segment.get("seg_id")))
+        if link:
+            segment["pre_connector_link"] = link
     return_to_car = build_return_to_car(
         trail,
         outing_model,
         connector_graph,
-        avoid_official_segment_ids=required_segment_ids,
+        avoid_official_segment_ids=set(),
     )
     fallback_pace = float(performance_profile["fallback_pace_min_per_mile"])
     access_connector_miles = float(trailhead_access["round_trip_connector_miles"])
     access_official_repeat_miles = float(trailhead_access["round_trip_official_repeat_miles"])
     access_on_foot_miles = access_connector_miles + access_official_repeat_miles
     access_minutes = ceil_minutes(access_on_foot_miles * fallback_pace)
-    between_links = build_between_trail_links(
-        trails,
-        outing_model,
-        connector_graph,
-        avoid_official_segment_ids=required_segment_ids,
-    )
+    between_links = summarize_between_trail_links(inter_segment_links)
     return_on_foot_miles = (
         float(return_to_car["official_repeat_miles"])
         + float(return_to_car["connector_miles"])
         + float(return_to_car["road_miles"])
-        + float(between_links["connector_miles"])
-        + float(between_links["official_repeat_miles"])
+        + float(inter_segment_links["connector_miles"])
+        + float(inter_segment_links["official_repeat_miles"])
         + access_connector_miles
         + access_official_repeat_miles
     )
@@ -2213,11 +2448,11 @@ def candidate_from_trail_group(
     )
     official_repeat_miles = (
         float(return_to_car["official_repeat_miles"])
-        + float(between_links["official_repeat_miles"])
+        + float(inter_segment_links["official_repeat_miles"])
         + access_official_repeat_miles
     )
     connector_miles = (
-        float(return_to_car["connector_miles"]) + float(between_links["connector_miles"])
+        float(return_to_car["connector_miles"]) + float(inter_segment_links["connector_miles"])
         + access_connector_miles
     )
     road_miles = float(return_to_car["road_miles"])
@@ -2243,7 +2478,7 @@ def candidate_from_trail_group(
     )
     effort_adjusted_efficiency = official_miles / effort_total_minutes if effort_total_minutes else 0
     flags = []
-    if return_to_car["strategy"] == "out_and_back":
+    if return_to_car["strategy"] == "out_and_back" or return_to_car.get("official_repeat_segment_ids"):
         flags.append("requires_official_repeat_to_get_back_to_car")
     repeat_segment_ids = set()
     repeat_segment_ids.update(
@@ -2251,24 +2486,23 @@ def candidate_from_trail_group(
         for seg_id in (trailhead_access.get("official_repeat_segment_ids") or [])
         if str(seg_id).isdigit()
     )
-    if return_to_car["strategy"] != "out_and_back":
-        repeat_segment_ids.update(
+    for link in inter_segment_links.get("links") or []:
+        earned_before_link = {
             int(seg_id)
-            for seg_id in (return_to_car.get("official_repeat_segment_ids") or [])
+            for seg_id in (link.get("earned_segment_ids_before_link") or [])
             if str(seg_id).isdigit()
-        )
-    for link in between_links.get("links") or []:
+        }
         repeat_segment_ids.update(
             int(seg_id)
             for seg_id in (link.get("official_repeat_segment_ids") or [])
-            if str(seg_id).isdigit()
+            if str(seg_id).isdigit() and int(seg_id) not in earned_before_link
         )
     self_repeat_segment_ids = sorted(required_segment_ids & repeat_segment_ids)
     if self_repeat_segment_ids:
         flags.append("self_official_repeat_connector_requires_review")
     if return_to_car["needs_map_validation"]:
         flags.append("return_connector_needs_map_validation")
-    if not between_links["all_graph_validated"]:
+    if not inter_segment_links["all_graph_validated"]:
         flags.append("between_trail_connector_needs_map_validation")
     if official_to_total_ratio < 0.7:
         flags.append("low_official_to_total_mileage_ratio")
@@ -2296,7 +2530,7 @@ def candidate_from_trail_group(
     route_status, route_quality_score = candidate_route_status(
         validation,
         return_to_car,
-        between_links,
+        inter_segment_links,
     )
     if self_repeat_segment_ids and route_status == "graph_validated":
         route_status = "draft"
@@ -2308,6 +2542,7 @@ def candidate_from_trail_group(
         "trail_names": trail["trail_names"],
         "segment_ids": trail["remaining_segment_ids"],
         "segments": segment_estimates,
+        "custom_traversal_order": True,
         "direction_counts": trail["direction_counts"],
         "route_status": route_status,
         "validation": validation,
@@ -2320,8 +2555,10 @@ def candidate_from_trail_group(
         "official_repeat_miles": round_miles(official_repeat_miles),
         "connector_miles": round_miles(connector_miles),
         "between_trail_links": between_links,
+        "inter_segment_links": inter_segment_links,
         "self_official_repeat_segment_ids": self_repeat_segment_ids,
         "between_trail_connector_miles": round_miles(float(between_links["connector_miles"])),
+        "inter_segment_connector_miles": round_miles(float(inter_segment_links["connector_miles"])),
         "road_miles": round_miles(road_miles),
         "estimated_total_on_foot_miles": round_miles(total_on_foot),
         "time_breakdown_minutes": {
@@ -2444,6 +2681,217 @@ def order_trails_nearest_neighbor(
     return ordered
 
 
+def connector_distances_to_targets(
+    start: tuple[float, float],
+    target_points: list[tuple[float, float]],
+    connector_graph: dict[str, Any] | None,
+    snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
+) -> dict[tuple[float, float], float]:
+    if not connector_graph or not target_points:
+        return {}
+    avoided_ids = frozenset(int(seg_id) for seg_id in avoid_official_segment_ids or set())
+    cache_key = (
+        round_node(start),
+        tuple(sorted(round_node(point) for point in target_points)),
+        round(snap_tolerance_miles, 3),
+        tuple(sorted(avoided_ids)),
+    )
+    cache = connector_graph.setdefault("_target_distance_cache", {})
+    if cache_key in cache:
+        return cache[cache_key]
+
+    start_node = nearest_connector_node_for_graph(start, connector_graph, snap_tolerance_miles)
+    if not start_node:
+        cache[cache_key] = {}
+        return {}
+
+    target_node_points: dict[tuple[float, float], list[tuple[float, float]]] = defaultdict(list)
+    target_snap_miles: dict[tuple[float, float], float] = {}
+    for point in target_points:
+        target_node = nearest_connector_node_for_graph(point, connector_graph, snap_tolerance_miles)
+        if not target_node:
+            continue
+        target_node_points[target_node[0]].append(point)
+        target_snap_miles[point] = target_node[1]
+    pending_targets = set(target_node_points)
+    if not pending_targets:
+        cache[cache_key] = {}
+        return {}
+
+    graph = connector_graph["graph"]
+    queue: list[tuple[float, int, tuple[float, float]]] = [(0.0, 0, start_node[0])]
+    push_count = 1
+    distances: dict[tuple[float, float], float] = {start_node[0]: 0.0}
+    found: dict[tuple[float, float], float] = {}
+    while queue and pending_targets:
+        distance, _, node = heapq.heappop(queue)
+        if distance > distances.get(node, math.inf):
+            continue
+        if node in pending_targets:
+            pending_targets.remove(node)
+            for point in target_node_points[node]:
+                found[point] = distance + start_node[1] + target_snap_miles[point]
+            if not pending_targets:
+                break
+        for edge in graph.get(node, []):
+            if edge.get("edge_type") == "official_repeat" and edge.get("seg_id") in avoided_ids:
+                continue
+            next_distance = distance + edge["distance"]
+            next_node = edge["to"]
+            if next_distance >= distances.get(next_node, math.inf):
+                continue
+            distances[next_node] = next_distance
+            heapq.heappush(queue, (next_distance, push_count, next_node))
+            push_count += 1
+
+    cache[cache_key] = found
+    return found
+
+
+def connector_distance_index(
+    start: tuple[float, float],
+    connector_graph: dict[str, Any] | None,
+    snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
+) -> dict[str, Any] | None:
+    if not connector_graph:
+        return None
+    avoided_ids = frozenset(int(seg_id) for seg_id in avoid_official_segment_ids or set())
+    cache_key = (
+        round_node(start),
+        round(snap_tolerance_miles, 3),
+        tuple(sorted(avoided_ids)),
+    )
+    cache = connector_graph.setdefault("_distance_index_cache", {})
+    if cache_key in cache:
+        return cache[cache_key]
+
+    start_node = nearest_connector_node_for_graph(start, connector_graph, snap_tolerance_miles)
+    if not start_node:
+        cache[cache_key] = None
+        return None
+
+    graph = connector_graph["graph"]
+    queue: list[tuple[float, int, tuple[float, float]]] = [(0.0, 0, start_node[0])]
+    push_count = 1
+    distances: dict[tuple[float, float], float] = {start_node[0]: 0.0}
+    while queue:
+        distance, _, node = heapq.heappop(queue)
+        if distance > distances.get(node, math.inf):
+            continue
+        for edge in graph.get(node, []):
+            if edge.get("edge_type") == "official_repeat" and edge.get("seg_id") in avoided_ids:
+                continue
+            next_distance = distance + edge["distance"]
+            next_node = edge["to"]
+            if next_distance >= distances.get(next_node, math.inf):
+                continue
+            distances[next_node] = next_distance
+            heapq.heappush(queue, (next_distance, push_count, next_node))
+            push_count += 1
+
+    result = {
+        "snap_start_miles": start_node[1],
+        "distances": distances,
+    }
+    cache[cache_key] = result
+    return result
+
+
+def connector_index_distance(
+    start: tuple[float, float],
+    end: tuple[float, float],
+    connector_graph: dict[str, Any] | None,
+    snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
+) -> float | None:
+    index = connector_distance_index(
+        start,
+        connector_graph,
+        snap_tolerance_miles,
+        avoid_official_segment_ids=avoid_official_segment_ids,
+    )
+    if not index or not connector_graph:
+        return None
+    end_node = nearest_connector_node_for_graph(end, connector_graph, snap_tolerance_miles)
+    if not end_node:
+        return None
+    distance = index["distances"].get(end_node[0])
+    if distance is None:
+        return None
+    return float(distance) + float(index["snap_start_miles"]) + end_node[1]
+
+
+def connector_or_gap_distance(
+    start: tuple[float, float],
+    end: tuple[float, float],
+    connector_graph: dict[str, Any] | None,
+    snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
+) -> float:
+    indexed_distance = connector_index_distance(
+        start,
+        end,
+        connector_graph,
+        snap_tolerance_miles,
+        avoid_official_segment_ids=avoid_official_segment_ids,
+    )
+    if indexed_distance is not None:
+        return indexed_distance
+    return haversine_miles(start, end) * 1.25
+
+
+def order_trails_by_legal_connector_cost(
+    trails: list[dict[str, Any]],
+    start_point: tuple[float, float],
+    connector_graph: dict[str, Any] | None,
+    snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
+) -> list[dict[str, Any]]:
+    """Nearest-neighbor ordering using legal graph cost instead of straight-line distance."""
+
+    remaining = list(trails)
+    ordered: list[dict[str, Any]] = []
+    current = start_point
+    required_ids = {int(seg_id) for seg_id in avoid_official_segment_ids or set()}
+    earned_ids: set[int] = set()
+    while remaining:
+        avoid_ids = required_ids - earned_ids if avoid_official_segment_ids is not None else None
+        best_index = 0
+        best_trail = remaining[0]
+        best_distance = float("inf")
+        option_records: list[tuple[int, dict[str, Any]]] = []
+        for index, trail in enumerate(remaining):
+            option_records.append((index, trail))
+            if trail_is_reversible(trail):
+                option_records.append((index, reverse_trail_orientation(trail)))
+        graph_distances = connector_distances_to_targets(
+            current,
+            [option["start"] for _, option in option_records],
+            connector_graph,
+            snap_tolerance_miles,
+            avoid_official_segment_ids=avoid_ids,
+        )
+        for index, option in option_records:
+            distance = graph_distances.get(option["start"])
+            if distance is None:
+                distance = haversine_miles(current, option["start"]) * 1.25
+            if distance < best_distance:
+                best_index = index
+                best_trail = option
+                best_distance = distance
+        remaining.pop(best_index)
+        ordered.append(best_trail)
+        earned_ids.update(
+            int(seg_id)
+            for seg_id in best_trail.get("remaining_segment_ids") or []
+            if str(seg_id).isdigit()
+        )
+        current = best_trail["end"]
+    return ordered
+
+
 def build_long_access_bundle_candidates(
     trails: list[dict[str, Any]],
     single_candidates: list[dict[str, Any]],
@@ -2489,9 +2937,19 @@ def build_long_access_bundle_candidates(
             if len(selected) < 2:
                 continue
             start_trailhead = choose_trailhead(selected[0]["start"], state)
-            ordered = order_trails_nearest_neighbor(
+            outing_model = get_outing_model(state)
+            selected_required_ids = {
+                int(seg_id)
+                for trail in selected
+                for seg_id in trail.get("remaining_segment_ids") or []
+                if str(seg_id).isdigit()
+            }
+            ordered = order_trails_by_legal_connector_cost(
                 selected,
                 (float(start_trailhead["lon"]), float(start_trailhead["lat"])),
+                connector_graph,
+                float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02)),
+                avoid_official_segment_ids=selected_required_ids,
             )
             candidate = candidate_from_trail_group(
                 ordered,

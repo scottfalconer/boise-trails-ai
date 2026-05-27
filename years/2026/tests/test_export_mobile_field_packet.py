@@ -16,6 +16,20 @@ def load_exporter():
     return module
 
 
+def test_trail_groups_split_same_trail_when_inter_segment_connector_is_declared():
+    exporter = load_exporter()
+    link = {"distance_miles": 0.25, "connector_names": ["Split Connector"]}
+    groups = exporter.trail_groups(
+        [
+            {"seg_id": 1, "trail_name": "Split Trail"},
+            {"seg_id": 2, "trail_name": "Split Trail", "pre_connector_link": link},
+        ]
+    )
+
+    assert len(groups) == 2
+    assert groups[1]["incoming_link"] == link
+
+
 def sample_map_data():
     data = {
         "summary": {
@@ -667,6 +681,62 @@ def test_export_field_packet_rejects_missing_accepted_replacement_candidate(tmp_
         module.export_field_packet(data, tmp_path)
 
 
+def test_export_field_packet_uses_explicit_replacements_json(tmp_path, monkeypatch):
+    module = load_exporter()
+    data = sample_map_data()
+    stale_replacements = tmp_path / "stale-field-menu-replacements.json"
+    stale_replacements.write_text(
+        json.dumps(
+            {
+                "overrides": [
+                    {
+                        "package_number": 1,
+                        "replace_package": {
+                            "components": [
+                                {
+                                    "candidate_id": "stale-replacement-route",
+                                    "source": "multi_start_field_menu_replacement",
+                                }
+                            ]
+                        },
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    active_replacements = tmp_path / "active-field-menu-replacements.json"
+    active_replacements.write_text(
+        json.dumps(
+            {
+                "overrides": [
+                    {
+                        "package_number": 1,
+                        "replace_package": {
+                            "components": [
+                                {
+                                    "candidate_id": "test-route",
+                                    "source": "multi_start_field_menu_replacement",
+                                }
+                            ]
+                        },
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "DEFAULT_FIELD_MENU_REPLACEMENTS_JSON", stale_replacements)
+
+    manifest = module.export_field_packet(
+        data,
+        tmp_path,
+        field_menu_replacements_json=active_replacements,
+    )
+
+    assert manifest["summary"]["runnable_outing_count"] == 1
+
+
 def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path):
     module = load_exporter()
 
@@ -1018,8 +1088,8 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "segmentsFromDisplaySourceForRouteRange(state.displayedSegments" in live_map_html
     assert "const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM)" in live_map_html
     assert "const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
-    assert "const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(" in live_map_html
+    assert "const arrowSegments = sourceActiveSegments.length" in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert "transit-trunk-halo" in live_map_html
     assert "transit-trunk-band" in live_map_html
@@ -1064,8 +1134,8 @@ def test_live_gps_map_offsets_repeated_corridors_like_transit_lanes(tmp_path):
     assert "segmentsFromDisplaySourceForRouteRange(state.displayedSegments" in live_map_html
     assert "const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM)" in live_map_html
     assert "const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
-    assert "const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(" in live_map_html
+    assert "const arrowSegments = sourceActiveSegments.length" in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert "offsetRepeatedCorridors" not in live_map_html
     assert "function mergeContinuousDisplaySegments(segments, maxGapM)" in live_map_html
@@ -1108,7 +1178,7 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "segmentsForRouteRange(leg.startM, leg.endM, { context: true })" in live_map_html
     assert "function smoothPolylinePoints(points, steps = 6)" in live_map_html
     assert "function smoothSegmentsForDisplay(segments)" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(" in live_map_html
     assert "const activePath = pathForSegments(activeSegments);" in live_map_html
     assert "const activePath = pathForSegments(activeSegments, { smooth: true })" not in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
@@ -1273,6 +1343,8 @@ def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
     assert "const displaySource = options.segments || (options.context ? state.contextSegments : state.displayedSegments)" in live_map_html
     assert "const center = sample" in live_map_html
     assert "const angle = sample.angle" in live_map_html
+    assert "function sourcePathSegmentsForCue(cue)" in live_map_html
+    assert "const sourceActiveSegments = sourcePathSegmentsForCue(leg.cue)" in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert "routeLayer.innerHTML = routeHtml + activeLegArrows" in live_map_html
     assert "chevrons(state.style === \"napkin\" ? 8 : 5, leg.startM, leg.endM)" not in live_map_html
@@ -1643,6 +1715,36 @@ def test_wayfinding_enrichment_names_between_connector_edge_matched_from_route_l
     step_text = json.dumps(route["turn_by_turn_steps"], ensure_ascii=False)
     assert "Connector Road" in cue_text
     assert "Connector Road" in step_text
+
+
+def test_turn_step_sync_mentions_primary_return_access_name_from_wayfinding():
+    module = load_exporter()
+    route = {
+        "turn_by_turn_steps": [
+            {"kind": "park", "title": "Park/start at Dry Creek"},
+            {"kind": "navigate", "title": "Take Currant Creek"},
+            {
+                "kind": "return",
+                "title": "Return via #71 Red Tail",
+                "detail": "Follow the signed connector/access back toward #71 Red Tail.",
+            },
+        ],
+        "wayfinding_cues": [
+            {
+                "cue_type": "follow_official_segment",
+                "signed_as": ["Currant Creek"],
+            },
+            {
+                "cue_type": "exit_access",
+                "signed_as": ["#70 Landslide Loop", "#71 Red Tail", "OSM path connector 111703"],
+            },
+        ],
+    }
+
+    module.synchronize_turn_steps_with_wayfinding_cues(route)
+
+    return_step = route["turn_by_turn_steps"][-1]
+    assert "#70 Landslide Loop" in return_step["detail"]
 
 
 def test_field_packet_exports_wayfinding_cue_sheet_notation(tmp_path):
@@ -2812,6 +2914,510 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
     assert "Connector Trail 1" in main_cue["field_warning"]
     assert "cue?.route_miles" in live_map
     assert "cue?.route_leg_miles" in live_map
+
+
+def test_non_credit_cue_route_interval_uses_source_path_endpoints():
+    module = load_exporter()
+    a = (-116.000, 43.000)
+    b = (-116.001, 43.000)
+    c = (-116.002, 43.000)
+    d = (-116.003, 43.000)
+    e = (-116.004, 43.000)
+    official_one_miles = module.haversine_miles(a, b)
+    connector_miles = module.haversine_miles(b, c)
+    skipped_miles = module.haversine_miles(c, d)
+    official_two_miles = module.haversine_miles(d, e)
+    route = {
+        "_track_segments": [[a, b, c, d, e]],
+        "_official_segment_index": {
+            "1": {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [a, b]}},
+            "2": {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [d, e]}},
+        },
+        "wayfinding_cues": [
+            module.make_wayfinding_cue(
+                seq=1,
+                cum_miles=0,
+                leg_miles=official_one_miles,
+                cue_type="follow_official_segment",
+                action="FOLLOW",
+                signed_as=["Official One"],
+                official_segment_ids=[1],
+            ),
+            module.make_wayfinding_cue(
+                seq=2,
+                cum_miles=official_one_miles,
+                leg_miles=connector_miles,
+                cue_type="connector_named_trail",
+                action="FOLLOW",
+                signed_as=["Connector"],
+                target="Official Two",
+                source_path_start=b,
+                source_path_end=c,
+            ),
+            module.make_wayfinding_cue(
+                seq=3,
+                cum_miles=official_one_miles + connector_miles + skipped_miles,
+                leg_miles=official_two_miles,
+                cue_type="junction_turn",
+                action="TAKE",
+                signed_as=["Official Two"],
+                official_segment_ids=[2],
+            ),
+        ],
+    }
+
+    module.assign_wayfinding_route_miles(route)
+
+    connector = route["wayfinding_cues"][1]
+    assert connector["route_leg_miles"] == pytest.approx(connector_miles, abs=0.005)
+    assert connector["route_leg_miles"] < connector_miles + skipped_miles - 0.005
+
+
+def test_track_segments_for_route_cues_follow_cue_source_order():
+    module = load_exporter()
+    first = [(-116.000, 43.000), (-116.001, 43.000)]
+    connector = [(-116.001, 43.000), (-116.002, 43.000)]
+    second = [(-116.002, 43.000), (-116.003, 43.000)]
+    return_path = [(-116.003, 43.000), (-116.004, 43.000)]
+
+    track_segments = module.track_segments_for_route_cues(
+        [
+            {
+                "segments": [
+                    {"seg_id": 1, "trail_name": "First", "coordinates": first},
+                    {"seg_id": 2, "trail_name": "Second", "coordinates": second},
+                ],
+                "between_links": [{"path_coordinates": connector}],
+                "return_to_car": {"path_coordinates": return_path},
+            }
+        ]
+    )
+
+    assert track_segments == [[first[0], first[1], connector[1], second[1], return_path[1]]]
+
+
+def test_select_track_segments_falls_back_when_cue_track_is_not_car_to_car():
+    module = load_exporter()
+    parking = {"lon": -116.000, "lat": 43.000}
+    cue_track = [[(-116.010, 43.000), (-116.011, 43.000)]]
+    feature_track = [[(-116.000, 43.000), (-116.001, 43.000), (-116.000, 43.000)]]
+
+    selected, source = module.select_track_segments_for_outing(
+        cue_track,
+        feature_track,
+        parking,
+        max_parking_gap_miles=0.05,
+    )
+
+    assert selected == feature_track
+    assert source == "route_feature"
+
+
+def test_select_track_segments_prefers_car_to_car_route_feature_over_cue_accounting_track():
+    module = load_exporter()
+    parking = {"lon": -116.000, "lat": 43.000}
+    cue_track = [[(-116.000, 43.000), (-116.001, 43.000), (-116.000, 43.000)]]
+    feature_track = [[(-116.000, 43.000), (-116.002, 43.000), (-116.000, 43.000)]]
+
+    selected, source = module.select_track_segments_for_outing(
+        cue_track,
+        feature_track,
+        parking,
+        max_parking_gap_miles=0.05,
+    )
+
+    assert selected == feature_track
+    assert source == "route_feature"
+
+
+def test_make_wayfinding_cue_preserves_source_path_coordinates():
+    module = load_exporter()
+
+    cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.1,
+        cue_type="connector_named_trail",
+        action="FOLLOW",
+        signed_as=["Connector"],
+        official_miles=0.1,
+        source_path_coordinates=[[-116.0, 43.0], [-116.001, 43.0]],
+    )
+
+    assert cue["source_path_coordinates"] == [(-116.0, 43.0), (-116.001, 43.0)]
+    assert cue["official_miles"] == 0.1
+
+
+def test_apply_shortest_connector_repairs_rewrites_long_link():
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    end = (-115.99, 43.0)
+    graph = {
+        "nodes": [start, end],
+        "graph": {
+            start: [
+                {
+                    "to": end,
+                    "distance": 0.25,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+            end: [
+                {
+                    "to": start,
+                    "distance": 0.25,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+        },
+    }
+    cue_list = [
+        {
+            "between_links": [
+                {
+                    "source": "mapped_graph",
+                    "distance_miles": 0.5,
+                    "connector_miles": 0.5,
+                    "connector_edges": [{"name": "Long Connector"}],
+                    "path_start": list(start),
+                    "path_end": list(end),
+                    "path_coordinates": [list(start), [-115.995, 43.005], list(end)],
+                    "avoided_unearned_segment_ids": [101],
+                }
+            ]
+        }
+    ]
+
+    repair_count = module.apply_shortest_connector_repairs(cue_list, graph, snap_tolerance_miles=0.01)
+
+    link = cue_list[0]["between_links"][0]
+    assert repair_count == 1
+    assert link["source"] == "shortest_connector_repair"
+    assert link["distance_miles"] == 0.25
+    assert link["shortest_repair_savings_miles"] == 0.25
+
+
+def test_apply_shortest_connector_repairs_rehydrates_zero_mile_link_with_path_geometry():
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    end = (-115.99, 43.0)
+    graph = {
+        "nodes": [start, end],
+        "graph": {
+            start: [
+                {
+                    "to": end,
+                    "distance": 0.25,
+                    "name": "Mapped Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+            end: [],
+        },
+    }
+    cue_list = [
+        {
+            "between_links": [
+                {
+                    "source": "mapped_graph",
+                    "distance_miles": 0,
+                    "connector_miles": 0,
+                    "path_start": list(start),
+                    "path_end": list(end),
+                    "path_coordinates": [list(start), [-115.995, 43.0], list(end)],
+                }
+            ]
+        }
+    ]
+
+    repair_count = module.apply_shortest_connector_repairs(cue_list, graph, snap_tolerance_miles=0.01)
+
+    link = cue_list[0]["between_links"][0]
+    assert repair_count == 1
+    assert link["source"] == "shortest_connector_repair"
+    assert link["connector_proof_rehydrated"] is True
+    assert link["connector_edges"]
+    assert link["connector_names"] == ["Mapped Connector"]
+
+
+def test_apply_shortest_connector_repairs_uses_unproved_path_geometry_over_stale_miles():
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    end = (-115.99, 43.0)
+    graph = {
+        "nodes": [start, end],
+        "graph": {
+            start: [
+                {
+                    "to": end,
+                    "distance": 0.25,
+                    "name": "Mapped Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+            end: [],
+        },
+    }
+    cue_list = [
+        {
+            "return_to_car": {
+                "leg_miles": 0.1,
+                "path_start": list(start),
+                "path_end": list(end),
+                "path_coordinates": [list(start), [-115.995, 43.01], list(end)],
+            }
+        }
+    ]
+
+    repair_count = module.apply_shortest_connector_repairs(cue_list, graph, snap_tolerance_miles=0.01)
+
+    link = cue_list[0]["return_to_car"]
+    assert repair_count == 1
+    assert link["source"] == "shortest_connector_repair"
+    assert link["distance_miles"] == 0.25
+    assert link["connector_proof_rehydrated"] is True
+    assert link["connector_edges"]
+    assert link["shortest_repair_savings_miles"] > 0.1
+
+
+def test_return_wayfinding_cue_uses_total_repaired_distance():
+    module = load_exporter()
+
+    cue = module.return_wayfinding_cue(
+        seq=1,
+        cum_miles=2.0,
+        parking={"name": "Parking", "nearest_open_trail_name": "Connector"},
+        last_trail="Trail",
+        return_to_car={
+            "distance_miles": 1.26,
+            "connector_miles": 1.07,
+            "official_repeat_miles": 0.19,
+            "official_repeat_segment_ids": [10],
+            "connector_names": ["Connector"],
+        },
+        return_access_gap_miles=0.0,
+    )
+
+    assert cue["leg_miles"] == pytest.approx(1.26)
+    assert cue["official_repeat_miles"] == pytest.approx(0.19)
+
+
+def test_apply_shortest_repairs_to_wayfinding_cues_uses_route_interval_endpoints():
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    mid = (-115.99, 43.0)
+    end = (-115.98, 43.0)
+    first_leg = module.haversine_miles(start, mid)
+    connector_leg = module.haversine_miles(mid, end)
+    graph = {
+        "nodes": [mid, end],
+        "graph": {
+            mid: [
+                {
+                    "to": end,
+                    "distance": 0.25,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+            end: [
+                {
+                    "to": mid,
+                    "distance": 0.25,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+        },
+    }
+    route = {
+        "segment_ids": ["101", "102"],
+        "_track_segments": [[start, mid, end]],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": ["101"],
+                "route_miles": 0,
+                "route_leg_miles": first_leg,
+            },
+            {
+                "seq": 2,
+                "cue_type": "exit_access",
+                "leg_miles": 0.5,
+                "route_miles": first_leg,
+                "route_leg_miles": connector_leg,
+                "signed_as": ["Long Return"],
+            },
+        ],
+    }
+
+    repair_count = module.apply_shortest_repairs_to_wayfinding_cues(route, graph, snap_tolerance_miles=0.01)
+
+    cue = route["wayfinding_cues"][1]
+    assert repair_count == 1
+    assert cue["leg_miles"] == 0.25
+    assert cue["source_path_coordinates"][0] == [mid[0], mid[1]]
+    assert cue["shortest_repair_savings_miles"] == pytest.approx(
+        module.haversine_miles(mid, end) - 0.25,
+        abs=0.005,
+    )
+
+
+def test_apply_shortest_repairs_to_wayfinding_cues_falls_back_when_route_leg_collapses():
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    mid = (-115.99, 43.0)
+    end = (-115.98, 43.0)
+    first_leg = module.haversine_miles(start, mid)
+    graph = {
+        "nodes": [mid, end],
+        "graph": {
+            mid: [
+                {
+                    "to": end,
+                    "distance": 0.25,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+            end: [
+                {
+                    "to": mid,
+                    "distance": 0.25,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                }
+            ],
+        },
+    }
+    route = {
+        "segment_ids": ["101", "102"],
+        "_track_segments": [[start, mid, end]],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": ["101"],
+                "route_miles": 0,
+                "route_leg_miles": first_leg,
+            },
+            {
+                "seq": 2,
+                "cue_type": "exit_access",
+                "leg_miles": 0.5,
+                "route_miles": first_leg,
+                "route_leg_miles": 0,
+                "signed_as": ["Long Return"],
+            },
+        ],
+    }
+
+    repair_count = module.apply_shortest_repairs_to_wayfinding_cues(route, graph, snap_tolerance_miles=0.01)
+
+    assert repair_count == 1
+    assert route["wayfinding_cues"][1]["leg_miles"] == pytest.approx(0.26, abs=0.005)
+
+
+def test_apply_shortest_repairs_to_wayfinding_cues_prices_stale_source_mileage_from_geometry():
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    detour = (-116.0, 43.01)
+    end = (-115.99, 43.0)
+    graph = {
+        "nodes": [start, end],
+        "graph": {
+            start: [
+                {
+                    "to": end,
+                    "distance": 0.1,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                    "coordinates": [start, end],
+                }
+            ],
+            end: [
+                {
+                    "to": start,
+                    "distance": 0.1,
+                    "name": "Short Connector",
+                    "edge_type": "connector",
+                    "connector_class": "test_connector",
+                    "source": "test",
+                    "coordinates": [end, start],
+                }
+            ],
+        },
+    }
+    route = {
+        "segment_ids": ["101", "102"],
+        "_track_segments": [[(-116.01, 43.0), start, detour, end]],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": ["101"],
+                "route_miles": 0,
+                "route_leg_miles": 0.1,
+            },
+            {
+                "seq": 2,
+                "cue_type": "connector_named_trail",
+                "leg_miles": 0.05,
+                "source_leg_miles": 0.05,
+                "source_path_coordinates": [start, detour, end],
+                "signed_as": ["Long Connector"],
+            },
+        ],
+    }
+
+    repair_count = module.apply_shortest_repairs_to_wayfinding_cues(route, graph, snap_tolerance_miles=0.01)
+
+    cue = route["wayfinding_cues"][1]
+    assert repair_count == 1
+    assert cue["leg_miles"] == 0.1
+    assert cue["shortest_repair_savings_miles"] > 0.05
+
+
+def test_return_wayfinding_cue_ignores_gap_for_closed_loop_return():
+    module = load_exporter()
+
+    cue = module.return_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        parking={"name": "Trailhead"},
+        last_trail="Loop Trail",
+        return_to_car={
+            "strategy": "closed_loop",
+            "connector_miles": 0,
+            "road_miles": 0,
+            "official_repeat_miles": 0,
+        },
+        return_access_gap_miles=0.69,
+    )
+
+    assert "leg_miles" not in cue
+    assert cue["cue_type"] == "return_to_car"
 
 
 def test_export_field_packet_does_not_promote_phone_outing_taps_to_segment_progress(tmp_path):

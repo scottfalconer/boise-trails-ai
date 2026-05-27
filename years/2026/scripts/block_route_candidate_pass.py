@@ -56,13 +56,65 @@ PALETTE = [
 
 def candidate_cost(candidate: dict[str, Any], route_count_weight: float) -> float:
     official = float(candidate.get("official_new_miles") or 0.0)
-    on_foot = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
+    on_foot = candidate_planned_on_foot_miles(candidate)
     ratio = on_foot / official if official else 99.0
     small_penalty = 8.0 if official < 2.0 else 0.0
     tiny_penalty = 12.0 if official < 1.0 else 0.0
     ratio_penalty = max(0.0, ratio - 1.8) * 5.0
     status_penalty = 10000.0 if candidate.get("route_status") != "graph_validated" else 0.0
     return route_count_weight + on_foot + small_penalty + tiny_penalty + ratio_penalty + status_penalty
+
+
+def float_value(value: Any) -> float:
+    try:
+        return float(value or 0.0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def candidate_planned_on_foot_miles(candidate: dict[str, Any]) -> float:
+    for key in ("estimated_total_on_foot_miles", "on_foot_miles", "field_track_miles"):
+        value = float_value(candidate.get(key))
+        if value > 0:
+            return value
+    return 0.0
+
+
+def coordinate_distance_miles(coords: list[tuple[float, float]]) -> float:
+    return sum(haversine_miles(left, right) for left, right in zip(coords, coords[1:]))
+
+
+def candidate_field_track_miles(
+    candidate: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+    connector_graph: dict[str, Any] | None,
+) -> float:
+    coords = candidate_track_coordinates(
+        candidate,
+        official_index,
+        connector_graph=connector_graph,
+        densify_source_lines=True,
+    )
+    return coordinate_distance_miles(coords)
+
+
+def enrich_candidates_with_field_track_miles(
+    candidates: list[dict[str, Any]],
+    official_index: dict[int, dict[str, Any]],
+    connector_graph: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    enriched = []
+    for candidate in candidates:
+        row = dict(candidate)
+        modeled = float_value(candidate.get("estimated_total_on_foot_miles") or candidate.get("on_foot_miles"))
+        track_miles = candidate_field_track_miles(candidate, official_index, connector_graph)
+        if track_miles > 0:
+            row["field_track_miles"] = round(track_miles, 2)
+            if modeled > 0:
+                row["modeled_on_foot_miles"] = round(modeled, 2)
+                row["field_track_mileage_delta"] = round(track_miles - modeled, 2)
+        enriched.append(row)
+    return enriched
 
 
 def select_candidates(
@@ -137,7 +189,7 @@ def summarize_selection(
     for index, candidate in enumerate(sorted(selected, key=lambda item: (-float(item.get("official_new_miles") or 0), str(item.get("candidate_id")))), start=1):
         block_id = block_for_candidate(candidate, trail_to_block)
         official = float(candidate.get("official_new_miles") or 0.0)
-        on_foot = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
+        on_foot = candidate_planned_on_foot_miles(candidate)
         route = {
             "route_number": index,
             "candidate_id": candidate.get("candidate_id"),
@@ -153,6 +205,10 @@ def summarize_selection(
             "less_optimal_flags": candidate.get("less_optimal_flags") or [],
             "segment_ids": candidate.get("segment_ids") or [],
         }
+        if candidate.get("field_track_miles") is not None:
+            route["field_track_miles"] = candidate.get("field_track_miles")
+            route["modeled_on_foot_miles"] = candidate.get("modeled_on_foot_miles")
+            route["field_track_mileage_delta"] = candidate.get("field_track_mileage_delta")
         route_rows.append(route)
         block = block_rows.setdefault(
             block_id,
@@ -175,7 +231,7 @@ def summarize_selection(
         block["segment_count"] = len(block["segment_ids"])
         block["segment_ids"] = sorted(block["segment_ids"])
 
-    total_on_foot = sum(float(candidate.get("estimated_total_on_foot_miles") or 0.0) for candidate in selected)
+    total_on_foot = sum(candidate_planned_on_foot_miles(candidate) for candidate in selected)
     return {
         "planning_status": "candidate_route_pass_from_existing_graph_menu",
         "summary": {
@@ -289,7 +345,12 @@ def build_map_data(
     for route in route_pass.get("routes") or []:
         candidate = candidate_index[str(route["candidate_id"])]
         color = PALETTE[(int(route["route_number"]) - 1) % len(PALETTE)]
-        coords = candidate_track_coordinates(candidate, official_index, connector_graph=connector_graph)
+        coords = candidate_track_coordinates(
+            candidate,
+            official_index,
+            connector_graph=connector_graph,
+            densify_source_lines=True,
+        )
         source_validation = validate_track_segments([coords], max_gap_miles=0.1)
         rendered_parts = split_coords_on_gaps(coords, max_gap_miles=0.1)
         render_validation = validate_track_segments(rendered_parts, max_gap_miles=0.1)
@@ -735,12 +796,6 @@ def main() -> int:
     args = parse_args()
     plan = read_json(args.plan_json)
     blocks_config = read_json(args.blocks_json)
-    selected = select_candidates(
-        plan["route_menu"]["all_candidates"],
-        route_count_weight=args.route_count_weight,
-        time_limit_seconds=args.optimizer_time_limit_seconds,
-    )
-    route_pass = summarize_selection(selected, blocks_config)
     official_index = load_official_segment_index(args.official_geojson)
     official_segments, _official_meta = load_official_segments(args.official_geojson)
     connector_meta = ((plan.get("source_datasets") or {}).get("connector_geojson") or {})
@@ -750,6 +805,17 @@ def main() -> int:
         if connector_path and connector_path.exists()
         else None
     )
+    candidates = enrich_candidates_with_field_track_miles(
+        plan["route_menu"]["all_candidates"],
+        official_index,
+        connector_graph,
+    )
+    selected = select_candidates(
+        candidates,
+        route_count_weight=args.route_count_weight,
+        time_limit_seconds=args.optimizer_time_limit_seconds,
+    )
+    route_pass = summarize_selection(selected, blocks_config)
     map_data = build_map_data(route_pass, plan, official_index, connector_graph)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / f"{args.basename}.json"

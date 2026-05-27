@@ -801,23 +801,66 @@ def update_cue_for_segment_promotion(
     cue["segment_ownership_promotion_notes"] = notes
 
 
+def promotion_target_status(
+    promotion: dict[str, Any],
+    current_map: dict[str, Any],
+    replacement_entries: list[dict[str, Any]],
+) -> tuple[bool, str | None]:
+    target = promotion.get("to") or {}
+    package_number = str(target.get("package_number"))
+    candidate_id = str(target.get("candidate_id"))
+    packages = list(current_map.get("packages") or [])
+    packages.extend(
+        copy.deepcopy(entry.get("replace_package"))
+        for entry in replacement_entries
+        if isinstance(entry.get("replace_package"), dict)
+    )
+    matching_packages = [
+        item
+        for item in packages
+        if str(item.get("package_number")) == package_number
+    ]
+    if not matching_packages:
+        return False, "target_package_not_in_current_map"
+    if not any(
+        str(component.get("candidate_id")) == candidate_id
+        for package in matching_packages
+        for component in package.get("components") or []
+    ):
+        return False, "target_candidate_not_in_current_package"
+    return True, None
+
+
 def apply_segment_ownership_promotions(
     replacement_entries: list[dict[str, Any]],
     promotions_payload: dict[str, Any],
     *,
     current_map: dict[str, Any],
     context: dict[str, Any],
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     promotions = [
         promotion
         for promotion in promotions_payload.get("promotions") or []
         if promotion.get("status") == "promoted"
     ]
     if not promotions:
-        return []
+        return [], []
     official_by_id = official_segment_index(context["official_segments"])
     applied = []
+    skipped = []
     for promotion in promotions:
+        target_exists, skip_reason = promotion_target_status(promotion, current_map, replacement_entries)
+        if not target_exists:
+            skipped.append(
+                {
+                    "segment_id": promotion.get("segment_id"),
+                    "status": "skipped",
+                    "reason": skip_reason,
+                    "from": copy.deepcopy(promotion.get("from") or {}),
+                    "to": copy.deepcopy(promotion.get("to") or {}),
+                }
+            )
+            continue
         if not promotion_evidence_passed(promotion, REPO_ROOT):
             raise ValueError(f"Promotion evidence failed for segment {promotion.get('segment_id')}")
         target = promotion.get("to") or {}
@@ -883,7 +926,7 @@ def apply_segment_ownership_promotions(
             )
         entry.setdefault("segment_ownership_promotions", []).append(copy.deepcopy(promotion))
         applied.append(copy.deepcopy(promotion))
-    return applied
+    return applied, skipped
 
 
 def build_context(args: argparse.Namespace) -> dict[str, Any]:
@@ -1084,7 +1127,7 @@ def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
                 max_gap_miles=args.max_gap_miles,
             )
         )
-    applied_promotions = apply_segment_ownership_promotions(
+    applied_promotions, skipped_promotions = apply_segment_ownership_promotions(
         replacement_entries,
         promotions_payload,
         current_map=current_map,
@@ -1106,6 +1149,7 @@ def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
         },
         "selected_alternatives": selected,
         "segment_ownership_promotions": applied_promotions,
+        "segment_ownership_promotion_skips": skipped_promotions,
         "summary": output_summary(replacement_entries),
         "overrides": replacement_entries,
     }
@@ -1157,6 +1201,7 @@ def main() -> int:
             metadata={
                 "selected_alternatives": payload["selected_alternatives"],
                 "segment_ownership_promotions": payload["segment_ownership_promotions"],
+                "segment_ownership_promotion_skips": payload["segment_ownership_promotion_skips"],
                 "summary": payload["summary"],
             },
         ),

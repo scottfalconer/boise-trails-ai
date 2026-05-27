@@ -505,10 +505,17 @@ def matched_edge_groups(
     graph = graph_edges if isinstance(graph_edges, TrailGraph) else TrailGraph(graph_edges)
     preferred_signposts = extract_signposts(preferred_text) if preferred_text else set()
     preferred_normalized_text = normalized_text_blob(preferred_text) if preferred_text else ""
+    preferred_normalized_tokens = preferred_normalized_text.split() if preferred_normalized_text else []
     preferred_edge_ids = {
         edge.edge_id
         for edge in graph.edges
-        if preferred_text and text_mentions_edge_precomputed(preferred_signposts, preferred_normalized_text, edge)
+        if preferred_text
+        and text_mentions_edge_precomputed(
+            preferred_signposts,
+            preferred_normalized_text,
+            edge,
+            preferred_normalized_tokens,
+        )
     }
     groups: list[dict[str, Any]] = []
     unmatched: list[dict[str, Any]] = []
@@ -641,13 +648,21 @@ def text_mentions_edge(text: str, edge: TrailEdge) -> bool:
     return text_mentions_edge_precomputed(signposts, normalized, edge)
 
 
-def text_mentions_edge_precomputed(signposts: set[str], normalized_text: str, edge: TrailEdge) -> bool:
+def text_mentions_edge_precomputed(
+    signposts: set[str],
+    normalized_text: str,
+    edge: TrailEdge,
+    normalized_tokens_cache: list[str] | None = None,
+) -> bool:
     if edge.signposts and edge.signposts & signposts:
         return True
     normalized = normalized_text
     if edge.normalized_name and edge.normalized_name in normalized:
         return True
-    return token_sequence_mentioned(normalized_tokens(edge.name), normalized.split())
+    return token_sequence_mentioned(
+        normalized_tokens(edge.name),
+        normalized_tokens_cache if normalized_tokens_cache is not None else normalized.split(),
+    )
 
 
 def cue_vocabulary_summary(route: dict[str, Any]) -> dict[str, Any]:

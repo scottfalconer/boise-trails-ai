@@ -512,6 +512,26 @@ def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[i
     return sorted(set(result))
 
 
+def coordinate_pair(value: Any) -> list[float] | None:
+    if not isinstance(value, (list, tuple)) or len(value) < 2:
+        return None
+    try:
+        return [float(value[0]), float(value[1])]
+    except (TypeError, ValueError):
+        return None
+
+
+def coordinate_path(path_coordinates: Any) -> list[list[float]]:
+    return [point for point in (coordinate_pair(value) for value in path_coordinates or []) if point]
+
+
+def path_payload(path_coordinates: Any) -> dict[str, Any]:
+    points = [point for point in (coordinate_pair(value) for value in path_coordinates or []) if point]
+    if len(points) < 2:
+        return {}
+    return {"path_coordinates": points, "path_start": points[0], "path_end": points[-1]}
+
+
 def segment_direction_cue(candidate: dict[str, Any], segment: dict[str, Any]) -> str:
     seg_id = str(segment.get("seg_id"))
     special_direction = special_management_segment_direction_overrides().get(seg_id)
@@ -535,17 +555,25 @@ def segment_direction_cue(candidate: dict[str, Any], segment: dict[str, Any]) ->
 
 
 def connector_cue(link: dict[str, Any]) -> dict[str, Any]:
-    return {
+    cue = {
+        "source": link.get("source"),
+        "from_segment_id": link.get("from_segment_id"),
+        "to_segment_id": link.get("to_segment_id"),
         "from_trail": link.get("from_trail"),
         "to_trail": link.get("to_trail"),
         "distance_miles": round_miles(link.get("distance_miles") or 0),
         "connector_miles": round_miles(link.get("connector_miles") or 0),
         "official_repeat_miles": round_miles(link.get("official_repeat_miles") or 0),
         "official_repeat_segment_ids": normalized_segment_ids(link.get("official_repeat_segment_ids")),
+        "earned_segment_ids_before_link": normalized_segment_ids(link.get("earned_segment_ids_before_link")),
+        "avoided_unearned_segment_ids": normalized_segment_ids(link.get("avoided_unearned_segment_ids")),
         "connector_names": unique_nonempty(link.get("connector_names") or []),
         "signpost_labels": signpost_labels(link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")]),
         "connector_classes": unique_nonempty(link.get("connector_classes") or []),
     }
+    cue = {key: value for key, value in cue.items() if value not in (None, "", [])}
+    cue.update(path_payload(link.get("path_coordinates")))
+    return cue
 
 
 def track_points_with_cumulative_miles(parts: list[list[tuple[float, float]]]) -> list[tuple[tuple[float, float], float]]:
@@ -699,29 +727,61 @@ def route_cue(
         cue_segments = raw_segments
     segments = []
     for index, segment in enumerate(cue_segments, start=1):
-        segments.append(
-            {
-                "order": index,
-                "seg_id": segment.get("seg_id"),
-                "segment_name": segment.get("seg_name") or segment.get("trail_name"),
-                "trail_name": segment.get("trail_name"),
-                "signpost_label": signpost_label(segment.get("trail_name")),
-                "official_miles": round_miles(segment.get("official_miles") or 0),
-                "direction_rule": segment.get("direction"),
-                "direction_cue": segment_direction_cue(candidate, segment),
-                "estimated_moving_minutes": segment.get("estimated_moving_minutes"),
-                "estimated_moving_minutes_p75": segment.get("estimated_moving_minutes_p75"),
-                "ascent_ft": segment.get("ascent_ft"),
-                "descent_ft": segment.get("descent_ft"),
-                "grade_adjusted_miles": segment.get("grade_adjusted_miles"),
-                "elevation_source": segment.get("elevation_source"),
-            }
-        )
-    between_links = (
+        row = {
+            "order": index,
+            "seg_id": segment.get("seg_id"),
+            "segment_name": segment.get("seg_name") or segment.get("trail_name"),
+            "trail_name": segment.get("trail_name"),
+            "signpost_label": signpost_label(segment.get("trail_name")),
+            "official_miles": round_miles(segment.get("official_miles") or 0),
+            "direction_rule": segment.get("direction"),
+            "direction_cue": segment_direction_cue(candidate, segment),
+            "estimated_moving_minutes": segment.get("estimated_moving_minutes"),
+            "estimated_moving_minutes_p75": segment.get("estimated_moving_minutes_p75"),
+            "ascent_ft": segment.get("ascent_ft"),
+            "descent_ft": segment.get("descent_ft"),
+            "grade_adjusted_miles": segment.get("grade_adjusted_miles"),
+            "elevation_source": segment.get("elevation_source"),
+        }
+        coordinates = coordinate_path(segment.get("coordinates"))
+        if coordinates:
+            row["coordinates"] = coordinates
+            row["start"] = coordinates[0]
+            row["end"] = coordinates[-1]
+        if segment.get("pre_connector_link"):
+            row["pre_connector_link"] = connector_cue(segment["pre_connector_link"])
+        segments.append(row)
+    inter_segment_links = ((candidate.get("inter_segment_links") or {}).get("links")) or []
+    between_links = inter_segment_links or (
         safe_between_trail_links_for_candidate(candidate, official_index, connector_graph)
         if connector_graph
         else (((candidate.get("between_trail_links") or {}).get("links")) or [])
     )
+    return_cue = {
+        "strategy": return_to_car.get("strategy"),
+        "description": return_to_car.get("description"),
+        "official_repeat_miles": round_miles(return_to_car.get("official_repeat_miles") or 0),
+        "official_repeat_segment_ids": normalized_segment_ids(return_to_car.get("official_repeat_segment_ids")),
+        "connector_miles": round_miles(return_to_car.get("connector_miles") or 0),
+        "road_miles": round_miles(return_to_car.get("road_miles") or 0),
+        "connector_names": unique_nonempty(return_to_car.get("connector_names") or []),
+        "connector_classes": unique_nonempty(return_to_car.get("connector_classes") or []),
+    }
+    return_cue.update(path_payload(return_to_car.get("path_coordinates")))
+    start_access_cue = {
+        "confidence": (candidate.get("validation") or {}).get("trailhead_snap_confidence"),
+        "direct_gap_miles": round_miles(trailhead_access.get("direct_gap_miles") or 0),
+        "mapped_access_miles": round_miles(trailhead_access.get("mapped_access_miles") or 0),
+        "official_repeat_miles": round_miles(
+            trailhead_access.get("one_way_official_repeat_miles")
+            or trailhead_access.get("official_repeat_miles")
+            or 0
+        ),
+        "official_repeat_segment_ids": normalized_segment_ids(trailhead_access.get("official_repeat_segment_ids")),
+        "access_class": trailhead_access.get("access_class"),
+        "graph_validated": trailhead_access.get("graph_validated"),
+    }
+    start_access_cue.update(path_payload(trailhead_access.get("path_coordinates")))
     return {
         "candidate_id": candidate.get("candidate_id"),
         "title": ", ".join(candidate.get("trail_names") or []),
@@ -743,34 +803,13 @@ def route_cue(
             "source": trailhead.get("source"),
             "parking_confidence": trailhead.get("parking_confidence"),
         },
-        "start_access": {
-            "confidence": (candidate.get("validation") or {}).get("trailhead_snap_confidence"),
-            "direct_gap_miles": round_miles(trailhead_access.get("direct_gap_miles") or 0),
-            "mapped_access_miles": round_miles(trailhead_access.get("mapped_access_miles") or 0),
-            "official_repeat_miles": round_miles(
-                trailhead_access.get("one_way_official_repeat_miles")
-                or trailhead_access.get("official_repeat_miles")
-                or 0
-            ),
-            "official_repeat_segment_ids": normalized_segment_ids(trailhead_access.get("official_repeat_segment_ids")),
-            "access_class": trailhead_access.get("access_class"),
-            "graph_validated": trailhead_access.get("graph_validated"),
-        },
+        "start_access": start_access_cue,
         "segments": segments,
         "between_links": [
             connector_cue(link)
             for link in between_links
         ],
-        "return_to_car": {
-            "strategy": return_to_car.get("strategy"),
-            "description": return_to_car.get("description"),
-            "official_repeat_miles": round_miles(return_to_car.get("official_repeat_miles") or 0),
-            "official_repeat_segment_ids": normalized_segment_ids(return_to_car.get("official_repeat_segment_ids")),
-            "connector_miles": round_miles(return_to_car.get("connector_miles") or 0),
-            "road_miles": round_miles(return_to_car.get("road_miles") or 0),
-            "connector_names": unique_nonempty(return_to_car.get("connector_names") or []),
-            "connector_classes": unique_nonempty(return_to_car.get("connector_classes") or []),
-        },
+        "return_to_car": return_cue,
         "validation": {
             "ascent_direction_passed": ((candidate.get("validation") or {}).get("ascent_direction_passed")),
             "return_path_graph_validated": ((candidate.get("validation") or {}).get("return_path_graph_validated")),
@@ -806,7 +845,12 @@ def build_map_data(
         candidate = candidate_index[candidate_id]
         route = route_lookup.get(candidate_id) or {}
         color = PALETTE[(int(package["package_number"]) - 1) % len(PALETTE)]
-        coords = candidate_track_coordinates(candidate, official_index, connector_graph=connector_graph)
+        coords = candidate_track_coordinates(
+            candidate,
+            official_index,
+            connector_graph=connector_graph,
+            densify_source_lines=True,
+        )
         source_validation = validate_track_segments([coords], max_gap_miles=0.1)
         rendered_parts = split_coords_on_gaps(coords, max_gap_miles=0.1)
         render_validation = validate_track_segments(rendered_parts, max_gap_miles=0.1)
