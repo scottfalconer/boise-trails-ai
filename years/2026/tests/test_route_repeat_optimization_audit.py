@@ -40,7 +40,6 @@ def write_gpx(path, coords):
         encoding="utf-8",
     )
 
-
 def write_connector_geojson(path, features):
     path.write_text(
         json.dumps({"type": "FeatureCollection", "features": features}),
@@ -61,13 +60,24 @@ def path_miles(module, coords):
 
 
 def build_audit(tmp_path, route, official_segments, route_proofs=None, progress=None, connector_features=None):
+    return build_audit_for_routes(
+        tmp_path,
+        [route],
+        official_segments,
+        route_proofs=route_proofs,
+        progress=progress,
+        connector_features=connector_features,
+    )
+
+
+def build_audit_for_routes(tmp_path, routes, official_segments, route_proofs=None, progress=None, connector_features=None):
     module = load_module()
     connector_path = None
     if connector_features is not None:
         connector_path = tmp_path / "connectors.geojson"
         write_connector_geojson(connector_path, connector_features)
     return module.build_route_repeat_optimization_audit(
-        {"routes": [route], "progress": progress or {}},
+        {"routes": routes, "progress": progress or {}},
         official_segments=official_segments,
         packet_dir=tmp_path / "packet",
         connector_graph_path=connector_path,
@@ -329,7 +339,6 @@ def test_unpriced_declared_repeat_fails(tmp_path):
     assert audit["hard_failures"]["unpriced_repeat_segment_ids"] == ["101"]
     assert audit["failed_routes"][0]["unpriced_repeat_rows"][0]["repeat_miles_missing_or_zero"] is True
 
-
 def test_fd12a_shaped_post_credit_repeat_fails_when_shorter_connector_exists(tmp_path):
     module = load_module()
     packet_dir = tmp_path / "packet"
@@ -575,3 +584,141 @@ def test_graph_scaled_alternate_that_is_physically_longer_is_not_hard_failure(tm
 
     assert audit["status"] == "passed"
     assert audit["summary"]["avoidable_post_credit_repeat_instance_count"] == 0
+
+
+def test_cross_route_tail_opportunity_warns_for_small_adjacent_split_segment(tmp_path):
+    packet_dir = tmp_path / "packet"
+    write_gpx(
+        packet_dir / "gpx" / "audit" / "route-a.gpx",
+        [(-116.0, 43.0), (-115.99, 43.0)],
+    )
+    write_gpx(
+        packet_dir / "gpx" / "audit" / "route-b.gpx",
+        [(-116.0, 43.0), (-115.99, 43.0), (-115.98, 43.0)],
+    )
+    route_a = {
+        "outing_id": "route-a",
+        "label": "Route A",
+        "trailhead": "Trailhead A",
+        "segment_ids": [201],
+        "audit_gpx_href": "gpx/audit/route-a.gpx",
+        "official_miles": 0.2,
+        "on_foot_miles": 0.2,
+        "wayfinding_cues": [
+            {"seq": 1, "cue_type": "follow_official_segment", "route_miles": 0.0, "route_leg_miles": 0.2},
+        ],
+    }
+    route_b = {
+        "outing_id": "route-b",
+        "label": "Route B",
+        "trailhead": "Trailhead B",
+        "segment_ids": [202],
+        "audit_gpx_href": "gpx/audit/route-b.gpx",
+        "official_miles": 0.2,
+        "on_foot_miles": 0.4,
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "connector_named_trail",
+                "route_miles": 0.0,
+                "route_leg_miles": 0.2,
+                "official_repeat_segment_ids": [201],
+                "official_repeat_miles": 0.2,
+                "note": "Includes 0.2 mi repeat official; no new credit.",
+            },
+            {
+                "seq": 2,
+                "cue_type": "junction_turn",
+                "route_miles": 0.2,
+                "route_leg_miles": 0.2,
+                "official_segment_ids": [202],
+            },
+        ],
+        "segment_ownership_reconciliation": {
+            "declared_owned_elsewhere_segment_ids": ["201"],
+            "segments_owned_elsewhere": [
+                {
+                    "seg_id": "201",
+                    "seg_name": "Segment 201",
+                    "official_miles": 0.2,
+                    "owned_by_routes": [{"outing_id": "route-a", "label": "Route A"}],
+                }
+            ],
+        },
+    }
+
+    audit = build_audit_for_routes(
+        tmp_path,
+        [route_a, route_b],
+        [
+            segment(201, [(-116.0, 43.0), (-115.99, 43.0)], official_miles=0.2),
+            segment(202, [(-115.99, 43.0), (-115.98, 43.0)], official_miles=0.2),
+        ],
+    )
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["cross_route_tail_opportunity_count"] == 1
+    opportunity = audit["cross_route_tail_opportunities"][0]
+    assert opportunity["receiver_outing_id"] == "route-b"
+    assert opportunity["repeated_owned_segment"]["seg_id"] == "201"
+    assert opportunity["adjacent_candidate_segment"]["seg_id"] == "202"
+    assert opportunity["cue_context"]["nearest_cue_pair"]["repeat_cue_seq"] == 1
+    assert opportunity["cue_context"]["nearest_cue_pair"]["adjacent_cue_seq"] == 2
+
+
+def test_cross_route_tail_opportunity_ignores_large_adjacent_segments(tmp_path):
+    packet_dir = tmp_path / "packet"
+    write_gpx(
+        packet_dir / "gpx" / "audit" / "route-a.gpx",
+        [(-116.0, 43.0), (-115.99, 43.0)],
+    )
+    write_gpx(
+        packet_dir / "gpx" / "audit" / "route-b.gpx",
+        [(-116.0, 43.0), (-115.99, 43.0), (-115.98, 43.0)],
+    )
+    route_a = {
+        "outing_id": "route-a",
+        "label": "Route A",
+        "segment_ids": [301],
+        "audit_gpx_href": "gpx/audit/route-a.gpx",
+        "official_miles": 0.2,
+        "on_foot_miles": 0.2,
+    }
+    route_b = {
+        "outing_id": "route-b",
+        "label": "Route B",
+        "segment_ids": [302],
+        "audit_gpx_href": "gpx/audit/route-b.gpx",
+        "official_miles": 0.6,
+        "on_foot_miles": 0.8,
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "connector_named_trail",
+                "official_repeat_segment_ids": [301],
+                "official_repeat_miles": 0.2,
+                "note": "Includes 0.2 mi repeat official; no new credit.",
+            }
+        ],
+        "segment_ownership_reconciliation": {
+            "declared_owned_elsewhere_segment_ids": ["301"],
+            "segments_owned_elsewhere": [
+                {
+                    "seg_id": "301",
+                    "official_miles": 0.2,
+                    "owned_by_routes": [{"outing_id": "route-a", "label": "Route A"}],
+                }
+            ],
+        },
+    }
+
+    audit = build_audit_for_routes(
+        tmp_path,
+        [route_a, route_b],
+        [
+            segment(301, [(-116.0, 43.0), (-115.99, 43.0)], official_miles=0.2),
+            segment(302, [(-115.99, 43.0), (-115.98, 43.0)], official_miles=0.6),
+        ],
+    )
+
+    assert audit["summary"]["cross_route_tail_opportunity_count"] == 0

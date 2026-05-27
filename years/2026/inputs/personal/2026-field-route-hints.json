@@ -50,15 +50,15 @@
           "Red Tail"
         ]
       },
-      "title": "Start via West Dry Creek Road",
+      "title": "Start on West Dry Creek Road",
       "signed_as": [
         "West Dry Creek Road",
         "#71 Red Tail"
       ],
-      "target": "Red Tail Trail",
-      "until": "signed junction with Red Tail Trail",
+      "target": "#71 Red Tail",
+      "until": "signed junction with #71 Red Tail",
       "avoid": [],
-      "detail": "From the car, use the short West Dry Creek Road access before joining #71 Red Tail. This road/access leg is not official challenge credit."
+      "detail": "From the car, follow West Dry Creek Road briefly to the signed #71 Red Tail access. This road/access leg is part of the route even though it is not official challenge credit."
     }
   ]
 }

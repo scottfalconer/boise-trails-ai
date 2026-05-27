@@ -231,7 +231,7 @@ def test_fd12a_repaired_packet_route_has_no_depot_phase_reset():
 
     assert audit["audit_status"] == "passed"
     assert audit["hard_failures"] == []
-    assert audit["segment_ids"] == ["1504", "1505", "1506", "1507", "1565", "1566", "1718", "1719", "1755"]
-    assert audit["route_quality"]["generated_miles"] < 5.1
+    assert audit["segment_ids"] == ["1504", "1505", "1506", "1507", "1565", "1566", "1579", "1718", "1719", "1755"]
+    assert audit["route_quality"]["generated_miles"] < 6.1
     direction_evidence = route["segment_direction_evidence"]
     assert {direction_evidence[segment_id]["direction_rule"] for segment_id in audit["segment_ids"]} == {"both"}

@@ -1,6 +1,6 @@
 # Route Repeat Optimization Audit
 
-Generated: 2026-05-26T17:18:56Z
+Generated: 2026-05-27T03:51:42Z
 Status: `passed`
 
 ## Summary
@@ -11,13 +11,14 @@ Status: `passed`
 - Latent credit segments without ownership/repeat decision: 0
 - Unpriced repeat segments: 0
 - Avoidable post-credit repeat instances: 0
-- Post-credit repeat advisories: 55
+- Post-credit repeat advisories: 53
 - Open optimization warnings: 0
-- Closed optimization warnings: 101 of 101
+- Closed optimization warnings: 107 of 107
 - High non-credit routes (>5 mi): 18
 - High ratio routes (>3x): 17
-- High declared-repeat routes (>2 mi): 36
+- High declared-repeat routes (>2 mi): 35
 - Same-trailhead bundle warnings: 9
+- Cross-route tail opportunities: 7
 
 ## Hard Failures
 
@@ -37,7 +38,7 @@ Status: `passed`
 
 | Label | Official mi | On-foot mi | Non-credit mi | Ratio | Declared repeat mi |
 |---|---:|---:|---:|---:|---:|
-| 128-2: 15A-1 | 11.73 | 25.67 | 13.94 | 2.19 | 13.16 |
+| 128-2: 15A-1 | 11.73 | 25.67 | 13.94 | 2.19 | 8.40 |
 | 104-1: FD04A | 1.70 | 14.50 | 12.80 | 8.53 | 9.98 |
 | 111-1: 14 | 8.45 | 19.86 | 11.41 | 2.35 | 13.06 |
 | 121-1: FD21A | 2.26 | 11.61 | 9.35 | 5.14 | 4.52 |
@@ -53,6 +54,18 @@ Status: `passed`
 | 119-3: FD19C | 1.84 | 7.93 | 6.09 | 4.31 | 5.36 |
 | 123-3: FD23C | 5.10 | 10.68 | 5.58 | 2.09 | 1.34 |
 
+## Cross-Route Tail Opportunities
+
+| Receiver | Repeated owned segment | Adjacent candidate | Owner route(s) | Endpoint gap mi | Adjacent mi |
+|---|---|---|---|---:|---:|
+| 115-1: FD15A | 1748 Two Point 1 | 1630 Ridge Crest 3 | FD04A | 0.0000 | 0.09 |
+| 115-1: FD15A | 1748 Two Point 1 | 1627 Ridge Crest 2 | FD04A | 0.0000 | 0.15 |
+| 104-1: FD04A | 1695 Watchman Trail 2 | 1558 Femrite's Patrol 4 | 14 | 0.0000 | 0.06 |
+| 116-2: 15B | 1497 Bitterbrush Trail 1 | 1620 Red Tail Trail 4 | 10B | 0.0045 | 0.22 |
+| 116-2: 15B | 1497 Bitterbrush Trail 1 | 1621 Red Tail Trail 5 | 10B | 0.0211 | 0.29 |
+| 131-1: 18 | 1553 Elk Meadows Trail 1 | 1655 Shindig 2 | FD25A | 0.0000 | 0.12 |
+| 112-2: FD12B | 1755 Buena Vista Trail 5 | 1699 Who Now Loop Trail 3 | FD12A | 0.0055 | 0.19 |
+
 ## Post-Credit Repeat Advisories
 
 - 128-1: FD28A cue 3: repeat_exit_no_alternate_graph_path_proven; repeated 1523
@@ -64,7 +77,6 @@ Status: `passed`
 - 122-1: FD22A cue 3: repeat_exit_no_alternate_graph_path_proven; repeated 1576, 1577
 - 123-1: FD23A cue 3: alternate_geometry_still_completes_repeated_segments; repeated 1483, 1484, 1485, 1486
 - 122-3: FD22C cue 9: repeat_exit_no_alternate_graph_path_proven; repeated 1567, 1568
-- 112-2: FD12B cue 7: repeat_exit_no_alternate_graph_path_proven; repeated 1698, 1699
 - 105-2: 4A cue 5: alternate_geometry_still_completes_repeated_segments; repeated 1498, 1499, 1690
 - 109-1: FD09A cue 3: repeat_exit_no_alternate_graph_path_proven; repeated 1494, 1495
 - 119-2: FD19B cue 5: alternate_geometry_still_completes_repeated_segments; repeated 1585, 1586
@@ -75,3 +87,4 @@ Status: `passed`
 - 121-2: FD21C cue 5: repeat_exit_no_alternate_graph_path_proven; repeated 1606, 1607, 1608, 1609
 - 121-2: FD21C cue 7: repeat_exit_no_alternate_graph_path_proven; repeated 1609, 1658, 1659
 - 108-1: FD08A cue 3: repeat_exit_no_alternate_graph_path_proven; repeated 1508, 1509
+- 116-1: 7 cue 3: repeat_exit_no_alternate_graph_path_proven; repeated 1645, 1646, 1647

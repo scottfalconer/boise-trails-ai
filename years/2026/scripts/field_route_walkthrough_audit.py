@@ -100,9 +100,9 @@ class TrailGraph:
     def __init__(self, edges: list[TrailEdge], cell_degrees: float = 0.001) -> None:
         self.edges = list(edges)
         self.cell_degrees = float(cell_degrees)
-        self.buckets: dict[tuple[int, int], list[tuple[TrailEdge, tuple[float, float], tuple[float, float]]]] = {}
+        self.buckets: dict[tuple[int, int], list[tuple[TrailEdge, int, tuple[float, float], tuple[float, float]]]] = {}
         for edge in self.edges:
-            for start, end in zip(edge.coords, edge.coords[1:]):
+            for segment_index, (start, end) in enumerate(zip(edge.coords, edge.coords[1:])):
                 min_lon = min(start[0], end[0])
                 max_lon = max(start[0], end[0])
                 min_lat = min(start[1], end[1])
@@ -113,11 +113,11 @@ class TrailGraph:
                 max_y = math.floor(max_lat / self.cell_degrees)
                 for x in range(min_x, max_x + 1):
                     for y in range(min_y, max_y + 1):
-                        self.buckets.setdefault((x, y), []).append((edge, start, end))
+                        self.buckets.setdefault((x, y), []).append((edge, segment_index, start, end))
 
     def candidate_segments(
         self, point: tuple[float, float]
-    ) -> list[tuple[TrailEdge, tuple[float, float], tuple[float, float]]]:
+    ) -> list[tuple[TrailEdge, int, tuple[float, float], tuple[float, float]]]:
         lon, lat = point
         x = math.floor(lon / self.cell_degrees)
         y = math.floor(lat / self.cell_degrees)
@@ -125,12 +125,12 @@ class TrailGraph:
         candidates = []
         for dx in (-1, 0, 1):
             for dy in (-1, 0, 1):
-                for edge, start, end in self.buckets.get((x + dx, y + dy), []):
-                    key = (edge.edge_id, start, end)
+                for edge, segment_index, start, end in self.buckets.get((x + dx, y + dy), []):
+                    key = (edge.edge_id, segment_index)
                     if key in seen:
                         continue
                     seen.add(key)
-                    candidates.append((edge, start, end))
+                    candidates.append((edge, segment_index, start, end))
         return candidates
 
 
@@ -221,9 +221,11 @@ def point_to_segment_distance_miles(
     end: tuple[float, float],
     origin_lat: float,
 ) -> float:
-    px, py = local_xy_miles(point, origin_lat)
-    ax, ay = local_xy_miles(start, origin_lat)
-    bx, by = local_xy_miles(end, origin_lat)
+    lon_scale = 69.172 * math.cos(math.radians(origin_lat))
+    lat_scale = 69.0
+    px, py = point[0] * lon_scale, point[1] * lat_scale
+    ax, ay = start[0] * lon_scale, start[1] * lat_scale
+    bx, by = end[0] * lon_scale, end[1] * lat_scale
     dx = bx - ax
     dy = by - ay
     if dx == 0 and dy == 0:
@@ -460,16 +462,20 @@ def closest_edge(
     point: tuple[float, float],
     graph: TrailGraph,
     preferred_edge_ids: set[str] | None = None,
-) -> tuple[TrailEdge | None, float]:
-    measured: list[tuple[float, TrailEdge]] = []
-    for edge, start, end in graph.candidate_segments(point):
+) -> tuple[TrailEdge | None, float, int | None]:
+    measured: list[tuple[float, TrailEdge, int]] = []
+    for edge, segment_index, start, end in graph.candidate_segments(point):
         distance = point_to_segment_distance_miles(point, start, end, point[1])
-        measured.append((distance, edge))
+        measured.append((distance, edge, segment_index))
     if not measured:
-        return None, float("inf")
-    best_distance = min(distance for distance, _edge in measured)
-    near = [(distance, edge) for distance, edge in measured if distance <= best_distance + 0.01]
-    distance, edge = min(
+        return None, float("inf"), None
+    best_distance = min(distance for distance, _edge, _segment_index in measured)
+    near = [
+        (distance, edge, segment_index)
+        for distance, edge, segment_index in measured
+        if distance <= best_distance + 0.01
+    ]
+    distance, edge, segment_index = min(
         near,
         key=lambda item: (
             0 if preferred_edge_ids and item[1].edge_id in preferred_edge_ids else 1,
@@ -477,7 +483,7 @@ def closest_edge(
             item[0],
         ),
     )
-    return edge, distance
+    return edge, distance, segment_index
 
 
 def edge_match_priority(edge: TrailEdge) -> int:
@@ -507,8 +513,10 @@ def matched_edge_groups(
     groups: list[dict[str, Any]] = []
     unmatched: list[dict[str, Any]] = []
     for interval in route_intervals(track_segments):
-        edge, distance = closest_edge(interval["midpoint"], graph, preferred_edge_ids=preferred_edge_ids)
-        traversal_direction = edge_traversal_direction(edge, interval["start"], interval["end"]) if edge else None
+        edge, distance, edge_segment_index = closest_edge(interval["midpoint"], graph, preferred_edge_ids=preferred_edge_ids)
+        traversal_direction = (
+            edge_traversal_direction(edge, interval["start"], interval["end"], edge_segment_index) if edge else None
+        )
         if edge is None or distance > snap_tolerance_miles:
             unmatched.append(
                 {
@@ -601,6 +609,27 @@ def normalized_text_blob(values: list[str] | str) -> str:
     return normalize_name(" ".join(values))
 
 
+def normalized_tokens(value: str) -> list[str]:
+    return normalize_name(value).split()
+
+
+def token_matches(left: str, right: str) -> bool:
+    if left == right:
+        return True
+    left_base = left[:-1] if len(left) > 3 and left.endswith("s") else left
+    right_base = right[:-1] if len(right) > 3 and right.endswith("s") else right
+    return bool(left_base and left_base == right_base)
+
+
+def token_sequence_mentioned(needle: list[str], haystack: list[str]) -> bool:
+    if not needle or len(needle) > len(haystack):
+        return False
+    for start in range(0, len(haystack) - len(needle) + 1):
+        if all(token_matches(left, right) for left, right in zip(needle, haystack[start : start + len(needle)])):
+            return True
+    return False
+
+
 def text_mentions_edge(text: str, edge: TrailEdge) -> bool:
     if not text:
         return False
@@ -616,7 +645,9 @@ def text_mentions_edge_precomputed(signposts: set[str], normalized_text: str, ed
     if edge.signposts and edge.signposts & signposts:
         return True
     normalized = normalized_text
-    return bool(edge.normalized_name and edge.normalized_name in normalized)
+    if edge.normalized_name and edge.normalized_name in normalized:
+        return True
+    return token_sequence_mentioned(normalized_tokens(edge.name), normalized.split())
 
 
 def cue_vocabulary_summary(route: dict[str, Any]) -> dict[str, Any]:
@@ -749,9 +780,49 @@ def project_miles_along_polyline(point: tuple[float, float], coords: list[tuple[
     return best_along, best_distance
 
 
-def edge_traversal_direction(edge: TrailEdge | None, start: tuple[float, float], end: tuple[float, float]) -> str | None:
+def point_fraction_on_segment(
+    point: tuple[float, float],
+    start: tuple[float, float],
+    end: tuple[float, float],
+    origin_lat: float,
+) -> tuple[float, float]:
+    px, py = local_xy_miles(point, origin_lat)
+    ax, ay = local_xy_miles(start, origin_lat)
+    bx, by = local_xy_miles(end, origin_lat)
+    dx = bx - ax
+    dy = by - ay
+    if dx == 0 and dy == 0:
+        return 0.0, math.hypot(px - ax, py - ay)
+    fraction = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)))
+    distance = math.hypot(px - (ax + fraction * dx), py - (ay + fraction * dy))
+    return fraction, distance
+
+
+def edge_traversal_direction(
+    edge: TrailEdge | None,
+    start: tuple[float, float],
+    end: tuple[float, float],
+    segment_index: int | None = None,
+) -> str | None:
     if not edge or len(edge.coords) < 2:
         return None
+    if segment_index is not None and 0 <= segment_index < len(edge.coords) - 1:
+        edge_start = edge.coords[segment_index]
+        edge_end = edge.coords[segment_index + 1]
+        origin_lat = (start[1] + end[1] + edge_start[1] + edge_end[1]) / 4
+        start_fraction, _start_gap = point_fraction_on_segment(start, edge_start, edge_end, origin_lat)
+        end_fraction, _end_gap = point_fraction_on_segment(end, edge_start, edge_end, origin_lat)
+        if abs(end_fraction - start_fraction) >= 1e-6:
+            return "forward" if end_fraction > start_fraction else "reverse"
+
+        sx, sy = local_xy_miles(start, origin_lat)
+        ex, ey = local_xy_miles(end, origin_lat)
+        ax, ay = local_xy_miles(edge_start, origin_lat)
+        bx, by = local_xy_miles(edge_end, origin_lat)
+        dot = (ex - sx) * (bx - ax) + (ey - sy) * (by - ay)
+        if abs(dot) >= 1e-9:
+            return "forward" if dot > 0 else "reverse"
+        return "stationary"
     start_mile, _start_gap = project_miles_along_polyline(start, edge.coords)
     end_mile, _end_gap = project_miles_along_polyline(end, edge.coords)
     if abs(end_mile - start_mile) < 1e-6:

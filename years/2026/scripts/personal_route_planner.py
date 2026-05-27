@@ -298,9 +298,11 @@ def point_to_segment_distance_miles(
     end: tuple[float, float],
     origin_lat: float,
 ) -> float:
-    px, py = local_xy_miles(point, origin_lat)
-    ax, ay = local_xy_miles(start, origin_lat)
-    bx, by = local_xy_miles(end, origin_lat)
+    lon_scale = 69.172 * math.cos(math.radians(origin_lat))
+    lat_scale = 69.0
+    px, py = point[0] * lon_scale, point[1] * lat_scale
+    ax, ay = start[0] * lon_scale, start[1] * lat_scale
+    bx, by = end[0] * lon_scale, end[1] * lat_scale
     dx = bx - ax
     dy = by - ay
     if dx == 0 and dy == 0:

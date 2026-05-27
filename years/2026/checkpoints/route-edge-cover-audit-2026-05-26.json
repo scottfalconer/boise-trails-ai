@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-05-26T17:11:56Z",
+  "generated_at": "2026-05-27T03:48:33Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
@@ -363,43 +363,6 @@
       ]
     },
     {
-      "label": "112-2: FD12B",
-      "outing_id": "112-2",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "trailhead": "Harrison Hollow",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 4.72,
-        "generated_miles": 6.36,
-        "lower_bound_miles": 5.42,
-        "efficiency_ratio": 1.175,
-        "required_component_count": 2,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.63,
-        "depot_component_attachment_miles": 0.06
-      },
-      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-fd12b.gpx",
-      "segment_ids": [
-        "1578",
-        "1579",
-        "1581",
-        "1582",
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1714",
-        "1715",
-        "1716",
-        "1717"
-      ]
-    },
-    {
       "label": "105-2: 4A",
       "outing_id": "105-2",
       "candidate_ids": [
@@ -716,40 +679,6 @@
       ]
     },
     {
-      "label": "112-1: FD12A",
-      "outing_id": "112-1",
-      "candidate_ids": [
-        "combo-full-sail-trail-buena-vista-trail-bob-smylie"
-      ],
-      "trailhead": "West Climb",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 3.13,
-        "generated_miles": 4.86,
-        "lower_bound_miles": 3.91,
-        "efficiency_ratio": 1.241,
-        "required_component_count": 1,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.72,
-        "depot_component_attachment_miles": 0.06
-      },
-      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-full-sail-fd12a.gpx",
-      "segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1718",
-        "1719",
-        "1755"
-      ]
-    },
-    {
       "label": "116-1: 7",
       "outing_id": "116-1",
       "candidate_ids": [
@@ -804,6 +733,41 @@
       "gpx_path": "docs/field-packet/gpx/official/cartwright-cartwright-connector-fd08b.gpx",
       "segment_ids": [
         "1709"
+      ]
+    },
+    {
+      "label": "112-1: FD12A",
+      "outing_id": "112-1",
+      "candidate_ids": [
+        "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
+      ],
+      "trailhead": "West Climb",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 3.33,
+        "generated_miles": 5.96,
+        "lower_bound_miles": 4.06,
+        "efficiency_ratio": 1.468,
+        "required_component_count": 1,
+        "odd_required_node_count": 6,
+        "parity_add_on_miles": 0.67,
+        "depot_component_attachment_miles": 0.06
+      },
+      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-bob-smylie-fd12a.gpx",
+      "segment_ids": [
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1565",
+        "1566",
+        "1579",
+        "1718",
+        "1719",
+        "1755"
       ]
     },
     {
@@ -863,6 +827,42 @@
         "1729",
         "1730",
         "1751"
+      ]
+    },
+    {
+      "label": "112-2: FD12B",
+      "outing_id": "112-2",
+      "candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+      ],
+      "trailhead": "Harrison Hollow",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 4.52,
+        "generated_miles": 6.36,
+        "lower_bound_miles": 5.0,
+        "efficiency_ratio": 1.272,
+        "required_component_count": 1,
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 0.48,
+        "depot_component_attachment_miles": 0.0
+      },
+      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-fd12b.gpx",
+      "segment_ids": [
+        "1578",
+        "1581",
+        "1582",
+        "1697",
+        "1698",
+        "1699",
+        "1700",
+        "1714",
+        "1715",
+        "1716",
+        "1717"
       ]
     },
     {

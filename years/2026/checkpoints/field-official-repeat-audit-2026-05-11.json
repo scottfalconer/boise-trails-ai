@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_official_repeat_audit_v1",
-  "generated_at": "2026-05-26T17:19:19Z",
+  "generated_at": "2026-05-27T03:51:54Z",
   "status": "passed",
   "source_files": {
     "map_data_json": "outing-menu-map-data.json",
@@ -8,10 +8,10 @@
   },
   "summary": {
     "route_count": 49,
-    "source_repeat_leg_count": 96,
+    "source_repeat_leg_count": 97,
     "public_repeat_cue_count": 102,
     "bucket_a_bad_hidden_self_repeat_count": 0,
-    "bucket_b_legitimate_repeat_or_optimization_target_count": 96,
+    "bucket_b_legitimate_repeat_or_optimization_target_count": 97,
     "bucket_c_reconciled_extra_credit_route_count": 23,
     "repeat_legs_missing_segment_ids": 0,
     "repeat_cues_missing_text": 0,
@@ -1406,7 +1406,6 @@
       ],
       "missing_repeat_segment_ids": false,
       "self_repeat_segment_ids": [
-        "1579",
         "1581",
         "1699",
         "1717"
@@ -1957,6 +1956,29 @@
       ]
     },
     {
+      "candidate_id": "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail",
+      "label": "FD12A",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.0,
+      "official_repeat_segment_ids": [
+        "1579"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1579"
+      ],
+      "connector_names": [
+        "#53 Buena Vista",
+        "Buena Vista",
+        "Kemper\u2019s Ridge #52"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
       "candidate_id": "peace-valley-overlook-harris-ridge-trail",
       "label": "FD21A",
       "place": "between_links[0]",
@@ -2389,21 +2411,6 @@
             }
           ],
           "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1750",
-          "trail_name": "Around the Mountain Trail",
-          "official_miles": 0.34,
-          "owned_by_routes": [
-            {
-              "outing_id": "126-1",
-              "label": "FD26A",
-              "candidate_ids": [
-                "around-the-mountain-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
         }
       ]
     },
@@ -2733,6 +2740,21 @@
       "label": "FD12B",
       "extra_credit_segments": [
         {
+          "seg_id": "1579",
+          "trail_name": "Kemper's Ridge Trail",
+          "official_miles": 0.2,
+          "owned_by_routes": [
+            {
+              "outing_id": "112-1",
+              "label": "FD12A",
+              "candidate_ids": [
+                "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
           "seg_id": "1755",
           "trail_name": "Buena Vista Trail",
           "official_miles": 0.14,
@@ -2741,7 +2763,7 @@
               "outing_id": "112-1",
               "label": "FD12A",
               "candidate_ids": [
-                "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+                "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
               ]
             }
           ],
@@ -4173,21 +4195,6 @@
             }
           ],
           "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1750",
-          "trail_name": "Around the Mountain Trail",
-          "official_miles": 0.34,
-          "owned_by_routes": [
-            {
-              "outing_id": "126-1",
-              "label": "FD26A",
-              "candidate_ids": [
-                "around-the-mountain-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
         }
       ]
     },
@@ -4409,19 +4416,7 @@
       "on_foot_miles": 7.78,
       "non_credit_miles": 2.15,
       "source_repeat_legs": [],
-      "public_repeat_cues": [
-        {
-          "seq": 3,
-          "cue_type": "return_to_car",
-          "official_repeat_miles": 5.11,
-          "official_repeat_segment_ids": [
-            "1572",
-            "1573"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
+      "public_repeat_cues": [],
       "missing_public_repeat_segment_ids": [],
       "bucket_c_extra_credit_segments": []
     },
@@ -5343,30 +5338,6 @@
       ]
     },
     {
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
-      "outing_id": "112-1",
-      "label": "FD12A",
-      "official_miles": 3.13,
-      "on_foot_miles": 4.86,
-      "non_credit_miles": 1.73,
-      "source_repeat_legs": [],
-      "public_repeat_cues": [
-        {
-          "seq": 5,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.95,
-          "official_repeat_segment_ids": [
-            "1565",
-            "1566"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": []
-    },
-    {
       "candidate_id": "combo-landslide-red-tail-trail",
       "outing_id": "116-2",
       "label": "15B",
@@ -6238,9 +6209,9 @@
       "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
       "outing_id": "112-2",
       "label": "FD12B",
-      "official_miles": 4.72,
+      "official_miles": 4.52,
       "on_foot_miles": 6.36,
-      "non_credit_miles": 1.64,
+      "non_credit_miles": 1.84,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -6254,7 +6225,6 @@
           ],
           "missing_repeat_segment_ids": false,
           "self_repeat_segment_ids": [
-            "1579",
             "1581",
             "1699",
             "1717"
@@ -6322,6 +6292,21 @@
       "missing_public_repeat_segment_ids": [],
       "bucket_c_extra_credit_segments": [
         {
+          "seg_id": "1579",
+          "trail_name": "Kemper's Ridge Trail",
+          "official_miles": 0.2,
+          "owned_by_routes": [
+            {
+              "outing_id": "112-1",
+              "label": "FD12A",
+              "candidate_ids": [
+                "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
           "seg_id": "1755",
           "trail_name": "Buena Vista Trail",
           "official_miles": 0.14,
@@ -6330,7 +6315,7 @@
               "outing_id": "112-1",
               "label": "FD12A",
               "candidate_ids": [
-                "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+                "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
               ]
             }
           ],
@@ -7743,14 +7728,69 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 11.74,
+          "official_repeat_miles": 6.98,
           "official_repeat_segment_ids": [
             "1542",
             "1543",
             "1544",
             "1545",
-            "1546",
-            "1656"
+            "1546"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail",
+      "outing_id": "112-1",
+      "label": "FD12A",
+      "official_miles": 3.33,
+      "on_foot_miles": 5.96,
+      "non_credit_miles": 2.63,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1579"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1579"
+          ],
+          "connector_names": [
+            "#53 Buena Vista",
+            "Buena Vista",
+            "Kemper\u2019s Ridge #52"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.2,
+          "official_repeat_segment_ids": [
+            "1579"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.95,
+          "official_repeat_segment_ids": [
+            "1565",
+            "1566"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true

@@ -273,11 +273,11 @@ Decision counts:
 
 ### FD12A
 
-- Candidate: `combo-full-sail-trail-buena-vista-trail-bob-smylie`
+- Candidate: `multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail`
 - Decision: `HOLD_PROVEN_CURRENT`
 - Area: Hillside to Hollow
-- Official / on-foot / p75: 3.13 mi / 4.47 mi / 116 min
-- Result: Kept as the current field-ready route; no material disproof pressure remains in current audits.
+- Official / on-foot / p75: 3.33 mi / 5.96 mi / 128 min
+- Result: Kept as the current repaired field-ready route; stale long West Climb field-day geometry was removed from the canonical source.
 - What would disprove later: A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.
 
 ### FD12B

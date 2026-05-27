@@ -39,7 +39,10 @@
     .transit-trunk-halo { fill:none; stroke:#fff; stroke-width:30; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
     .transit-trunk-band { fill:none; stroke:#2563eb; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
     .transit-trunk-separator { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
+    .active-halo.split-lane { fill:none; stroke:#fff; stroke-width:12; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .active-line.split-lane { fill:none; stroke:#2563eb; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .route-slice { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-slice.napkin { stroke-width:12; }
     .cue-leg { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .chevron { fill:none; stroke:#111827; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .direction-arrow { fill:#111827; stroke:#fff; stroke-width:2.5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -159,7 +162,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "74c681782b284b30";
+    const DEFAULT_ASSET_VERSION = "11f8bb284c71a328";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -653,6 +656,11 @@
     }
     function visibleRouteStartM() {
       return state.showAllRoute ? 0 : activeContextStartM();
+    }
+    function activeLegUsesSplitLane(leg) {
+      const cue = leg?.cue || {};
+      const cueType = String(cue.cue_type || "");
+      return cueType === "overlap_repeat" || Boolean(cue.overlap_match);
     }
     function cueIndexForRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
@@ -1315,8 +1323,11 @@
       const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
+      const activeLaneClass = activeLegUsesSplitLane(leg) ? " split-lane" : "";
       if (activePath) {
-        routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
+        routeHtml += activeLaneClass
+          ? `<path class="active-halo split-lane" d="${activePath}" /><path class="active-line split-lane" d="${activePath}" />`
+          : `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
       const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM);
       const trunkPath = pathForSegments(trunkSegments, { smooth: true });

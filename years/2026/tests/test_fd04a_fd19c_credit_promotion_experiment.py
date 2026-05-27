@@ -56,11 +56,10 @@ def test_source_credit_support_distinguishes_repeat_evidence_from_claimed_credit
     assert support["source_declares_all_target_ids_owned_elsewhere_now"] is True
 
 
-def test_real_fd04a_fd19c_experiment_keeps_current_cards_after_retraction():
+def test_real_fd04a_fd19c_experiment_is_ready_for_controlled_source_promotion():
     module = load_module()
-    field_tool_data = json.loads((REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json").read_text())
     report = module.build_experiment(
-        field_tool_data=field_tool_data,
+        field_tool_data=json.loads((REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json").read_text()),
         route_repeat_audit=json.loads(
             (REPO_ROOT / "years" / "2026" / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json").read_text()
         ),
@@ -83,11 +82,15 @@ def test_real_fd04a_fd19c_experiment_keeps_current_cards_after_retraction():
         ),
     )
 
-    assert report["status"] == "blocked_keep_current_cards"
-    assert report["decision"] == "experiment_only_no_active_packet_mutation"
-    assert report["summary"]["current_active_route_count"] == len(field_tool_data["routes"])
-    assert report["summary"]["hypothetical_route_count_after"] == len(field_tool_data["routes"]) - 1
+    assert report["status"] == "ready_for_controlled_source_promotion"
+    assert report["summary"]["current_active_route_count"] == 49
+    assert report["summary"]["hypothetical_route_count_after"] == 48
     assert report["summary"]["official_coverage_after_hypothetical_promotion"] == "251/251"
     assert report["summary"]["active_packet_mutated"] is False
-    assert report["hard_gates"]["fd04a_gpx_full_covers_fd19c_segments"] == "passed"
-    assert report["hard_gates"]["route_repeat_hard_gate"] == "blocked"
+    assert report["hard_gates"] == {
+        "fd04a_gpx_full_covers_fd19c_segments": "passed",
+        "route_repeat_hard_gate": "passed",
+        "hypothetical_coverage_after_fd19c_removal": "passed",
+        "calendar_reorder_supported": "passed",
+        "phone_visible_claim_cues_can_be_generated": "passed",
+    }

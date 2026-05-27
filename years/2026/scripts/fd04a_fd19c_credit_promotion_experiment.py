@@ -321,6 +321,63 @@ def build_experiment(
     repeat_by_key = route_repeat_index(route_repeat_audit)
     latent_by_key = latent_route_index(field_latent_audit)
     official_by_id = official_index(official_geojson)
+    missing_active_keys = [
+        key
+        for key in (SOURCE_OUTING_ID, OWNER_OUTING_ID)
+        if key not in routes_by_key
+    ]
+    if missing_active_keys:
+        return {
+            "schema": "boise_trails_fd04a_fd19c_credit_promotion_experiment_v1",
+            "generated_at": now_iso(),
+            "objective": "Test whether FD04A can claim/cue FD19C Shane's Trail segments and remove FD19C without a Freestone mega-route.",
+            "status": "stale_active_packet_route_ids",
+            "decision": "experiment_only_no_active_packet_mutation",
+            "source_files": {
+                "field_tool_data_json": display_path(DEFAULT_FIELD_TOOL_DATA_JSON),
+                "route_repeat_audit_json": display_path(DEFAULT_ROUTE_REPEAT_AUDIT_JSON),
+                "field_latent_credit_audit_json": display_path(DEFAULT_FIELD_LATENT_AUDIT_JSON),
+                "calendar_reorder_json": display_path(DEFAULT_CALENDAR_REORDER_JSON),
+                "official_geojson": display_path(DEFAULT_OFFICIAL_GEOJSON),
+            },
+            "routes": {
+                "source": {
+                    "outing_id": SOURCE_OUTING_ID,
+                    "label": SOURCE_LABEL,
+                    "candidate_id": SOURCE_CANDIDATE_ID,
+                    "status": "missing_from_active_packet" if SOURCE_OUTING_ID in missing_active_keys else "present",
+                },
+                "owner_to_remove": {
+                    "outing_id": OWNER_OUTING_ID,
+                    "label": OWNER_LABEL,
+                    "candidate_id": OWNER_CANDIDATE_ID,
+                    "status": "missing_from_active_packet" if OWNER_OUTING_ID in missing_active_keys else "present",
+                },
+            },
+            "target_segment_ids": TARGET_SEGMENT_IDS,
+            "source_current_credit_support": {},
+            "fd04a_gpx_segment_proof": {"segments": [], "status": "not_evaluated_stale_active_packet"},
+            "route_repeat_gate": {"status": "not_evaluated_stale_active_packet"},
+            "hypothetical_after_promotion": {"status": "not_evaluated_stale_active_packet"},
+            "calendar_reorder_scenario": {},
+            "proposed_segment_promotion_rows": [],
+            "hard_gates": {
+                "active_packet_contains_legacy_source_routes": "blocked",
+            },
+            "summary": {
+                "current_active_route_count": len(routes),
+                "hypothetical_route_count_after": None,
+                "saved_on_foot_miles_if_promoted": 0,
+                "saved_p75_minutes_if_promoted": 0,
+                "saved_p90_minutes_if_promoted": 0,
+                "official_coverage_after_hypothetical_promotion": "not_evaluated",
+                "active_packet_mutated": False,
+                "missing_active_route_keys": missing_active_keys,
+            },
+            "remaining_steps_for_real_promotion": [
+                "Rebuild this experiment against the current active route-card IDs before using it as promotion evidence.",
+            ],
+        }
     source_route = routes_by_key[SOURCE_OUTING_ID]
     owner_route = routes_by_key.get(OWNER_OUTING_ID)
     source_repeat_row = repeat_by_key[SOURCE_OUTING_ID]

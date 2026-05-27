@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import bisect
 import binascii
 import copy
 import hashlib
@@ -96,6 +97,7 @@ DEFAULT_SEGMENT_ELEVATION_JSON = YEAR_DIR / "derived" / "elevation" / "segment-e
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 DEFAULT_REPEAT_REPAIR_SNAP_TOLERANCE_MILES = 0.02
+DEFAULT_DERIVE_NON_CREDIT_REPEATS = False
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
 OFFICIAL_GPX_DIR_NAME = "official"
 CUE_GPX_DIR_NAME = "cues"
@@ -303,6 +305,11 @@ def source_metadata_for_map_data(map_data: dict[str, Any], source_path: Path | N
 
 def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[str]:
     return [str(value) for value in values or [] if value is not None]
+
+
+def segment_sort_key(value: Any) -> tuple[int, int | str]:
+    text = str(value)
+    return (0, int(text)) if text.isdigit() else (1, text)
 
 
 def extract_map_data_from_html(html: str) -> dict[str, Any]:
@@ -522,6 +529,59 @@ def flatten_track_segments(track_segments: list[list[tuple[float, float]]] | Non
     return points
 
 
+_ROUTE_POINT_INDEX_CACHE: dict[int, dict[str, Any]] = {}
+_ROUTE_POINT_MILES_CACHE: dict[int, dict[str, Any]] = {}
+
+
+def route_point_spatial_index(route_points: list[dict[str, Any]], cell_degrees: float = 0.001) -> dict[str, Any]:
+    cache_key = id(route_points)
+    cached = _ROUTE_POINT_INDEX_CACHE.get(cache_key)
+    if cached and cached.get("route_points") is route_points:
+        return cached
+    buckets: dict[tuple[int, int], list[dict[str, Any]]] = {}
+    for item in route_points:
+        lon, lat = item["point"]
+        cell = (math.floor(lon / cell_degrees), math.floor(lat / cell_degrees))
+        buckets.setdefault(cell, []).append(item)
+    indexed = {
+        "route_points": route_points,
+        "cell_degrees": cell_degrees,
+        "buckets": buckets,
+    }
+    _ROUTE_POINT_INDEX_CACHE[cache_key] = indexed
+    return indexed
+
+
+def route_point_miles(route_points: list[dict[str, Any]]) -> list[float]:
+    cache_key = id(route_points)
+    cached = _ROUTE_POINT_MILES_CACHE.get(cache_key)
+    if cached and cached.get("route_points") is route_points:
+        return cached["miles"]
+    miles = [float(item.get("mile") or 0) for item in route_points]
+    _ROUTE_POINT_MILES_CACHE[cache_key] = {"route_points": route_points, "miles": miles}
+    return miles
+
+
+def nearby_route_points(
+    route_points: list[dict[str, Any]],
+    point: tuple[float, float],
+    radius_miles: float,
+) -> list[dict[str, Any]]:
+    indexed = route_point_spatial_index(route_points)
+    cell_degrees = float(indexed["cell_degrees"])
+    buckets = indexed["buckets"]
+    lon, lat = point
+    x = math.floor(lon / cell_degrees)
+    y = math.floor(lat / cell_degrees)
+    radius_degrees = max(radius_miles / 69.0, radius_miles / max(1.0, 69.172 * math.cos(math.radians(lat))))
+    radius_cells = max(1, int(math.ceil(radius_degrees / cell_degrees)))
+    candidates: list[dict[str, Any]] = []
+    for dx in range(-radius_cells, radius_cells + 1):
+        for dy in range(-radius_cells, radius_cells + 1):
+            candidates.extend(buckets.get((x + dx, y + dy), []))
+    return candidates
+
+
 def route_miles_near_point(
     route_points: list[dict[str, Any]],
     point: tuple[float, float],
@@ -529,15 +589,29 @@ def route_miles_near_point(
 ) -> list[float]:
     if not route_points:
         return []
+    candidates = nearby_route_points(route_points, point, 0.12)
+    if not candidates:
+        return []
+    lon_scale = 69.172 * math.cos(math.radians(point[1]))
+    lat_scale = 69.0
+    tolerance_sq = tolerance_miles * tolerance_miles
+    fallback_tolerance_sq = 0.12 * 0.12
+
+    def approx_distance_sq(route_point: dict[str, Any]) -> float:
+        route_lon, route_lat = route_point["point"]
+        dx = (point[0] - route_lon) * lon_scale
+        dy = (point[1] - route_lat) * lat_scale
+        return dx * dx + dy * dy
+
     matches = [
         float(item["mile"])
-        for item in route_points
-        if haversine_miles(point, item["point"]) <= tolerance_miles
+        for item in candidates
+        if approx_distance_sq(item) <= tolerance_sq
     ]
     if matches:
         return matches
-    nearest = min(route_points, key=lambda item: haversine_miles(point, item["point"]))
-    if haversine_miles(point, nearest["point"]) <= 0.12:
+    nearest = min(candidates, key=approx_distance_sq)
+    if approx_distance_sq(nearest) <= fallback_tolerance_sq:
         return [float(nearest["mile"])]
     return []
 
@@ -906,11 +980,14 @@ def off_label_segments_for_cue(
     claimed_ids = set(normalized_segment_ids(cue.get("official_segment_ids") or []))
     signed_keys = cue_signed_trail_keys(cue)
     labels = []
-    segment_items = (
-        ((segment_id, official_index[segment_id]) for segment_id in sorted(candidate_segment_ids) if segment_id in official_index)
-        if candidate_segment_ids
-        else official_index.items()
-    )
+    if candidate_segment_ids is not None:
+        if not candidate_segment_ids:
+            return []
+        segment_items = (
+            (segment_id, official_index[segment_id]) for segment_id in sorted(candidate_segment_ids) if segment_id in official_index
+        )
+    else:
+        segment_items = official_index.items()
     for segment_id, feature in segment_items:
         if segment_id in claimed_ids:
             continue
@@ -1395,7 +1472,7 @@ def apply_segment_ownership_reconciliation(
     *,
     elevation_sampler: Any = None,
     threshold_miles: float = 0.045,
-    max_activity_points: int = 1200,
+    max_activity_points: int = 240,
 ) -> None:
     """Declare official segments a route traverses but another card owns.
 
@@ -2821,7 +2898,7 @@ def full_claimed_segments_in_cue_interval(
     route_points: list[dict[str, Any]],
     elevation_sampler: Any = None,
     threshold_miles: float = 0.045,
-    max_activity_points: int = 600,
+    max_activity_points: int = 160,
 ) -> set[str]:
     interval = cue_route_interval(cue)
     if not interval or not claimed_segment_ids:
@@ -2835,9 +2912,23 @@ def full_claimed_segments_in_cue_interval(
         return set()
     completed_ids: set[str] = set()
     for review_index in (official_index, default_official_feature_index()):
+        interval_candidate_ids = set()
+        for segment_id in claimed_segment_ids:
+            feature = review_index.get(segment_id)
+            if not feature:
+                continue
+            endpoint_hits = [
+                mile
+                for mile in official_feature_endpoint_route_miles(feature, route_points)
+                if interval[0] - threshold_miles <= mile <= interval[1] + threshold_miles
+            ]
+            if len(endpoint_hits) >= 2:
+                interval_candidate_ids.add(segment_id)
+        if not interval_candidate_ids:
+            continue
         candidate_index = {
             segment_id: review_index[segment_id]
-            for segment_id in claimed_segment_ids
+            for segment_id in interval_candidate_ids
             if segment_id in review_index
         }
         official_segments = official_segments_for_review(candidate_index)
@@ -2846,7 +2937,7 @@ def full_claimed_segments_in_cue_interval(
         review = review_activity_against_segments(
             downsample_coords(interval_coords, max_points=max_activity_points),
             official_segments,
-            planned_segment_ids=claimed_segment_ids,
+            planned_segment_ids=interval_candidate_ids,
             threshold_miles=threshold_miles,
             endpoint_threshold_miles=0.04,
             min_fraction=0.85,
@@ -3532,22 +3623,26 @@ def point_at_track_mile(route_points: list[dict[str, Any]], target_mile: float) 
     if not route_points:
         return None
     target = max(0.0, min(float(target_mile or 0), float(route_points[-1].get("mile") or 0)))
-    prior = route_points[0]
-    for item in route_points[1:]:
-        item_mile = float(item.get("mile") or 0)
-        prior_mile = float(prior.get("mile") or 0)
-        if item_mile >= target:
-            span = item_mile - prior_mile
-            if span <= 0:
-                return item["point"]
-            ratio = (target - prior_mile) / span
-            left = prior["point"]
-            right = item["point"]
-            return (
-                left[0] + (right[0] - left[0]) * ratio,
-                left[1] + (right[1] - left[1]) * ratio,
-            )
-        prior = item
+    miles = route_point_miles(route_points)
+    index = bisect.bisect_left(miles, target)
+    if index <= 0:
+        return route_points[0]["point"]
+    if index >= len(route_points):
+        return route_points[-1]["point"]
+    prior = route_points[index - 1]
+    item = route_points[index]
+    item_mile = float(item.get("mile") or 0)
+    prior_mile = float(prior.get("mile") or 0)
+    span = item_mile - prior_mile
+    if span <= 0:
+        return item["point"]
+    ratio = (target - prior_mile) / span
+    left = prior["point"]
+    right = item["point"]
+    return (
+        left[0] + (right[0] - left[0]) * ratio,
+        left[1] + (right[1] - left[1]) * ratio,
+    )
     return route_points[-1]["point"]
 
 
@@ -3796,15 +3891,18 @@ def connector_cue_index_for_mile(route: dict[str, Any], route_miles: float | Non
 def enrich_route_with_walkthrough_edge_names(
     route: dict[str, Any],
     track_segments: list[list[tuple[float, float]]],
-    graph_edges: list[Any],
+    graph_edges: list[Any] | TrailGraph,
     *,
     snap_tolerance_miles: float = 0.015,
 ) -> dict[str, Any]:
     if not track_segments or not graph_edges or not route.get("wayfinding_cues"):
         return route
-    local_edges = filter_edges_for_track(graph_edges, track_segments)
-    if not local_edges:
-        return route
+    graph = graph_edges
+    if not isinstance(graph, TrailGraph):
+        local_edges = filter_edges_for_track(graph_edges, track_segments)
+        if not local_edges:
+            return route
+        graph = TrailGraph(local_edges)
     all_text = " ".join(
         [
             str(step.get("title") or "") + " " + str(step.get("detail") or "")
@@ -3824,8 +3922,8 @@ def enrich_route_with_walkthrough_edge_names(
         ]
     )
     groups, _unmatched = matched_edge_groups(
-        resample_track_segments_for_matching(track_segments),
-        TrailGraph(local_edges),
+        resample_track_segments_for_matching(track_segments, spacing_miles=0.01),
+        graph,
         snap_tolerance_miles,
         preferred_text=all_text,
     )
@@ -5092,7 +5190,10 @@ def render_live_map_html(asset_version: str = "") -> str:
     .transit-trunk-halo { fill:none; stroke:#fff; stroke-width:30; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
     .transit-trunk-band { fill:none; stroke:#2563eb; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
     .transit-trunk-separator { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
+    .active-halo.split-lane { fill:none; stroke:#fff; stroke-width:12; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .active-line.split-lane { fill:none; stroke:#2563eb; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .route-slice { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-slice.napkin { stroke-width:12; }
     .cue-leg { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .chevron { fill:none; stroke:#111827; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .direction-arrow { fill:#111827; stroke:#fff; stroke-width:2.5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -5706,6 +5807,11 @@ def render_live_map_html(asset_version: str = "") -> str:
     }
     function visibleRouteStartM() {
       return state.showAllRoute ? 0 : activeContextStartM();
+    }
+    function activeLegUsesSplitLane(leg) {
+      const cue = leg?.cue || {};
+      const cueType = String(cue.cue_type || "");
+      return cueType === "overlap_repeat" || Boolean(cue.overlap_match);
     }
     function cueIndexForRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
@@ -6368,8 +6474,11 @@ def render_live_map_html(asset_version: str = "") -> str:
       const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
+      const activeLaneClass = activeLegUsesSplitLane(leg) ? " split-lane" : "";
       if (activePath) {
-        routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
+        routeHtml += activeLaneClass
+          ? `<path class="active-halo split-lane" d="${activePath}" /><path class="active-line split-lane" d="${activePath}" />`
+          : `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
       const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM);
       const trunkPath = pathForSegments(trunkSegments, { smooth: true });
@@ -7332,7 +7441,6 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         "field_days": [public_field_day_record(day) for day in field_day_layer_data.get("field_days") or []],
     }
 
-
 def apply_route_names_to_field_day_layer(field_day_layer: dict[str, Any] | None, routes: list[dict[str, Any]]) -> None:
     if not field_day_layer:
         return
@@ -7510,6 +7618,87 @@ def recalculate_field_day_layer_route_card_summary(field_day_layer: dict[str, An
         field_day_layer["publication_status"] = "field_day_certified"
 
 
+def field_day_layer_route_ref_issues(
+    field_day_layer_data: dict[str, Any] | None,
+    routes: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    if not field_day_layer_data:
+        return []
+    route_by_outing_id = {
+        str(route.get("outing_id") or ""): route
+        for route in routes
+        if route.get("outing_id") is not None
+    }
+    issues: list[dict[str, Any]] = []
+    for day_index, day in enumerate(field_day_layer_data.get("field_days") or []):
+        for loop_index, loop in enumerate(day.get("loops") or []):
+            route_ref = loop.get("route_card_ref") or {}
+            if not route_ref:
+                continue
+            outing_id = str(route_ref.get("outing_id") or "")
+            if outing_id and outing_id not in route_by_outing_id:
+                issues.append(
+                    {
+                        "code": "field_day_route_ref_missing_current_outing",
+                        "field_day_index": day_index,
+                        "loop_index": loop_index,
+                        "field_day_id": day.get("field_day_id"),
+                        "loop_id": loop.get("loop_id"),
+                        "loop_label": loop.get("label"),
+                        "stale_outing_id": outing_id,
+                    }
+                )
+                continue
+            route = route_by_outing_id.get(outing_id)
+            if not route:
+                continue
+            expected_candidate_ids = {
+                str(candidate_id)
+                for candidate_id in (route.get("outing") or {}).get("candidate_ids") or []
+            }
+            actual_candidate_ids = {
+                str(candidate_id)
+                for candidate_id in route_ref.get("candidate_ids") or []
+            }
+            if actual_candidate_ids and not actual_candidate_ids.issubset(expected_candidate_ids):
+                issues.append(
+                    {
+                        "code": "field_day_route_ref_candidate_mismatch",
+                        "field_day_index": day_index,
+                        "loop_index": loop_index,
+                        "field_day_id": day.get("field_day_id"),
+                        "loop_id": loop.get("loop_id"),
+                        "loop_label": loop.get("label"),
+                        "outing_id": outing_id,
+                        "route_ref_candidate_ids": sorted(actual_candidate_ids),
+                        "current_route_candidate_ids": sorted(expected_candidate_ids),
+                    }
+                )
+            expected_segment_ids = set(
+                normalized_segment_ids(
+                    route.get("segment_ids")
+                    or (route.get("outing") or {}).get("remaining_segment_ids")
+                    or (route.get("outing") or {}).get("segment_ids")
+                )
+            )
+            actual_segment_ids = set(normalized_segment_ids(loop.get("segment_ids") or route_ref.get("segment_ids")))
+            if actual_segment_ids and expected_segment_ids and actual_segment_ids != expected_segment_ids:
+                issues.append(
+                    {
+                        "code": "field_day_route_ref_segment_mismatch",
+                        "field_day_index": day_index,
+                        "loop_index": loop_index,
+                        "field_day_id": day.get("field_day_id"),
+                        "loop_id": loop.get("loop_id"),
+                        "loop_label": loop.get("label"),
+                        "outing_id": outing_id,
+                        "route_ref_segment_ids": sorted(actual_segment_ids, key=segment_sort_key),
+                        "current_route_segment_ids": sorted(expected_segment_ids, key=segment_sort_key),
+                    }
+                )
+    return issues
+
+
 def build_field_tool_data(
     manifest: dict[str, Any],
     certificate_data: dict[str, Any] | None = None,
@@ -7637,6 +7826,7 @@ def export_field_packet(
     field_day_layer_data: dict[str, Any] | None = None,
     trailhead_access_index: dict[str, dict[str, Any]] | None = None,
     walkthrough_graph_edges: list[Any] | None = None,
+    derive_non_credit_repeats: bool = DEFAULT_DERIVE_NON_CREDIT_REPEATS,
 ) -> dict[str, Any]:
     map_data = apply_progress_to_map_data(map_data, progress_data)
     computed_source_metadata = source_metadata_for_map_data(map_data)
@@ -7670,7 +7860,11 @@ def export_field_packet(
     segments_by_id = official_segment_index(map_data)
     route_cues = map_data.get("route_cues") or {}
     if walkthrough_graph_edges is None:
-        walkthrough_graph_edges = load_default_walkthrough_graph_edges()
+        # The standalone field-route walkthrough audit is the certification gate.
+        # Export keeps this additive name-enrichment pass opt-in so dense overlap
+        # and out-and-back route cards cannot block packet regeneration.
+        walkthrough_graph_edges = []
+    walkthrough_graph = TrailGraph(walkthrough_graph_edges) if walkthrough_graph_edges else None
     segment_elevation_index = load_segment_elevation_index()
     dem_context = load_dem_context(DEFAULT_DEM_TIF, DEFAULT_DEM_SUMMARY_JSON)
     connector_graph = load_default_connector_graph()
@@ -7898,10 +8092,12 @@ def export_field_packet(
         )
         apply_off_label_route_leg_warnings(route)
         route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
-        enrich_route_with_walkthrough_edge_names(route, route["_track_segments"], walkthrough_graph_edges)
+        if walkthrough_graph is not None:
+            enrich_route_with_walkthrough_edge_names(route, route["_track_segments"], walkthrough_graph)
         apply_geometry_overlap_wayfinding_cautions(route)
         apply_overlap_exit_wayfinding_cautions(route)
-        apply_non_credit_claimed_repeat_declarations(route)
+        if derive_non_credit_repeats:
+            apply_non_credit_claimed_repeat_declarations(route)
         late_repeat_repairs = repair_avoidable_post_credit_repeats(
             route,
             connector_graph=connector_graph,
@@ -8015,6 +8211,9 @@ def export_field_packet(
         elevation_sampler=dem_context.get("sampler"),
     )
     apply_navigation_source_audit_to_routes(routes)
+    field_day_layer_route_ref_failures = field_day_layer_route_ref_issues(field_day_layer_data, routes)
+    if field_day_layer_route_ref_failures:
+        field_day_layer_data = None
     safety_by_outing = completion_safety_by_outing(routes)
     for route in routes:
         route["completion_safety"] = safety_by_outing.get(str(route.get("outing_id")), {})
@@ -8034,9 +8233,17 @@ def export_field_packet(
             ),
             "max_gap_miles": max_gap_miles,
             "max_parking_gap_miles": max_parking_gap_miles,
+            "field_day_layer_included": not field_day_layer_route_ref_failures
+            and bool(field_day_layer_data),
+            "field_day_layer_route_ref_failure_count": len(field_day_layer_route_ref_failures),
         },
         "routes": manifest_routes,
         "manual_holds": manual_holds,
+        "field_day_layer_consistency": {
+            "status": "passed" if not field_day_layer_route_ref_failures else "omitted_stale_route_refs",
+            "route_ref_failure_count": len(field_day_layer_route_ref_failures),
+            "route_ref_failures": field_day_layer_route_ref_failures,
+        },
     }
     if special_management_audit:
         manifest["special_management_audit"] = special_management_audit
@@ -8068,7 +8275,10 @@ def export_field_packet(
         field_day_layer_data=field_day_layer_data,
     )
     manifest["certified_baseline"] = field_tool_data["certified_baseline"]
-    manifest["field_day_layer"] = field_tool_data.get("field_day_layer")
+    if field_tool_data.get("field_day_layer"):
+        manifest["field_day_layer"] = field_tool_data["field_day_layer"]
+    else:
+        manifest.pop("field_day_layer", None)
     manifest["summary"]["field_tool_data_href"] = FIELD_TOOL_DATA_NAME
     manifest["summary"]["map_data_sha256"] = field_tool_data["source"]["map_data_sha256"]
     (output_dir / "index.html").write_text(strip_trailing_whitespace(render_index(manifest)), encoding="utf-8")
@@ -8109,6 +8319,10 @@ def export_field_packet(
             for route in routes
             if route_is_field_ready(route)
         ],
+    }
+    public_manifest["field_day_layer_consistency"] = {
+        "status": manifest["field_day_layer_consistency"]["status"],
+        "route_ref_failure_count": manifest["field_day_layer_consistency"]["route_ref_failure_count"],
     }
     public_manifest["summary"]["pwa_artifacts"] = [
         "manifest.webmanifest",
@@ -8159,6 +8373,7 @@ def main() -> int:
             source_metadata=source_metadata_for_map_data(map_data, source_path),
             field_day_layer_data=load_default_field_day_layer(args.field_day_layer_json),
             trailhead_access_index=load_trailhead_access_index(),
+            walkthrough_graph_edges=load_default_walkthrough_graph_edges(),
         )
     except FieldPacketCertificationError as error:
         print(str(error), file=sys.stderr)

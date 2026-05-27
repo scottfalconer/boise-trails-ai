@@ -1,9 +1,9 @@
 {
   "schema": "boise_trails_fd04a_fd19c_credit_promotion_experiment_v1",
-  "generated_at": "2026-05-13T16:10:14Z",
+  "generated_at": "2026-05-27T02:14:28Z",
   "objective": "Test whether FD04A can claim/cue FD19C Shane's Trail segments and remove FD19C without a Freestone mega-route.",
-  "status": "active_packet_already_promoted",
-  "decision": "superseded_by_active_packet_promotion",
+  "status": "stale_active_packet_route_ids",
+  "decision": "experiment_only_no_active_packet_mutation",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
     "route_repeat_audit_json": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
@@ -16,109 +16,50 @@
       "outing_id": "104-1",
       "label": "FD04A",
       "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
-      "segment_ids_before": [
-        "1558",
-        "1649",
-        "1650",
-        "1651",
-        "1652",
-        "1748"
-      ],
-      "on_foot_miles": 9.55,
-      "p75_minutes": 204,
-      "p90_minutes": 229
+      "status": "missing_from_active_packet"
     },
-    "owner_to_remove": null
+    "owner_to_remove": {
+      "outing_id": "119-3",
+      "label": "FD19C",
+      "candidate_id": "shanes-trail",
+      "status": "missing_from_active_packet"
+    }
   },
   "target_segment_ids": [
     "1649",
     "1650",
     "1651"
   ],
-  "source_current_credit_support": {
-    "source_claims_all_target_ids_now": true,
-    "source_cues_all_target_ids_as_repeat_now": false,
-    "source_cues_all_target_ids_as_official_now": true,
-    "source_declares_all_target_ids_owned_elsewhere_now": false,
-    "target_repeat_cue_rows": [
-      {
-        "segment_id": "1650",
-        "current_cue_seq": 3,
-        "current_cue_type": "connector_named_trail",
-        "currently_repeat": true,
-        "currently_official": false,
-        "signed_as": [
-          "#26A Shane's",
-          "Shane's"
-        ],
-        "target": "Shane's Trail",
-        "until": "signed junction with Shane's Trail",
-        "display_detail": "Follow #26A Shane's / Shane's toward Shane's Trail. UNTIL signed junction with Shane's Trail. VERIFY: watch for signs: #26A Shane's. Connector mileage does not count as new official challenge credit. Includes 0.98 mi repeat official; no new credit.",
-        "official_repeat_miles": 0.98
-      }
-    ],
-    "status": "already_claimed_by_source"
-  },
+  "source_current_credit_support": {},
   "fd04a_gpx_segment_proof": {
-    "status": "not_applicable_active_packet_already_promoted",
-    "segments": []
+    "segments": [],
+    "status": "not_evaluated_stale_active_packet"
   },
   "route_repeat_gate": {
-    "status": "not_applicable_active_packet_already_promoted"
+    "status": "not_evaluated_stale_active_packet"
   },
   "hypothetical_after_promotion": {
-    "status": "passed",
-    "route_count_after": 43,
-    "covered_segment_count_after": 251,
-    "official_segment_count": 251,
-    "missing_after_ids": []
+    "status": "not_evaluated_stale_active_packet"
   },
-  "calendar_reorder_scenario": {
-    "scenario_id": "104-1-before-119-3",
-    "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
-    "source_target_date": "2026-06-18",
-    "owner_target_date": "2026-06-24",
-    "removed_owner_route_label": "FD19C",
-    "saved_on_foot_miles": 4.76,
-    "saved_p75_minutes": 109,
-    "saved_p90_minutes": 123,
-    "route_count_after": 43,
-    "owner_day_after_removal": {
-      "date": "2026-06-24",
-      "loop_count": 2,
-      "labels": [
-        "FD19A",
-        "FD19B"
-      ],
-      "p75_minutes": 143,
-      "p90_minutes": 163
-    },
-    "source_day_after_reorder": {
-      "date": "2026-06-18",
-      "loop_count": 1,
-      "labels": [
-        "FD04A"
-      ],
-      "p75_minutes": 204,
-      "p90_minutes": 229
-    }
-  },
+  "calendar_reorder_scenario": {},
   "proposed_segment_promotion_rows": [],
   "hard_gates": {
-    "fd19c_removed_from_active_routes": "passed",
-    "fd04a_claims_fd19c_segments": "passed",
-    "coverage_251_preserved": "passed"
+    "active_packet_contains_legacy_source_routes": "blocked"
   },
   "summary": {
-    "current_active_route_count": 43,
-    "hypothetical_route_count_after": 43,
-    "saved_on_foot_miles_if_promoted": 4.76,
-    "saved_p75_minutes_if_promoted": 109,
-    "saved_p90_minutes_if_promoted": 123,
-    "official_coverage_after_hypothetical_promotion": "251/251",
-    "active_packet_mutated": true
+    "current_active_route_count": 31,
+    "hypothetical_route_count_after": null,
+    "saved_on_foot_miles_if_promoted": 0,
+    "saved_p75_minutes_if_promoted": 0,
+    "saved_p90_minutes_if_promoted": 0,
+    "official_coverage_after_hypothetical_promotion": "not_evaluated",
+    "active_packet_mutated": false,
+    "missing_active_route_keys": [
+      "104-1",
+      "119-3"
+    ]
   },
   "remaining_steps_for_real_promotion": [
-    "Use fd04a_fd19c_route_card_promotion_path_experiment.py verify for the active-packet certification gate."
+    "Rebuild this experiment against the current active route-card IDs before using it as promotion evidence."
   ]
 }

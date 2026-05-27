@@ -44,6 +44,6 @@
     "public_access_recheck_candidate_count": 0,
     "public_source_reevaluation": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json",
     "user_confirmed_access_candidate_count": 1,
-    "route_source_regeneration_refresh": "2026-05-23: refreshed from the current 49-card field-ready packet after source repairs, certified accepted replacements, FD12/FD23 splits, FD18A direction repair, and Veterans connector repair."
+    "route_source_regeneration_refresh": "2026-05-26: refreshed from the current 49-card field-ready packet after FD12A Kemper 1 credit assignment and stale West Climb source-geometry cleanup."
   }
 }

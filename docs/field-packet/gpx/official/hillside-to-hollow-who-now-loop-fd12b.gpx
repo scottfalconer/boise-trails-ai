@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Hillside to Hollow: Who Now Loop (FD12B)</name>
-    <desc>FD12B. Harrison Hollow | Official 4.72 mi; On-foot 6.36 mi; Door-to-door p75 1h 36m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD12B. Harrison Hollow | Official 4.52 mi; On-foot 6.36 mi; Door-to-door p75 2h 21m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.644766" lon="-116.208353">
     <name>PARK/START Harrison Hollow Trailhead</name>
@@ -12,9 +12,9 @@
     <name>CUE 01 #57 Harrison Hollow</name>
     <desc>Follow #57 Harrison Hollow. First official segment here: Harrison Hollow 1. Signpost: #57 Harrison Hollow. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.653598" lon="-116.217414">
+  <wpt lat="43.651757" lon="-116.211199">
     <name>CUE 02 #52 Kemper's Ridge Trail</name>
-    <desc>Follow #52 Kemper's Ridge Trail. First official segment here: Kemper's Ridge Trail 1. Signpost: #52 Kemper's Ridge Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow #52 Kemper's Ridge Trail. First official segment here: Kemper's Ridge Trail 3. Signpost: #52 Kemper's Ridge Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.648441" lon="-116.209395">
     <name>CUE 03 #50 Hippie Shake Trail</name>
@@ -34,7 +34,7 @@
   </wpt>
   <trk>
     <name>Hillside to Hollow: Who Now Loop (FD12B)</name>
-    <desc>FD12B. Harrison Hollow | Official 4.72 mi; On-foot 6.36 mi; Door-to-door p75 1h 36m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD12B. Harrison Hollow | Official 4.52 mi; On-foot 6.36 mi; Door-to-door p75 2h 21m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.644810" lon="-116.208310" />
       <trkpt lat="43.644880" lon="-116.208250" />

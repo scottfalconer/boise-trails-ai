@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_special_management_rule_audit_v1",
-  "generated_at": "2026-05-24T03:58:05.669683+00:00",
+  "generated_at": "2026-05-27T03:48:19.318011+00:00",
   "status": "passed",
   "source_rules": {
     "schema": "boise_trails_special_management_rules_v1",
@@ -116,14 +116,6 @@
       "failures": []
     },
     {
-      "label": "FD12B",
-      "outing_id": "112-2",
-      "passed": true,
-      "checked_segments": [],
-      "date_context_required": [],
-      "failures": []
-    },
-    {
       "label": "4A",
       "outing_id": "105-2",
       "passed": true,
@@ -204,14 +196,6 @@
       "failures": []
     },
     {
-      "label": "FD12A",
-      "outing_id": "112-1",
-      "passed": true,
-      "checked_segments": [],
-      "date_context_required": [],
-      "failures": []
-    },
-    {
       "label": "FD07A",
       "outing_id": "107-1",
       "passed": true,
@@ -252,6 +236,14 @@
       "failures": []
     },
     {
+      "label": "FD12A",
+      "outing_id": "112-1",
+      "passed": true,
+      "checked_segments": [],
+      "date_context_required": [],
+      "failures": []
+    },
+    {
       "label": "16B",
       "outing_id": "117-1",
       "passed": true,
@@ -262,6 +254,14 @@
     {
       "label": "FD05A",
       "outing_id": "105-1",
+      "passed": true,
+      "checked_segments": [],
+      "date_context_required": [],
+      "failures": []
+    },
+    {
+      "label": "FD12B",
+      "outing_id": "112-2",
       "passed": true,
       "checked_segments": [],
       "date_context_required": [],

@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Hillside to Hollow: Who Now Loop (FD12B) audit</name>
-    <desc>FD12B. Harrison Hollow | Official 4.72 mi; On-foot 6.36 mi; Door-to-door p75 1h 36m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD12B. Harrison Hollow | Official 4.52 mi; On-foot 6.36 mi; Door-to-door p75 2h 21m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.644766" lon="-116.208353">
     <name>PARK/START Harrison Hollow Trailhead</name>
@@ -23,10 +23,6 @@
   <wpt lat="43.651729" lon="-116.207023">
     <name>SEG 2 Harrison Hollow 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.73 mi. est. 8 min; 201 ft climb. Signpost: #57 Harrison Hollow.</desc>
-  </wpt>
-  <wpt lat="43.653598" lon="-116.217414">
-    <name>SEG 3 Kemper's Ridge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 4 min; 40 ft climb. Signpost: #52 Kemper's Ridge Trail.</desc>
   </wpt>
   <wpt lat="43.651757" lon="-116.211199">
     <name>SEG 4 Kemper's Ridge Trail 3</name>
@@ -66,7 +62,7 @@
   </wpt>
   <trk>
     <name>Hillside to Hollow: Who Now Loop (FD12B) audit</name>
-    <desc>FD12B. Harrison Hollow | Official 4.72 mi; On-foot 6.36 mi; Door-to-door p75 1h 36m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD12B. Harrison Hollow | Official 4.52 mi; On-foot 6.36 mi; Door-to-door p75 2h 21m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.644810" lon="-116.208310" />
       <trkpt lat="43.644880" lon="-116.208250" />

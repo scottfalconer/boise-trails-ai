@@ -1,11 +1,11 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-26T17:20:19.588385+00:00",
+  "generated_at": "2026-05-27T03:52:46.909137+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
-    "passed_requirement_count": 17,
-    "requirement_count": 17,
+    "passed_requirement_count": 18,
+    "requirement_count": 18,
     "route_count": 49,
     "field_ready_route_count": 49,
     "held_route_count": 0,
@@ -14,8 +14,8 @@
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 251,
-    "advisory_check_count": 3,
-    "advisory_action_count": 38,
+    "advisory_check_count": 4,
+    "advisory_action_count": 95,
     "special_management_status": "passed",
     "special_management_failed_route_count": 0
   },
@@ -23,7 +23,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 8468dde3f150f81ef2767d30756430c487def673b9869967c9cab4c73c6e7950; canonical map hash 8468dde3f150f81ef2767d30756430c487def673b9869967c9cab4c73c6e7950"
+      "evidence": "field source hash 48217201b13f8491c469a5cd78e19e4691a1072861612eb9b4345fc0946adde4; canonical map hash 48217201b13f8491c469a5cd78e19e4691a1072861612eb9b4345fc0946adde4"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -101,6 +101,11 @@
       "evidence": "{\"failed_route_count\": 0, \"missing_gpx_route_count\": 0, \"phase_reset_advisory_count\": 2, \"phase_reset_failure_count\": 0, \"status\": \"passed\"}"
     },
     {
+      "requirement": "Graduated bridge-duplication failures are repaired or waived",
+      "passed": true,
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 48, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 9}"
+    },
+    {
       "requirement": "Land-manager special-management rules pass for every published route",
       "passed": true,
       "evidence": "{\"failed_route_count\": 0, \"failure_counts\": {}, \"status\": \"passed\"}"
@@ -124,11 +129,17 @@
       "status": "actionable",
       "action_count": 38,
       "evidence": "{\"status\": \"simulated_progress_priority_found\", \"sweeps_with_future_removed_route_count\": 3, \"sweeps_with_future_shrunk_route_count\": 35}"
+    },
+    {
+      "name": "Bridge duplication repair advisory",
+      "status": "actionable",
+      "action_count": 57,
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 48, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 9}"
     }
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-26T17:20:18.609335+00:00",
+    "generated_at": "2026-05-27T03:52:45.975335+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -244,14 +255,6 @@
         "failures": []
       },
       {
-        "label": "FD12B",
-        "outing_id": "112-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "4A",
         "outing_id": "105-2",
         "passed": true,
@@ -356,14 +359,6 @@
         "failures": []
       },
       {
-        "label": "FD12A",
-        "outing_id": "112-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "7",
         "outing_id": "116-1",
         "passed": true,
@@ -380,6 +375,14 @@
         "failures": []
       },
       {
+        "label": "FD12A",
+        "outing_id": "112-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "16B",
         "outing_id": "117-1",
         "passed": true,
@@ -390,6 +393,14 @@
       {
         "label": "FD05A",
         "outing_id": "105-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD12B",
+        "outing_id": "112-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],

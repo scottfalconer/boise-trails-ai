@@ -68,7 +68,7 @@
     "public_access_recheck_candidate_count": 0,
     "public_source_reevaluation": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json",
     "user_confirmed_access_candidate_count": 1,
-    "route_source_regeneration_refresh": "2026-05-23: refreshed from the current 49-card field-ready packet after source repairs, certified accepted replacements, FD12/FD23 splits, FD18A direction repair, and Veterans connector repair."
+    "route_source_regeneration_refresh": "2026-05-26: refreshed from the current 49-card field-ready packet after FD12A Kemper 1 credit assignment and stale West Climb source-geometry cleanup."
   },
   "routes": [
     {
@@ -1100,8 +1100,8 @@
     },
     {
       "route_label": "FD12A",
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
-      "route_source_hash": "93a1c707aecf23b1627b74cc7ffdbf78cb1a2caf6237990c59da564b02620cab",
+      "candidate_id": "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail",
+      "route_source_hash": "34d41fae5fc6f7c1c12655a707ddfb5d93ea3cfbfc49fcc1247a779507d0cbbf",
       "area": "Hillside to Hollow",
       "decision": "HOLD_PROVEN_CURRENT",
       "current_start": "West Climb",
@@ -1112,31 +1112,31 @@
         "1507",
         "1565",
         "1566",
+        "1579",
         "1718",
         "1719",
         "1755"
       ],
       "trail_names": [
-        "Full Sail Trail",
         "Bob Smylie",
-        "Buena Vista Trail"
+        "Buena Vista Trail",
+        "Full Sail Trail",
+        "Kemper's Ridge Trail"
       ],
       "metrics": {
-        "official_miles": 3.13,
-        "on_foot_miles": 4.47,
-        "on_foot_to_official_ratio": 1.43,
-        "p75_minutes": 116,
-        "p90_minutes": 130,
-        "non_credit_or_repeat_miles": 1.34,
-        "declared_repeat_miles": 4.69
+        "official_miles": 3.33,
+        "on_foot_miles": 5.96,
+        "on_foot_to_official_ratio": 1.79,
+        "p75_minutes": 128,
+        "p90_minutes": 144,
+        "non_credit_or_repeat_miles": 2.63,
+        "declared_repeat_miles": 1.15
       },
-      "warning_codes_closed": [
-        "high_declared_repeat_miles"
-      ],
-      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
-      "bundle_boundary_global_attack": "Attacked because declared repeat looks suspicious. The route is not high-ratio, the official repeat is declared and priced, and no boundary/global replacement beats it.",
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No certified same-credit alternative is recorded for the repaired Kemper 1 spur card.",
+      "bundle_boundary_global_attack": "Attacked after stale geometry cleanup. The repaired source now uses compact car-to-car edge-cover geometry and preserves the Kemper 1 credit assignment.",
       "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
-      "disproof_result": "Kept as the current field-ready route; no material disproof pressure remains in current audits.",
+      "disproof_result": "Kept as the current field-ready repaired route; stale long field-day geometry was removed from the canonical source.",
       "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
       "review_decision": "PASS_NON_DOMINATED",
       "requires_field_walkthrough": false
@@ -2996,9 +2996,9 @@
       "remaining_caveat": "Kept despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified Dry Creek bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day."
     },
     {
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
+      "candidate_id": "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail",
       "candidate_ids": [
-        "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+        "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
       ],
       "labels": [
         "FD12A"
@@ -3007,13 +3007,13 @@
       "status": "accepted_current",
       "decision": "HOLD_PROVEN_CURRENT",
       "metrics": {
-        "official_miles": 3.13,
-        "on_foot_miles": 4.47,
-        "on_foot_to_official_ratio": 1.43,
-        "p75_minutes": 116,
-        "p90_minutes": 130,
-        "non_credit_or_repeat_miles": 1.34,
-        "declared_repeat_miles": 4.69
+        "official_miles": 3.33,
+        "on_foot_miles": 5.96,
+        "on_foot_to_official_ratio": 1.79,
+        "p75_minutes": 128,
+        "p90_minutes": 144,
+        "non_credit_or_repeat_miles": 2.63,
+        "declared_repeat_miles": 1.15
       },
       "evidence": [
         "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
@@ -3031,7 +3031,7 @@
         "start_justification_present": true,
         "same_credit_dominance_failure_count": 0
       },
-      "remaining_caveat": "Kept as the current field-ready route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+      "remaining_caveat": "Kept as the current repaired route after replacing stale long West Climb geometry; re-review if a certified same-credit route saves at least 0.25 miles or 10 p75 minutes."
     },
     {
       "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",

@@ -1,15 +1,15 @@
 # Field Official Repeat Audit
 
-Generated: 2026-05-26T17:19:19Z
+Generated: 2026-05-27T03:51:54Z
 Status: `passed`
 
 ## Summary
 
 - Routes audited: 49
-- Source repeat legs: 96
+- Source repeat legs: 97
 - Public repeat cues: 102
 - Bucket A bad hidden self-repeat: 0
-- Bucket B counted/cued repeats or optimization targets: 96
+- Bucket B counted/cued repeats or optimization targets: 97
 - Bucket C reconciled extra-credit routes: 23
 - Repeat legs missing segment IDs: 0
 - Repeat cues missing repeat/no-credit text: 0
@@ -36,14 +36,14 @@ Status: `passed`
 
 ## Bucket C
 
-- `18` `block-bogus_mores_lodge_tempest` reconciles extra official segment ids: ['1553', '1750']
+- `18` `block-bogus_mores_lodge_tempest` reconciles extra official segment ids: ['1553']
 - `FD15A` `block-military_core` reconciles extra official segment ids: ['1748']
 - `14` `block-watchman_five_mile_rocky` reconciles extra official segment ids: ['1558', '1685']
 - `4A` `bobs-trail-urban-connector` reconciles extra official segment ids: ['1577']
 - `FD14B` `chbh-connector` reconciles extra official segment ids: ['1541', '1599', '1604']
 - `15B` `combo-landslide-red-tail-trail` reconciles extra official segment ids: ['1497']
 - `FD04A` `combo-two-point-femrites-patrol-shanes-connector` reconciles extra official segment ids: ['1593', '1594', '1629', '1630', '1631', '1649', '1650', '1651', '1683', '1684', '1695']
-- `FD12B` `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail` reconciles extra official segment ids: ['1755']
+- `FD12B` `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail` reconciles extra official segment ids: ['1579', '1755']
 - `FD23C` `corrals-trail` reconciles extra official segment ids: ['1498', '1499', '1500', '1523', '1576', '1577']
 - `FD22B` `crestline-trail` reconciles extra official segment ids: ['1615']
 - `FD07B` `deer-point-trail` reconciles extra official segment ids: ['1655']

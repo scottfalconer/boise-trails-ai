@@ -815,6 +815,70 @@ def test_field_day_view_labels_reserve_days_explicitly():
     assert "Reserve / buffer day - no route planned." in html
 
 
+def test_field_packet_omits_stale_field_day_layer_route_refs(tmp_path):
+    module = load_exporter()
+    field_day_layer = sample_field_day_layer()
+    stale_ref = field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]
+    stale_ref["outing_id"] = "112-1"
+    stale_ref["label"] = "FD12A"
+
+    manifest = module.export_field_packet(
+        sample_map_data(),
+        tmp_path,
+        field_day_layer_data=field_day_layer,
+    )
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+
+    assert manifest["field_day_layer_consistency"]["status"] == "omitted_stale_route_refs"
+    assert manifest["field_day_layer_consistency"]["route_ref_failure_count"] == 1
+    assert manifest["summary"]["field_day_layer_included"] is False
+    assert manifest["summary"]["field_day_layer_route_ref_failure_count"] == 1
+    assert field_data["execution_model"]["primary_execution_artifact"] == "route_cards"
+    assert field_data["execution_model"]["default_phone_view"] == "routes"
+    assert "field_day_layer" not in field_data
+    assert "field_day_layer" not in public_manifest
+    assert 'href="#112-1"' not in html
+    assert "FD12A" not in html
+    assert public_manifest["field_day_layer_consistency"] == {
+        "status": "omitted_stale_route_refs",
+        "route_ref_failure_count": 1,
+    }
+    assert "112-1" not in json.dumps(public_manifest)
+    assert "FD12A" not in json.dumps(public_manifest)
+
+
+def test_field_packet_omits_field_day_layer_with_stale_segment_refs(tmp_path):
+    module = load_exporter()
+    field_day_layer = sample_field_day_layer()
+    loop = field_day_layer["field_days"][0]["loops"][0]
+    loop["segment_ids"] = [101]
+
+    manifest = module.export_field_packet(
+        sample_map_data(),
+        tmp_path,
+        field_day_layer_data=field_day_layer,
+    )
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+
+    assert manifest["field_day_layer_consistency"]["status"] == "omitted_stale_route_refs"
+    assert manifest["field_day_layer_consistency"]["route_ref_failures"] == [
+        {
+            "code": "field_day_route_ref_segment_mismatch",
+            "field_day_index": 0,
+            "loop_index": 0,
+            "field_day_id": "sample-day",
+            "loop_id": "canonical_field_menu::test-route::Test Trailhead",
+            "loop_label": "Test Trail",
+            "outing_id": "1-1",
+            "route_ref_segment_ids": ["101"],
+            "current_route_segment_ids": ["101", "103"],
+        }
+    ]
+    assert "field_day_layer" not in field_data
+
+
 def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     module = load_exporter()
 
@@ -1052,7 +1116,6 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert 'id="next-cue"' in live_map_html
     assert 'id="fit-leg"' in live_map_html
 
-
 def test_live_gps_map_shows_home_eta_from_active_cue_start(tmp_path):
     module = load_exporter()
 
@@ -1092,6 +1155,22 @@ def test_live_gps_map_keeps_previous_cue_context_by_default_with_show_all_overri
     assert "cueM < visibleStartM - 8" in live_map_html
     assert 'showAllRouteButton.addEventListener("click"' in live_map_html
     assert 'showAllRouteButton.setAttribute("aria-pressed", state.showAllRoute ? "true" : "false")' in live_map_html
+
+
+def test_live_gps_map_halves_active_line_width_for_split_overlap_cues(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert ".active-line.split-lane { fill:none; stroke:#2563eb; stroke-width:5;" in live_map_html
+    assert ".active-halo.split-lane { fill:none; stroke:#fff; stroke-width:12;" in live_map_html
+    assert "function activeLegUsesSplitLane(leg)" in live_map_html
+    assert 'cueType === "overlap_repeat"' in live_map_html
+    assert "Boolean(cue.overlap_match)" in live_map_html
+    assert "const activeLaneClass = activeLegUsesSplitLane(leg) ? \" split-lane\" : \"\";" in live_map_html
+    assert 'class="active-line split-lane"' in live_map_html
+    assert 'class="active-line" d="${activePath}"' in live_map_html
 
 
 def test_live_gps_map_does_not_hide_start_when_start_and_finish_overlap(tmp_path):

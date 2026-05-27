@@ -86,6 +86,13 @@ def test_start_access_named_edge_passes_when_cued():
     assert result["passed"] is True
 
 
+def test_named_edge_mentions_allow_minor_plural_variants():
+    module = load_module()
+    access = edge(module, "access", "Seamans Gulch", [(0.0, 0.0), (0.001, 0.0)])
+
+    assert module.text_mentions_edge("Follow #110 Seaman Gulch toward the official trail.", access)
+
+
 def test_between_connector_named_edge_required():
     module = load_module()
     official_a = edge(

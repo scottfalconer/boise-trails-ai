@@ -1,25 +1,23 @@
 # FD04A -> FD19C Credit Promotion Experiment
 
-Generated: 2026-05-13T16:10:14Z
+Generated: 2026-05-27T02:14:28Z
 
-Status: `active_packet_already_promoted`
+Status: `stale_active_packet_route_ids`
 
-The active packet already reflects this promotion. This historical experiment is superseded by the active route-card promotion-path verifier.
+This is an experiment-only artifact. It does not mutate the active packet or remove `FD19C` by itself.
 
 ## Result
 
-- Hypothetical route count: 43 -> 43
-- Hypothetical saved effort: 4.76 mi / 109 p75 / 123 p90
-- Official coverage after hypothetical promotion: 251/251
-- Active packet mutated: `True`
+- Hypothetical route count: 31 -> None
+- Hypothetical saved effort: 0 mi / 0 p75 / 0 p90
+- Official coverage after hypothetical promotion: not_evaluated
+- Active packet mutated: `False`
 
 ## Hard Gates
 
 | Gate | Status |
 |---|---|
-| `fd19c_removed_from_active_routes` | `passed` |
-| `fd04a_claims_fd19c_segments` | `passed` |
-| `coverage_251_preserved` | `passed` |
+| `active_packet_contains_legacy_source_routes` | `blocked` |
 
 ## Segment Proof
 
@@ -33,10 +31,10 @@ The active packet already reflects this promotion. This historical experiment is
 
 ## Calendar Reprice
 
-- Scenario: `104-1-before-119-3` (`order_reprice_supported_requires_credit_promotion_or_post_run_validation`)
-- Source target date: `2026-06-18`
-- Owner target date after removal: `2026-06-24`
+- Scenario: `None` (`None`)
+- Source target date: `None`
+- Owner target date after removal: `None`
 
 ## Remaining Steps
 
-- Use fd04a_fd19c_route_card_promotion_path_experiment.py verify for the active-packet certification gate.
+- Rebuild this experiment against the current active route-card IDs before using it as promotion evidence.

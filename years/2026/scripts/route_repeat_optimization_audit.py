@@ -49,6 +49,8 @@ DEFAULT_ROUTE_PROOF_JSONS = [
     YEAR_DIR / "checkpoints" / "adversarial-route-disproof-2026-05-16.json",
     YEAR_DIR / "checkpoints" / "all-route-adversarial-disproof-2026-05-16.json",
 ]
+DEFAULT_TAIL_OPPORTUNITY_ENDPOINT_THRESHOLD_MILES = 0.03
+DEFAULT_TAIL_OPPORTUNITY_MAX_SEGMENT_MILES = 0.35
 
 NON_CREDIT_CUE_TYPES = {
     "start_access",
@@ -128,6 +130,206 @@ def segment_brief(segment_index: dict[str, dict[str, Any]], segment_id: str) -> 
         "direction": segment.get("direction"),
         "official_miles": round(float(segment.get("official_miles") or 0), 2),
     }
+
+
+def sort_id(value: str) -> tuple[int, str]:
+    text = str(value)
+    return (0, f"{int(text):08d}") if text.isdigit() else (1, text)
+
+
+def route_index(routes: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for route in routes:
+        keys = [
+            route_key(route),
+            str(route.get("outing_id") or ""),
+            str(route.get("label") or ""),
+            route_label(route),
+        ]
+        for candidate_id in route.get("candidate_ids") or []:
+            keys.append(str(candidate_id))
+        for key in keys:
+            if key:
+                index[key] = route
+    return index
+
+
+def route_claims(routes: list[dict[str, Any]]) -> dict[str, set[str]]:
+    return {
+        route_key(route): set(normalized_ids(route.get("segment_ids") or []))
+        for route in routes
+    }
+
+
+def segment_endpoints(segment: dict[str, Any] | None) -> list[tuple[float, float]]:
+    if not segment:
+        return []
+    coords = segment.get("coordinates") or []
+    if coords:
+        return [tuple(coords[0]), tuple(coords[-1])]
+    endpoints = []
+    for key in ("start", "end"):
+        point = segment.get(key)
+        if point:
+            endpoints.append(tuple(point))
+    return endpoints
+
+
+def min_endpoint_gap_miles(
+    segment_index: dict[str, dict[str, Any]],
+    left_segment_id: str,
+    right_segment_id: str,
+) -> float | None:
+    left_points = segment_endpoints(segment_index.get(str(left_segment_id)))
+    right_points = segment_endpoints(segment_index.get(str(right_segment_id)))
+    if not left_points or not right_points:
+        return None
+    return min(haversine_miles(left, right) for left in left_points for right in right_points)
+
+
+def owner_route_refs(owner_rows: list[dict[str, Any]], routes_by_key: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    refs = []
+    for owner in owner_rows:
+        owner_route = None
+        for key in (
+            str(owner.get("outing_id") or ""),
+            str(owner.get("label") or ""),
+            str(owner.get("route_key") or ""),
+        ):
+            if key and key in routes_by_key:
+                owner_route = routes_by_key[key]
+                break
+        refs.append(
+            {
+                "route_key": route_key(owner_route) if owner_route else str(owner.get("outing_id") or owner.get("label") or ""),
+                "outing_id": owner.get("outing_id") or (owner_route or {}).get("outing_id"),
+                "label": owner.get("label") or ((owner_route and route_label(owner_route)) or None),
+                "candidate_ids": owner.get("candidate_ids") or ((owner_route or {}).get("candidate_ids") or []),
+                "found_in_field_tool_data": owner_route is not None,
+            }
+        )
+    return refs
+
+
+def cue_pair_context(route: dict[str, Any], repeated_segment_id: str, adjacent_segment_id: str) -> dict[str, Any]:
+    repeat_cues = []
+    adjacent_cues = []
+    for cue in route.get("wayfinding_cues") or []:
+        seq = cue.get("seq")
+        cue_type = cue.get("cue_type")
+        row = {"seq": seq, "cue_type": cue_type}
+        if str(repeated_segment_id) in normalized_ids(cue.get("official_repeat_segment_ids") or []):
+            repeat_cues.append(row)
+        if str(adjacent_segment_id) in normalized_ids(cue.get("official_segment_ids") or []):
+            adjacent_cues.append(row)
+    nearest = None
+    for repeat_cue in repeat_cues:
+        for adjacent_cue in adjacent_cues:
+            if repeat_cue.get("seq") is None or adjacent_cue.get("seq") is None:
+                continue
+            try:
+                distance = abs(float(repeat_cue["seq"]) - float(adjacent_cue["seq"]))
+            except (TypeError, ValueError):
+                continue
+            candidate = {
+                "repeat_cue_seq": repeat_cue["seq"],
+                "repeat_cue_type": repeat_cue.get("cue_type"),
+                "adjacent_cue_seq": adjacent_cue["seq"],
+                "adjacent_cue_type": adjacent_cue.get("cue_type"),
+                "cue_seq_delta": distance,
+            }
+            if nearest is None or distance < nearest["cue_seq_delta"]:
+                nearest = candidate
+    return {
+        "repeat_cues": repeat_cues,
+        "adjacent_credit_cues": adjacent_cues,
+        "nearest_cue_pair": nearest,
+    }
+
+
+def cross_route_tail_opportunities(
+    routes: list[dict[str, Any]],
+    segment_index: dict[str, dict[str, Any]],
+    *,
+    endpoint_threshold_miles: float = DEFAULT_TAIL_OPPORTUNITY_ENDPOINT_THRESHOLD_MILES,
+    max_segment_miles: float = DEFAULT_TAIL_OPPORTUNITY_MAX_SEGMENT_MILES,
+) -> list[dict[str, Any]]:
+    """Find split-route pressure where a repeated owned segment touches a small claimed edge.
+
+    This is an optimization warning, not a route-certification decision. It says the
+    owner route might have been able to carry a short adjacent edge, reducing the
+    receiver route's later credit or repeat burden.
+    """
+
+    routes_by_key = route_index(routes)
+    claims_by_route = route_claims(routes)
+    rows = []
+    seen = set()
+    for receiver in routes:
+        receiver_key = route_key(receiver)
+        receiver_claimed_ids = set(normalized_ids(receiver.get("segment_ids") or []))
+        reconciliation = receiver.get("segment_ownership_reconciliation") or {}
+        for owned_segment in reconciliation.get("segments_owned_elsewhere") or []:
+            repeated_segment_id = str(owned_segment.get("seg_id") or "")
+            if not repeated_segment_id or repeated_segment_id not in segment_index:
+                continue
+            owner_refs = owner_route_refs(owned_segment.get("owned_by_routes") or [], routes_by_key)
+            owner_refs_without_adjacent = []
+            for adjacent_segment_id in receiver_claimed_ids:
+                if adjacent_segment_id == repeated_segment_id or adjacent_segment_id not in segment_index:
+                    continue
+                adjacent_miles = float_value(segment_index[adjacent_segment_id].get("official_miles"))
+                if adjacent_miles > max_segment_miles:
+                    continue
+                endpoint_gap = min_endpoint_gap_miles(segment_index, repeated_segment_id, adjacent_segment_id)
+                if endpoint_gap is None or endpoint_gap > endpoint_threshold_miles:
+                    continue
+                owner_refs_without_adjacent = [
+                    owner
+                    for owner in owner_refs
+                    if adjacent_segment_id not in claims_by_route.get(str(owner.get("route_key") or ""), set())
+                ]
+                if not owner_refs_without_adjacent:
+                    continue
+                key = (
+                    receiver_key,
+                    repeated_segment_id,
+                    adjacent_segment_id,
+                    tuple(sorted(str(owner.get("route_key") or "") for owner in owner_refs_without_adjacent)),
+                )
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append(
+                    {
+                        "code": "cross_route_tail_opportunity",
+                        "severity": "optimization_warning",
+                        "receiver_route_key": receiver_key,
+                        "receiver_label": route_label(receiver),
+                        "receiver_outing_id": receiver.get("outing_id"),
+                        "receiver_trailhead": receiver.get("trailhead"),
+                        "repeated_owned_segment": segment_brief(segment_index, repeated_segment_id),
+                        "adjacent_candidate_segment": segment_brief(segment_index, adjacent_segment_id),
+                        "owner_routes": owner_refs_without_adjacent,
+                        "endpoint_gap_miles": round(endpoint_gap, 4),
+                        "adjacent_segment_miles": round(adjacent_miles, 2),
+                        "worst_case_out_and_back_added_miles": round(adjacent_miles * 2, 2),
+                        "cue_context": cue_pair_context(receiver, repeated_segment_id, adjacent_segment_id),
+                        "message": (
+                            "A later route repeats an official segment owned elsewhere next to a short claimed "
+                            "segment. Review whether the owner route should carry that adjacent edge instead."
+                        ),
+                    }
+                )
+    return sorted(
+        rows,
+        key=lambda row: (
+            -float_value((row.get("repeated_owned_segment") or {}).get("official_miles")),
+            float_value(row.get("adjacent_segment_miles")),
+            row.get("receiver_label") or "",
+            (row.get("adjacent_candidate_segment") or {}).get("seg_id") or "",
+        ),
+    )
 
 
 def candidate_segments_for_activity(
@@ -1073,6 +1275,8 @@ def build_route_repeat_optimization_audit(
     min_fraction: float = 0.85,
     partial_min_fraction: float = 0.2,
     max_activity_points: int = 1200,
+    tail_opportunity_endpoint_threshold_miles: float = DEFAULT_TAIL_OPPORTUNITY_ENDPOINT_THRESHOLD_MILES,
+    tail_opportunity_max_segment_miles: float = DEFAULT_TAIL_OPPORTUNITY_MAX_SEGMENT_MILES,
     elevation_sampler: Any = None,
     source_files: dict[str, str] | None = None,
     route_proofs: list[dict[str, Any]] | None = None,
@@ -1109,10 +1313,32 @@ def build_route_repeat_optimization_audit(
         for route in routes
     ]
     bundle_warnings = same_trailhead_warnings(routes)
+    tail_opportunities = cross_route_tail_opportunities(
+        routes,
+        segment_index,
+        endpoint_threshold_miles=tail_opportunity_endpoint_threshold_miles,
+        max_segment_miles=tail_opportunity_max_segment_miles,
+    )
     for warning in bundle_warnings:
         for row in route_rows:
             if row.get("label") in warning["labels"]:
                 row.setdefault("optimization_warnings", []).append(warning)
+    rows_by_route_key = {row["route_key"]: row for row in route_rows}
+    for opportunity in tail_opportunities:
+        row = rows_by_route_key.get(str(opportunity.get("receiver_route_key") or ""))
+        if row:
+            row.setdefault("optimization_warnings", []).append(
+                {
+                    "code": opportunity["code"],
+                    "severity": opportunity["severity"],
+                    "repeated_owned_segment_id": opportunity["repeated_owned_segment"]["seg_id"],
+                    "adjacent_candidate_segment_id": opportunity["adjacent_candidate_segment"]["seg_id"],
+                    "adjacent_segment_miles": opportunity["adjacent_segment_miles"],
+                    "endpoint_gap_miles": opportunity["endpoint_gap_miles"],
+                    "owner_routes": opportunity["owner_routes"],
+                    "message": opportunity["message"],
+                }
+            )
 
     failed_routes = [row for row in route_rows if row["audit_status"] != "passed"]
     missing_gpx_routes = [row for row in route_rows if row["audit_status"] == "missing_gpx"]
@@ -1179,6 +1405,7 @@ def build_route_repeat_optimization_audit(
             "high_ratio_route_count": sum(1 for row in route_rows if row["on_foot_to_official_ratio"] is not None and row["on_foot_to_official_ratio"] > 3),
             "high_declared_repeat_route_count": sum(1 for row in route_rows if float(row["declared_repeat_miles"] or 0) > 2),
             "same_trailhead_bundle_warning_count": len(bundle_warnings),
+            "cross_route_tail_opportunity_count": len(tail_opportunities),
         },
         "parameters": {
             "threshold_miles": threshold_miles,
@@ -1189,6 +1416,8 @@ def build_route_repeat_optimization_audit(
             "post_credit_repeat_min_savings_miles": 0.10,
             "post_credit_repeat_savings_ratio": 0.10,
             "connector_snap_tolerance_miles": snap_tolerance_miles,
+            "tail_opportunity_endpoint_threshold_miles": tail_opportunity_endpoint_threshold_miles,
+            "tail_opportunity_max_segment_miles": tail_opportunity_max_segment_miles,
         },
         "source_files": source_files or {},
         "connector_graph": {
@@ -1208,6 +1437,7 @@ def build_route_repeat_optimization_audit(
         "optimization_warnings": open_warning_rows,
         "closed_optimization_warnings": closed_warning_rows,
         "same_trailhead_bundle_warnings": bundle_warnings,
+        "cross_route_tail_opportunities": tail_opportunities,
         "high_repeat_burden": high_repeat_burden,
         "failed_routes": failed_routes,
         "routes": route_rows,
@@ -1238,6 +1468,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- High ratio routes (>3x): {summary['high_ratio_route_count']}",
         f"- High declared-repeat routes (>2 mi): {summary['high_declared_repeat_route_count']}",
         f"- Same-trailhead bundle warnings: {summary['same_trailhead_bundle_warning_count']}",
+        f"- Cross-route tail opportunities: {summary.get('cross_route_tail_opportunity_count', 0)}",
         "",
         "## Hard Failures",
         "",
@@ -1270,6 +1501,35 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 repeat=float(row.get("declared_repeat_miles") or 0),
             )
         )
+    if audit.get("cross_route_tail_opportunities"):
+        lines.extend(
+            [
+                "",
+                "## Cross-Route Tail Opportunities",
+                "",
+                "| Receiver | Repeated owned segment | Adjacent candidate | Owner route(s) | Endpoint gap mi | Adjacent mi |",
+                "|---|---|---|---|---:|---:|",
+            ]
+        )
+        for row in audit["cross_route_tail_opportunities"][:25]:
+            repeated = row.get("repeated_owned_segment") or {}
+            adjacent = row.get("adjacent_candidate_segment") or {}
+            owner_labels = ", ".join(
+                str(owner.get("label") or owner.get("outing_id") or owner.get("route_key") or "unknown")
+                for owner in row.get("owner_routes") or []
+            )
+            lines.append(
+                "| {receiver} | {repeat_id} {repeat_name} | {adjacent_id} {adjacent_name} | {owners} | {gap:.4f} | {miles:.2f} |".format(
+                    receiver=row.get("receiver_label"),
+                    repeat_id=repeated.get("seg_id"),
+                    repeat_name=repeated.get("seg_name"),
+                    adjacent_id=adjacent.get("seg_id"),
+                    adjacent_name=adjacent.get("seg_name"),
+                    owners=owner_labels,
+                    gap=float(row.get("endpoint_gap_miles") or 0),
+                    miles=float(row.get("adjacent_segment_miles") or 0),
+                )
+            )
     if audit.get("failed_routes"):
         lines.extend(["", "## Failed Routes", ""])
         for row in audit["failed_routes"]:
@@ -1313,6 +1573,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--min-fraction", type=float, default=0.85)
     parser.add_argument("--partial-min-fraction", type=float, default=0.2)
     parser.add_argument("--max-activity-points", type=int, default=1200)
+    parser.add_argument(
+        "--tail-opportunity-endpoint-threshold-miles",
+        type=float,
+        default=DEFAULT_TAIL_OPPORTUNITY_ENDPOINT_THRESHOLD_MILES,
+        help="Endpoint proximity for cross-route tail opportunity warnings.",
+    )
+    parser.add_argument(
+        "--tail-opportunity-max-segment-miles",
+        type=float,
+        default=DEFAULT_TAIL_OPPORTUNITY_MAX_SEGMENT_MILES,
+        help="Maximum adjacent claimed official segment size to flag as a tail opportunity.",
+    )
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
     parser.add_argument("--manifest-json", type=Path, default=DEFAULT_MANIFEST_JSON)
@@ -1357,6 +1629,8 @@ def main(argv: list[str] | None = None) -> int:
         min_fraction=args.min_fraction,
         partial_min_fraction=args.partial_min_fraction,
         max_activity_points=args.max_activity_points,
+        tail_opportunity_endpoint_threshold_miles=args.tail_opportunity_endpoint_threshold_miles,
+        tail_opportunity_max_segment_miles=args.tail_opportunity_max_segment_miles,
         elevation_sampler=dem_context.get("sampler"),
         source_files=source_files,
         route_proofs=route_proofs,

@@ -1,0 +1,118 @@
+{
+  "schema": "boise_trails_field_test_strava_summary_v1",
+  "date": "2026-05-26",
+  "phase": "pre-challenge",
+  "status": "analysis_complete",
+  "privacy": {
+    "raw_strava_json_committed": false,
+    "raw_gps_polyline_committed": false,
+    "private_source_folder": "years/2026/inputs/strava/api-pulls/2026-05-26-fd12a-field-test/"
+  },
+  "strava_activity": {
+    "name": "Lunch Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-26T12:13:35Z",
+    "distance_miles": 4.95,
+    "moving_time": "1:16:10",
+    "elapsed_recording_time": "1:16:12",
+    "elevation_gain_ft": 762,
+    "segment_effort_count": 8,
+    "has_map_polyline": true
+  },
+  "user_reported": {
+    "door_to_door_time": "1:32:23.89",
+    "door_to_door_minutes": 92.4
+  },
+  "planned_outing": {
+    "label": "1A-2",
+    "name": "West Climb / Full Sail",
+    "field_test_label": "FD12A",
+    "trailhead": "West Climb",
+    "planned_official_miles": 3.13,
+    "planned_on_foot_miles": 4.86,
+    "door_to_door_p75_minutes": 126,
+    "door_to_door_p90_minutes": 142,
+    "planned_official_segment_count": 9,
+    "active_follow_up_boundary": "This field test used the 9-segment repaired West Climb card. The active follow-up FD12A card adds full Kemper's Ridge Trail 1 (1579) credit and is 5.96 on-foot miles."
+  },
+  "local_match_method": {
+    "description": "Local geometry match against 2026 official foot segments. This is planning evidence, not official BTC credit.",
+    "threshold_miles": 0.045,
+    "minimum_segment_sample_fraction": 0.85,
+    "requires_endpoint_proximity": true
+  },
+  "local_match_summary": {
+    "planned_segments_matched": 9,
+    "planned_segments_total": 9,
+    "planned_official_miles_matched": 3.13,
+    "planned_official_miles_total": 3.13,
+    "extra_completion_candidate_segments": 0,
+    "extra_completion_candidate_miles": 0.0,
+    "partial_non_completion_segments": [
+      1579,
+      1581,
+      1698,
+      1699
+    ]
+  },
+  "planned_segment_results": [
+    {
+      "segment_ids": [
+        1504,
+        1505,
+        1506,
+        1507,
+        1755
+      ],
+      "trail": "Buena Vista Trail",
+      "official_miles": 1.38,
+      "result": "matched"
+    },
+    {
+      "segment_ids": [
+        1565,
+        1566
+      ],
+      "trail": "Full Sail Trail",
+      "official_miles": 0.95,
+      "result": "matched"
+    },
+    {
+      "segment_ids": [
+        1718,
+        1719
+      ],
+      "trail": "Bob Smylie",
+      "official_miles": 0.8,
+      "result": "matched"
+    }
+  ],
+  "timing_comparison": {
+    "actual_door_to_door_vs_p75_minutes": -33.6,
+    "actual_door_to_door_vs_p90_minutes": -49.6,
+    "actual_distance_vs_planned_on_foot_miles": 0.09,
+    "door_to_door_minus_elapsed_recording": "0:16:11.89",
+    "elapsed_recording_minus_moving": "0:00:02"
+  },
+  "artifact_repair": {
+    "stale_public_packet_before_regeneration": {
+      "planned_segments_matched": 9,
+      "planned_segments_total": 21,
+      "missed_segment_count": 12
+    },
+    "post_regeneration_active_packet": {
+      "planned_segments_total_for_tested_route": 9,
+      "active_fd12a_segment_total_after_kemper_1_follow_up": 10,
+      "active_fd12a_on_foot_miles_after_geometry_cleanup": 5.96,
+      "stale_fd12a_geometry_removed_miles": 11.65,
+      "gpx_validation_passed": true,
+      "field_tool_completion_audit": "passed",
+      "field_route_walkthrough_audit": "passed"
+    }
+  },
+  "interpretation": {
+    "short_answer": "The repaired West Climb route tested on 2026-05-26 worked for its 9 planned official segments. The active follow-up packet now adds Kemper's Ridge Trail 1 to FD12A and removes the stale long West Climb geometry.",
+    "progress_boundary": "Pre-challenge planning evidence only. Do not mark official BTC progress because the 2026 challenge window has not started.",
+    "calibration_boundary": "The 126-minute p75 estimate was conservative for this run, but one clean field sample is not enough to lower the card."
+  }
+}
