@@ -1,15 +1,15 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-05-27T03:48:33Z",
+  "generated_at": "2026-06-06T05:33:39Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
-    "route_count": 49,
+    "route_count": 31,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "phase_reset_failure_count": 0,
-    "advisory_route_count": 2,
-    "phase_reset_advisory_count": 2
+    "advisory_route_count": 0,
+    "phase_reset_advisory_count": 0
   },
   "parameters": {
     "snap_tolerance_feet": 100.0
@@ -19,239 +19,11 @@
     "loaded": true
   },
   "failed_routes": [],
-  "advisory_routes": [
-    {
-      "label": "101-1: FD01A",
-      "outing_id": "101-1",
-      "candidate_ids": [
-        "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail"
-      ],
-      "trailhead": "Warm Springs Golf Course",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [
-        {
-          "code": "depot_revisit_before_required_edges_cleared",
-          "seq": 7,
-          "cue_type": "car_pass_connector",
-          "remaining_segment_ids": [
-            "1668",
-            "1669",
-            "1670"
-          ],
-          "message": "The route revisits the depot before all required edges are credited, but the required-edge subgraph is disconnected; keep advisory until a same-depot replacement or connector-graph proof is concrete.",
-          "severity": "advisory"
-        }
-      ],
-      "route_quality": {
-        "status": "advisory",
-        "required_miles": 4.26,
-        "generated_miles": 11.97,
-        "lower_bound_miles": 5.54,
-        "efficiency_ratio": 2.16,
-        "required_component_count": 2,
-        "odd_required_node_count": 8,
-        "parity_add_on_miles": 0.99,
-        "depot_component_attachment_miles": 0.29
-      },
-      "gpx_path": "docs/field-packet/gpx/official/table-rock-rock-island-east-fd01a.gpx",
-      "segment_ids": [
-        "1632",
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1637",
-        "1638",
-        "1639",
-        "1640",
-        "1641",
-        "1642",
-        "1668",
-        "1669",
-        "1670",
-        "1686"
-      ]
-    },
-    {
-      "label": "118-1: FD18A",
-      "outing_id": "118-1",
-      "candidate_ids": [
-        "polecat-loop-peggys-trail"
-      ],
-      "trailhead": "Cartwright",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [
-        {
-          "code": "depot_revisit_before_required_edges_cleared",
-          "seq": 3,
-          "cue_type": "car_pass_connector",
-          "remaining_segment_ids": [
-            "1597"
-          ],
-          "message": "The route revisits the depot before all required edges are credited, but the required-edge subgraph is disconnected; keep advisory until a same-depot replacement or connector-graph proof is concrete.",
-          "severity": "advisory"
-        }
-      ],
-      "route_quality": {
-        "status": "advisory",
-        "required_miles": 10.19,
-        "generated_miles": 14.36,
-        "lower_bound_miles": 12.1,
-        "efficiency_ratio": 1.187,
-        "required_component_count": 2,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 1.85,
-        "depot_component_attachment_miles": 0.06
-      },
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-polecat-loop-fd18a.gpx",
-      "segment_ids": [
-        "1597",
-        "1598",
-        "1599",
-        "1600",
-        "1601",
-        "1602",
-        "1603",
-        "1604"
-      ]
-    }
-  ],
+  "advisory_routes": [],
   "routes": [
     {
-      "label": "128-1: FD28A",
-      "outing_id": "128-1",
-      "candidate_ids": [
-        "connector"
-      ],
-      "trailhead": "MillerGulch Parking Area/Trailhead",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.67,
-        "generated_miles": 1.51,
-        "lower_bound_miles": 1.1,
-        "efficiency_ratio": 1.37,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.39,
-        "depot_component_attachment_miles": 0.04
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-connector-fd28a.gpx",
-      "segment_ids": [
-        "1523"
-      ]
-    },
-    {
-      "label": "119-1: FD19A",
-      "outing_id": "119-1",
-      "candidate_ids": [
-        "kestral-trail"
-      ],
-      "trailhead": "Hulls Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.75,
-        "generated_miles": 1.84,
-        "lower_bound_miles": 1.49,
-        "efficiency_ratio": 1.237,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.64,
-        "depot_component_attachment_miles": 0.1
-      },
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-fd19a.gpx",
-      "segment_ids": [
-        "1583"
-      ]
-    },
-    {
-      "label": "114-1: FD14A",
-      "outing_id": "114-1",
-      "candidate_ids": [
-        "doe-ridge"
-      ],
-      "trailhead": "Cartwright",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.46,
-        "generated_miles": 1.65,
-        "lower_bound_miles": 0.85,
-        "efficiency_ratio": 1.935,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.22,
-        "depot_component_attachment_miles": 0.18
-      },
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-doe-ridge-fd14a.gpx",
-      "segment_ids": [
-        "1541"
-      ]
-    },
-    {
-      "label": "114-4: FD14D",
-      "outing_id": "114-4",
-      "candidate_ids": [
-        "accepted-replacement-fd14d-36th-street-chute-lower-36th"
-      ],
-      "trailhead": "Full Sail Trailhead, N 36th St Parking",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.74,
-        "generated_miles": 1.49,
-        "lower_bound_miles": 1.44,
-        "efficiency_ratio": 1.035,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.7,
-        "depot_component_attachment_miles": 0.0
-      },
-      "gpx_path": "docs/field-packet/gpx/official/full-sail-n-36th-st-36th-street-chute-fd14d.gpx",
-      "segment_ids": [
-        "1482"
-      ]
-    },
-    {
-      "label": "114-3: FD14C",
-      "outing_id": "114-3",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "trailhead": "Cartwright",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.48,
-        "generated_miles": 2.7,
-        "lower_bound_miles": 1.19,
-        "efficiency_ratio": 2.262,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.26,
-        "depot_component_attachment_miles": 0.45
-      },
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-quick-draw-fd14c.gpx",
-      "segment_ids": [
-        "1610"
-      ]
-    },
-    {
-      "label": "110-2: 4B",
-      "outing_id": "110-2",
+      "label": "4-2: 4B",
+      "outing_id": "4-2",
       "candidate_ids": [
         "scotts-trail"
       ],
@@ -262,9 +34,9 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 1.05,
-        "generated_miles": 2.61,
+        "generated_miles": 2.27,
         "lower_bound_miles": 2.12,
-        "efficiency_ratio": 1.231,
+        "efficiency_ratio": 1.07,
         "required_component_count": 1,
         "odd_required_node_count": 2,
         "parity_add_on_miles": 0.91,
@@ -276,95 +48,153 @@
       ]
     },
     {
-      "label": "122-1: FD22A",
-      "outing_id": "122-1",
+      "label": "7-1: 7",
+      "outing_id": "7-1",
       "candidate_ids": [
-        "highlands-trail"
+        "block-westside_seaman_veterans"
       ],
-      "trailhead": "Bob's",
+      "trailhead": "Seamans Gulch",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 1.68,
-        "generated_miles": 7.08,
-        "lower_bound_miles": 2.55,
-        "efficiency_ratio": 2.78,
+        "required_miles": 2.25,
+        "generated_miles": 2.48,
+        "lower_bound_miles": 2.44,
+        "efficiency_ratio": 1.015,
         "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.86,
-        "depot_component_attachment_miles": 0.0
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 0.14,
+        "depot_component_attachment_miles": 0.04
       },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-highlands-fd22a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/western-foothills-wild-phlox-7.gpx",
       "segment_ids": [
-        "1576",
-        "1577"
+        "1644",
+        "1645",
+        "1646",
+        "1647",
+        "1701",
+        "1702"
       ]
     },
     {
-      "label": "123-1: FD23A",
-      "outing_id": "123-1",
+      "label": "5-1: 5A",
+      "outing_id": "5-1",
       "candidate_ids": [
-        "8th-street-motorcycle-trail"
+        "multi-start-5-5-ms-04-1-barn-owl"
       ],
-      "trailhead": "8th Street ATV Parking Area",
+      "trailhead": "West Hidden Springs Drive road-parking anchor",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 1.37,
-        "generated_miles": 2.93,
-        "lower_bound_miles": 1.99,
-        "efficiency_ratio": 1.474,
+        "required_miles": 1.44,
+        "generated_miles": 2.88,
+        "lower_bound_miles": 2.4,
+        "efficiency_ratio": 1.202,
         "required_component_count": 1,
         "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.57,
-        "depot_component_attachment_miles": 0.05
+        "parity_add_on_miles": 0.92,
+        "depot_component_attachment_miles": 0.04
       },
-      "gpx_path": "docs/field-packet/gpx/official/upper-hulls-gulch-8th-street-motorcycle-fd23a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-barn-owl-5a.gpx",
       "segment_ids": [
-        "1483",
-        "1484",
-        "1485",
-        "1486"
+        "1494",
+        "1495"
       ]
     },
     {
-      "label": "122-3: FD22C",
-      "outing_id": "122-3",
+      "label": "8-2: 8B",
+      "outing_id": "8-2",
       "candidate_ids": [
-        "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
+        "peace-valley-overlook"
       ],
-      "trailhead": "The Grove",
+      "trailhead": "Homestead",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 2.03,
-        "generated_miles": 3.9,
-        "lower_bound_miles": 3.1,
-        "efficiency_ratio": 1.26,
-        "required_component_count": 3,
+        "required_miles": 0.53,
+        "generated_miles": 2.7,
+        "lower_bound_miles": 1.54,
+        "efficiency_ratio": 1.759,
+        "required_component_count": 1,
+        "odd_required_node_count": 2,
+        "parity_add_on_miles": 0.2,
+        "depot_component_attachment_miles": 0.8
+      },
+      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-peace-valley-overlook-8b.gpx",
+      "segment_ids": [
+        "1722",
+        "1723"
+      ]
+    },
+    {
+      "label": "16-2: 16A-2",
+      "outing_id": "16-2",
+      "candidate_ids": [
+        "manual-16a-2"
+      ],
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 0.77,
+        "generated_miles": 4.41,
+        "lower_bound_miles": 2.03,
+        "efficiency_ratio": 2.172,
+        "required_component_count": 1,
+        "odd_required_node_count": 2,
+        "parity_add_on_miles": 0.35,
+        "depot_component_attachment_miles": 0.92
+      },
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
+      "segment_ids": [
+        "1653"
+      ]
+    },
+    {
+      "label": "1-2: 1A-2",
+      "outing_id": "1-2",
+      "candidate_ids": [
+        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
+      ],
+      "trailhead": "West Climb",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 3.13,
+        "generated_miles": 4.86,
+        "lower_bound_miles": 3.91,
+        "efficiency_ratio": 1.242,
+        "required_component_count": 1,
         "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.85,
-        "depot_component_attachment_miles": 0.22
+        "parity_add_on_miles": 0.72,
+        "depot_component_attachment_miles": 0.06
       },
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-owl-s-roost-fd22c.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
       "segment_ids": [
-        "1481",
-        "1517",
-        "1518",
-        "1567",
-        "1568",
-        "1596"
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1565",
+        "1566",
+        "1718",
+        "1719",
+        "1755"
       ]
     },
     {
-      "label": "105-2: 4A",
-      "outing_id": "105-2",
+      "label": "4-1: 4A",
+      "outing_id": "4-1",
       "candidate_ids": [
         "bobs-trail-urban-connector"
       ],
@@ -375,9 +205,9 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 2.84,
-        "generated_miles": 6.67,
+        "generated_miles": 4.58,
         "lower_bound_miles": 4.01,
-        "efficiency_ratio": 1.666,
+        "efficiency_ratio": 1.143,
         "required_component_count": 1,
         "odd_required_node_count": 4,
         "parity_add_on_miles": 1.17,
@@ -392,446 +222,60 @@
       ]
     },
     {
-      "label": "109-1: FD09A",
-      "outing_id": "109-1",
+      "label": "8-1: 8A",
+      "outing_id": "8-1",
       "candidate_ids": [
-        "accepted-replacement-fd09a-barn-owl-west-hidden-springs"
+        "harris-ridge-trail"
       ],
-      "trailhead": "West Hidden Springs Drive road-parking anchor",
+      "trailhead": "Homestead",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 1.44,
-        "generated_miles": 4.29,
-        "lower_bound_miles": 2.4,
-        "efficiency_ratio": 1.789,
+        "required_miles": 1.72,
+        "generated_miles": 4.44,
+        "lower_bound_miles": 2.93,
+        "efficiency_ratio": 1.513,
         "required_component_count": 1,
         "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.92,
-        "depot_component_attachment_miles": 0.04
+        "parity_add_on_miles": 0.83,
+        "depot_component_attachment_miles": 0.38
       },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-barn-owl-fd09a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8a.gpx",
       "segment_ids": [
-        "1494",
-        "1495"
+        "1724"
       ]
     },
     {
-      "label": "114-2: FD14B",
-      "outing_id": "114-2",
+      "label": "1-1: 1A-1",
+      "outing_id": "1-1",
       "candidate_ids": [
-        "chbh-connector"
+        "multi-start-1a-1a-ms-04-1-36th-street-chute"
       ],
-      "trailhead": "Cartwright",
+      "trailhead": "prior parking anchor 13",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 1.29,
-        "generated_miles": 5.08,
-        "lower_bound_miles": 2.92,
-        "efficiency_ratio": 1.74,
-        "required_component_count": 2,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 0.97,
-        "depot_component_attachment_miles": 0.66
-      },
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-chbh-connector-fd14b.gpx",
-      "segment_ids": [
-        "1516",
-        "1610"
-      ]
-    },
-    {
-      "label": "119-2: FD19B",
-      "outing_id": "119-2",
-      "candidate_ids": [
-        "lower-hulls-gulch-trail-red-cliffs"
-      ],
-      "trailhead": "Hulls Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 3.45,
-        "generated_miles": 5.93,
-        "lower_bound_miles": 4.79,
-        "efficiency_ratio": 1.238,
-        "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 1.29,
-        "depot_component_attachment_miles": 0.05
-      },
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-fd19b.gpx",
-      "segment_ids": [
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1615",
-        "1616"
-      ]
-    },
-    {
-      "label": "122-2: FD22B",
-      "outing_id": "122-2",
-      "candidate_ids": [
-        "crestline-trail"
-      ],
-      "trailhead": "Hulls Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.82,
-        "generated_miles": 8.28,
-        "lower_bound_miles": 3.9,
-        "efficiency_ratio": 2.124,
+        "required_miles": 0.74,
+        "generated_miles": 3.17,
+        "lower_bound_miles": 1.44,
+        "efficiency_ratio": 2.203,
         "required_component_count": 1,
         "odd_required_node_count": 2,
-        "parity_add_on_miles": 1.32,
-        "depot_component_attachment_miles": 0.76
+        "parity_add_on_miles": 0.7,
+        "depot_component_attachment_miles": 0.0
       },
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-crestline-fd22b.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/13-36th-street-chute-1a-1.gpx",
       "segment_ids": [
-        "1532",
-        "1533",
-        "1534",
-        "1535"
+        "1482"
       ]
     },
     {
-      "label": "129-1: 16A-2",
-      "outing_id": "129-1",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "trailhead": "Private prior parking anchor",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.77,
-        "generated_miles": 4.42,
-        "lower_bound_miles": 2.03,
-        "efficiency_ratio": 2.176,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.35,
-        "depot_component_attachment_miles": 0.92
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
-      "segment_ids": [
-        "1653"
-      ]
-    },
-    {
-      "label": "119-3: FD19C",
-      "outing_id": "119-3",
-      "candidate_ids": [
-        "shanes-trail"
-      ],
-      "trailhead": "Freestone Creek",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.84,
-        "generated_miles": 7.93,
-        "lower_bound_miles": 3.38,
-        "efficiency_ratio": 2.346,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.46,
-        "depot_component_attachment_miles": 1.09
-      },
-      "gpx_path": "docs/field-packet/gpx/official/rocky-canyon-shane-s-fd19c.gpx",
-      "segment_ids": [
-        "1649",
-        "1650",
-        "1651"
-      ]
-    },
-    {
-      "label": "121-2: FD21C",
-      "outing_id": "121-2",
-      "candidate_ids": [
-        "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute"
-      ],
-      "trailhead": "Old Pen",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 2.34,
-        "generated_miles": 6.86,
-        "lower_bound_miles": 3.64,
-        "efficiency_ratio": 1.885,
-        "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 1.25,
-        "depot_component_attachment_miles": 0.05
-      },
-      "gpx_path": "docs/field-packet/gpx/official/table-rock-fd21c.gpx",
-      "segment_ids": [
-        "1605",
-        "1606",
-        "1607",
-        "1608",
-        "1609",
-        "1658",
-        "1659",
-        "1671",
-        "1672",
-        "1673",
-        "1674",
-        "1675",
-        "1676",
-        "1677"
-      ]
-    },
-    {
-      "label": "107-1: FD07A",
-      "outing_id": "107-1",
-      "candidate_ids": [
-        "sunshine-xc"
-      ],
-      "trailhead": "Simplot Lodge Parking Area",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.87,
-        "generated_miles": 2.38,
-        "lower_bound_miles": 1.49,
-        "efficiency_ratio": 1.599,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.23,
-        "depot_component_attachment_miles": 0.4
-      },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-sunshine-xc-fd07a.gpx",
-      "segment_ids": [
-        "1713"
-      ]
-    },
-    {
-      "label": "123-2: FD23B",
-      "outing_id": "123-2",
-      "candidate_ids": [
-        "sidewinder-trail"
-      ],
-      "trailhead": "8th Street ATV Parking Area",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.34,
-        "generated_miles": 4.26,
-        "lower_bound_miles": 3.26,
-        "efficiency_ratio": 1.306,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.9,
-        "depot_component_attachment_miles": 1.03
-      },
-      "gpx_path": "docs/field-packet/gpx/official/upper-hulls-gulch-sidewinder-fd23b.gpx",
-      "segment_ids": [
-        "1660"
-      ]
-    },
-    {
-      "label": "108-1: FD08A",
-      "outing_id": "108-1",
-      "candidate_ids": [
-        "cartwright-ridge"
-      ],
-      "trailhead": "Cartwright",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.76,
-        "generated_miles": 8.74,
-        "lower_bound_miles": 3.62,
-        "efficiency_ratio": 2.414,
-        "required_component_count": 2,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 1.03,
-        "depot_component_attachment_miles": 0.83
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-cartwright-ridge-fd08a.gpx",
-      "segment_ids": [
-        "1508",
-        "1509"
-      ]
-    },
-    {
-      "label": "116-1: 7",
-      "outing_id": "116-1",
-      "candidate_ids": [
-        "block-westside_seaman_veterans"
-      ],
-      "trailhead": "Seamans Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 2.25,
-        "generated_miles": 7.05,
-        "lower_bound_miles": 2.44,
-        "efficiency_ratio": 2.888,
-        "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 0.14,
-        "depot_component_attachment_miles": 0.04
-      },
-      "gpx_path": "docs/field-packet/gpx/official/western-foothills-seaman-gulch-7.gpx",
-      "segment_ids": [
-        "1644",
-        "1645",
-        "1646",
-        "1647",
-        "1701",
-        "1702"
-      ]
-    },
-    {
-      "label": "108-2: FD08B",
-      "outing_id": "108-2",
-      "candidate_ids": [
-        "cartwright-connector"
-      ],
-      "trailhead": "Cartwright",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.7,
-        "generated_miles": 5.24,
-        "lower_bound_miles": 3.41,
-        "efficiency_ratio": 1.539,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.96,
-        "depot_component_attachment_miles": 0.74
-      },
-      "gpx_path": "docs/field-packet/gpx/official/cartwright-cartwright-connector-fd08b.gpx",
-      "segment_ids": [
-        "1709"
-      ]
-    },
-    {
-      "label": "112-1: FD12A",
-      "outing_id": "112-1",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
-      ],
-      "trailhead": "West Climb",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 3.33,
-        "generated_miles": 5.96,
-        "lower_bound_miles": 4.06,
-        "efficiency_ratio": 1.468,
-        "required_component_count": 1,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.67,
-        "depot_component_attachment_miles": 0.06
-      },
-      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-bob-smylie-fd12a.gpx",
-      "segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1579",
-        "1718",
-        "1719",
-        "1755"
-      ]
-    },
-    {
-      "label": "117-1: 16B",
-      "outing_id": "117-1",
-      "candidate_ids": [
-        "stack-rock-connector"
-      ],
-      "trailhead": "Freddy's Stack Rock",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 3.5,
-        "generated_miles": 8.74,
-        "lower_bound_miles": 4.82,
-        "efficiency_ratio": 1.811,
-        "required_component_count": 2,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 1.15,
-        "depot_component_attachment_miles": 0.17
-      },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-stack-rock-connector-16b.gpx",
-      "segment_ids": [
-        "1663",
-        "1664"
-      ]
-    },
-    {
-      "label": "105-1: FD05A",
-      "outing_id": "105-1",
-      "candidate_ids": [
-        "hulls-gulch-interpretive"
-      ],
-      "trailhead": "8th Street ATV Parking Area",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 5.07,
-        "generated_miles": 10.46,
-        "lower_bound_miles": 6.81,
-        "efficiency_ratio": 1.536,
-        "required_component_count": 1,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 1.69,
-        "depot_component_attachment_miles": 0.05
-      },
-      "gpx_path": "docs/field-packet/gpx/official/upper-hulls-gulch-hull-s-gulch-interpretive-trail-fd05a.gpx",
-      "segment_ids": [
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
-      ]
-    },
-    {
-      "label": "112-2: FD12B",
-      "outing_id": "112-2",
+      "label": "1-3: 1B",
+      "outing_id": "1-3",
       "candidate_ids": [
         "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
       ],
@@ -841,18 +285,19 @@
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 4.52,
+        "required_miles": 4.72,
         "generated_miles": 6.36,
-        "lower_bound_miles": 5.0,
-        "efficiency_ratio": 1.272,
-        "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 0.48,
-        "depot_component_attachment_miles": 0.0
+        "lower_bound_miles": 5.42,
+        "efficiency_ratio": 1.175,
+        "required_component_count": 2,
+        "odd_required_node_count": 6,
+        "parity_add_on_miles": 0.63,
+        "depot_component_attachment_miles": 0.06
       },
-      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-fd12b.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-1b.gpx",
       "segment_ids": [
         "1578",
+        "1579",
         "1581",
         "1582",
         "1697",
@@ -866,10 +311,10 @@
       ]
     },
     {
-      "label": "116-2: 15B",
-      "outing_id": "116-2",
+      "label": "15-1: 15A",
+      "outing_id": "15-1",
       "candidate_ids": [
-        "combo-landslide-red-tail-trail"
+        "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
       ],
       "trailhead": "Dry Creek Parking Area/Trailhead",
       "audit_status": "passed",
@@ -878,15 +323,15 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 4.02,
-        "generated_miles": 6.75,
+        "generated_miles": 5.07,
         "lower_bound_miles": 4.61,
-        "efficiency_ratio": 1.465,
+        "efficiency_ratio": 1.101,
         "required_component_count": 2,
         "odd_required_node_count": 4,
         "parity_add_on_miles": 0.47,
         "depot_component_attachment_miles": 0.12
       },
-      "gpx_path": "docs/field-packet/gpx/official/hidden-springs-red-tail-15b.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/hidden-springs-red-tail-15a.gpx",
       "segment_ids": [
         "1584",
         "1618",
@@ -899,8 +344,8 @@
       ]
     },
     {
-      "label": "117-2: 11",
-      "outing_id": "117-2",
+      "label": "11-1: 11",
+      "outing_id": "11-1",
       "candidate_ids": [
         "block-hawkins"
       ],
@@ -911,9 +356,9 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 5.63,
-        "generated_miles": 7.78,
+        "generated_miles": 7.31,
         "lower_bound_miles": 5.68,
-        "efficiency_ratio": 1.369,
+        "efficiency_ratio": 1.286,
         "required_component_count": 1,
         "odd_required_node_count": 0,
         "parity_add_on_miles": 0.0,
@@ -927,8 +372,8 @@
       ]
     },
     {
-      "label": "109-2: 10B",
-      "outing_id": "109-2",
+      "label": "10-2: 10B",
+      "outing_id": "10-2",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -939,9 +384,9 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 2.45,
-        "generated_miles": 6.26,
+        "generated_miles": 4.28,
         "lower_bound_miles": 4.13,
-        "efficiency_ratio": 1.517,
+        "efficiency_ratio": 1.036,
         "required_component_count": 3,
         "odd_required_node_count": 6,
         "parity_add_on_miles": 0.83,
@@ -956,38 +401,10 @@
       ]
     },
     {
-      "label": "103-1: FD03A",
-      "outing_id": "103-1",
+      "label": "18-2: 18B",
+      "outing_id": "18-2",
       "candidate_ids": [
-        "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
-      ],
-      "trailhead": "Chukar Butte prior parking anchor",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 4.83,
-        "generated_miles": 11.72,
-        "lower_bound_miles": 7.7,
-        "efficiency_ratio": 1.523,
-        "required_component_count": 2,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 2.79,
-        "depot_component_attachment_miles": 0.07
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-chukar-butte-fd03a.gpx",
-      "segment_ids": [
-        "1519",
-        "1520",
-        "1521"
-      ]
-    },
-    {
-      "label": "107-2: FD07B",
-      "outing_id": "107-2",
-      "candidate_ids": [
-        "deer-point-trail"
+        "combo-lodge-trail-shindig"
       ],
       "trailhead": "Simplot Lodge Parking Area",
       "audit_status": "passed",
@@ -995,157 +412,51 @@
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 1.14,
-        "generated_miles": 3.9,
-        "lower_bound_miles": 2.94,
-        "efficiency_ratio": 1.326,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.84,
-        "depot_component_attachment_miles": 0.96
-      },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-deer-point-fd07b.gpx",
-      "segment_ids": [
-        "1540"
-      ]
-    },
-    {
-      "label": "121-1: FD21A",
-      "outing_id": "121-1",
-      "candidate_ids": [
-        "peace-valley-overlook-harris-ridge-trail"
-      ],
-      "trailhead": "Homestead",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 2.26,
-        "generated_miles": 11.61,
-        "lower_bound_miles": 3.62,
-        "efficiency_ratio": 3.206,
+        "required_miles": 0.66,
+        "generated_miles": 6.82,
+        "lower_bound_miles": 3.49,
+        "efficiency_ratio": 1.953,
         "required_component_count": 2,
         "odd_required_node_count": 4,
-        "parity_add_on_miles": 0.92,
-        "depot_component_attachment_miles": 0.45
+        "parity_add_on_miles": 0.6,
+        "depot_component_attachment_miles": 2.24
       },
-      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-peace-valley-overlook-fd21a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-shindig-18b.gpx",
       "segment_ids": [
-        "1722",
-        "1723",
-        "1724"
+        "1655",
+        "1721"
       ]
     },
     {
-      "label": "125-2: FD25B",
-      "outing_id": "125-2",
+      "label": "16-3: 16C-1",
+      "outing_id": "16-3",
       "candidate_ids": [
-        "the-face-trail"
+        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
       ],
-      "trailhead": "Pioneer Lodge Parking Area",
+      "trailhead": "Freddy's Stack Rock",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 1.15,
-        "generated_miles": 5.43,
-        "lower_bound_miles": 3.29,
-        "efficiency_ratio": 1.652,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.99,
-        "depot_component_attachment_miles": 1.15
-      },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-the-face-fd25b.gpx",
-      "segment_ids": [
-        "1680"
-      ]
-    },
-    {
-      "label": "101-1: FD01A",
-      "outing_id": "101-1",
-      "candidate_ids": [
-        "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail"
-      ],
-      "trailhead": "Warm Springs Golf Course",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [
-        {
-          "code": "depot_revisit_before_required_edges_cleared",
-          "seq": 7,
-          "cue_type": "car_pass_connector",
-          "remaining_segment_ids": [
-            "1668",
-            "1669",
-            "1670"
-          ],
-          "message": "The route revisits the depot before all required edges are credited, but the required-edge subgraph is disconnected; keep advisory until a same-depot replacement or connector-graph proof is concrete.",
-          "severity": "advisory"
-        }
-      ],
-      "route_quality": {
-        "status": "advisory",
-        "required_miles": 4.26,
-        "generated_miles": 11.97,
-        "lower_bound_miles": 5.54,
-        "efficiency_ratio": 2.16,
+        "required_miles": 3.5,
+        "generated_miles": 6.88,
+        "lower_bound_miles": 4.82,
+        "efficiency_ratio": 1.427,
         "required_component_count": 2,
-        "odd_required_node_count": 8,
-        "parity_add_on_miles": 0.99,
-        "depot_component_attachment_miles": 0.29
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 1.15,
+        "depot_component_attachment_miles": 0.17
       },
-      "gpx_path": "docs/field-packet/gpx/official/table-rock-rock-island-east-fd01a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-stack-rock-connector-16c-1.gpx",
       "segment_ids": [
-        "1632",
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1637",
-        "1638",
-        "1639",
-        "1640",
-        "1641",
-        "1642",
-        "1668",
-        "1669",
-        "1670",
-        "1686"
+        "1663",
+        "1664"
       ]
     },
     {
-      "label": "125-1: FD25A",
-      "outing_id": "125-1",
-      "candidate_ids": [
-        "elk-meadows-trail"
-      ],
-      "trailhead": "Simplot Lodge Parking Area",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.49,
-        "generated_miles": 6.09,
-        "lower_bound_miles": 3.64,
-        "efficiency_ratio": 1.673,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 1.04,
-        "depot_component_attachment_miles": 1.11
-      },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-elk-meadows-fd25a.gpx",
-      "segment_ids": [
-        "1553",
-        "1554"
-      ]
-    },
-    {
-      "label": "102-1: FD02A",
-      "outing_id": "102-1",
+      "label": "9-1: 9",
+      "outing_id": "9-1",
       "candidate_ids": [
         "block-eagle_bike_park_red_tail"
       ],
@@ -1156,15 +467,15 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 4.68,
-        "generated_miles": 6.74,
+        "generated_miles": 6.5,
         "lower_bound_miles": 5.53,
-        "efficiency_ratio": 1.219,
+        "efficiency_ratio": 1.175,
         "required_component_count": 2,
         "odd_required_node_count": 6,
         "parity_add_on_miles": 0.78,
         "depot_component_attachment_miles": 0.07
       },
-      "gpx_path": "docs/field-packet/gpx/official/western-foothills-veterans-fd02a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/western-foothills-veterans-9.gpx",
       "segment_ids": [
         "1496",
         "1539",
@@ -1182,8 +493,8 @@
       ]
     },
     {
-      "label": "110-1: 19",
-      "outing_id": "110-1",
+      "label": "19-1: 19",
+      "outing_id": "19-1",
       "candidate_ids": [
         "block-cervidae_peak"
       ],
@@ -1194,9 +505,9 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 2.24,
-        "generated_miles": 4.52,
+        "generated_miles": 4.49,
         "lower_bound_miles": 3.88,
-        "efficiency_ratio": 1.166,
+        "efficiency_ratio": 1.157,
         "required_component_count": 1,
         "odd_required_node_count": 2,
         "parity_add_on_miles": 1.63,
@@ -1208,184 +519,42 @@
       ]
     },
     {
-      "label": "123-3: FD23C",
-      "outing_id": "123-3",
+      "label": "5-2: 5B",
+      "outing_id": "5-2",
       "candidate_ids": [
-        "corrals-trail"
+        "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
       ],
-      "trailhead": "8th Street ATV Parking Area",
+      "trailhead": "Cartwright",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 5.1,
-        "generated_miles": 10.68,
-        "lower_bound_miles": 7.65,
-        "efficiency_ratio": 1.397,
+        "required_miles": 6.56,
+        "generated_miles": 8.38,
+        "lower_bound_miles": 7.11,
+        "efficiency_ratio": 1.179,
         "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 2.03,
-        "depot_component_attachment_miles": 0.52
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-corrals-fd23c.gpx",
-      "segment_ids": [
-        "1524",
-        "1525",
-        "1526",
-        "1527",
-        "1528"
-      ]
-    },
-    {
-      "label": "104-1: FD04A",
-      "outing_id": "104-1",
-      "candidate_ids": [
-        "combo-two-point-femrites-patrol-shanes-connector"
-      ],
-      "trailhead": "Freestone Creek",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.7,
-        "generated_miles": 14.5,
-        "lower_bound_miles": 6.35,
-        "efficiency_ratio": 2.282,
-        "required_component_count": 3,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.98,
-        "depot_component_attachment_miles": 3.67
-      },
-      "gpx_path": "docs/field-packet/gpx/official/military-reserve-two-point-fd04a.gpx",
-      "segment_ids": [
-        "1558",
-        "1652",
-        "1748"
-      ]
-    },
-    {
-      "label": "106-1: FD06A",
-      "outing_id": "106-1",
-      "candidate_ids": [
-        "fat-tire-traverse-curlew-connection"
-      ],
-      "trailhead": "Lower Interpretive",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 4.09,
-        "generated_miles": 12.38,
-        "lower_bound_miles": 6.92,
-        "efficiency_ratio": 1.788,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 1.52,
-        "depot_component_attachment_miles": 1.31
-      },
-      "gpx_path": "docs/field-packet/gpx/official/upper-military-reserve-fat-tire-traverse-fd06a.gpx",
-      "segment_ids": [
-        "1555",
-        "1710",
-        "1711"
-      ]
-    },
-    {
-      "label": "128-2: 15A-1",
-      "outing_id": "128-2",
-      "candidate_ids": [
-        "multi-start-15a-15a-ms-03-1-dry-creek-trail"
-      ],
-      "trailhead": "Private prior parking anchor",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 11.73,
-        "generated_miles": 25.67,
-        "lower_bound_miles": 13.36,
-        "efficiency_ratio": 1.922,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 1.6,
-        "depot_component_attachment_miles": 0.02
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-15a-1.gpx",
-      "segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1656"
-      ]
-    },
-    {
-      "label": "111-1: 14",
-      "outing_id": "111-1",
-      "candidate_ids": [
-        "block-watchman_five_mile_rocky"
-      ],
-      "trailhead": "Orchard Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 8.45,
-        "generated_miles": 19.86,
-        "lower_bound_miles": 11.22,
-        "efficiency_ratio": 1.769,
-        "required_component_count": 2,
-        "odd_required_node_count": 8,
-        "parity_add_on_miles": 2.71,
-        "depot_component_attachment_miles": 0.07
-      },
-      "gpx_path": "docs/field-packet/gpx/official/rocky-canyon-orchard-gulch-14.gpx",
-      "segment_ids": [
-        "1560",
-        "1561",
-        "1562",
-        "1595",
-        "1694",
-        "1695"
-      ]
-    },
-    {
-      "label": "113-1: 16A-1",
-      "outing_id": "113-1",
-      "candidate_ids": [
-        "manual-16a-1"
-      ],
-      "trailhead": "Private prior parking anchor",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 6.09,
-        "generated_miles": 14.2,
-        "lower_bound_miles": 9.97,
-        "efficiency_ratio": 1.425,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 3.88,
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 0.55,
         "depot_component_attachment_miles": 0.0
       },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-sweet-connie-16a-1.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-polecat-loop-5b.gpx",
       "segment_ids": [
-        "1665",
-        "1666",
-        "1667"
+        "1541",
+        "1598",
+        "1599",
+        "1600",
+        "1601",
+        "1602",
+        "1603",
+        "1604",
+        "1610"
       ]
     },
     {
-      "label": "115-1: FD15A",
-      "outing_id": "115-1",
+      "label": "3-1: 3",
+      "outing_id": "3-1",
       "candidate_ids": [
         "block-military_core"
       ],
@@ -1396,15 +565,15 @@
       "route_quality": {
         "status": "passed",
         "required_miles": 8.31,
-        "generated_miles": 15.97,
+        "generated_miles": 14.05,
         "lower_bound_miles": 10.87,
-        "efficiency_ratio": 1.469,
+        "efficiency_ratio": 1.293,
         "required_component_count": 2,
         "odd_required_node_count": 16,
         "parity_add_on_miles": 2.46,
         "depot_component_attachment_miles": 0.09
       },
-      "gpx_path": "docs/field-packet/gpx/official/military-reserve-military-reserve-connection-fd15a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/military-reserve-military-reserve-connection-3.gpx",
       "segment_ids": [
         "1510",
         "1511",
@@ -1437,135 +606,321 @@
       ]
     },
     {
-      "label": "118-1: FD18A",
-      "outing_id": "118-1",
+      "label": "12-1: 12",
+      "outing_id": "12-1",
       "candidate_ids": [
-        "polecat-loop-peggys-trail"
+        "block-upper_8th_corrals_sidewinder"
       ],
-      "trailhead": "Cartwright",
+      "trailhead": "8th Street ATV Parking Area",
       "audit_status": "passed",
       "hard_failures": [],
-      "advisory_findings": [
-        {
-          "code": "depot_revisit_before_required_edges_cleared",
-          "seq": 3,
-          "cue_type": "car_pass_connector",
-          "remaining_segment_ids": [
-            "1597"
-          ],
-          "message": "The route revisits the depot before all required edges are credited, but the required-edge subgraph is disconnected; keep advisory until a same-depot replacement or connector-graph proof is concrete.",
-          "severity": "advisory"
-        }
-      ],
+      "advisory_findings": [],
       "route_quality": {
-        "status": "advisory",
-        "required_miles": 10.19,
-        "generated_miles": 14.36,
-        "lower_bound_miles": 12.1,
-        "efficiency_ratio": 1.187,
+        "status": "passed",
+        "required_miles": 7.81,
+        "generated_miles": 13.44,
+        "lower_bound_miles": 10.21,
+        "efficiency_ratio": 1.316,
         "required_component_count": 2,
         "odd_required_node_count": 6,
-        "parity_add_on_miles": 1.85,
-        "depot_component_attachment_miles": 0.06
+        "parity_add_on_miles": 2.32,
+        "depot_component_attachment_miles": 0.08
       },
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-polecat-loop-fd18a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-corrals-12.gpx",
       "segment_ids": [
-        "1597",
-        "1598",
-        "1599",
-        "1600",
-        "1601",
-        "1602",
-        "1603",
-        "1604"
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1660"
       ]
     },
     {
-      "label": "120-1: FD20A",
-      "outing_id": "120-1",
+      "label": "16-1: 16A-1",
+      "outing_id": "16-1",
       "candidate_ids": [
-        "three-bears-trail-freestone-ridge"
+        "manual-16a-1"
       ],
-      "trailhead": "Freestone Creek",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 6.72,
-        "generated_miles": 15.83,
-        "lower_bound_miles": 8.91,
-        "efficiency_ratio": 1.776,
-        "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 1.73,
-        "depot_component_attachment_miles": 0.46
-      },
-      "gpx_path": "docs/field-packet/gpx/official/rocky-canyon-three-bears-fd20a.gpx",
-      "segment_ids": [
-        "1563",
-        "1564",
-        "1681",
-        "1682",
-        "1683",
-        "1684",
-        "1685"
-      ]
-    },
-    {
-      "label": "126-1: FD26A",
-      "outing_id": "126-1",
-      "candidate_ids": [
-        "around-the-mountain-trail"
-      ],
-      "trailhead": "Simplot Lodge Parking Area",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 6.64,
-        "generated_miles": 11.11,
-        "lower_bound_miles": 8.74,
-        "efficiency_ratio": 1.272,
+        "required_miles": 6.09,
+        "generated_miles": 14.2,
+        "lower_bound_miles": 9.97,
+        "efficiency_ratio": 1.425,
         "required_component_count": 1,
         "odd_required_node_count": 2,
-        "parity_add_on_miles": 1.13,
-        "depot_component_attachment_miles": 0.96
+        "parity_add_on_miles": 3.88,
+        "depot_component_attachment_miles": 0.0
       },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-around-the-mountain-fd26a.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-sweet-connie-16a-1.gpx",
       "segment_ids": [
-        "1488",
-        "1489",
-        "1490",
-        "1491",
-        "1492",
-        "1493",
-        "1750"
+        "1665",
+        "1666",
+        "1667"
       ]
     },
     {
-      "label": "127-1: H1",
-      "outing_id": "127-1",
+      "label": "4-3: 4C",
+      "outing_id": "4-3",
       "candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop"
+        "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute"
       ],
-      "trailhead": "Avimor Spring Valley Creek parking",
+      "trailhead": "Eagle Rock Park",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 6.6,
+        "generated_miles": 12.55,
+        "lower_bound_miles": 8.97,
+        "efficiency_ratio": 1.398,
+        "required_component_count": 2,
+        "odd_required_node_count": 12,
+        "parity_add_on_miles": 1.92,
+        "depot_component_attachment_miles": 0.46
+      },
+      "gpx_path": "docs/field-packet/gpx/official/table-rock-shoshone-paiute-tribes-trail-4c.gpx",
+      "segment_ids": [
+        "1605",
+        "1606",
+        "1607",
+        "1608",
+        "1609",
+        "1632",
+        "1633",
+        "1634",
+        "1635",
+        "1636",
+        "1637",
+        "1638",
+        "1639",
+        "1640",
+        "1641",
+        "1642",
+        "1658",
+        "1659",
+        "1668",
+        "1669",
+        "1670",
+        "1671",
+        "1672",
+        "1673",
+        "1674",
+        "1675",
+        "1676",
+        "1677",
+        "1686"
+      ]
+    },
+    {
+      "label": "14-1: 14",
+      "outing_id": "14-1",
+      "candidate_ids": [
+        "block-watchman_five_mile_rocky"
+      ],
+      "trailhead": "Orchard Gulch",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 8.45,
+        "generated_miles": 13.26,
+        "lower_bound_miles": 11.22,
+        "efficiency_ratio": 1.182,
+        "required_component_count": 2,
+        "odd_required_node_count": 8,
+        "parity_add_on_miles": 2.71,
+        "depot_component_attachment_miles": 0.07
+      },
+      "gpx_path": "docs/field-packet/gpx/official/rocky-canyon-orchard-gulch-14.gpx",
+      "segment_ids": [
+        "1560",
+        "1561",
+        "1562",
+        "1595",
+        "1694",
+        "1695"
+      ]
+    },
+    {
+      "label": "16-4: 16C-2",
+      "outing_id": "16-4",
+      "candidate_ids": [
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+      ],
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 4.76,
+        "generated_miles": 14.31,
+        "lower_bound_miles": 9.33,
+        "efficiency_ratio": 1.535,
+        "required_component_count": 1,
+        "odd_required_node_count": 2,
+        "parity_add_on_miles": 2.84,
+        "depot_component_attachment_miles": 1.73
+      },
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-shingle-creek-16c-2.gpx",
+      "segment_ids": [
+        "1656"
+      ]
+    },
+    {
+      "label": "2-1: 2",
+      "outing_id": "2-1",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "trailhead": "Hulls Gulch",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 13.11,
+        "generated_miles": 18.8,
+        "lower_bound_miles": 16.94,
+        "efficiency_ratio": 1.11,
+        "required_component_count": 5,
+        "odd_required_node_count": 16,
+        "parity_add_on_miles": 3.43,
+        "depot_component_attachment_miles": 0.39
+      },
+      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
+      "segment_ids": [
+        "1481",
+        "1517",
+        "1518",
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1567",
+        "1568",
+        "1583",
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1596",
+        "1615",
+        "1616",
+        "1725",
+        "1726",
+        "1727",
+        "1728",
+        "1729",
+        "1730",
+        "1751"
+      ]
+    },
+    {
+      "label": "18-1: 18A",
+      "outing_id": "18-1",
+      "candidate_ids": [
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+      ],
+      "trailhead": "Bogus Basin Base Area",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 5.58,
+        "generated_miles": 15.3,
+        "lower_bound_miles": 8.83,
+        "efficiency_ratio": 1.732,
+        "required_component_count": 3,
+        "odd_required_node_count": 10,
+        "parity_add_on_miles": 0.92,
+        "depot_component_attachment_miles": 2.34
+      },
+      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
+      "segment_ids": [
+        "1501",
+        "1502",
+        "1503",
+        "1678",
+        "1679",
+        "1680",
+        "1703",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736"
+      ]
+    },
+    {
+      "label": "15-2: 15B",
+      "outing_id": "15-2",
+      "candidate_ids": [
+        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+      ],
+      "trailhead": "Bob's",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 9.33,
+        "generated_miles": 25.39,
+        "lower_bound_miles": 17.24,
+        "efficiency_ratio": 1.472,
+        "required_component_count": 3,
+        "odd_required_node_count": 6,
+        "parity_add_on_miles": 5.7,
+        "depot_component_attachment_miles": 2.22
+      },
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-highlands-15b.gpx",
+      "segment_ids": [
+        "1523",
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1576",
+        "1577"
+      ]
+    },
+    {
+      "label": "10-1: 10A",
+      "outing_id": "10-1",
+      "candidate_ids": [
+        "manual-10a"
+      ],
+      "trailhead": "Harlow's / Hidden Springs west access probe",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
         "required_miles": 7.3,
-        "generated_miles": 9.64,
-        "lower_bound_miles": 8.28,
-        "efficiency_ratio": 1.164,
+        "generated_miles": 21.84,
+        "lower_bound_miles": 8.18,
+        "efficiency_ratio": 2.669,
         "required_component_count": 2,
         "odd_required_node_count": 8,
         "parity_add_on_miles": 0.78,
-        "depot_component_attachment_miles": 0.2
+        "depot_component_attachment_miles": 0.1
       },
-      "gpx_path": "docs/field-packet/gpx/official/avimor-harlow-twisted-spring-h1.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
       "segment_ids": [
         "1626",
         "1657",
@@ -1583,41 +938,114 @@
       ]
     },
     {
-      "label": "131-1: 18",
-      "outing_id": "131-1",
+      "label": "17-1: 17",
+      "outing_id": "17-1",
       "candidate_ids": [
-        "block-bogus_mores_lodge_tempest"
+        "block-bogus_atm_deer_elk_sunshine"
       ],
-      "trailhead": "Pioneer Lodge Parking Area",
+      "trailhead": "Simplot Lodge Parking Area",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 5.08,
-        "generated_miles": 14.08,
-        "lower_bound_miles": 7.92,
-        "efficiency_ratio": 1.778,
-        "required_component_count": 3,
-        "odd_required_node_count": 8,
-        "parity_add_on_miles": 1.0,
-        "depot_component_attachment_miles": 1.83
+        "required_miles": 11.29,
+        "generated_miles": 16.02,
+        "lower_bound_miles": 13.58,
+        "efficiency_ratio": 1.18,
+        "required_component_count": 2,
+        "odd_required_node_count": 6,
+        "parity_add_on_miles": 1.36,
+        "depot_component_attachment_miles": 0.93
       },
-      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/bogus-basin-sunshine-xc-17.gpx",
       "segment_ids": [
-        "1501",
-        "1502",
-        "1503",
-        "1655",
-        "1678",
-        "1679",
-        "1703",
-        "1721",
-        "1732",
-        "1733",
-        "1734",
-        "1735",
-        "1736"
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1540",
+        "1553",
+        "1554",
+        "1680",
+        "1713",
+        "1750"
+      ]
+    },
+    {
+      "label": "6-1: 6",
+      "outing_id": "6-1",
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ],
+      "trailhead": "Cartwright",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 13.67,
+        "generated_miles": 22.41,
+        "lower_bound_miles": 20.33,
+        "efficiency_ratio": 1.102,
+        "required_component_count": 6,
+        "odd_required_node_count": 12,
+        "parity_add_on_miles": 4.56,
+        "depot_component_attachment_miles": 2.09
+      },
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-peggy-s-6.gpx",
+      "segment_ids": [
+        "1508",
+        "1509",
+        "1516",
+        "1519",
+        "1520",
+        "1521",
+        "1597",
+        "1709"
+      ]
+    },
+    {
+      "label": "13-1: 13",
+      "outing_id": "13-1",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "trailhead": "Freestone Creek",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 14.35,
+        "generated_miles": 32.47,
+        "lower_bound_miles": 17.51,
+        "efficiency_ratio": 1.854,
+        "required_component_count": 1,
+        "odd_required_node_count": 12,
+        "parity_add_on_miles": 2.7,
+        "depot_component_attachment_miles": 0.46
+      },
+      "gpx_path": "docs/field-packet/gpx/official/rocky-canyon-three-bears-13.gpx",
+      "segment_ids": [
+        "1555",
+        "1558",
+        "1563",
+        "1564",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1710",
+        "1711",
+        "1748"
       ]
     }
   ]

@@ -107,7 +107,10 @@ def line_miles(coords):
 
 def test_official_credit_cue_with_extra_movement_fails(tmp_path):
     packet_dir = tmp_path / "packet"
-    write_gpx(packet_dir / "gpx" / "official" / "route-a.gpx", [(-116.0, 43.0), (-115.99, 43.0)])
+    start = (-116.0, 43.0)
+    mid = (-115.99, 43.0)
+    end = (-115.98, 43.0)
+    write_gpx(packet_dir / "gpx" / "official" / "route-a.gpx", [start, mid, end])
     route = {
         "outing_id": "route-a",
         "label": "Route A",
@@ -121,6 +124,7 @@ def test_official_credit_cue_with_extra_movement_fails(tmp_path):
                 "route_miles": 0.0,
                 "route_leg_miles": 0.4,
                 "source_leg_miles": 0.4,
+                "source_path_coordinates": [start, mid, end],
                 "official_miles": 0.2,
             }
         ],
@@ -128,11 +132,40 @@ def test_official_credit_cue_with_extra_movement_fails(tmp_path):
 
     audit = build_audit(tmp_path, route, graph_with_edges([]))
 
-    assert audit["status"] == "failed"
-    assert audit["summary"]["hidden_exit_finding_count"] == 1
-    finding = audit["findings"][0]
-    assert finding["code"] == "official_credit_cue_hides_post_credit_exit"
-    assert finding["hidden_exit_feet"] == 1056
+    assert audit["status"] == "passed"
+    assert audit["summary"]["hidden_exit_finding_count"] == 0
+    assert audit["summary"]["hidden_exit_warning_count"] == 1
+    warning = audit["warnings"][0]
+    assert warning["code"] == "official_credit_cue_hides_post_credit_exit"
+    assert warning["hidden_exit_feet"] == 1056
+
+
+def test_official_credit_display_mileage_without_source_path_is_not_hidden_exit_evidence(tmp_path):
+    packet_dir = tmp_path / "packet"
+    write_gpx(packet_dir / "gpx" / "official" / "route-a.gpx", [(-116.0, 43.0), (-115.99, 43.0)])
+    route = {
+        "outing_id": "route-a",
+        "label": "Route A",
+        "segment_ids": [101],
+        "gpx_href": "gpx/official/route-a.gpx",
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": [101],
+                "route_miles": 0.0,
+                "route_leg_miles": 0.6,
+                "source_leg_miles": 0.6,
+                "official_miles": 0.2,
+            }
+        ],
+    }
+
+    audit = build_audit(tmp_path, route, graph_with_edges([]))
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["hidden_exit_finding_count"] == 0
+    assert audit["summary"]["hidden_exit_warning_count"] == 0
 
 
 def test_hidden_exit_uses_source_miles_not_scaled_display_miles(tmp_path):
@@ -161,6 +194,7 @@ def test_hidden_exit_uses_source_miles_not_scaled_display_miles(tmp_path):
 
     assert audit["status"] == "passed"
     assert audit["summary"]["hidden_exit_finding_count"] == 0
+    assert audit["summary"]["hidden_exit_warning_count"] == 0
 
 
 def test_explicit_post_credit_connector_passes_when_shortest(tmp_path):
@@ -200,6 +234,49 @@ def test_explicit_post_credit_connector_passes_when_shortest(tmp_path):
     assert audit["status"] == "passed"
     assert audit["summary"]["post_credit_connector_proof_count"] == 1
     assert audit["routes"][0]["post_credit_connector_proofs"][0]["status"] == "passed"
+
+
+def test_explicit_post_credit_connector_fails_when_packet_savings_metadata_is_stale(tmp_path):
+    packet_dir = tmp_path / "packet"
+    start = (-116.0, 43.0)
+    mid = (-115.99, 43.0)
+    end = (-115.98, 43.0)
+    first_leg = line_miles([start, mid])
+    connector_leg = line_miles([mid, end])
+    write_gpx(packet_dir / "gpx" / "official" / "route-a.gpx", [start, mid, end])
+    route = {
+        "outing_id": "route-a",
+        "label": "Route A",
+        "segment_ids": [101, 102],
+        "gpx_href": "gpx/official/route-a.gpx",
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": [101],
+                "route_miles": 0.0,
+                "route_leg_miles": first_leg,
+                "source_leg_miles": first_leg,
+            },
+            {
+                "seq": 2,
+                "cue_type": "connector_named_trail",
+                "route_miles": first_leg,
+                "route_leg_miles": connector_leg,
+                "shortest_repair_savings_miles": 0.25,
+            },
+        ],
+    }
+    connector_graph = graph_with_edges([(mid, end, connector_leg)])
+
+    audit = build_audit(tmp_path, route, connector_graph)
+
+    assert audit["status"] == "failed"
+    assert audit["summary"]["stale_connector_savings_finding_count"] == 1
+    finding = audit["findings"][0]
+    assert finding["failure_code"] == "field_packet_connector_savings_mismatch"
+    assert finding["field_packet_shortest_repair_savings_miles"] == 0.25
+    assert finding["savings_miles"] == 0.0
 
 
 def test_explicit_post_credit_connector_uses_gpx_route_interval_not_scaled_source_miles(tmp_path):
@@ -532,6 +609,47 @@ def test_target_official_sliver_inside_snap_tolerance_does_not_block_connector_p
     assert audit["status"] == "passed"
     proof = audit["routes"][0]["post_credit_connector_proofs"][0]
     assert proof["target_official_sliver_within_snap_tolerance"] is True
+
+
+def test_explicit_source_connector_passes_when_graph_has_no_alternative(tmp_path):
+    packet_dir = tmp_path / "packet"
+    start = (-116.0, 43.0)
+    mid = (-115.99, 43.0)
+    end = (-115.98, 43.0)
+    first_leg = line_miles([start, mid])
+    connector_leg = line_miles([mid, end])
+    write_gpx(packet_dir / "gpx" / "official" / "route-a.gpx", [start, mid, end])
+    route = {
+        "outing_id": "route-a",
+        "label": "Route A",
+        "segment_ids": [101, 102],
+        "gpx_href": "gpx/official/route-a.gpx",
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": [101],
+                "route_miles": 0.0,
+                "route_leg_miles": first_leg,
+            },
+            {
+                "seq": 2,
+                "cue_type": "connector_named_trail",
+                "target": "Mapped Connector",
+                "signed_as": ["Mapped Connector"],
+                "source_path_coordinates": [mid, end],
+                "source_leg_miles": connector_leg,
+                "route_miles": first_leg,
+                "route_leg_miles": connector_leg,
+            },
+        ],
+    }
+
+    audit = build_audit(tmp_path, route, graph_with_edges([]))
+
+    assert audit["status"] == "passed"
+    proof = audit["routes"][0]["post_credit_connector_proofs"][0]
+    assert proof["source_geometry_without_graph_alternative"] is True
 
 
 def test_explicit_post_credit_connector_fails_when_shorter_legal_path_exists(tmp_path):

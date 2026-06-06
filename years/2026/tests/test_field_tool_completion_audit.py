@@ -17,7 +17,20 @@ def sample_audit_inputs(tmp_path):
     module = load_module()
     canonical = {
         "summary": {"component_route_count": 1},
-        "packages": [{"package_number": 1}],
+        "packages": [
+            {
+                "package_number": 1,
+                "components": [
+                    {
+                        "candidate_id": "test-route",
+                        "official_miles": 1.0,
+                        "on_foot_miles": 1.4,
+                        "total_minutes": 75,
+                        "segment_ids": [101],
+                    }
+                ],
+            }
+        ],
         "map_validation": {
             "source_gap_warning_count": 0,
             "route_validations": [
@@ -239,6 +252,8 @@ def test_completion_audit_counts_validated_progress_outside_active_field_menu(tm
     inputs = sample_audit_inputs(tmp_path)
     route = inputs["field_tool_data"]["routes"][0]
     route["segment_ids"] = ["102"]
+    inputs["canonical_map_data"]["packages"][0]["components"][0]["segment_ids"] = [102]
+    inputs["field_tool_data"]["source"]["map_data_sha256"] = module.stable_json_sha256(inputs["canonical_map_data"])
     inputs["field_tool_data"]["progress"] = {
         "completed_segment_ids_at_export": ["101"],
         "blocked_segment_ids_at_export": [],
@@ -262,6 +277,21 @@ def test_completion_audit_counts_validated_progress_outside_active_field_menu(tm
     assert audit["summary"]["accounted_segment_count"] == 2
     checks = {check["requirement"]: check for check in audit["checks"]}
     assert checks["Active field packet accounts for every official segment geometry id"]["passed"] is True
+
+
+def test_completion_audit_fails_when_field_packet_route_metrics_drift_from_canonical_menu(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["field_tool_data"]["routes"][0]["on_foot_miles"] = 1.25
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    check = checks["Field packet route records match canonical outing menu metrics"]
+    assert check["passed"] is False
+    assert "test-route" in check["evidence"]
+    assert "on_foot_miles field packet 1.25 != canonical 1.40" in check["evidence"]
 
 
 def test_completion_audit_fails_when_canonical_source_hash_does_not_match(tmp_path):
@@ -529,6 +559,25 @@ def test_completion_audit_fails_when_wayfinding_cue_lacks_until_target(tmp_path)
     assert "wayfinding cue 1 start_access missing until" in checks[
         "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"
     ]["evidence"]
+
+
+def test_completion_audit_fails_when_live_map_would_default_to_second_cue(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    cues = inputs["field_tool_data"]["routes"][0]["wayfinding_cues"]
+    cues[0]["route_miles"] = 0.0
+    cues[0]["route_leg_miles"] = 0.0
+    cues[0]["leg_miles"] = 0.0
+    cues[1]["route_miles"] = 0.0
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    check = checks["Live map default cue starts at the first field cue"]
+    assert check["passed"] is False
+    assert "test-route" in check["evidence"]
+    assert "live map default would open on cue 2" in check["evidence"]
 
 
 def test_completion_audit_fails_when_card_and_cue_mileage_disagree_but_ignores_gpx_distance(tmp_path):

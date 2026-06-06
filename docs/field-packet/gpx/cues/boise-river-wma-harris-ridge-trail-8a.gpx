@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Boise River WMA: Harris Ridge Trail (8A) cues</name>
+    <desc>8A. Homestead | Official 1.72 mi; On-foot 4.44 mi; Door-to-door p75 1h 58m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.572108" lon="-116.113852">
+    <name>PARK/START Homestead Trail Access Point</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.572129" lon="-116.106105">
+    <name>CUE 01 Harris Ridge Trail</name>
+    <desc>Follow Harris Ridge Trail. First official segment here: Harris Ridge Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.572100" lon="-116.114000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

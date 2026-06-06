@@ -162,7 +162,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "11f8bb284c71a328";
+    const DEFAULT_ASSET_VERSION = "0b9773e3e5b4f1ce";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -602,8 +602,11 @@
       }
       return best;
     }
+    function routeCues() {
+      return state.route?.live_map_cues || state.route?.wayfinding_cues || [];
+    }
     function cueForRouteM(routeM) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return null;
       const next = cues.find(cue => metersFromMiles(cue.cum_miles) >= routeM - 30);
       return next || cues[cues.length - 1];
@@ -636,7 +639,7 @@
       return Math.max(startM, Math.min(startM + metersFromMiles(cue?.leg_miles || 0), state.totalRouteM || 0));
     }
     function activeLegRange(index = state.activeCueIndex) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return { startM: 0, endM: state.totalRouteM || 0, cue: null, nextCue: null, index: 0, nextIndex: null };
       const clamped = Math.max(0, Math.min(index, cues.length - 1));
       const cue = cues[clamped];
@@ -663,7 +666,7 @@
       return cueType === "overlap_repeat" || Boolean(cue.overlap_match);
     }
     function cueIndexForRouteM(routeM) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return 0;
       let active = 0;
       for (let index = 0; index < cues.length; index += 1) {
@@ -672,7 +675,7 @@
       return active;
     }
     function requestedCueIndex() {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       const requested = Number(pageParams.get("cue"));
       if (!cues.length || !Number.isFinite(requested)) return null;
       const seqIndex = cues.findIndex(cue => Number(cue.seq) === requested);
@@ -681,14 +684,14 @@
       return null;
     }
     function nextDistinctCueIndex(index = state.activeCueIndex) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return 0;
       const leg = activeLegRange(index);
       if (leg.nextIndex !== null) return leg.nextIndex;
       return Math.min(index + 1, cues.length - 1);
     }
     function previousDistinctCueIndex(index = state.activeCueIndex) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return 0;
       const currentM = cueRouteM(cues[Math.max(0, Math.min(index, cues.length - 1))]);
       for (let candidateIndex = Math.min(index - 1, cues.length - 1); candidateIndex >= 0; candidateIndex -= 1) {
@@ -697,7 +700,7 @@
       return index;
     }
     function activeContextStartM(index = state.activeCueIndex) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return 0;
       const clamped = Math.max(0, Math.min(index, cues.length - 1));
       const previousIndex = previousDistinctCueIndex(clamped);
@@ -752,7 +755,7 @@
       cueHomeEtaText.textContent = homeEtaText();
     }
     function nextCueIndexAfterRouteM(routeM) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (!cues.length) return null;
       for (let index = 0; index < cues.length; index += 1) {
         if (cueRouteM(cues[index]) > routeM + 25) return index;
@@ -760,7 +763,7 @@
       return null;
     }
     function cuePointForIndex(index) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       if (index === null || !cues[index]) return null;
       const cueM = cueRouteM(cues[index]);
       return displayedRoutePositionForM(cueM, { context: true }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
@@ -775,7 +778,7 @@
         updateMapLegBanner();
         return;
       }
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       const leg = activeLegRange();
       if (!cues.length || !leg.cue) {
         nearestCue.textContent = "No cue data for this route.";
@@ -827,7 +830,7 @@
       mapLegBannerContent.innerHTML = `<b>${bannerAction} ${fromSeq} -> ${toSeq}</b>: ${escapeText(signedAs)}${target}${until}.${warningHtml}`;
     }
     function setActiveCueIndex(index, options = {}) {
-      const cues = state.route?.wayfinding_cues || [];
+      const cues = routeCues();
       state.activeCueIndex = cues.length ? Math.max(0, Math.min(index, cues.length - 1)) : 0;
       updateActiveCuePanel();
       if (options.fit) fitActiveLeg(Boolean(state.user));
@@ -1190,6 +1193,14 @@
       const displaySource = options.context ? state.contextSegments : state.displayedSegments;
       return segmentsFromDisplaySourceForRouteRange(displaySource, startM, endM);
     }
+    function sourcePathSegmentsForCue(cue) {
+      const coords = Array.isArray(cue?.source_path_coordinates) ? cue.source_path_coordinates : [];
+      if (!coords.length || !state.project) return [];
+      const points = coords
+        .map(coord => Array.isArray(coord) && coord.length >= 2 ? state.project({ lon: Number(coord[0]), lat: Number(coord[1]) }) : null)
+        .filter(point => point && Number.isFinite(point.x) && Number.isFinite(point.y));
+      return points.length > 1 ? [points] : [];
+    }
     function mergeRouteMRanges(ranges, maxGapM = 55) {
       const sorted = ranges
         .filter(range => Number.isFinite(range.startM) && Number.isFinite(range.endM) && range.endM > range.startM)
@@ -1304,7 +1315,7 @@
       const fullPath = pathForSegments(visibleSegments, { smooth: true });
       let routeHtml = fullPath ? `<path class="route-context" d="${fullPath}" />` : "";
       if (state.style === "cue-legs") {
-        const cueStops = (state.route?.wayfinding_cues || [])
+        const cueStops = routeCues()
           .map(cue => cueRouteM(cue))
           .filter(value => value >= visibleStartM - 8);
         const stops = [...new Set([visibleStartM, ...cueStops, state.totalRouteM])]
@@ -1320,8 +1331,15 @@
         routeHtml += `<g class="route-context-gradient">${drawProgressRibbon(visibleStartM)}</g>`;
       }
       const leg = activeLegRange();
-      const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
-      const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
+      const sourceActiveSegments = sourcePathSegmentsForCue(leg.cue);
+      const activeSegments = smoothSegmentsForDisplay(
+        sourceActiveSegments.length
+          ? sourceActiveSegments
+          : nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true })
+      );
+      const arrowSegments = sourceActiveSegments.length
+        ? []
+        : smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       const activeLaneClass = activeLegUsesSplitLane(leg) ? " split-lane" : "";
       if (activePath) {
@@ -1329,10 +1347,12 @@
           ? `<path class="active-halo split-lane" d="${activePath}" /><path class="active-line split-lane" d="${activePath}" />`
           : `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
-      const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM);
-      const trunkPath = pathForSegments(trunkSegments, { smooth: true });
-      if (trunkPath) {
-        routeHtml += `<path class="transit-trunk-halo" d="${trunkPath}" /><path class="transit-trunk-band" d="${trunkPath}" /><path class="transit-trunk-separator" d="${trunkPath}" />`;
+      if (!sourceActiveSegments.length) {
+        const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM);
+        const trunkPath = pathForSegments(trunkSegments, { smooth: true });
+        if (trunkPath) {
+          routeHtml += `<path class="transit-trunk-halo" d="${trunkPath}" /><path class="transit-trunk-band" d="${trunkPath}" /><path class="transit-trunk-separator" d="${trunkPath}" />`;
+        }
       }
       routeLayer.innerHTML = routeHtml + activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments });
     }
@@ -1341,7 +1361,7 @@
       const leg = activeLegRange();
       const visibleStartM = visibleRouteStartM();
       const unit = mapUnitsPerPixel();
-      const cueMarkers = (state.route?.wayfinding_cues || [])
+      const cueMarkers = routeCues()
         .map((cue, index) => {
           const cueM = cueRouteM(cue);
           const isActive = index === state.activeCueIndex;

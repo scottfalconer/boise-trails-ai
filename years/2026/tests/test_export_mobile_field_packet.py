@@ -30,7 +30,393 @@ def test_trail_groups_split_same_trail_when_inter_segment_connector_is_declared(
     assert groups[1]["incoming_link"] == link
 
 
+def test_track_selection_prefers_special_management_legal_cue_track():
+    exporter = load_exporter()
+    official_index = {
+        "1": {
+            "parts": [[(-116.205, 43.626), (-116.202, 43.626)]],
+            "part_bboxes": [(-116.205, 43.626, -116.202, 43.626)],
+        }
+    }
+    rules = [
+        {
+            "rule_type": "directional_segment_traversal",
+            "segment_direction_overrides": {"1": ["forward"]},
+        }
+    ]
+
+    selected, source = exporter.select_track_segments_for_outing(
+        cue_track_segments=[[(-116.205, 43.626), (-116.202, 43.626)]],
+        feature_track_segments=[[(-116.202, 43.626), (-116.205, 43.626)]],
+        parking={"lon": -116.205, "lat": 43.626},
+        max_parking_gap_miles=0.2,
+        special_management_index=official_index,
+        special_management_rules=rules,
+    )
+
+    assert source == "route_cues"
+    assert selected == [[(-116.205, 43.626), (-116.202, 43.626)]]
+
+
+def test_track_selection_prefers_foot_legal_cue_track_over_blocked_feature_track():
+    exporter = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge, TrailGraph
+
+    graph = TrailGraph(
+        [
+            TrailEdge(
+                edge_id="unsafe",
+                name="Bike Only Connector",
+                normalized_name="bike only connector",
+                signposts=set(),
+                source_class="private_or_blocked",
+                coords=[(-116.205, 43.626), (-116.202, 43.626)],
+            ),
+            TrailEdge(
+                edge_id="safe",
+                name="Foot Legal Connector",
+                normalized_name="foot legal connector",
+                signposts=set(),
+                source_class="r2r_trail",
+                coords=[(-116.205, 43.636), (-116.202, 43.636)],
+            ),
+        ]
+    )
+
+    selected, source = exporter.select_track_segments_for_outing(
+        cue_track_segments=[[(-116.205, 43.636), (-116.202, 43.636)]],
+        feature_track_segments=[[(-116.205, 43.626), (-116.202, 43.626)]],
+        parking={"lon": -116.205, "lat": 43.626},
+        max_parking_gap_miles=1.0,
+        walkthrough_graph=graph,
+    )
+
+    assert source == "route_cues"
+    assert selected == [[(-116.205, 43.636), (-116.202, 43.636)]]
+
+
+def test_track_selection_prefers_graph_matched_cue_track_before_raw_gap_count():
+    exporter = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge, TrailGraph
+
+    graph = TrailGraph(
+        [
+            TrailEdge(
+                edge_id="signed",
+                name="Signed Trail",
+                normalized_name="signed trail",
+                signposts=set(),
+                source_class="r2r_trail",
+                coords=[(-116.000, 43.000), (-116.003, 43.000)],
+            ),
+        ]
+    )
+
+    selected, source = exporter.select_track_segments_for_outing(
+        cue_track_segments=[[(-116.000, 43.000), (-116.003, 43.000)]],
+        feature_track_segments=[
+            [
+                (-116.000, 43.010),
+                (-116.001, 43.010),
+                (-116.002, 43.010),
+                (-116.003, 43.010),
+                (-116.000, 43.010),
+            ]
+        ],
+        parking={"lon": -116.000, "lat": 43.000},
+        max_parking_gap_miles=1.0,
+        max_track_gap_miles=0.05,
+        walkthrough_graph=graph,
+    )
+
+    assert source == "route_cues"
+    assert selected == [[(-116.000, 43.000), (-116.003, 43.000)]]
+
+
+def test_track_selection_uses_cue_source_when_graph_quality_ties():
+    exporter = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge, TrailGraph
+
+    graph = TrailGraph(
+        [
+            TrailEdge(
+                edge_id="cue",
+                name="Cue Trail",
+                normalized_name="cue trail",
+                signposts=set(),
+                source_class="r2r_trail",
+                coords=[(-116.000, 43.000), (-116.001, 43.000), (-116.000, 43.000)],
+            ),
+            TrailEdge(
+                edge_id="feature",
+                name="Feature Trail",
+                normalized_name="feature trail",
+                signposts=set(),
+                source_class="r2r_trail",
+                coords=[(-116.000, 43.001), (-116.001, 43.001), (-116.000, 43.001)],
+            ),
+        ]
+    )
+    cue_track = [[(-116.000, 43.000), (-116.001, 43.000), (-116.000, 43.000)]]
+    feature_track = [[(-116.000, 43.001), (-116.001, 43.001), (-116.000, 43.001)]]
+
+    selected, source = exporter.select_track_segments_for_outing(
+        cue_track,
+        feature_track,
+        parking={"lon": -116.000, "lat": 43.000},
+        max_parking_gap_miles=0.1,
+        walkthrough_graph=graph,
+    )
+
+    assert source == "route_cues"
+    assert selected == cue_track
+
+
+def test_shortest_connector_repair_replaces_unsafe_path_even_when_legal_path_is_longer(monkeypatch):
+    exporter = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge, TrailGraph
+
+    graph = TrailGraph(
+        [
+            TrailEdge(
+                edge_id="unsafe",
+                name="Bike Only Connector",
+                normalized_name="bike only connector",
+                signposts=set(),
+                source_class="private_or_blocked",
+                coords=[(-116.205, 43.626), (-116.204, 43.626)],
+            )
+        ]
+    )
+
+    def fake_shortest_connector_path(*args, **kwargs):
+        return {
+            "distance_miles": 0.1,
+            "connector_miles": 0.1,
+            "official_repeat_miles": 0,
+            "official_repeat_segment_ids": [],
+            "connector_names": ["Foot Legal Connector"],
+            "connector_classes": ["r2r_trail"],
+            "connector_edges": [{"name": "Foot Legal Connector"}],
+            "path_coordinates": [[-116.205, 43.627], [-116.204, 43.627]],
+        }
+
+    monkeypatch.setattr(exporter, "shortest_connector_path", fake_shortest_connector_path)
+    link = {
+        "distance_miles": 0.08,
+        "path_coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+    }
+
+    repaired = exporter.apply_shortest_connector_path_to_link(
+        link,
+        {"graph": {}, "nodes": []},
+        snap_tolerance_miles=0.045,
+        improvement_tolerance_miles=0.005,
+        walkthrough_graph=graph,
+    )
+
+    assert repaired is True
+    assert link["unsafe_connector_repaired"] is True
+    assert link["connector_names"] == ["Foot Legal Connector"]
+    assert link["distance_miles"] == 0.1
+
+
+def test_unsafe_connector_labels_are_removed_without_path_repair(monkeypatch):
+    exporter = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge, TrailGraph
+
+    graph = TrailGraph(
+        [
+            TrailEdge(
+                edge_id="bucktail",
+                name="#20A Bucktail",
+                normalized_name="bucktail",
+                signposts={"20A"},
+                source_class="private_or_blocked",
+                coords=[(-116.3, 43.7), (-116.301, 43.7)],
+                raw_properties={"TrailName": "Bucktail", "Name": "#20A Bucktail"},
+            )
+        ]
+    )
+
+    monkeypatch.setattr(exporter, "shortest_connector_path", lambda *args, **kwargs: None)
+    link = {
+        "distance_miles": 0.2,
+        "connector_names": ["Two Point", "Bucktail"],
+        "signpost_labels": ["#20A Bucktail", "#26A Shane's"],
+        "path_coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+    }
+
+    repaired = exporter.apply_shortest_connector_path_to_link(
+        link,
+        {"graph": {}, "nodes": []},
+        snap_tolerance_miles=0.045,
+        improvement_tolerance_miles=0.005,
+        walkthrough_graph=graph,
+        unsafe_connector_label_keys=exporter.unsafe_connector_label_keys(graph),
+    )
+
+    assert repaired is False
+    assert link["connector_names"] == ["Two Point"]
+    assert link["signpost_labels"] == ["#26A Shane's"]
+    assert "Bucktail" in link["unsafe_connector_labels_removed"]
+
+
+def test_stitch_inter_segment_track_gaps_splits_unstitched_internal_gap():
+    exporter = load_exporter()
+
+    stitched = exporter.stitch_inter_segment_track_gaps(
+        [[(-116.205, 43.626), (-116.155, 43.626), (-116.1549, 43.626)]],
+        {"graph": {}, "nodes": []},
+        max_gap_miles=0.05,
+    )
+
+    assert stitched == [
+        [(-116.205, 43.626)],
+        [(-116.155, 43.626), (-116.1549, 43.626)],
+    ]
+
+
+def test_link_for_group_transition_matches_trail_names_before_position():
+    exporter = load_exporter()
+    links = [
+        {"from_trail": "Sunshine XC", "to_trail": "Deer Point Trail"},
+        {"from_trail": "Around the Mountain Trail", "to_trail": "The Face Trail"},
+    ]
+
+    assert (
+        exporter.link_for_group_transition(
+            links,
+            1,
+            from_trail="Deer Point Trail",
+            to_trail="Around the Mountain Trail",
+        )
+        == {}
+    )
+    assert exporter.link_for_group_transition(
+        links,
+        1,
+        from_trail="Around the Mountain Trail",
+        to_trail="The Face Trail",
+    ) == links[1]
+
+
+def test_track_segments_for_route_cues_prefers_repaired_between_link_over_stale_prelink():
+    exporter = load_exporter()
+    stale = {
+        "from_trail": "Trail A",
+        "to_trail": "Trail B",
+        "path_coordinates": [(-116.1, 43.1), (-116.2, 43.2)],
+    }
+    repaired = {
+        "from_trail": "Trail A",
+        "to_trail": "Trail B",
+        "path_coordinates": [(-116.1, 43.1), (-116.15, 43.15)],
+    }
+
+    tracks = exporter.track_segments_for_route_cues(
+        [
+            {
+                "segments": [
+                    {"trail_name": "Trail A", "coordinates": [(-116.0, 43.0), (-116.1, 43.1)]},
+                    {
+                        "trail_name": "Trail B",
+                        "pre_connector_link": stale,
+                        "coordinates": [(-116.15, 43.15), (-116.2, 43.2)],
+                    },
+                ],
+                "between_links": [repaired],
+            }
+        ]
+    )
+
+    assert tracks == [[(-116.0, 43.0), (-116.1, 43.1), (-116.15, 43.15), (-116.2, 43.2)]]
+
+
+def test_track_segments_for_route_cues_uses_proven_prelink_over_estimated_between_gap():
+    exporter = load_exporter()
+    estimated = {
+        "from_trail": "Trail A",
+        "to_trail": "Trail B",
+        "source": "estimated_gap",
+        "path_coordinates": [(-116.1, 43.1), (-116.3, 43.3)],
+    }
+    proven = {
+        "from_trail": "Trail A",
+        "to_trail": "Trail B",
+        "source": "mapped_graph",
+        "connector_edges": [{"name": "Connector"}],
+        "path_coordinates": [(-116.1, 43.1), (-116.15, 43.15)],
+    }
+
+    tracks = exporter.track_segments_for_route_cues(
+        [
+            {
+                "segments": [
+                    {"trail_name": "Trail A", "coordinates": [(-116.0, 43.0), (-116.1, 43.1)]},
+                    {
+                        "trail_name": "Trail B",
+                        "pre_connector_link": proven,
+                        "coordinates": [(-116.15, 43.15), (-116.2, 43.2)],
+                    },
+                ],
+                "between_links": [estimated],
+            }
+        ]
+    )
+
+    assert tracks == [[(-116.0, 43.0), (-116.1, 43.1), (-116.15, 43.15), (-116.2, 43.2)]]
+
+
+def test_track_segments_for_route_cues_orients_segment_to_current_cursor():
+    exporter = load_exporter()
+
+    tracks = exporter.track_segments_for_route_cues(
+        [
+            {
+                "segments": [
+                    {"trail_name": "Trail A", "coordinates": [(-116.0, 43.0), (-116.1, 43.1)]},
+                    {
+                        "trail_name": "Trail B",
+                        "coordinates": [(-116.2, 43.2), (-116.1, 43.1)],
+                    },
+                ],
+            }
+        ]
+    )
+
+    assert tracks == [[(-116.0, 43.0), (-116.1, 43.1), (-116.2, 43.2)]]
+
+
 def sample_map_data():
+    p0 = [-116.1, 43.1]
+    p1 = [-116.1144, 43.1144]
+    p2 = [-116.1158, 43.1158]
+    p3 = [-116.12165, 43.12165]
+
+    def dense_line(start, end, steps):
+        return [
+            [
+                start[0] + (end[0] - start[0]) * index / steps,
+                start[1] + (end[1] - start[1]) * index / steps,
+            ]
+            for index in range(steps + 1)
+        ]
+
+    def joined_path(*parts):
+        path = []
+        for part in parts:
+            path.extend(part if not path else part[1:])
+        return path
+
+    route_path = joined_path(
+        dense_line(p0, p1, 34),
+        dense_line(p1, p2, 4),
+        dense_line(p2, p3, 14),
+        dense_line(p3, p2, 14),
+        dense_line(p2, p1, 4),
+        dense_line(p1, p0, 34),
+    )
     data = {
         "summary": {
             "package_count": 2,
@@ -102,11 +488,7 @@ def sample_map_data():
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": [
-                                [-116.1, 43.1],
-                                [-116.1137, 43.1137],
-                                [-116.1, 43.1],
-                            ],
+                            "coordinates": route_path,
                         },
                     }
                 ],
@@ -123,7 +505,7 @@ def sample_map_data():
                         },
                         "geometry": {
                             "type": "LineString",
-                            "coordinates": [[-116.1, 43.1], [-116.11, 43.11]],
+                            "coordinates": [p0, p1],
                         },
                     }
                 ],
@@ -229,7 +611,7 @@ def sample_map_data():
             },
             "geometry": {
                 "type": "LineString",
-                "coordinates": [[-116.11, 43.11], [-116.12, 43.12]],
+                "coordinates": [p2, p3],
             },
         }
     )
@@ -253,6 +635,9 @@ def sample_map_data():
             "official_repeat_miles": 0,
             "connector_names": ["Road Connector"],
             "connector_classes": ["osm_public_road"],
+            "path_start": p1,
+            "path_end": p2,
+            "path_coordinates": [p1, p2],
         }
     ]
     return data
@@ -380,7 +765,7 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
         cue for cue in route["wayfinding_cues"] if cue.get("official_repeat_segment_ids")
     ]
     assert repeat_cues[0]["official_repeat_segment_ids"] == ["101"]
-    assert repeat_cues[0]["official_repeat_miles"] == 0.86
+    assert repeat_cues[0]["official_repeat_miles"] == 1.23
     nav_gpx = Path(route["gpx_path"]).read_text(encoding="utf-8")
     cue_gpx = Path(route["cue_gpx_path"]).read_text(encoding="utf-8")
     audit_gpx = Path(route["audit_gpx_path"]).read_text(encoding="utf-8")
@@ -402,7 +787,7 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
 
     assert "<name>ASCENT 1 Test Trail 1</name>" in audit_gpx
     assert "<name>TURN</name>" in audit_gpx
-    assert "Official 1.23 mi; On-foot 2.34 mi; Door-to-door p75 45 min" in audit_gpx
+    assert "Official 1.23 mi; On-foot 3.7 mi; Door-to-door p75 45 min" in audit_gpx
 
 
 def test_repeat_note_mentions_zero_rounded_repeat_ids():
@@ -520,6 +905,133 @@ def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
     assert cue["official_repeat_miles"] == 0.5
     assert "no new credit" in cue["note"]
     assert "repeat official" in cue["display_detail"]
+
+
+def test_non_credit_repeat_declaration_uses_source_path_geometry():
+    module = load_exporter()
+    a = (-116.0, 43.0)
+    b = (-116.01, 43.0)
+    c = (-116.02, 43.0)
+    official_feature = {
+        "type": "Feature",
+        "properties": {
+            "seg_id": 101,
+            "segment_name": "Repeated Segment",
+            "trail_name": "Repeat Trail",
+            "official_miles": 0.5,
+            "direction_rule": "both",
+        },
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [a, b],
+        },
+    }
+    credit_cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.5,
+        cue_type="follow_official_segment",
+        action="FOLLOW",
+        official_segment_ids=["101"],
+    )
+    segment_miles = module.track_distance_miles([[a, b]])
+    credit_cue["route_miles"] = 0
+    credit_cue["route_leg_miles"] = segment_miles
+    cue = module.make_wayfinding_cue(
+        seq=2,
+        cum_miles=0.5,
+        leg_miles=0.5,
+        cue_type="exit_access",
+        action="FOLLOW",
+        note="Return leg does not count as new official challenge credit.",
+        source_path_coordinates=[b, a],
+    )
+    route = {
+        "segment_ids": ["101"],
+        "wayfinding_cues": [credit_cue, cue],
+        "_track_segments": [[a, b, c]],
+        "_official_segment_index": {"101": official_feature},
+    }
+
+    module.apply_non_credit_claimed_repeat_declarations(route)
+
+    assert cue["official_repeat_segment_ids"] == ["101"]
+    assert cue["official_repeat_miles"] == 0.5
+
+
+def test_non_credit_cue_that_earns_required_segment_is_promoted():
+    module = load_exporter()
+    a = (-116.0, 43.0)
+    b = (-116.01, 43.0)
+    c = (-116.02, 43.0)
+    official_index = {
+        "101": {
+            "type": "Feature",
+            "properties": {
+                "seg_id": 101,
+                "seg_name": "First Segment",
+                "trail_name": "First Trail",
+                "official_miles": 0.5,
+                "direction_rule": "both",
+            },
+            "geometry": {"type": "LineString", "coordinates": [a, b]},
+        },
+        "102": {
+            "type": "Feature",
+            "properties": {
+                "seg_id": 102,
+                "seg_name": "Second Segment",
+                "trail_name": "Second Trail",
+                "official_miles": 0.5,
+                "direction_rule": "both",
+            },
+            "geometry": {"type": "LineString", "coordinates": [b, c]},
+        },
+    }
+    first_miles = module.track_distance_miles([[a, b]])
+    second_miles = module.track_distance_miles([[b, c]])
+    credit_cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=first_miles,
+        cue_type="follow_official_segment",
+        action="FOLLOW",
+        official_segment_ids=["101"],
+    )
+    credit_cue["route_miles"] = 0
+    credit_cue["route_leg_miles"] = first_miles
+    connector_cue = module.make_wayfinding_cue(
+        seq=2,
+        cum_miles=first_miles,
+        leg_miles=second_miles,
+        cue_type="connector_named_trail",
+        action="FOLLOW",
+        target="Second Trail",
+        source_path_coordinates=[b, c],
+    )
+    later_cue = module.make_wayfinding_cue(
+        seq=3,
+        cum_miles=first_miles + second_miles,
+        leg_miles=second_miles,
+        cue_type="junction_turn",
+        action="TAKE",
+        official_segment_ids=["102"],
+    )
+    route = {
+        "segment_ids": ["101", "102"],
+        "wayfinding_cues": [credit_cue, connector_cue, later_cue],
+        "_track_segments": [[a, b, c]],
+        "_official_segment_index": official_index,
+    }
+
+    module.promote_non_credit_required_segment_cues(route)
+
+    assert connector_cue["cue_type"] == "junction_turn"
+    assert connector_cue["official_segment_ids"] == ["102"]
+    assert "This earns" in connector_cue["note"]
+    assert later_cue.get("official_segment_ids") is None
+    assert later_cue["official_repeat_segment_ids"] == ["102"]
+    assert "no new credit" in later_cue["note"]
 
 
 def test_rejected_avoidable_repeat_repair_does_not_mutate_track_segments(tmp_path):
@@ -773,7 +1285,7 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "OFFICIAL START" in html
     assert "Follow Test Trail toward Second Trail" in html
     assert "This earns: Test Trail segment 1" in html
-    assert "Includes 0.86 mi repeat official; no new credit." in html
+    assert "Includes 1.23 mi repeat official; no new credit." in html
     assert "220 ft climb" in html
     assert "~24 min moving" in html
     assert "ROAD" in html
@@ -1043,7 +1555,8 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
 
     assert "positionForRouteM" in live_map_html
-    assert "state.route?.wayfinding_cues" in live_map_html
+    assert "function routeCues()" in live_map_html
+    assert "state.route?.live_map_cues || state.route?.wayfinding_cues || []" in live_map_html
     assert "String(cue.seq || index + 1)" in live_map_html
     assert "state.waypoints\n        .filter" not in live_map_html
     assert "MAX_OVERVIEW_CHEVRONS" in live_map_html
@@ -1104,7 +1617,7 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" not in live_map_html
     assert "state.totalRouteM = metrics.totalRouteM;\n      refreshDisplaySegments();" in live_map_html
     assert "state.totalRouteM = metrics.totalRouteM;\n      state.displayedSegments =" not in live_map_html
-    assert "const cueStops = (state.route?.wayfinding_cues || [])\n          .map(cue => cueRouteM(cue))" in live_map_html
+    assert "const cueStops = routeCues()\n          .map(cue => cueRouteM(cue))" in live_map_html
     assert "const cueM = cueRouteM(cue);" in live_map_html
     assert "const cueM = cardMilesToRouteM(cue.cum_miles)" not in live_map_html
 
@@ -1910,7 +2423,7 @@ def test_geometry_overlap_detector_marks_future_same_trail_double_backs():
     assert "OVERLAP" in cue_2["compact"]
 
 
-def test_missing_segment_effort_is_enriched_from_elevation_index():
+def test_missing_segment_effort_is_enriched_without_reverse_direction_warning():
     module = load_exporter()
     cue = {
         "segments": [
@@ -1944,12 +2457,22 @@ def test_missing_segment_effort_is_enriched_from_elevation_index():
 
     module.enrich_route_cues_with_segment_elevation([cue], elevation_index)
     effort = module.group_effort_sentence(cue["segments"])
-    warning = module.grade_asymmetry_warning_sentence(cue["segments"])
+    field_cue = module.official_group_wayfinding_cue(
+        seq=1,
+        cum_miles=0.0,
+        group={"trail_name": "Kemper's Ridge Trail", "segments": cue["segments"]},
+        next_group=None,
+        first_group=True,
+    )
+    field_text = " ".join(
+        str(field_cue.get(key) or "")
+        for key in ("note", "field_warning", "display_detail", "compact")
+    )
 
     assert "170 ft climb" in effort
     assert "482 ft descent" in effort
-    assert "Reverse direction would be steep" in warning
-    assert "482 ft climb" in warning
+    assert "Reverse direction would be steep" not in field_text
+    assert "482 ft climb over" not in field_text
 
 
 def test_field_packet_computes_non_official_start_access_gap_from_geometry(tmp_path):
@@ -2973,6 +3496,50 @@ def test_non_credit_cue_route_interval_uses_source_path_endpoints():
     assert connector["route_leg_miles"] < connector_miles + skipped_miles - 0.005
 
 
+def test_final_non_credit_cue_extends_to_actual_route_end_even_with_short_source_path():
+    module = load_exporter()
+    a = (-116.000, 43.000)
+    b = (-116.001, 43.000)
+    c = (-116.002, 43.000)
+    d = (-116.003, 43.000)
+    official_miles = module.haversine_miles(a, b)
+    short_return_miles = module.haversine_miles(b, c)
+    route_total = module.track_distance_miles([[a, b, c, d]])
+    route = {
+        "_track_segments": [[a, b, c, d]],
+        "_official_segment_index": {
+            "1": {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [a, b]}},
+        },
+        "wayfinding_cues": [
+            module.make_wayfinding_cue(
+                seq=1,
+                cum_miles=0,
+                leg_miles=official_miles,
+                cue_type="follow_official_segment",
+                action="FOLLOW",
+                signed_as=["Official One"],
+                official_segment_ids=[1],
+            ),
+            module.make_wayfinding_cue(
+                seq=2,
+                cum_miles=official_miles,
+                leg_miles=short_return_miles,
+                cue_type="return_to_car",
+                action="FOLLOW",
+                signed_as=["Connector"],
+                target="Trailhead",
+                source_path_start=b,
+                source_path_end=c,
+            ),
+        ],
+    }
+
+    module.assign_wayfinding_route_miles(route)
+
+    final_cue = route["wayfinding_cues"][-1]
+    assert final_cue["route_miles"] + final_cue["route_leg_miles"] == pytest.approx(route_total, abs=0.005)
+
+
 def test_track_segments_for_route_cues_follow_cue_source_order():
     module = load_exporter()
     first = [(-116.000, 43.000), (-116.001, 43.000)]
@@ -3272,7 +3839,8 @@ def test_apply_shortest_repairs_to_wayfinding_cues_uses_route_interval_endpoints
     assert repair_count == 1
     assert cue["leg_miles"] == 0.25
     assert cue["source_path_coordinates"][0] == [mid[0], mid[1]]
-    assert cue["shortest_repair_savings_miles"] == pytest.approx(
+    assert "shortest_repair_savings_miles" not in cue
+    assert cue["applied_shortest_repair_savings_miles"] == pytest.approx(
         module.haversine_miles(mid, end) - 0.25,
         abs=0.005,
     )
@@ -3396,7 +3964,45 @@ def test_apply_shortest_repairs_to_wayfinding_cues_prices_stale_source_mileage_f
     cue = route["wayfinding_cues"][1]
     assert repair_count == 1
     assert cue["leg_miles"] == 0.1
-    assert cue["shortest_repair_savings_miles"] > 0.05
+    assert "shortest_repair_savings_miles" not in cue
+    assert cue["applied_shortest_repair_savings_miles"] > 0.05
+
+
+def test_live_map_wayfinding_cues_keeps_phone_cues_and_starts_on_first_movement_cue():
+    module = load_exporter()
+    route = {
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "start_access",
+                "action": "FOLLOW",
+                "signed_as": ["Access Trail"],
+                "target": "First Trail",
+                "route_miles": 0,
+                "route_leg_miles": 0,
+                "leg_miles": 0,
+            },
+            {
+                "seq": 2,
+                "cue_type": "follow_official_segment",
+                "action": "FOLLOW",
+                "signed_as": ["First Trail"],
+                "target": "Next Trail",
+                "route_miles": 0,
+                "route_leg_miles": 1.2,
+            },
+        ],
+    }
+
+    live_cues = module.live_map_wayfinding_cues(route)
+
+    assert [cue["seq"] for cue in route["wayfinding_cues"]] == [1, 2]
+    assert route["wayfinding_cues"][0]["cue_type"] == "start_access"
+    assert [cue["seq"] for cue in live_cues] == [1]
+    first = live_cues[0]
+    assert first["cue_type"] == "follow_official_segment"
+    assert first["route_miles"] == 0
+    assert first["merged_start_marker"]["signed_as"] == ["Access Trail"]
 
 
 def test_return_wayfinding_cue_ignores_gap_for_closed_loop_return():
@@ -3477,6 +4083,33 @@ def test_field_packet_treats_completed_official_geometry_as_repeat_not_new_credi
     assert "This earns: Test Trail segment 1" not in html
     assert "Official-repeat mileage: Test Trail segment 1; do not count as new credit." in html
     assert "This earns: Second Trail segment 1" in html
+
+
+def test_segment_direction_evidence_prefers_special_management_override(monkeypatch):
+    module = load_exporter()
+    monkeypatch.setattr(
+        module,
+        "special_management_segment_direction_overrides",
+        lambda: {"1490": "forward"},
+    )
+    route = {
+        "outing": {"remaining_segment_ids": ["1490"]},
+        "route_cues": [
+            {
+                "segments": [
+                    {
+                        "seg_id": 1490,
+                        "direction_rule": "ascent",
+                        "direction_cue": "ASCENT REQUIRED: follow map arrows opposite official geometry.",
+                    }
+                ]
+            }
+        ],
+    }
+
+    evidence = module.segment_direction_evidence_for_route(route)
+
+    assert evidence["1490"]["allowed_geometry_direction"] == "forward"
 
 
 def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_path):

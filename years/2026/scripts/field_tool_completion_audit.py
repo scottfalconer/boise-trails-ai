@@ -42,6 +42,7 @@ DEFAULT_R2R_TRAILS_GEOJSON = (
 )
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "field-tool-completion-audit-2026-05-06.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "field-tool-completion-audit-2026-05-06.md"
+LIVE_MAP_START_CLUSTER_TOLERANCE_MILES = 25 / 1609.344
 
 PRIVATE_LITERAL_PATTERNS = (
     "/Users/scott",
@@ -571,6 +572,112 @@ def source_gap_analysis(canonical_map_data: dict[str, Any] | None, routes: list[
     }
 
 
+def canonical_route_component_index(canonical_map_data: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
+    if not canonical_map_data:
+        return {}
+    index = {}
+    for package in canonical_map_data.get("packages") or []:
+        for component in package.get("components") or []:
+            candidate_id = component.get("candidate_id")
+            if candidate_id is None:
+                continue
+            key = str(candidate_id)
+            current = index.get(key)
+            if current is None or (not current.get("segment_ids") and component.get("segment_ids")):
+                index[key] = component
+    return index
+
+
+def numeric_sum_or_none(values: list[Any]) -> float | None:
+    if any(value is None for value in values):
+        return None
+    try:
+        return sum(float(value) for value in values)
+    except (TypeError, ValueError):
+        return None
+
+
+def canonical_route_metric_failures(
+    canonical_map_data: dict[str, Any] | None,
+    routes: list[dict[str, Any]],
+    *,
+    miles_tolerance: float = 0.005,
+) -> list[str]:
+    if canonical_map_data is None:
+        return ["canonical field menu source unavailable"]
+    canonical_components = canonical_route_component_index(canonical_map_data)
+    failures = []
+    for route in routes:
+        candidate_ids = [
+            str(candidate_id)
+            for candidate_id in route.get("candidate_ids") or []
+            if candidate_id is not None
+        ]
+        route_label = str(
+            route.get("label")
+            or route.get("outing_id")
+            or "+".join(candidate_ids)
+            or "unknown-route"
+        )
+        if not candidate_ids:
+            failures.append(f"{route_label}: missing candidate_ids for canonical route comparison")
+            continue
+        missing_candidate_ids = [
+            candidate_id
+            for candidate_id in candidate_ids
+            if candidate_id not in canonical_components
+        ]
+        if missing_candidate_ids:
+            failures.append(
+                f"{route_label}: no canonical route component for candidate_ids {', '.join(missing_candidate_ids)}"
+            )
+            continue
+        components = [canonical_components[candidate_id] for candidate_id in candidate_ids]
+        comparison_label = "+".join(candidate_ids)
+        for field_name in ("official_miles", "on_foot_miles"):
+            canonical_value = numeric_sum_or_none([component.get(field_name) for component in components])
+            field_value = route.get(field_name)
+            if canonical_value is None or field_value is None:
+                failures.append(
+                    f"{comparison_label}: {field_name} missing from "
+                    f"{'canonical' if canonical_value is None else 'field packet'}"
+                )
+                continue
+            field_float = float(field_value)
+            if abs(field_float - canonical_value) > miles_tolerance:
+                failures.append(
+                    f"{comparison_label}: {field_name} field packet {field_float:.2f} "
+                    f"!= canonical {canonical_value:.2f}"
+                )
+        canonical_minutes = numeric_sum_or_none([component.get("total_minutes") for component in components])
+        field_minutes = route.get("door_to_door_minutes_p75")
+        if canonical_minutes is None or field_minutes is None:
+            failures.append(
+                f"{comparison_label}: p75 minutes missing from "
+                f"{'canonical' if canonical_minutes is None else 'field packet'}"
+            )
+        else:
+            field_minutes_int = int(round(float(field_minutes)))
+            canonical_minutes_int = int(round(canonical_minutes))
+            if field_minutes_int != canonical_minutes_int:
+                failures.append(
+                    f"{comparison_label}: p75 minutes field packet {field_minutes_int} "
+                    f"!= canonical {canonical_minutes_int}"
+                )
+        canonical_segment_ids = normalized_ids(
+            segment_id
+            for component in components
+            for segment_id in component.get("segment_ids") or []
+        )
+        field_segment_ids = normalized_ids(route.get("segment_ids"))
+        if canonical_segment_ids != field_segment_ids:
+            failures.append(
+                f"{comparison_label}: segment_ids field packet {field_segment_ids} "
+                f"!= canonical {canonical_segment_ids}"
+            )
+    return failures
+
+
 def route_geometry_coverage_failures(
     routes: list[dict[str, Any]],
     packet_dir: Path,
@@ -713,6 +820,49 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
     return failures
 
 
+def cue_start_miles(cue: dict[str, Any]) -> float:
+    for key in ("route_miles", "cum_miles"):
+        value = cue.get(key)
+        if value is None:
+            continue
+        try:
+            return max(0.0, float(value))
+        except (TypeError, ValueError):
+            continue
+    return 0.0
+
+
+def cue_sequence(cue: dict[str, Any], fallback_index: int) -> str:
+    return str(cue.get("seq") or fallback_index + 1)
+
+
+def live_map_default_cue_failures(
+    routes: list[dict[str, Any]],
+    *,
+    start_cluster_tolerance_miles: float = LIVE_MAP_START_CLUSTER_TOLERANCE_MILES,
+) -> list[str]:
+    failures = []
+    for route in routes:
+        cues = route.get("live_map_cues") or route.get("wayfinding_cues") or []
+        if len(cues) < 2:
+            continue
+        default_index = 0
+        for index, cue in enumerate(cues):
+            if cue_start_miles(cue) <= start_cluster_tolerance_miles:
+                default_index = index
+        if default_index == 0:
+            continue
+        label = f"{route.get('label') or route.get('outing_id') or 'unknown-route'}"
+        candidate_ids = ", ".join(str(value) for value in route.get("candidate_ids") or [])
+        route_key_text = f" ({candidate_ids})" if candidate_ids else ""
+        failures.append(
+            f"{label}{route_key_text}: live map default would open on cue "
+            f"{cue_sequence(cues[default_index], default_index)} because the first "
+            f"{default_index + 1} cues start within 25 m of the route start"
+        )
+    return failures
+
+
 def build_completion_audit(
     *,
     field_tool_data: dict[str, Any],
@@ -770,6 +920,8 @@ def build_completion_audit(
             open_trails_geojson=open_trails_geojson or read_json(DEFAULT_R2R_TRAILS_GEOJSON),
         )
     route_failures = route_field_failures(routes, packet_dir, official_ids)
+    route_metric_failures = canonical_route_metric_failures(canonical_map_data, routes)
+    live_map_cue_failures = live_map_default_cue_failures(routes)
     source_gap_status = source_gap_analysis(canonical_map_data, routes)
     source_failures = source_gap_status["failures"]
     if source_failures:
@@ -804,6 +956,15 @@ def build_completion_audit(
             f"field source hash {source_hash}; canonical map hash {canonical_hash}",
         ),
         requirement(
+            "Field packet route records match canonical outing menu metrics",
+            not route_metric_failures,
+            (
+                "; ".join(route_metric_failures[:12])
+                if route_metric_failures
+                else "field packet route miles, p75 minutes, and segment ids match canonical menu components"
+            ),
+        ),
+        requirement(
             "Certified completion baseline covers 251 official segments",
             baseline.get("status") == "passed"
             and int(baseline.get("official_segment_count") or 0) == 251
@@ -836,6 +997,15 @@ def build_completion_audit(
                     f"{len(routes)} route cards passed field-structure checks; "
                     f"{len(held_routes)} held by legality/certification gates"
                 )
+            ),
+        ),
+        requirement(
+            "Live map default cue starts at the first field cue",
+            not live_map_cue_failures,
+            (
+                "; ".join(live_map_cue_failures[:12])
+                if live_map_cue_failures
+                else "no route has a clustered start cue sequence that would make live map open on cue 2+"
             ),
         ),
         requirement(
@@ -948,6 +1118,8 @@ def build_completion_audit(
             "completed_segment_count_at_export": len(completed_segment_ids),
             "blocked_segment_count_at_export": len(blocked_segment_ids),
             "accounted_segment_count": len(accounted_segment_ids),
+            "canonical_route_metric_failure_count": len(route_metric_failures),
+            "live_map_default_cue_failure_count": len(live_map_cue_failures),
             "advisory_check_count": len(advisory_checks),
             "advisory_action_count": sum(int(check.get("action_count") or 0) for check in advisory_checks),
             "special_management_status": special_management_audit.get("status"),

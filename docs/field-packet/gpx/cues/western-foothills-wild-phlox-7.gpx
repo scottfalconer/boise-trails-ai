@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Western Foothills: Wild Phlox (7) cues</name>
+    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 2.48 mi; Door-to-door p75 1h 32m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.693445" lon="-116.278528">
+    <name>PARK/START Seamans Gulch Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.694210" lon="-116.274860">
+    <name>CUE 01 Wild Phlox Trail</name>
+    <desc>Follow Wild Phlox Trail. First official segment here: Wild Phlox Trail 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.687680" lon="-116.279931">
+    <name>CUE 02 Seaman Gulch Trail</name>
+    <desc>Follow Seaman Gulch Trail. First official segment here: Seaman Gulch Trail 4. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.693445" lon="-116.278502">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

@@ -4,6 +4,78 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-05
+
+### Bob's 4A field-menu drift gate
+
+- Objective: explain and harden the field-packet failure behind `4A` /
+  `bobs-trail-urban-connector`, where field-facing mileage and connector
+  savings metadata disagreed across the canonical outing menu, phone packet,
+  and connector proof audit.
+- Result:
+  - Added a field-tool completion gate requiring every field-packet route
+    record to match the canonical outing-menu component by `candidate_id`,
+    official miles, on-foot miles, p75 minutes, and official segment ids.
+  - Added a post-credit connector audit failure for stale
+    `shortest_repair_savings_miles` metadata when the current shortest legal
+    connector proof reports materially different savings.
+  - Added a field-tool completion gate requiring the live map to open on the
+    first field-visible cue. This catches zero-length start cues that cause the
+    live map to default to cue 2 or later.
+  - Reconciled the canonical outing-menu route metrics from the generated
+    field-packet route truth, regenerated the phone packet / live map / GPX
+    bundle, and refreshed the public sanitized outing menu.
+  - Bob's 4A is now treated as one example of a systemic drift class, not an
+    isolated route-line issue.
+- Validation:
+  - `pytest -q
+    years/2026/tests/test_field_tool_completion_audit.py::test_completion_audit_fails_when_live_map_would_default_to_second_cue`
+    passed.
+  - `pytest -q years/2026/tests/test_field_tool_completion_audit.py` passed 26
+    tests.
+  - `pytest -q years/2026/tests/test_field_tool_completion_audit.py
+    years/2026/tests/test_post_credit_connector_audit.py` passed 43 tests.
+  - `python years/2026/scripts/field_tool_completion_audit.py --output-json
+    /tmp/field-tool-completion-audit-bobs-check.json --output-md
+    /tmp/field-tool-completion-audit-bobs-check.md` exited nonzero as expected:
+    18 / 19 requirements passed, with 27 canonical route metric mismatches.
+    Bob's 4A reported `on_foot_miles` field packet 4.58 versus canonical 4.72.
+  - `python years/2026/scripts/field_tool_completion_audit.py --output-json
+    /tmp/field-tool-completion-audit-live-map-cues.json --output-md
+    /tmp/field-tool-completion-audit-live-map-cues.md` exited nonzero as
+    expected: 18 / 20 requirements passed, with 27 canonical route metric
+    mismatches and 14 live-map default-cue failures.
+  - `python years/2026/scripts/post_credit_connector_audit.py --output-json
+    /tmp/post-credit-connector-audit-bobs-check.json --output-md
+    /tmp/post-credit-connector-audit-bobs-check.md --manifest-json
+    /tmp/post-credit-connector-audit-bobs-check-manifest.json` exited nonzero
+    as expected: 89 stale connector-savings metadata findings across 30 routes.
+    Bob's 4A cue 3 reported 0.25 mi saved while proof found 0.0016 mi; cue 5
+    reported 0.22 mi saved while proof found 0.0016 mi.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and
+    regenerated 93 GPX files plus the phone packet and manifest.
+  - The full field-packet certification chain passed on the regenerated packet:
+    latent-credit audit, progress report, recertification report, route-edge
+    cover audit, field-tool completion audit, field-route walkthrough audit,
+    and post-credit connector audit.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed with 31 /
+    31 field-ready routes, 251 / 251 official segments accounted, 0 canonical
+    route metric failures, and 0 live-map default-cue failures.
+  - `python years/2026/scripts/post_credit_connector_audit.py` passed with 31
+    routes, 96 post-credit connector proofs, 0 shorter connector findings, 0
+    stale connector-savings findings, and 0 route-card / GPX mileage
+    mismatches.
+  - Browser verification on
+    `http://127.0.0.1:8765/live-map.html?outing=4-1` showed Bob's 4A opening on
+    `Cue 01 -> 02` with the Bob's Trail to Urban Connector active-leg banner
+    and no console errors.
+- Current blocker:
+  - No known packet/source certification blocker remains for the generated
+    field packet. Standard same-day condition, closure, and signage checks still
+    apply before running any route.
+
+
+
 ## 2026-05-21
 
 ### FD12A West Climb Partial Field Check

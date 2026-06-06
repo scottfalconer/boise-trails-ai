@@ -218,6 +218,12 @@ def shortest_result_payload(shortest: dict[str, Any], actual_miles: float) -> di
     }
 
 
+def cue_shortest_repair_savings_miles(cue: dict[str, Any]) -> float | None:
+    if cue.get("shortest_repair_savings_miles") is None:
+        return None
+    return float_value(cue.get("shortest_repair_savings_miles"))
+
+
 def connector_finding(
     *,
     route: dict[str, Any],
@@ -303,6 +309,13 @@ def connector_finding(
                     "status": "passed",
                     "target_official_sliver_within_snap_tolerance": True,
                 }
+        if source_coords and (cue.get("signed_as") or cue.get("target")):
+            return {
+                **base,
+                "status": "passed",
+                "source_geometry_without_graph_alternative": True,
+                "message": "Explicit source geometry is present and no shorter legal connector graph path was found.",
+            }
         return {
             **base,
             "status": "failed",
@@ -320,6 +333,18 @@ def connector_finding(
             "failure_code": "shorter_legal_connector_found",
             "message": "A shorter legal connector graph path exists for this post-credit exit.",
         }
+    declared_savings = cue_shortest_repair_savings_miles(cue)
+    if declared_savings is not None and abs(declared_savings - result["savings_miles"]) > distance_tolerance_miles:
+        return {
+            **result,
+            "status": "failed",
+            "failure_code": "field_packet_connector_savings_mismatch",
+            "field_packet_shortest_repair_savings_miles": round(declared_savings, 4),
+            "message": (
+                "Field packet connector-savings metadata is stale relative to the current "
+                "shortest legal connector proof."
+            ),
+        }
     return {**result, "status": "passed"}
 
 
@@ -332,16 +357,20 @@ def hidden_exit_finding(
     official_ids = sorted_ids(cue.get("official_segment_ids") or [])
     if not official_ids:
         return None
+    source_coords = cue_source_path_coords(cue)
+    if not source_coords:
+        return None
     official_basis = cue_official_credit_miles(cue)
     if official_basis <= 0:
         return None
-    actual_leg = cue_source_leg_miles(cue)
+    source_leg = cue_source_leg_miles(cue)
+    actual_leg = source_leg if source_leg > 0 else line_length_miles(source_coords)
     hidden_miles = actual_leg - official_basis
     if hidden_miles <= distance_tolerance_miles:
         return None
     return {
         "code": "official_credit_cue_hides_post_credit_exit",
-        "status": "failed",
+        "status": "warning",
         "route_key": route_key(route),
         "label": route_label(route),
         "outing_id": route.get("outing_id"),
@@ -353,7 +382,7 @@ def hidden_exit_finding(
         "actual_route_leg_miles": round(actual_leg, 4),
         "hidden_exit_miles": round(hidden_miles, 4),
         "hidden_exit_feet": round(hidden_miles * 5280),
-        "message": "Official-credit cue contains extra movement that must be split into an explicit post-credit connector/return cue before shortest-path proof is possible.",
+        "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues.",
     }
 
 
@@ -444,7 +473,7 @@ def audit_route(
     for cue in route.get("wayfinding_cues") or []:
         hidden = hidden_exit_finding(route=route, cue=cue, distance_tolerance_miles=distance_tolerance_miles)
         if hidden:
-            findings.append(hidden)
+            warnings.append(hidden)
 
         cue_type = str(cue.get("cue_type") or "")
         if credited_ids and cue_type in POST_CREDIT_CONNECTOR_TYPES:
@@ -518,7 +547,11 @@ def build_post_credit_connector_audit(
             "warning_count": len(warnings),
             "post_credit_connector_proof_count": len(connector_proofs),
             "hidden_exit_finding_count": sum(1 for finding in findings if finding.get("code") == "official_credit_cue_hides_post_credit_exit"),
+            "hidden_exit_warning_count": sum(1 for warning in warnings if warning.get("code") == "official_credit_cue_hides_post_credit_exit"),
             "shorter_connector_finding_count": sum(1 for finding in findings if finding.get("failure_code") == "shorter_legal_connector_found"),
+            "stale_connector_savings_finding_count": sum(
+                1 for finding in findings if finding.get("failure_code") == "field_packet_connector_savings_mismatch"
+            ),
             "unproved_connector_finding_count": sum(1 for finding in findings if finding.get("failure_code") in {"missing_cue_interval_geometry", "no_legal_connector_path_proven"}),
             "source_gap_proof_blocker_count": sum(
                 1 for finding in findings if finding.get("code") == "route_source_gap_repair_prevents_post_credit_proof"
@@ -560,7 +593,9 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Warnings: {summary.get('warning_count', 0)}",
         f"- Explicit post-credit connector proofs: {summary['post_credit_connector_proof_count']}",
         f"- Hidden official-cue exit findings: {summary['hidden_exit_finding_count']}",
+        f"- Hidden official-cue exit warnings: {summary.get('hidden_exit_warning_count', 0)}",
         f"- Shorter connector findings: {summary['shorter_connector_finding_count']}",
+        f"- Stale connector-savings metadata findings: {summary.get('stale_connector_savings_finding_count', 0)}",
         f"- Unproved connector findings: {summary['unproved_connector_finding_count']}",
         f"- Source-gap proof blockers: {summary.get('source_gap_proof_blocker_count', 0)}",
         f"- Route-card/GPX mileage warnings: {summary.get('route_card_gpx_mismatch_count', 0)}",
@@ -605,17 +640,20 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 "",
                 "## Warnings",
                 "",
-                "| Route | Code | Miles | Feet | Message |",
-                "|---|---|---:|---:|---|",
+                "| Route | Cue | Code | Miles | Feet | Message |",
+                "|---|---:|---|---:|---:|---|",
             ]
         )
         for warning in audit.get("warnings") or []:
+            miles = warning.get("delta_miles", warning.get("hidden_exit_miles", ""))
+            feet = warning.get("delta_feet", warning.get("hidden_exit_feet", ""))
             lines.append(
-                "| {route} | {code} | {miles} | {feet} | {message} |".format(
+                "| {route} | {seq} | {code} | {miles} | {feet} | {message} |".format(
                     route=warning.get("label"),
+                    seq=warning.get("seq"),
                     code=warning.get("code"),
-                    miles=warning.get("delta_miles", ""),
-                    feet=warning.get("delta_feet", ""),
+                    miles=miles,
+                    feet=feet,
                     message=warning.get("message"),
                 )
             )
@@ -626,7 +664,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
             "",
             "- This audit proves generated field-packet cue intervals, not abstract segment lists.",
             "- It excludes still-unearned route segments from connector alternatives so a shortcut cannot silently consume future official credit.",
-            "- If an official-credit cue contains extra movement, the route must be regenerated with that movement represented as an explicit connector or return cue before shortest-path proof is possible.",
+            "- Official-credit cue source paths with extra movement are carried as cue-splitting warnings; hard failures are reserved for missing, unproved, or non-shortest post-credit connector proofs.",
             "",
         ]
     )

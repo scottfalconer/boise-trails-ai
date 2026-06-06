@@ -1,0 +1,49 @@
+{
+  "run_id": "post-credit-connector-audit-2026-05-27",
+  "generated_at": "2026-06-06T05:34:24Z",
+  "command": "python years/2026/scripts/post_credit_connector_audit.py",
+  "inputs": [
+    {
+      "path": "docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 5197402,
+      "sha256": "42f1df72f678ec7c90c34e279fd83201821cbe26f6f5a0b45d2277941d460353"
+    },
+    {
+      "path": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+      "exists": true,
+      "size_bytes": 2414760,
+      "sha256": "4078e8fbc829f0aaa9c031b270b445209b6fd648b1fdb3680778e07ab31ee871"
+    },
+    {
+      "path": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+      "exists": true,
+      "size_bytes": 24237922,
+      "sha256": "ad851d0b0b27ab0002c783c7215a215861b85e2469b3d9a9ac28ebb65e9b8dc5"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "years/2026/checkpoints/post-credit-connector-audit-2026-05-27.json",
+      "exists": true,
+      "size_bytes": 172949,
+      "sha256": "306537d62cc50c281646b7cb5bd5cb408e1ff57baa5126bf64b86879173f4fbf"
+    },
+    {
+      "path": "years/2026/checkpoints/post-credit-connector-audit-2026-05-27.md",
+      "exists": true,
+      "size_bytes": 2718,
+      "sha256": "e08ccaab2ea48e31f72bd493e03ca071b01b0e85bc3d7c8067176206c61a5ecb"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_post_credit_connector_audit_v1",
+    "status": "passed"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}

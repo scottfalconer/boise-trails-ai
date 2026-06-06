@@ -1,21 +1,23 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-27T03:52:46.909137+00:00",
+  "generated_at": "2026-06-06T05:33:50.967950+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
-    "passed_requirement_count": 18,
-    "requirement_count": 18,
-    "route_count": 49,
-    "field_ready_route_count": 49,
+    "passed_requirement_count": 20,
+    "requirement_count": 20,
+    "route_count": 31,
+    "field_ready_route_count": 31,
     "held_route_count": 0,
     "official_segment_count": 251,
     "field_menu_segment_count": 251,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 251,
+    "canonical_route_metric_failure_count": 0,
+    "live_map_default_cue_failure_count": 0,
     "advisory_check_count": 4,
-    "advisory_action_count": 95,
+    "advisory_action_count": 74,
     "special_management_status": "passed",
     "special_management_failed_route_count": 0
   },
@@ -23,7 +25,12 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 48217201b13f8491c469a5cd78e19e4691a1072861612eb9b4345fc0946adde4; canonical map hash 48217201b13f8491c469a5cd78e19e4691a1072861612eb9b4345fc0946adde4"
+      "evidence": "field source hash debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc; canonical map hash debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc"
+    },
+    {
+      "requirement": "Field packet route records match canonical outing menu metrics",
+      "passed": true,
+      "evidence": "field packet route miles, p75 minutes, and segment ids match canonical menu components"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -38,7 +45,12 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "49 route cards passed field-structure checks; 0 held by legality/certification gates"
+      "evidence": "31 route cards passed field-structure checks; 0 held by legality/certification gates"
+    },
+    {
+      "requirement": "Live map default cue starts at the first field cue",
+      "passed": true,
+      "evidence": "no route has a clustered start cue sequence that would make live map open on cue 2+"
     },
     {
       "requirement": "Source routes have no hidden unstitched gaps",
@@ -58,7 +70,7 @@
     {
       "requirement": "GPX validation passed for every exported route card",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 49, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 31, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
@@ -98,12 +110,12 @@
     {
       "requirement": "Route edge-cover hard gate has no hard depot phase resets or missing route-quality GPX",
       "passed": true,
-      "evidence": "{\"failed_route_count\": 0, \"missing_gpx_route_count\": 0, \"phase_reset_advisory_count\": 2, \"phase_reset_failure_count\": 0, \"status\": \"passed\"}"
+      "evidence": "{\"failed_route_count\": 0, \"missing_gpx_route_count\": 0, \"phase_reset_advisory_count\": 0, \"phase_reset_failure_count\": 0, \"status\": \"passed\"}"
     },
     {
       "requirement": "Graduated bridge-duplication failures are repaired or waived",
       "passed": true,
-      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 48, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 9}"
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 31, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 5}"
     },
     {
       "requirement": "Land-manager special-management rules pass for every published route",
@@ -133,13 +145,13 @@
     {
       "name": "Bridge duplication repair advisory",
       "status": "actionable",
-      "action_count": 57,
-      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 48, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 9}"
+      "action_count": 36,
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 31, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 5}"
     }
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-27T03:52:45.975335+00:00",
+    "generated_at": "2026-06-06T05:33:49.481685+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -147,212 +159,16 @@
       "rule_count": 4
     },
     "summary": {
-      "route_count": 49,
-      "passed_route_count": 49,
+      "route_count": 31,
+      "passed_route_count": 31,
       "failed_route_count": 0,
       "failure_counts": {},
       "date_context_required_route_count": 1
     },
     "routes": [
       {
-        "label": "FD28A",
-        "outing_id": "128-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD19A",
-        "outing_id": "119-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD14A",
-        "outing_id": "114-1",
-        "passed": true,
-        "checked_segments": [
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1604",
-            "segment_name": "Polecat Loop 7",
-            "observed_directions": {
-              "forward": 0.336,
-              "reverse": 0.336
-            },
-            "allowed_directions": [
-              "forward",
-              "reverse"
-            ]
-          }
-        ],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD14D",
-        "outing_id": "114-4",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD14C",
-        "outing_id": "114-3",
-        "passed": true,
-        "checked_segments": [
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1604",
-            "segment_name": "Polecat Loop 7",
-            "observed_directions": {
-              "forward": 0.336,
-              "reverse": 0.336
-            },
-            "allowed_directions": [
-              "forward",
-              "reverse"
-            ]
-          }
-        ],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "4B",
-        "outing_id": "110-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD22A",
-        "outing_id": "122-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD23A",
-        "outing_id": "123-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD22C",
-        "outing_id": "122-3",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "4A",
-        "outing_id": "105-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD09A",
-        "outing_id": "109-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD14B",
-        "outing_id": "114-2",
-        "passed": true,
-        "checked_segments": [
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1604",
-            "segment_name": "Polecat Loop 7",
-            "observed_directions": {
-              "forward": 0.336,
-              "reverse": 0.336
-            },
-            "allowed_directions": [
-              "forward",
-              "reverse"
-            ]
-          }
-        ],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD19B",
-        "outing_id": "119-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [
-          "r2r-lower-hulls-29-even-day-foot-access"
-        ],
-        "failures": []
-      },
-      {
-        "label": "FD22B",
-        "outing_id": "122-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "16A-2",
-        "outing_id": "129-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD19C",
-        "outing_id": "119-3",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD21C",
-        "outing_id": "121-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD07A",
-        "outing_id": "107-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD23B",
-        "outing_id": "123-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD08A",
-        "outing_id": "108-1",
+        "outing_id": "4-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -360,55 +176,79 @@
       },
       {
         "label": "7",
-        "outing_id": "116-1",
+        "outing_id": "7-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD08B",
-        "outing_id": "108-2",
+        "label": "5A",
+        "outing_id": "5-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD12A",
-        "outing_id": "112-1",
+        "label": "8B",
+        "outing_id": "8-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "16B",
-        "outing_id": "117-1",
+        "label": "16A-2",
+        "outing_id": "16-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD05A",
-        "outing_id": "105-1",
+        "label": "1A-2",
+        "outing_id": "1-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD12B",
-        "outing_id": "112-2",
+        "label": "4A",
+        "outing_id": "4-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "15B",
-        "outing_id": "116-2",
+        "label": "8A",
+        "outing_id": "8-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "1A-1",
+        "outing_id": "1-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "1B",
+        "outing_id": "1-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "15A",
+        "outing_id": "15-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -416,7 +256,7 @@
       },
       {
         "label": "11",
-        "outing_id": "117-2",
+        "outing_id": "11-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -424,63 +264,31 @@
       },
       {
         "label": "10B",
-        "outing_id": "109-2",
+        "outing_id": "10-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD03A",
-        "outing_id": "103-1",
+        "label": "18B",
+        "outing_id": "18-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD07B",
-        "outing_id": "107-2",
+        "label": "16C-1",
+        "outing_id": "16-3",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD21A",
-        "outing_id": "121-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD25B",
-        "outing_id": "125-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD01A",
-        "outing_id": "101-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD25A",
-        "outing_id": "125-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD02A",
-        "outing_id": "102-1",
+        "label": "9",
+        "outing_id": "9-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -488,71 +296,15 @@
       },
       {
         "label": "19",
-        "outing_id": "110-1",
+        "outing_id": "19-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD23C",
-        "outing_id": "123-3",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD04A",
-        "outing_id": "104-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD06A",
-        "outing_id": "106-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "15A-1",
-        "outing_id": "128-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "14",
-        "outing_id": "111-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "16A-1",
-        "outing_id": "113-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD15A",
-        "outing_id": "115-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "FD18A",
-        "outing_id": "118-1",
+        "label": "5B",
+        "outing_id": "5-2",
         "passed": true,
         "checked_segments": [
           {
@@ -560,7 +312,7 @@
             "segment_id": "1602",
             "segment_name": "Polecat Loop 2",
             "observed_directions": {
-              "forward": 2.016
+              "forward": 2.065
             },
             "allowed_directions": [
               "forward"
@@ -571,7 +323,7 @@
             "segment_id": "1600",
             "segment_name": "Polecat Loop 3",
             "observed_directions": {
-              "forward": 1.214
+              "forward": 1.217
             },
             "allowed_directions": [
               "forward"
@@ -582,7 +334,7 @@
             "segment_id": "1598",
             "segment_name": "Polecat Loop 4",
             "observed_directions": {
-              "reverse": 0.508
+              "reverse": 0.502
             },
             "allowed_directions": [
               "reverse"
@@ -593,7 +345,7 @@
             "segment_id": "1601",
             "segment_name": "Polecat Loop 5",
             "observed_directions": {
-              "reverse": 1.425
+              "reverse": 1.419
             },
             "allowed_directions": [
               "reverse"
@@ -615,7 +367,8 @@
             "segment_id": "1604",
             "segment_name": "Polecat Loop 7",
             "observed_directions": {
-              "forward": 0.232
+              "forward": 0.538,
+              "reverse": 0.311
             },
             "allowed_directions": [
               "forward",
@@ -627,16 +380,113 @@
         "failures": []
       },
       {
-        "label": "FD20A",
-        "outing_id": "120-1",
+        "label": "3",
+        "outing_id": "3-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },
       {
-        "label": "FD26A",
-        "outing_id": "126-1",
+        "label": "12",
+        "outing_id": "12-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "16A-1",
+        "outing_id": "16-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "4C",
+        "outing_id": "4-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "14",
+        "outing_id": "14-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "16C-2",
+        "outing_id": "16-4",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "2",
+        "outing_id": "2-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [
+          "r2r-lower-hulls-29-even-day-foot-access"
+        ],
+        "failures": []
+      },
+      {
+        "label": "18A",
+        "outing_id": "18-1",
+        "passed": true,
+        "checked_segments": [
+          {
+            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
+            "segment_id": "1493",
+            "segment_name": "Around the Mountain Trail 6",
+            "observed_directions": {
+              "forward": 0.918
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          },
+          {
+            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
+            "segment_id": "1750",
+            "segment_name": "Around the Mountain Trail 7",
+            "observed_directions": {
+              "forward": 0.353
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          }
+        ],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "15B",
+        "outing_id": "15-2",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "10A",
+        "outing_id": "10-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "17",
+        "outing_id": "17-1",
         "passed": true,
         "checked_segments": [
           {
@@ -644,7 +494,7 @@
             "segment_id": "1488",
             "segment_name": "Around the Mountain Trail 1",
             "observed_directions": {
-              "forward": 0.782
+              "forward": 0.763
             },
             "allowed_directions": [
               "forward"
@@ -710,7 +560,7 @@
             "segment_id": "1750",
             "segment_name": "Around the Mountain Trail 7",
             "observed_directions": {
-              "forward": 0.355
+              "forward": 0.393
             },
             "allowed_directions": [
               "forward"
@@ -721,41 +571,32 @@
         "failures": []
       },
       {
-        "label": "H1",
-        "outing_id": "127-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "18",
-        "outing_id": "131-1",
+        "label": "6",
+        "outing_id": "6-1",
         "passed": true,
         "checked_segments": [
           {
-            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
-            "segment_id": "1493",
-            "segment_name": "Around the Mountain Trail 6",
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1604",
+            "segment_name": "Polecat Loop 7",
             "observed_directions": {
-              "forward": 0.918
+              "forward": 0.311,
+              "reverse": 0.303
             },
             "allowed_directions": [
-              "forward"
-            ]
-          },
-          {
-            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
-            "segment_id": "1750",
-            "segment_name": "Around the Mountain Trail 7",
-            "observed_directions": {
-              "forward": 0.353
-            },
-            "allowed_directions": [
-              "forward"
+              "forward",
+              "reverse"
             ]
           }
         ],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "13",
+        "outing_id": "13-1",
+        "passed": true,
+        "checked_segments": [],
         "date_context_required": [],
         "failures": []
       }

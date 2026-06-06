@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Dry Creek: Sweet Connie (16A-1) audit</name>
-    <desc>16A-1. Private prior parking anchor | Official 6.09 mi; On-foot 14.2 mi; Door-to-door p75 4h 9m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16A-1. Dry Creek / Sweet Connie roadside parking | Official 6.09 mi; On-foot 14.2 mi; Door-to-door p75 4h 9m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.691791" lon="-116.182087">
     <name>PARK/START Dry Creek / Sweet Connie roadside parking</name>
@@ -22,19 +22,19 @@
   </wpt>
   <wpt lat="43.694969" lon="-116.185086">
     <name>ASCENT 1 Sweet Connie Trail 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 0.84 mi. est. 9 min; p75 12 min; 155 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.84 mi. 155 ft climb.</desc>
   </wpt>
   <wpt lat="43.703602" lon="-116.191966">
     <name>ASCENT 2 Sweet Connie Trail 2</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.71 mi. est. 8 min; p75 13 min; 336 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.71 mi. 336 ft climb.</desc>
   </wpt>
   <wpt lat="43.729460" lon="-116.159535">
     <name>ASCENT 3 Sweet Connie Trail 3</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 4.53 mi. est. 48 min; p75 1h 25m; 2700 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 4.53 mi. 2700 ft climb.</desc>
   </wpt>
   <trk>
     <name>Dry Creek: Sweet Connie (16A-1) audit</name>
-    <desc>16A-1. Private prior parking anchor | Official 6.09 mi; On-foot 14.2 mi; Door-to-door p75 4h 9m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16A-1. Dry Creek / Sweet Connie roadside parking | Official 6.09 mi; On-foot 14.2 mi; Door-to-door p75 4h 9m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.691800" lon="-116.182200" />
       <trkpt lat="43.691700" lon="-116.182300" />
