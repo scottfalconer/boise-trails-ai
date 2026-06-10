@@ -1,6 +1,6 @@
 # Field latent credit audit
 
-- Status: `passed`
+- Status: `needs_repair`
 - Routes audited: 31
 - Routes needing repair: 0
 - Routes with reconciled latent credit: 16

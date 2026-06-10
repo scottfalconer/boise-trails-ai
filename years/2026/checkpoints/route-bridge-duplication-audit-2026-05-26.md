@@ -1,140 +1,88 @@
 # Route Bridge Duplication Audit
 
-Generated: 2026-05-27T03:52:24Z
+Generated: 2026-05-28T03:16:49Z
 Status: `actionable_bridge_debt`
 
 ## Summary
 
-- Routes audited: 49
-- Findings: 118
-- Strict bridges: 9 (9 unwaived)
-- Near bridges: 48
-- Tail opportunities: 61
-- Duplicate bridge miles: 83.832
+- Routes audited: 31
+- Findings: 66
+- Strict bridges: 5 (5 unwaived)
+- Near bridges: 31
+- Tail opportunities: 30
+- Duplicate bridge miles: 38.814
 - Mid-segment junctions: 2
 
 ## Bridge Findings
 
 | Class | Receiver | Bridge | Owners | Chained credits | Detour added mi | Status |
 |---|---|---|---|---:|---:|---|
-| strict_bridge | 120-1: FD20A | 1711 Curlew Connection 1 | 106-1: FD06A | 7 |  | optimization_debt |
-| strict_bridge | 120-1: FD20A | 1710 Curlew Connection 2 | 106-1: FD06A | 7 |  | optimization_debt |
-| strict_bridge | 123-3: FD23C | 1523 Connector 1 | 128-1: FD28A | 5 |  | optimization_debt |
-| strict_bridge | 109-2: 10B | 1624 Red Tail Trail 8 | 116-2: 15B | 4 |  | optimization_debt |
-| strict_bridge | 109-2: 10B | 1621 Red Tail Trail 5 | 116-2: 15B | 4 |  | optimization_debt |
-| strict_bridge | 122-2: FD22B | 1615 Red Cliffs 1 | 119-2: FD19B | 4 |  | optimization_debt |
-| strict_bridge | 114-2: FD14B | 1599 Polecat Loop 1 | 118-1: FD18A | 2 |  | optimization_debt |
-| strict_bridge | 114-1: FD14A | 1599 Polecat Loop 1 | 118-1: FD18A | 1 |  | optimization_debt |
-| strict_bridge | 114-3: FD14C | 1599 Polecat Loop 1 | 118-1: FD18A | 1 |  | optimization_debt |
-| near_bridge | 131-1: 18 | 1493 Around the Mountain Trail 6 | 126-1: FD26A | 8 | 0.796 | optimization_debt |
-| near_bridge | 120-1: FD20A | 1555 Fat Tire Traverse 1 | 106-1: FD06A | 7 | 3.737 | optimization_debt |
-| near_bridge | 119-2: FD19B | 1484 8th Street Motorcycle Trail 2 | 123-1: FD23A | 7 | 3.092 | optimization_debt |
-| near_bridge | 119-2: FD19B | 1533 Crestline Trail 2 | 122-2: FD22B | 7 | 2.610 | optimization_debt |
-| near_bridge | 119-2: FD19B | 1532 Crestline Trail 1 | 122-2: FD22B | 7 | 0.707 | optimization_debt |
-| near_bridge | 120-1: FD20A | 1629 Ridge Crest 5 | 115-1: FD15A | 7 | 0.649 | optimization_debt |
-| near_bridge | 111-1: 14 | 1685 Three Bears Trail 5 | 120-1: FD20A | 6 | 2.236 | optimization_debt |
-| near_bridge | 105-1: FD05A | 1483 8th Street Motorcycle Trail 1 | 123-1: FD23A | 6 | 0.578 | optimization_debt |
-| near_bridge | 123-3: FD23C | 1576 Highlands Trail 1 | 122-1: FD22A | 5 | 2.763 | optimization_debt |
-| near_bridge | 123-3: FD23C | 1500 Bob's Trail 3 | 105-2: 4A | 5 | 0.851 | optimization_debt |
-| near_bridge | 123-3: FD23C | 1577 Highlands Trail 2 | 122-1: FD22A | 5 | 0.759 | optimization_debt |
-| near_bridge | 109-2: 10B | 1519 Chukar Butte Trail 1 | 103-1: FD03A | 4 | 2.689 | optimization_debt |
-| near_bridge | 109-2: 10B | 1623 Red Tail Trail 7 | 116-2: 15B | 4 | 0.884 | optimization_debt |
-| near_bridge | 105-2: 4A | 1577 Highlands Trail 2 | 122-1: FD22A | 4 | 0.759 | optimization_debt |
-| near_bridge | 109-2: 10B | 1618 Red Tail Trail 2 | 116-2: 15B | 4 | 0.340 | optimization_debt |
-| near_bridge | 109-2: 10B | 1520 Chukar Butte Trail 2 | 103-1: FD03A | 4 | 0.311 | optimization_debt |
-| near_bridge | 106-1: FD06A | 1486 8th Street Motorcycle Trail 4 | 123-1: FD23A | 3 | 5.364 | optimization_debt |
-| near_bridge | 119-3: FD19C | 1652 Shane's Connector 1 | 104-1: FD04A | 3 | 3.782 | optimization_debt |
-| near_bridge | 106-1: FD06A | 1484 8th Street Motorcycle Trail 2 | 123-1: FD23A | 3 | 3.092 | optimization_debt |
-| near_bridge | 113-1: 16A-1 | 1519 Chukar Butte Trail 1 | 103-1: FD03A | 3 | 2.689 | optimization_debt |
-| near_bridge | 104-1: FD04A | 1695 Watchman Trail 2 | 111-1: 14 | 3 | 2.435 | optimization_debt |
-| near_bridge | 104-1: FD04A | 1684 Three Bears Trail 4 | 120-1: FD20A | 3 | 1.100 | optimization_debt |
-| near_bridge | 104-1: FD04A | 1649 Shane's Trail 1 | 119-3: FD19C | 3 | 1.052 | optimization_debt |
-| near_bridge | 104-1: FD04A | 1651 Shane's Trail 3 | 119-3: FD19C | 3 | 1.052 | optimization_debt |
-| near_bridge | 106-1: FD06A | 1485 8th Street Motorcycle Trail 3 | 123-1: FD23A | 3 | 0.976 | optimization_debt |
-| near_bridge | 113-1: 16A-1 | 1597 Peggy's Trail 1 | 118-1: FD18A | 3 | 0.838 | optimization_debt |
-| near_bridge | 104-1: FD04A | 1629 Ridge Crest 5 | 115-1: FD15A | 3 | 0.649 | optimization_debt |
-| near_bridge | 119-3: FD19C | 1629 Ridge Crest 5 | 115-1: FD15A | 3 | 0.649 | optimization_debt |
-| near_bridge | 106-1: FD06A | 1483 8th Street Motorcycle Trail 1 | 123-1: FD23A | 3 | 0.578 | optimization_debt |
-| near_bridge | 125-1: FD25A | 1655 Shindig 2 | 131-1: 18 | 2 | 2.146 | optimization_debt |
-| near_bridge | 114-2: FD14B | 1541 Doe Ridge 1 | 114-1: FD14A | 2 | 0.881 | optimization_debt |
-| near_bridge | 114-2: FD14B | 1598 Polecat Loop 4 | 118-1: FD18A | 2 | 0.731 | optimization_debt |
-| near_bridge | 129-1: 16A-2 | 1544 Dry Creek Trail 3 | 128-2: 15A-1 | 1 | 8.933 | optimization_debt |
-| near_bridge | 118-1: FD18A | 1666 Sweet Connie Trail 2 | 113-1: 16A-1 | 1 | 4.636 | optimization_debt |
-| near_bridge | 129-1: 16A-2 | 1543 Dry Creek Trail 2 | 128-2: 15A-1 | 1 | 3.713 | optimization_debt |
-| near_bridge | 123-2: FD23B | 1484 8th Street Motorcycle Trail 2 | 123-1: FD23A | 1 | 3.092 | optimization_debt |
-| near_bridge | 108-2: FD08B | 1509 Cartwright Ridge 2 | 108-1: FD08A | 1 | 2.641 | optimization_debt |
-| near_bridge | 118-1: FD18A | 1665 Sweet Connie Trail 1 | 113-1: 16A-1 | 1 | 2.385 | optimization_debt |
-| near_bridge | 107-2: FD07B | 1655 Shindig 2 | 131-1: 18 | 1 | 2.146 | optimization_debt |
-| near_bridge | 123-2: FD23B | 1485 8th Street Motorcycle Trail 3 | 123-1: FD23A | 1 | 0.976 | optimization_debt |
-| near_bridge | 114-3: FD14C | 1610 Quick Draw 1 | 114-2: FD14B | 1 | 0.896 | optimization_debt |
-| near_bridge | 114-3: FD14C | 1541 Doe Ridge 1 | 114-1: FD14A | 1 | 0.881 | optimization_debt |
-| near_bridge | 114-3: FD14C | 1598 Polecat Loop 4 | 118-1: FD18A | 1 | 0.731 | optimization_debt |
-| near_bridge | 123-2: FD23B | 1532 Crestline Trail 1 | 122-2: FD22B | 1 | 0.707 | optimization_debt |
-| near_bridge | 119-1: FD19A | 1596 Owl's Roost 1 | 122-3: FD22C | 1 | 0.673 | optimization_debt |
-| near_bridge | 129-1: 16A-2 | 1542 Dry Creek Trail 1 | 128-2: 15A-1 | 1 | 0.612 | optimization_debt |
-| near_bridge | 123-2: FD23B | 1483 8th Street Motorcycle Trail 1 | 123-1: FD23A | 1 | 0.578 | optimization_debt |
-| near_bridge | 125-2: FD25B | 1679 Tempest Trail 2 | 131-1: 18 | 1 | 0.528 | optimization_debt |
-| tail_opportunity | 115-1: FD15A | 1748 Two Point 1 | 104-1: FD04A | 26 | -0.354 | informational |
-| tail_opportunity | 112-2: FD12B | 1579 Kemper's Ridge Trail 1 | 112-1: FD12A | 11 | 0.005 | informational |
-| tail_opportunity | 112-2: FD12B | 1755 Buena Vista Trail 5 | 112-1: FD12A | 11 | -0.038 | informational |
-| tail_opportunity | 116-2: 15B | 1536 Currant Creek 1 | 109-2: 10B | 8 | 0.143 | informational |
-| tail_opportunity | 116-2: 15B | 1537 Currant Creek 2 | 109-2: 10B | 8 | 0.046 | informational |
-| tail_opportunity | 116-2: 15B | 1497 Bitterbrush Trail 1 | 109-2: 10B | 8 | 0.033 | informational |
-| tail_opportunity | 131-1: 18 | 1750 Around the Mountain Trail 7 | 126-1: FD26A | 8 | -0.007 | informational |
-| tail_opportunity | 131-1: 18 | 1492 Around the Mountain Trail 5 | 126-1: FD26A | 8 | -0.017 | informational |
-| tail_opportunity | 131-1: 18 | 1553 Elk Meadows Trail 1 | 125-1: FD25A | 8 | -0.147 | informational |
-| tail_opportunity | 131-1: 18 | 1680 The Face Trail 1 | 125-2: FD25B | 8 | -0.289 | informational |
-| tail_opportunity | 120-1: FD20A | 1593 Mountain Cove 3 | 115-1: FD15A | 7 | 0.007 | informational |
-| tail_opportunity | 120-1: FD20A | 1594 Mountain Cove 4 | 115-1: FD15A | 7 | -0.009 | informational |
-| tail_opportunity | 126-1: FD26A | 1540 Deer Point Trail 1 | 107-2: FD07B | 7 | -0.210 | informational |
-| tail_opportunity | 126-1: FD26A | 1713 Sunshine XC 1 | 107-1: FD07A | 7 | -0.335 | informational |
-| tail_opportunity | 111-1: 14 | 1558 Femrite's Patrol 4 | 104-1: FD04A | 6 | -0.001 | informational |
-| tail_opportunity | 123-3: FD23C | 1498 Bob's Trail 1 | 105-2: 4A | 5 | 0.023 | informational |
-| tail_opportunity | 123-3: FD23C | 1499 Bob's Trail 2 | 105-2: 4A | 5 | -0.002 | informational |
-| tail_opportunity | 123-1: FD23A | 1730 Hull's Gulch Interpretive 1 | 105-1: FD05A | 4 | 0.228 | informational |
-| tail_opportunity | 109-2: 10B | 1622 Red Tail Trail 6 | 116-2: 15B | 4 | 0.025 | informational |
-| tail_opportunity | 109-2: 10B | 1620 Red Tail Trail 4 | 116-2: 15B | 4 | -0.011 | informational |
-| tail_opportunity | 109-2: 10B | 1521 Chukar Butte Trail 3 | 103-1: FD03A | 4 | -0.017 | informational |
-| tail_opportunity | 109-2: 10B | 1619 Red Tail Trail 3 | 116-2: 15B | 4 | -0.047 | informational |
-| tail_opportunity | 109-2: 10B | 1584 Landslide 1 | 116-2: 15B | 4 | -1.397 | informational |
-| tail_opportunity | 104-1: FD04A | 1650 Shane's Trail 2 | 119-3: FD19C | 3 | 0.075 | informational |
-| tail_opportunity | 103-1: FD03A | 1497 Bitterbrush Trail 1 | 109-2: 10B | 3 | 0.033 | informational |
-| tail_opportunity | 104-1: FD04A | 1593 Mountain Cove 3 | 115-1: FD15A | 3 | 0.007 | informational |
-| tail_opportunity | 119-3: FD19C | 1593 Mountain Cove 3 | 115-1: FD15A | 3 | 0.007 | informational |
-| tail_opportunity | 104-1: FD04A | 1631 Ridge Crest 4 | 115-1: FD15A | 3 | -0.001 | informational |
-| tail_opportunity | 104-1: FD04A | 1630 Ridge Crest 3 | 115-1: FD15A | 3 | -0.001 | informational |
-| tail_opportunity | 119-3: FD19C | 1631 Ridge Crest 4 | 115-1: FD15A | 3 | -0.001 | informational |
-| tail_opportunity | 119-3: FD19C | 1630 Ridge Crest 3 | 115-1: FD15A | 3 | -0.001 | informational |
-| tail_opportunity | 104-1: FD04A | 1594 Mountain Cove 4 | 115-1: FD15A | 3 | -0.009 | informational |
-| tail_opportunity | 119-3: FD19C | 1594 Mountain Cove 4 | 115-1: FD15A | 3 | -0.009 | informational |
-| tail_opportunity | 104-1: FD04A | 1683 Three Bears Trail 3 | 120-1: FD20A | 3 | -0.092 | informational |
-| tail_opportunity | 119-3: FD19C | 1683 Three Bears Trail 3 | 120-1: FD20A | 3 | -0.092 | informational |
-| tail_opportunity | 106-1: FD06A | 1564 Freestone Ridge 2 | 120-1: FD20A | 3 | -0.159 | informational |
-| tail_opportunity | 106-1: FD06A | 1660 Sidewinder Trail 1 | 123-2: FD23B | 3 | -0.295 | informational |
-| tail_opportunity | 119-3: FD19C | 1748 Two Point 1 | 104-1: FD04A | 3 | -0.354 | informational |
-| tail_opportunity | 114-2: FD14B | 1603 Polecat Loop 6 | 118-1: FD18A | 2 | 0.214 | informational |
-| tail_opportunity | 114-2: FD14B | 1604 Polecat Loop 7 | 118-1: FD18A | 2 | 0.110 | informational |
-| tail_opportunity | 122-1: FD22A | 1528 Corrals Trail 5 | 123-3: FD23C | 2 | -0.014 | informational |
-| tail_opportunity | 125-1: FD25A | 1713 Sunshine XC 1 | 107-1: FD07A | 2 | -0.335 | informational |
-| tail_opportunity | 114-2: FD14B | 1601 Polecat Loop 5 | 118-1: FD18A | 2 | -0.609 | informational |
-| tail_opportunity | 114-2: FD14B | 1602 Polecat Loop 2 | 118-1: FD18A | 2 | -1.336 | informational |
-| tail_opportunity | 125-2: FD25B | 1554 Elk Meadows Trail 2 | 125-1: FD25A | 1 | 0.218 | informational |
-| tail_opportunity | 114-3: FD14C | 1603 Polecat Loop 6 | 118-1: FD18A | 1 | 0.214 | informational |
-| tail_opportunity | 114-1: FD14A | 1604 Polecat Loop 7 | 118-1: FD18A | 1 | 0.110 | informational |
-| tail_opportunity | 114-3: FD14C | 1604 Polecat Loop 7 | 118-1: FD18A | 1 | 0.110 | informational |
-| tail_opportunity | 107-1: FD07A | 1703 Brewer's Byway Extension 1 | 131-1: 18 | 1 | -0.035 | informational |
-| tail_opportunity | 107-2: FD07B | 1553 Elk Meadows Trail 1 | 125-1: FD25A | 1 | -0.147 | informational |
-| tail_opportunity | 125-2: FD25B | 1553 Elk Meadows Trail 1 | 125-1: FD25A | 1 | -0.147 | informational |
-| tail_opportunity | 114-3: FD14C | 1602 Polecat Loop 2 | 118-1: FD18A | 1 | -1.336 | informational |
-| tail_opportunity | 117-1: 16B | 1667 Sweet Connie Trail 3 | 113-1: 16A-1 | 0 |  | informational |
-| tail_opportunity | 128-2: 15A-1 | 1665 Sweet Connie Trail 1 | 113-1: 16A-1 | 0 | 2.385 | informational |
-| tail_opportunity | 129-1: 16A-2 | 1665 Sweet Connie Trail 1 | 113-1: 16A-1 | 0 | 2.385 | informational |
-| tail_opportunity | 106-1: FD06A | 1524 Corrals Trail 1 | 123-3: FD23C | 0 | 1.773 | informational |
-| tail_opportunity | 122-2: FD22B | 1596 Owl's Roost 1 | 122-3: FD22C | 0 | 0.673 | informational |
-| tail_opportunity | 113-1: 16A-1 | 1542 Dry Creek Trail 1 | 128-2: 15A-1 | 0 | 0.612 | informational |
-| tail_opportunity | 113-1: 16A-1 | 1663 Stack Rock Connector 1 | 117-1: 16B | 0 | 0.513 | informational |
-| tail_opportunity | 122-2: FD22B | 1583 Kestral Trail 1 | 119-1: FD19A | 0 | 0.331 | informational |
-| tail_opportunity | 106-1: FD06A | 1751 Hull's Gulch Interpretive 7 | 105-1: FD05A | 0 | 0.105 | informational |
+| strict_bridge | 14-1: 14 | 1710 Curlew Connection 2 | 13-1: 13 | 6 |  | optimization_debt |
+| strict_bridge | 10-2: 10B | 1624 Red Tail Trail 8 | 15-1: 15A | 4 |  | optimization_debt |
+| strict_bridge | 6-1: 6 | 1624 Red Tail Trail 8 | 15-1: 15A | 4 |  | optimization_debt |
+| strict_bridge | 5-1: 5A | 1508 Cartwright Ridge 1 | 6-1: 6 | 2 |  | optimization_debt |
+| strict_bridge | 6-1: 6 | 1599 Polecat Loop 1 | 5-2: 5B | 1 |  | optimization_debt |
+| near_bridge | 2-1: 2 | 1484 8th Street Motorcycle Trail 2 | 12-1: 12 | 17 | 3.092 | optimization_debt |
+| near_bridge | 2-1: 2 | 1483 8th Street Motorcycle Trail 1 | 12-1: 12 | 17 | 0.578 | optimization_debt |
+| near_bridge | 13-1: 13 | 1695 Watchman Trail 2 | 14-1: 14 | 16 | 2.435 | optimization_debt |
+| near_bridge | 13-1: 13 | 1629 Ridge Crest 5 | 3-1: 3 | 16 | 0.649 | optimization_debt |
+| near_bridge | 13-1: 13 | 1627 Ridge Crest 2 | 3-1: 3 | 16 | 0.518 | optimization_debt |
+| near_bridge | 17-1: 17 | 1655 Shindig 2 | 18-2: 18B | 12 | 2.146 | optimization_debt |
+| near_bridge | 17-1: 17 | 1679 Tempest Trail 2 | 18-1: 18A | 12 | 0.528 | optimization_debt |
+| near_bridge | 18-1: 18A | 1655 Shindig 2 | 18-2: 18B | 7 | 2.146 | optimization_debt |
+| near_bridge | 18-1: 18A | 1493 Around the Mountain Trail 6 | 17-1: 17 | 7 | 0.806 | optimization_debt |
+| near_bridge | 14-1: 14 | 1685 Three Bears Trail 5 | 13-1: 13 | 6 | 2.236 | optimization_debt |
+| near_bridge | 12-1: 12 | 1576 Highlands Trail 1 | 15-2: 15B | 5 | 2.763 | optimization_debt |
+| near_bridge | 12-1: 12 | 1500 Bob's Trail 3 | 4-1: 4A | 5 | 0.851 | optimization_debt |
+| near_bridge | 12-1: 12 | 1577 Highlands Trail 2 | 15-2: 15B | 5 | 0.759 | optimization_debt |
+| near_bridge | 12-1: 12 | 1532 Crestline Trail 1 | 2-1: 2 | 5 | 0.707 | optimization_debt |
+| near_bridge | 6-1: 6 | 1666 Sweet Connie Trail 2 | 16-1: 16A-1 | 4 | 4.636 | optimization_debt |
+| near_bridge | 4-1: 4A | 1576 Highlands Trail 1 | 15-2: 15B | 4 | 2.763 | optimization_debt |
+| near_bridge | 10-2: 10B | 1519 Chukar Butte Trail 1 | 6-1: 6 | 4 | 2.689 | optimization_debt |
+| near_bridge | 10-2: 10B | 1623 Red Tail Trail 7 | 15-1: 15A | 4 | 0.884 | optimization_debt |
+| near_bridge | 4-1: 4A | 1577 Highlands Trail 2 | 15-2: 15B | 4 | 0.759 | optimization_debt |
+| near_bridge | 10-2: 10B | 1520 Chukar Butte Trail 2 | 6-1: 6 | 4 | 0.311 | optimization_debt |
+| near_bridge | 15-2: 15B | 1527 Corrals Trail 4 | 12-1: 12 | 3 | 3.891 | optimization_debt |
+| near_bridge | 18-2: 18B | 1679 Tempest Trail 2 | 18-1: 18A | 2 | 0.528 | optimization_debt |
+| near_bridge | 16-4: 16C-2 | 1544 Dry Creek Trail 3 | 15-2: 15B | 1 | 8.933 | optimization_debt |
+| near_bridge | 16-2: 16A-2 | 1543 Dry Creek Trail 2 | 15-2: 15B | 1 | 3.713 | optimization_debt |
+| near_bridge | 16-4: 16C-2 | 1543 Dry Creek Trail 2 | 15-2: 15B | 1 | 3.713 | optimization_debt |
+| near_bridge | 6-1: 6 | 1541 Doe Ridge 1 | 5-2: 5B | 1 | 2.185 | optimization_debt |
+| near_bridge | 1-1: 1A-1 | 1516 CHBH Connector 1 | 6-1: 6 | 1 | 2.022 | optimization_debt |
+| near_bridge | 6-1: 6 | 1604 Polecat Loop 7 | 5-2: 5B | 1 | 1.595 | optimization_debt |
+| near_bridge | 6-1: 6 | 1610 Quick Draw 1 | 5-2: 5B | 1 | 0.901 | optimization_debt |
+| near_bridge | 16-2: 16A-2 | 1542 Dry Creek Trail 1 | 15-2: 15B | 1 | 0.612 | optimization_debt |
+| near_bridge | 16-4: 16C-2 | 1542 Dry Creek Trail 1 | 15-2: 15B | 1 | 0.612 | optimization_debt |
+| tail_opportunity | 3-1: 3 | 1748 Two Point 1 | 13-1: 13 | 26 | -0.354 | informational |
+| tail_opportunity | 13-1: 13 | 1592 Mountain Cove 2 | 3-1: 3 | 16 | 0.019 | informational |
+| tail_opportunity | 13-1: 13 | 1593 Mountain Cove 3 | 3-1: 3 | 16 | 0.007 | informational |
+| tail_opportunity | 13-1: 13 | 1630 Ridge Crest 3 | 3-1: 3 | 16 | -0.001 | informational |
+| tail_opportunity | 13-1: 13 | 1631 Ridge Crest 4 | 3-1: 3 | 16 | -0.001 | informational |
+| tail_opportunity | 13-1: 13 | 1594 Mountain Cove 4 | 3-1: 3 | 16 | -0.009 | informational |
+| tail_opportunity | 17-1: 17 | 1721 Lodge Trail 1 | 18-2: 18B | 12 | -0.012 | informational |
+| tail_opportunity | 17-1: 17 | 1703 Brewer's Byway Extension 1 | 18-1: 18A | 12 | -0.035 | informational |
+| tail_opportunity | 1-3: 1B | 1755 Buena Vista Trail 5 | 1-2: 1A-2 | 12 | -0.038 | informational |
+| tail_opportunity | 15-1: 15A | 1536 Currant Creek 1 | 10-2: 10B | 8 | 0.143 | informational |
+| tail_opportunity | 18-1: 18A | 1554 Elk Meadows Trail 2 | 17-1: 17 | 7 | 0.218 | informational |
+| tail_opportunity | 18-1: 18A | 1750 Around the Mountain Trail 7 | 17-1: 17 | 7 | -0.007 | informational |
+| tail_opportunity | 18-1: 18A | 1721 Lodge Trail 1 | 18-2: 18B | 7 | -0.012 | informational |
+| tail_opportunity | 18-1: 18A | 1492 Around the Mountain Trail 5 | 17-1: 17 | 7 | -0.017 | informational |
+| tail_opportunity | 18-1: 18A | 1553 Elk Meadows Trail 1 | 17-1: 17 | 7 | -0.147 | informational |
+| tail_opportunity | 18-1: 18A | 1713 Sunshine XC 1 | 17-1: 17 | 7 | -0.335 | informational |
+| tail_opportunity | 14-1: 14 | 1558 Femrite's Patrol 4 | 13-1: 13 | 6 | -0.001 | informational |
+| tail_opportunity | 12-1: 12 | 1498 Bob's Trail 1 | 4-1: 4A | 5 | 0.023 | informational |
+| tail_opportunity | 12-1: 12 | 1499 Bob's Trail 2 | 4-1: 4A | 5 | -0.002 | informational |
+| tail_opportunity | 6-1: 6 | 1497 Bitterbrush Trail 1 | 10-2: 10B | 4 | 0.033 | informational |
+| tail_opportunity | 10-2: 10B | 1622 Red Tail Trail 6 | 15-1: 15A | 4 | 0.025 | informational |
+| tail_opportunity | 10-2: 10B | 1619 Red Tail Trail 3 | 15-1: 15A | 4 | -0.047 | informational |
+| tail_opportunity | 15-2: 15B | 1528 Corrals Trail 5 | 12-1: 12 | 3 | -0.014 | informational |
+| tail_opportunity | 18-2: 18B | 1554 Elk Meadows Trail 2 | 17-1: 17 | 2 | 0.218 | informational |
+| tail_opportunity | 18-2: 18B | 1553 Elk Meadows Trail 1 | 17-1: 17 | 2 | -0.147 | informational |
+| tail_opportunity | 18-2: 18B | 1680 The Face Trail 1 | 18-1: 18A, 17-1: 17 | 2 | -0.289 | informational |
+| tail_opportunity | 18-2: 18B | 1713 Sunshine XC 1 | 17-1: 17 | 2 | -0.335 | informational |
+| tail_opportunity | 6-1: 6 | 1603 Polecat Loop 6 | 5-2: 5B | 1 | 0.214 | informational |
+| tail_opportunity | 16-4: 16C-2 | 1665 Sweet Connie Trail 1 | 16-1: 16A-1 | 0 | 2.385 | informational |
+| tail_opportunity | 8-1: 8A | 1722 Peace Valley Overlook 2 | 8-2: 8B | 0 | -0.295 | informational |
 
 ## Mid-Segment Junction Proof
 

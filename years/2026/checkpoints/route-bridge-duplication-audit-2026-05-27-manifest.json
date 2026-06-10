@@ -1,0 +1,49 @@
+{
+  "run_id": "route-bridge-duplication-audit-2026-05-26",
+  "generated_at": "2026-05-28T01:09:50Z",
+  "command": "python years/2026/scripts/route_bridge_duplication_audit.py",
+  "inputs": [
+    {
+      "path": "docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 2902383,
+      "sha256": "b51ccb10370fcced49294d4e461b1ec215f2073f8f9a90b2649c03f288b92d1b"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+      "exists": true,
+      "size_bytes": 2414760,
+      "sha256": "4078e8fbc829f0aaa9c031b270b445209b6fd648b1fdb3680778e07ab31ee871"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+      "exists": true,
+      "size_bytes": 24237922,
+      "sha256": "ad851d0b0b27ab0002c783c7215a215861b85e2469b3d9a9ac28ebb65e9b8dc5"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "years/2026/checkpoints/route-bridge-duplication-audit-2026-05-27.json",
+      "exists": true,
+      "size_bytes": 664417,
+      "sha256": "4ebe20c7e99de157d09ca09ffc4d44e7dd06bd404f78e4d96e2f0c807be07d44"
+    },
+    {
+      "path": "years/2026/checkpoints/route-bridge-duplication-audit-2026-05-27.md",
+      "exists": true,
+      "size_bytes": 7309,
+      "sha256": "af0eb81e32da983a560bfc36cc8b47499190c4945b8a7342e8c2ba64649bf2a8"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_route_bridge_duplication_audit_v1",
+    "status": "actionable_bridge_debt"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}

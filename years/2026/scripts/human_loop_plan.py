@@ -21,6 +21,8 @@ from block_day_packager import (  # noqa: E402
     render_html as render_package_map_html,
     render_outing_menu_markdown,
 )
+from export_execution_gpx import special_management_segment_direction_overrides  # noqa: E402
+from field_activity_review import activity_coordinates, normalized_ids, review_activity_against_segments  # noqa: E402
 from personal_route_planner import DEFAULT_OFFICIAL_GEOJSON, load_official_segments, read_json  # noqa: E402
 
 
@@ -313,6 +315,75 @@ def cue_segments_for_alternative(cue: dict[str, Any], alternative: dict[str, Any
     return [segment for segment in segments if str(segment.get("seg_id")) in required]
 
 
+def alternative_probe_segments(alternative: dict[str, Any]) -> list[dict[str, Any]]:
+    required = {str(segment_id) for segment_id in alternative.get("required_segment_ids") or []}
+    probe = alternative.get("probe") or {}
+    segments = copy.deepcopy(probe.get("segments") or [])
+    if required:
+        segments = [segment for segment in segments if str(segment.get("seg_id")) in required]
+    return segments
+
+
+def cue_or_probe_segments_for_alternative(cue: dict[str, Any], alternative: dict[str, Any]) -> list[dict[str, Any]]:
+    cue_segments = cue_segments_for_alternative(cue, alternative)
+    return cue_segments or alternative_probe_segments(alternative)
+
+
+def official_segments_for_alternative(
+    alternative: dict[str, Any],
+    official_segments: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    index = {str(segment.get("seg_id")): segment for segment in official_segments}
+    result = []
+    for order, segment_id in enumerate(alternative.get("required_segment_ids") or [], start=1):
+        official = index.get(str(segment_id))
+        if not official:
+            continue
+        direction = official.get("direction") or "both"
+        result.append(
+            {
+                "order": order,
+                "seg_id": int(segment_id) if str(segment_id).isdigit() else segment_id,
+                "segment_name": official.get("seg_name") or official.get("segment_name") or official.get("trail_name"),
+                "trail_name": official.get("trail_name"),
+                "official_miles": round_miles(official.get("official_miles")),
+                "direction_rule": direction,
+                "direction_cue": (
+                    "ASCENT REQUIRED: follow map arrows uphill."
+                    if str(direction).lower() == "ascent"
+                    else "Either direction allowed; follow map arrows."
+                ),
+            }
+        )
+    return result
+
+
+def completed_official_ids_for_alternative(
+    alternative: dict[str, Any],
+    official_segments: list[dict[str, Any]],
+) -> list[str]:
+    artifact = alternative.get("generated_route_artifact") or {}
+    gpx_path = artifact.get("gpx_path")
+    if not gpx_path or not official_segments:
+        return []
+    path = Path(str(gpx_path))
+    if not path.exists():
+        return []
+    coords = activity_coordinates(path)
+    if len(coords) < 2:
+        return []
+    review = review_activity_against_segments(
+        coords,
+        official_segments,
+        planned_segment_ids=alternative.get("required_segment_ids") or [],
+        threshold_miles=0.045,
+        endpoint_threshold_miles=0.04,
+        min_fraction=0.85,
+        partial_min_fraction=0.2,
+    )
+    return normalized_ids(review.get("completed_segment_ids") or [])
+
+
 def filter_cue_links_to_segments(cue: dict[str, Any]) -> None:
     trail_names = {str(segment.get("trail_name")) for segment in cue.get("segments") or [] if segment.get("trail_name")}
     if not trail_names:
@@ -494,6 +565,40 @@ def sync_official_segment_features(package_map: dict[str, Any], official_segment
     official_collection["features"] = features
 
 
+def normalized_direction_cue(segment: dict[str, Any]) -> str:
+    segment_id = str(segment.get("seg_id") or segment.get("segment_id") or segment.get("segId") or "")
+    direction = str(segment.get("direction_rule") or segment.get("direction") or "both").lower()
+    special_direction = special_management_segment_direction_overrides().get(segment_id)
+    if special_direction == "forward":
+        return "SPECIAL MANAGEMENT: follow the signed one-way direction."
+    if special_direction == "reverse":
+        return "SPECIAL MANAGEMENT: follow the signed one-way direction opposite official geometry."
+    if direction == "ascent":
+        return "ASCENT REQUIRED: follow map arrows uphill."
+    if "opposite official geometry" in str(segment.get("direction_cue") or "").lower():
+        return "Either direction allowed; follow map arrows."
+    return str(segment.get("direction_cue") or "Either direction allowed; follow map arrows.")
+
+
+def sync_route_direction_cues(package_map: dict[str, Any]) -> None:
+    """Normalize stale route-cue direction labels from current official/rule data."""
+
+    for cue in (package_map.get("route_cues") or {}).values():
+        for segment in cue.get("segments") or []:
+            segment["direction_cue"] = normalized_direction_cue(segment)
+
+    features = (
+        (package_map.get("feature_collections") or {})
+        .get("official_segments", {})
+        .get("features")
+        or []
+    )
+    for feature in features:
+        props = feature.get("properties") or {}
+        if props:
+            props["direction_cue"] = normalized_direction_cue(props)
+
+
 def update_overall_summary(summary: dict[str, Any], old_on_foot: float, new_on_foot: float) -> None:
     prior_total = float(summary.get("total_on_foot_miles") or 0.0)
     prior_ratio = float(summary.get("planwide_on_foot_to_official_ratio") or 0.0)
@@ -600,12 +705,17 @@ def promote_package16_manual_routes(
     accepted_features = load_accepted_route_features(manual_design_report)
     report_areas = {str(area.get("area_id")): area for area in manual_design_report.get("areas") or []}
     manual_areas = {str(area.get("area_id")): area for area in manual_design.get("areas") or []}
-    route_cues = package_map.get("route_cues") or {}
+    route_cues = package_map.setdefault("route_cues", {})
+    official_segments, _official_meta = load_official_segments(DEFAULT_OFFICIAL_SEGMENTS_GEOJSON)
     for area_id, report_area in report_areas.items():
         area = {**(manual_areas.get(area_id) or {}), **report_area}
         alternatives = selected_manual_alternatives(area)
         if not alternatives:
             continue
+        promoted_candidate_ids = {
+            promoted_candidate_id(str(alternative.get("alternative_id")))
+            for alternative in alternatives
+        }
         demoted_candidate_ids = [str(value) for value in area.get("demote_candidate_ids") or []]
         package_number = area.get("package_number")
         demoted_segment_ids = component_segment_ids_for_candidates(package_map, package_number, demoted_candidate_ids)
@@ -640,16 +750,17 @@ def promote_package16_manual_routes(
                     component
                     for component in package.get("components") or []
                     if str(component.get("candidate_id")) not in demoted_candidate_ids
+                    and str(component.get("candidate_id")) not in promoted_candidate_ids
                 ]
                 promoted_components = []
                 for alternative in alternatives:
                     alternative_id = str(alternative.get("alternative_id"))
                     probe = alternative.get("probe") or {}
                     new_candidate_id = promoted_candidate_id(alternative_id)
-                    cue_segments = cue_segments_for_alternative(
+                    cue_segments = cue_or_probe_segments_for_alternative(
                         old_cue_for_alternative(route_cues, demoted_candidate_ids, alternative),
                         alternative,
-                    )
+                    ) or official_segments_for_alternative(alternative, official_segments)
                     trail_names = [
                         segment.get("trail_name")
                         for segment in cue_segments
@@ -754,13 +865,19 @@ def promote_package16_manual_routes(
                 package_map["feature_collections"][target]["features"].append(feature)
 
             old_cue = old_cue_for_alternative(route_cues, demoted_candidate_ids, alternative)
-            if old_cue:
-                cue = copy.deepcopy(old_cue)
-                cue["segments"] = cue_segments_for_alternative(cue, alternative)
+            cue = copy.deepcopy(old_cue) if old_cue else {"candidate_id": new_candidate_id, "between_links": []}
+            cue["segments"] = cue_or_probe_segments_for_alternative(
+                cue,
+                alternative,
+            ) or official_segments_for_alternative(alternative, official_segments)
+            if cue.get("segments"):
                 filter_cue_links_to_segments(cue)
                 probe = alternative.get("probe") or {}
                 parking_feature = feature_group.get("parking")
                 trailhead = trailhead_from_anchor(area, alternative, parking_feature)
+                completed_official_ids = completed_official_ids_for_alternative(alternative, official_segments)
+                if not completed_official_ids:
+                    completed_official_ids = normalized_ids(alternative.get("required_segment_ids") or [])
                 cue.update(
                     {
                         "candidate_id": new_candidate_id,
@@ -790,6 +907,7 @@ def promote_package16_manual_routes(
                             "road_miles": round_miles(probe.get("road_miles")),
                             "connector_names": [],
                             "connector_classes": [],
+                            "official_repeat_segment_ids": [int(segment_id) for segment_id in completed_official_ids if str(segment_id).isdigit()],
                         },
                         "field_warning": "Roadside parking/access still needs day-of capacity and signage check.",
                     }
@@ -1156,6 +1274,7 @@ def main() -> int:
     sync_progress_from_state(package_map, state)
     recompute_package_summary(package_map, package_map)
     sync_official_segment_features(package_map, official_segments)
+    sync_route_direction_cues(package_map)
     package_pass["summary"] = dict(package_map["summary"])
     if "summary" in route_pass:
         route_pass["summary"]["selected_route_count"] = len(route_pass.get("routes") or [])

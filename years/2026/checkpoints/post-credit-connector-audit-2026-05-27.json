@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-06T05:34:24Z",
+  "generated_at": "2026-06-09T21:28:08Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {

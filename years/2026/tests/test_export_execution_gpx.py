@@ -385,6 +385,48 @@ def test_candidate_segments_for_track_reorders_special_management_loop_to_legal_
     ]
 
 
+def test_special_management_orientation_uses_official_geometry_over_candidate_geometry():
+    exporter = load_exporter()
+    exporter._SPECIAL_MANAGEMENT_SEGMENT_DIRECTIONS = {"1602": "forward", "1598": "reverse"}
+    official_index = {
+        1602: {
+            "seg_id": 1602,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.228286, 43.684041), (-116.219895, 43.6887)],
+        },
+        1598: {
+            "seg_id": 1598,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.229745, 43.677406), (-116.220879, 43.679849)],
+        },
+    }
+    candidate = {
+        "candidate_id": "stored-wrong-way-special-route",
+        "segments": [
+            {
+                "seg_id": 1602,
+                "trail_name": "Polecat Loop",
+                "coordinates": [(-116.219895, 43.6887), (-116.228286, 43.684041)],
+            },
+            {
+                "seg_id": 1598,
+                "trail_name": "Polecat Loop",
+                "coordinates": [(-116.229745, 43.677406), (-116.220879, 43.679849)],
+            },
+        ],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+    }
+
+    forward = exporter.candidate_segment_coordinates(candidate, candidate["segments"][0], official_index)
+    reverse = exporter.candidate_segment_coordinates(candidate, candidate["segments"][1], official_index)
+
+    assert forward == [(-116.228286, 43.684041), (-116.219895, 43.6887)]
+    assert reverse == [(-116.220879, 43.679849), (-116.229745, 43.677406)]
+
+
 def test_candidate_track_coordinates_can_densify_sparse_source_lines():
     exporter = load_exporter()
     official_index = {
@@ -670,6 +712,61 @@ def test_candidate_track_coordinates_uses_declared_inter_segment_link_before_sti
         (-116.12, 43.12),
         (-116.20, 43.20),
         (-116.21, 43.21),
+    ]
+
+
+def test_candidate_track_coordinates_reorients_segment_before_stale_inter_link():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Out",
+            "direction": "both",
+            "coordinates": [(-116.100, 43.100), (-116.101, 43.100)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Fork",
+            "direction": "both",
+            "coordinates": [(-116.103, 43.100), (-116.101, 43.100)],
+        },
+    }
+    candidate = {
+        "candidate_id": "stale-inter-link-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "Out"},
+            {"seg_id": 2, "trail_name": "Fork"},
+        ],
+        "inter_segment_links": {
+            "links": [
+                {
+                    "from_segment_id": 1,
+                    "to_segment_id": 2,
+                    "distance_miles": 0.5,
+                    "path_coordinates": [
+                        [-116.101, 43.100],
+                        [-116.102, 43.101],
+                        [-116.103, 43.100],
+                    ],
+                }
+            ]
+        },
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    coords = exporter.candidate_track_coordinates(
+        candidate,
+        official_index,
+        connector_graph={"graph": {}, "nodes": [(-116.101, 43.100), (-116.103, 43.100)]},
+        stitch_gap_threshold_miles=0.01,
+    )
+
+    assert coords == [
+        (-116.100, 43.100),
+        (-116.101, 43.100),
+        (-116.103, 43.100),
     ]
 
 

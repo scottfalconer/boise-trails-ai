@@ -114,11 +114,12 @@ def candidate_segment_coordinates(
 ) -> list[tuple[float, float]]:
     seg_id = int(segment["seg_id"])
     official = official_index[seg_id]
+    special_management_direction = special_management_segment_direction_overrides().get(str(seg_id))
+    coordinate_source = official if special_management_direction else segment
     coords = [
         (float(coord[0]), float(coord[1]))
-        for coord in (segment.get("coordinates") or official["coordinates"])
+        for coord in (coordinate_source.get("coordinates") or official["coordinates"])
     ]
-    special_management_direction = special_management_segment_direction_overrides().get(str(seg_id))
     if special_management_direction == "forward":
         if densify_source_lines:
             return densify_coordinates(coords, max_gap_miles=densify_max_gap_miles)
@@ -303,6 +304,109 @@ def replacement_for_unsafe_connector_link(
     return repaired_connector_link(stored_link, repair, replaced_names=replaced_names)
 
 
+def connector_link_from_mapped_path(
+    mapped: dict[str, Any],
+    *,
+    source: str,
+    from_segment_id: Any = None,
+    to_segment_id: Any = None,
+    from_trail: str | None = None,
+    to_trail: str | None = None,
+    earned_segment_ids_before_link: set[int] | None = None,
+    avoided_unearned_segment_ids: set[int] | None = None,
+) -> dict[str, Any]:
+    return {
+        "source": source,
+        "from_segment_id": from_segment_id,
+        "to_segment_id": to_segment_id,
+        "from_trail": from_trail,
+        "to_trail": to_trail,
+        "distance_miles": mapped.get("distance_miles"),
+        "connector_miles": mapped.get("connector_miles"),
+        "official_repeat_miles": mapped.get("official_repeat_miles"),
+        "connector_names": mapped.get("connector_names") or [],
+        "connector_classes": mapped.get("connector_classes") or [],
+        "connector_edges": mapped.get("connector_edges") or [],
+        "official_repeat_segment_ids": mapped.get("official_repeat_segment_ids") or [],
+        "earned_segment_ids_before_link": sorted(earned_segment_ids_before_link or []),
+        "avoided_unearned_segment_ids": sorted(avoided_unearned_segment_ids or []),
+        "path_coordinates": mapped.get("path_coordinates") or [],
+    }
+
+
+def link_distance_miles(link: dict[str, Any] | None) -> float:
+    if not link:
+        return float("inf")
+    for key in ("distance_miles", "connector_miles"):
+        try:
+            return float(link.get(key) or 0.0)
+        except (TypeError, ValueError):
+            continue
+    return float("inf")
+
+
+def best_connector_link_for_oriented_segment(
+    *,
+    candidate: dict[str, Any],
+    segment: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+    current: tuple[float, float] | None,
+    previous_segment: dict[str, Any] | None,
+    stored_link: dict[str, Any] | None,
+    connector_graph: dict[str, Any] | None,
+    stitch_snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None,
+    earned_segment_ids_before_link: set[int] | None,
+    densify_source_lines: bool = False,
+    densify_max_gap_miles: float = 0.03,
+) -> tuple[list[tuple[float, float]], dict[str, Any] | None]:
+    seg_id = int(segment["seg_id"])
+    segment_coords = candidate_segment_coordinates(
+        candidate,
+        segment,
+        official_index,
+        densify_source_lines=densify_source_lines,
+        densify_max_gap_miles=densify_max_gap_miles,
+    )
+    segment_coords = orient_path_to_current(
+        current,
+        segment_coords,
+        enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
+    )
+    if current is None or not segment_coords or connector_graph is None:
+        return segment_coords, stored_link
+    if haversine_miles(current, segment_coords[0]) <= 0.02:
+        return segment_coords, None
+
+    mapped = shortest_connector_path(
+        current,
+        segment_coords[0],
+        connector_graph,
+        stitch_snap_tolerance_miles,
+        avoid_official_segment_ids=avoid_official_segment_ids,
+    )
+    if not mapped:
+        return segment_coords, stored_link
+
+    mapped_distance = float(mapped.get("distance_miles") or 0.0)
+    stored_distance = link_distance_miles(stored_link)
+    if mapped_distance <= 0.02:
+        return segment_coords, None
+    if stored_link and mapped_distance + 0.01 >= stored_distance:
+        return segment_coords, stored_link
+
+    return segment_coords, connector_link_from_mapped_path(
+        mapped,
+        source="mapped_graph_orientation_repair",
+        from_segment_id=(previous_segment or {}).get("seg_id"),
+        to_segment_id=segment.get("seg_id"),
+        from_trail=(previous_segment or {}).get("trail_name"),
+        to_trail=segment.get("trail_name"),
+        earned_segment_ids_before_link=earned_segment_ids_before_link,
+        avoided_unearned_segment_ids=avoid_official_segment_ids,
+    )
+
+
 def safe_between_trail_links_for_candidate(
     candidate: dict[str, Any],
     official_index: dict[int, dict[str, Any]],
@@ -396,12 +500,7 @@ def candidate_segments_for_track(
     official_index: dict[int, dict[str, Any]] | None = None,
     current: tuple[float, float] | None = None,
 ) -> list[dict[str, Any]]:
-    segments = list(candidate.get("segments") or [])
-    if (
-        (candidate.get("route_orientation") or {}).get("direction") == "reversed"
-        and not candidate.get("custom_traversal_order")
-    ):
-        segments = list(reversed(segments))
+    segments = base_candidate_segments_for_track(candidate)
     if official_index is None:
         return segments
 
@@ -431,6 +530,29 @@ def candidate_segments_for_track(
             if segment_coords:
                 current = segment_coords[-1]
     return ordered
+
+
+def base_candidate_segments_for_track(candidate: dict[str, Any]) -> list[dict[str, Any]]:
+    segments = list(candidate.get("segments") or [])
+    if (
+        (candidate.get("route_orientation") or {}).get("direction") == "reversed"
+        and not candidate.get("custom_traversal_order")
+    ):
+        return list(reversed(segments))
+    return segments
+
+
+def segment_id_sequence(segments: list[dict[str, Any]]) -> list[str]:
+    return [str(segment.get("seg_id")) for segment in segments]
+
+
+def candidate_track_order_changed(
+    candidate: dict[str, Any],
+    ordered_segments: list[dict[str, Any]],
+) -> bool:
+    return segment_id_sequence(base_candidate_segments_for_track(candidate)) != segment_id_sequence(
+        ordered_segments
+    )
 
 
 def raise_unstitched_gap(candidate: dict[str, Any], from_point: tuple[float, float], to_point: tuple[float, float], gap: float) -> None:
@@ -502,12 +624,28 @@ def candidate_track_coordinates(
             densify_max_gap_miles=densify_max_gap_miles,
         ),
     )
-    inter_segment_links = list(((candidate.get("inter_segment_links") or {}).get("links")) or [])
+    ordered_segments = candidate_segments_for_track(
+        candidate,
+        official_index,
+        coords[-1] if coords else None,
+    )
+    order_changed = candidate_track_order_changed(candidate, ordered_segments)
+    inter_segment_links = (
+        []
+        if order_changed
+        else list(((candidate.get("inter_segment_links") or {}).get("links")) or [])
+    )
     link_by_to_segment_id = {
         str(link.get("to_segment_id")): link
         for link in inter_segment_links
         if link.get("to_segment_id") is not None
     }
+    required_segment_ids = {
+        int(segment.get("seg_id"))
+        for segment in ordered_segments
+        if str(segment.get("seg_id") or "").isdigit()
+    }
+    earned_segment_ids: set[int] = set()
     between_links = (
         []
         if inter_segment_links
@@ -515,42 +653,65 @@ def candidate_track_coordinates(
     )
     next_link_index = 0
     previous_trail = None
-    for segment in candidate_segments_for_track(candidate, official_index, coords[-1] if coords else None):
+    previous_segment: dict[str, Any] | None = None
+    for segment in ordered_segments:
         trail_name = segment.get("trail_name")
         seg_id = int(segment["seg_id"])
         pre_link = link_by_to_segment_id.get(str(segment.get("seg_id")))
-        if previous_trail is not None and pre_link:
+        avoid_segment_ids = required_segment_ids - earned_segment_ids
+        segment_coords, selected_pre_link = best_connector_link_for_oriented_segment(
+            candidate=candidate,
+            segment=segment,
+            official_index=official_index,
+            current=coords[-1] if coords else None,
+            previous_segment=previous_segment,
+            stored_link=pre_link if previous_trail is not None else None,
+            connector_graph=connector_graph,
+            stitch_snap_tolerance_miles=stitch_snap_tolerance_miles,
+            avoid_official_segment_ids=avoid_segment_ids,
+            earned_segment_ids_before_link=earned_segment_ids,
+            densify_source_lines=densify_source_lines,
+            densify_max_gap_miles=densify_max_gap_miles,
+        )
+        if previous_trail is not None and selected_pre_link:
             dedupe_append(
                 coords,
                 path_coordinate_tuples(
-                    pre_link.get("path_coordinates") or [],
+                    selected_pre_link.get("path_coordinates") or [],
                     densify_source_lines=densify_source_lines,
                     densify_max_gap_miles=densify_max_gap_miles,
                 ),
             )
-        segment_coords = candidate_segment_coordinates(
-            candidate,
-            segment,
-            official_index,
-            densify_source_lines=densify_source_lines,
-            densify_max_gap_miles=densify_max_gap_miles,
-        )
-        segment_coords = orient_path_to_current(
-            coords[-1] if coords else None,
-            segment_coords,
-            enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
-        )
+            segment_coords = orient_path_to_current(
+                coords[-1] if coords else None,
+                segment_coords,
+                enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
+            )
         if previous_trail is not None and trail_name != previous_trail:
             if next_link_index < len(between_links):
                 stored_link = between_links[next_link_index]
+                segment_coords, selected_link = best_connector_link_for_oriented_segment(
+                    candidate=candidate,
+                    segment=segment,
+                    official_index=official_index,
+                    current=coords[-1] if coords else None,
+                    previous_segment=previous_segment,
+                    stored_link=stored_link,
+                    connector_graph=connector_graph,
+                    stitch_snap_tolerance_miles=stitch_snap_tolerance_miles,
+                    avoid_official_segment_ids=avoid_segment_ids,
+                    earned_segment_ids_before_link=earned_segment_ids,
+                    densify_source_lines=densify_source_lines,
+                    densify_max_gap_miles=densify_max_gap_miles,
+                )
                 link_is_unsafe = stored_connector_link_uses_skipped_name(
-                    stored_link,
+                    selected_link or {},
                     connector_graph,
                 )
                 link_coords = orient_path_to_current(
                     coords[-1] if coords else None,
                     path_coordinate_tuples(
-                        stored_link.get("path_coordinates") or [],
+                        (selected_link or {}).get("path_coordinates") or [],
                         densify_source_lines=densify_source_lines,
                         densify_max_gap_miles=densify_max_gap_miles,
                     ),
@@ -608,17 +769,38 @@ def candidate_track_coordinates(
                 raise_unstitched_gap(candidate, coords[-1], segment_coords[0], gap)
         dedupe_append(coords, segment_coords)
         previous_trail = trail_name
+        previous_segment = segment
+        if str(segment.get("seg_id") or "").isdigit():
+            earned_segment_ids.add(int(segment["seg_id"]))
 
     return_path = path_coordinate_tuples(
         (candidate.get("return_to_car") or {}).get("path_coordinates") or [],
         densify_source_lines=densify_source_lines,
         densify_max_gap_miles=densify_max_gap_miles,
     )
+    trailhead = candidate.get("trailhead") or {}
+    trailhead_point = None
+    if trailhead.get("lon") is not None and trailhead.get("lat") is not None:
+        trailhead_point = (float(trailhead["lon"]), float(trailhead["lat"]))
     trailhead_return_path = path_coordinate_tuples(
         trailhead_access.get("return_path_coordinates") or [],
         densify_source_lines=densify_source_lines,
         densify_max_gap_miles=densify_max_gap_miles,
     )
+    if coords and trailhead_point and connector_graph:
+        direct_return = shortest_connector_path(
+            coords[-1],
+            trailhead_point,
+            connector_graph,
+            stitch_snap_tolerance_miles,
+        )
+        if direct_return:
+            return_path = path_coordinate_tuples(
+                direct_return.get("path_coordinates") or [],
+                densify_source_lines=densify_source_lines,
+                densify_max_gap_miles=densify_max_gap_miles,
+            )
+            trailhead_return_path = []
     if coords and return_path:
         current = coords[-1]
         return_path = orient_path_to_current(current, return_path)

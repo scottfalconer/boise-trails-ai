@@ -1000,6 +1000,29 @@ def node_degree_counts(graph_edges: list[TrailEdge]) -> Counter[tuple[float, flo
     return counts
 
 
+def generic_osm_connector_edge(edge: TrailEdge | None) -> bool:
+    if not edge:
+        return False
+    normalized = normalize_name(edge.name)
+    return normalized.startswith(("osm service connector", "osm path connector", "osm track connector"))
+
+
+def generic_connector_is_covered_by_adjacent_named_text(
+    all_text: str,
+    previous_edge: TrailEdge | None,
+    current_edge: TrailEdge,
+    next_edge: TrailEdge | None,
+) -> bool:
+    if not generic_osm_connector_edge(current_edge):
+        return False
+    for adjacent in (previous_edge, next_edge):
+        if not adjacent or generic_osm_connector_edge(adjacent):
+            continue
+        if text_mentions_edge(all_text, adjacent):
+            return True
+    return False
+
+
 def audit_route_walkthrough(
     route: dict[str, Any],
     track_segments: list[list[tuple[float, float]]],
@@ -1088,13 +1111,24 @@ def audit_route_walkthrough(
             )
 
     degrees = node_degree_counts(graph.edges)
-    for previous, current in zip(groups, groups[1:]):
+    for index, (previous, current) in enumerate(zip(groups, groups[1:])):
         previous_edge = previous.get("_edge")
         current_edge = current.get("_edge")
         if not previous_edge or not current_edge or previous_edge.edge_id == current_edge.edge_id:
             continue
+        next_group = groups[index + 2] if index + 2 < len(groups) else {}
+        next_edge = next_group.get("_edge") if isinstance(next_group, dict) else None
         node_key = graph_node_key(tuple(current.get("start_coordinate") or current_edge.coords[0]))
-        if degrees.get(node_key, 0) >= 3 and not text_mentions_edge(all_text, current_edge):
+        if (
+            degrees.get(node_key, 0) >= 3
+            and not text_mentions_edge(all_text, current_edge)
+            and not generic_connector_is_covered_by_adjacent_named_text(
+                all_text,
+                previous_edge,
+                current_edge,
+                next_edge,
+            )
+        ):
             failures.append(
                 failure(
                     "ambiguous_decision_point",

@@ -27,6 +27,7 @@ from block_route_candidate_pass import (  # noqa: E402
     split_coords_on_gaps,
 )
 from export_execution_gpx import (  # noqa: E402
+    best_connector_link_for_oriented_segment,
     candidate_segment_coordinates,
     candidate_segments_for_track,
     candidate_track_coordinates,
@@ -43,6 +44,7 @@ from personal_route_planner import (  # noqa: E402
     load_official_segments,
     read_json,
     round_miles,
+    shortest_connector_path,
 )
 
 
@@ -726,7 +728,38 @@ def route_cue(
     else:
         cue_segments = raw_segments
     segments = []
+    required_segment_ids = {
+        int(segment.get("seg_id"))
+        for segment in cue_segments
+        if str(segment.get("seg_id") or "").isdigit()
+    }
+    earned_segment_ids: set[int] = set()
+    link_by_to_segment_id = {
+        str(link.get("to_segment_id")): link
+        for link in ((candidate.get("inter_segment_links") or {}).get("links") or [])
+        if link.get("to_segment_id") is not None
+    }
+    computed_between_links: list[dict[str, Any]] = []
+    previous_trail = None
+    previous_segment: dict[str, Any] | None = None
     for index, segment in enumerate(cue_segments, start=1):
+        seg_id = int(segment["seg_id"]) if str(segment.get("seg_id") or "").isdigit() else None
+        stored_link = link_by_to_segment_id.get(str(segment.get("seg_id")))
+        segment_coords = coordinate_path(segment.get("coordinates"))
+        selected_link = stored_link if previous_trail is not None else None
+        if seg_id is not None and seg_id in official_index:
+            segment_coords, selected_link = best_connector_link_for_oriented_segment(
+                candidate=candidate,
+                segment=segment,
+                official_index=official_index,
+                current=current,
+                previous_segment=previous_segment,
+                stored_link=stored_link if previous_trail is not None else None,
+                connector_graph=connector_graph,
+                stitch_snap_tolerance_miles=0.02,
+                avoid_official_segment_ids=required_segment_ids - earned_segment_ids,
+                earned_segment_ids_before_link=earned_segment_ids,
+            )
         row = {
             "order": index,
             "seg_id": segment.get("seg_id"),
@@ -743,20 +776,56 @@ def route_cue(
             "grade_adjusted_miles": segment.get("grade_adjusted_miles"),
             "elevation_source": segment.get("elevation_source"),
         }
-        coordinates = coordinate_path(segment.get("coordinates"))
-        if coordinates:
-            row["coordinates"] = coordinates
-            row["start"] = coordinates[0]
-            row["end"] = coordinates[-1]
-        if segment.get("pre_connector_link"):
-            row["pre_connector_link"] = connector_cue(segment["pre_connector_link"])
+        if segment_coords:
+            row["coordinates"] = [[float(lon), float(lat)] for lon, lat in segment_coords]
+            row["start"] = row["coordinates"][0]
+            row["end"] = row["coordinates"][-1]
+        if selected_link and previous_segment is not None:
+            row["pre_connector_link"] = connector_cue(selected_link)
+            if previous_trail is not None and segment.get("trail_name") != previous_trail:
+                computed_between_links.append(selected_link)
+        if segment_coords:
+            current = segment_coords[-1]
+        if seg_id is not None:
+            earned_segment_ids.add(seg_id)
+        previous_trail = segment.get("trail_name")
+        previous_segment = segment
         segments.append(row)
-    inter_segment_links = ((candidate.get("inter_segment_links") or {}).get("links")) or []
-    between_links = inter_segment_links or (
-        safe_between_trail_links_for_candidate(candidate, official_index, connector_graph)
-        if connector_graph
-        else (((candidate.get("between_trail_links") or {}).get("links")) or [])
+    inter_segment_links = (
+        computed_between_links
+        if connector_graph is not None and required_segment_ids
+        else ((candidate.get("inter_segment_links") or {}).get("links")) or []
     )
+    if connector_graph is not None and required_segment_ids:
+        between_links = inter_segment_links
+    else:
+        between_links = inter_segment_links or (
+            safe_between_trail_links_for_candidate(candidate, official_index, connector_graph)
+            if connector_graph
+            else (((candidate.get("between_trail_links") or {}).get("links")) or [])
+        )
+    trailhead_point = None
+    if trailhead.get("lon") is not None and trailhead.get("lat") is not None:
+        trailhead_point = (float(trailhead["lon"]), float(trailhead["lat"]))
+    if current is not None and trailhead_point is not None and connector_graph is not None:
+        mapped_return = shortest_connector_path(
+            current,
+            trailhead_point,
+            connector_graph,
+            0.02,
+        )
+        if mapped_return:
+            return_to_car = {
+                "strategy": "mapped_direct_to_trailhead",
+                "description": "Return by the shortest graph-routed trail/path network back to the parked trailhead.",
+                "official_repeat_miles": mapped_return.get("official_repeat_miles"),
+                "official_repeat_segment_ids": mapped_return.get("official_repeat_segment_ids") or [],
+                "connector_miles": mapped_return.get("connector_miles"),
+                "road_miles": 0,
+                "connector_names": mapped_return.get("connector_names") or [],
+                "connector_classes": mapped_return.get("connector_classes") or [],
+                "path_coordinates": mapped_return.get("path_coordinates") or [],
+            }
     return_cue = {
         "strategy": return_to_car.get("strategy"),
         "description": return_to_car.get("description"),

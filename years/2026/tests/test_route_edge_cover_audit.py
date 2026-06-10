@@ -83,6 +83,52 @@ def test_depot_revisit_before_all_required_edges_are_cleared_fails(tmp_path):
     assert failure["remaining_segment_ids"] == ["102"]
 
 
+def test_ascent_constrained_depot_revisit_is_advisory(tmp_path):
+    module = load_module()
+    packet_dir = tmp_path / "packet"
+    write_gpx(
+        packet_dir / "gpx" / "official" / "ascent-reset.gpx",
+        [
+            (-116.000, 43.000),
+            (-115.990, 43.000),
+            (-116.000, 43.000),
+            (-116.000, 43.010),
+            (-116.000, 43.000),
+        ],
+    )
+    route = {
+        "outing_id": "route-ascent",
+        "label": "Ascent Reset",
+        "trailhead": "Trailhead",
+        "segment_ids": [101, 102],
+        "gpx_href": "gpx/official/ascent-reset.gpx",
+        "parking": {"lon": -116.000, "lat": 43.000},
+        "segment_direction_evidence": {
+            "101": {"direction_rule": "ascent"},
+            "102": {"direction_rule": "ascent"},
+        },
+        "wayfinding_cues": [
+            {"seq": 1, "cue_type": "follow_official_segment", "official_segment_ids": [101]},
+            {"seq": 2, "cue_type": "car_pass_connector"},
+            {"seq": 3, "cue_type": "follow_official_segment", "official_segment_ids": [102]},
+        ],
+    }
+
+    audit = module.build_route_edge_cover_audit(
+        {"routes": [route]},
+        official_segments=[
+            segment(101, [(-116.000, 43.000), (-115.990, 43.000)], direction="ascent"),
+            segment(102, [(-116.000, 43.000), (-116.000, 43.010)], direction="ascent"),
+        ],
+        packet_dir=packet_dir,
+    )
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["phase_reset_failure_count"] == 0
+    assert audit["summary"]["phase_reset_advisory_count"] == 1
+    assert audit["advisory_routes"][0]["advisory_findings"][0]["severity"] == "advisory"
+
+
 def test_junction_spur_out_and_back_then_continuation_is_accepted(tmp_path):
     module = load_module()
     packet_dir = tmp_path / "packet"
@@ -214,10 +260,10 @@ def test_disconnected_component_depot_revisit_is_advisory_without_replacement_pr
     assert route_audit["route_quality"]["status"] == "advisory"
 
 
-def test_fd12a_repaired_packet_route_has_no_depot_phase_reset():
+def test_full_sail_repaired_packet_route_has_no_depot_phase_reset():
     module = load_module()
     field_tool_data = module.read_json(module.DEFAULT_FIELD_TOOL_DATA_JSON)
-    route = next(item for item in field_tool_data["routes"] if item["outing_id"] == "112-1")
+    route = next(item for item in field_tool_data["routes"] if item["outing_id"] == "1-2")
     official_segments, _ = module.load_official_segments(module.DEFAULT_OFFICIAL_GEOJSON)
     official_by_id = module.segment_index(official_segments)
 
@@ -231,7 +277,7 @@ def test_fd12a_repaired_packet_route_has_no_depot_phase_reset():
 
     assert audit["audit_status"] == "passed"
     assert audit["hard_failures"] == []
-    assert audit["segment_ids"] == ["1504", "1505", "1506", "1507", "1565", "1566", "1579", "1718", "1719", "1755"]
+    assert audit["segment_ids"] == ["1504", "1505", "1506", "1507", "1565", "1566", "1718", "1719", "1755"]
     assert audit["route_quality"]["generated_miles"] < 6.1
     direction_evidence = route["segment_direction_evidence"]
     assert {direction_evidence[segment_id]["direction_rule"] for segment_id in audit["segment_ids"]} == {"both"}

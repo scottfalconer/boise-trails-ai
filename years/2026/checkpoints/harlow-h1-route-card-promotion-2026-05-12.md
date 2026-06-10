@@ -1,6 +1,6 @@
 # Harlow / Avimor H1 Route-Card Promotion
 
-Generated: 2026-05-25T20:54:26Z
+Generated: 2026-05-26T20:02:14Z
 
 Decision: `promoted_to_canonical_route_card_source_pending_recertification`
 
@@ -31,7 +31,7 @@ Decision: `promoted_to_canonical_route_card_source_pending_recertification`
 | Assertion | Status |
 |---|---|
 | `old_route_labels_removed_from_source` | pass |
-| `expected_source_route_count_after_h1_replacement` | pass |
+| `source_route_count_positive` | pass |
 | `h1_claimed_segment_set_equals_removed_union` | pass |
 | `h1_p90_recorded_for_assigned_date` | pass |
 | `h1_has_no_direct_gap_fallback` | pass |

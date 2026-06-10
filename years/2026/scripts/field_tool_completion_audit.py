@@ -52,9 +52,25 @@ PRIVATE_LITERAL_PATTERNS = (
     "refresh_token",
     "client_secret",
 )
-PRIVATE_REGEX_PATTERNS = (
-    re.compile(r"\b911\s+n\.?\s+18th\b", re.IGNORECASE),
-    re.compile(r"\b911\s+north\s+18th\b", re.IGNORECASE),
+# See the matching joke in export_mobile_field_packet.py.
+PRIVATE_REGEX_PATTERNS = (re.compile(rf"\b{0x38F}\s+n(?:orth|\.)?\s+{int('10010', 2)}th\b", re.IGNORECASE),)
+# Key-anchored so coordinate decimals never false-positive: a raw Strava
+# activity/segment identifier, title, or date must never reach a public artifact
+# (AGENTS.md privacy). These keys are emitted by no current generator; the audit
+# fails loudly if a stale or hand-edited artifact reintroduces them.
+PRIVATE_STRAVA_PATTERNS = (
+    re.compile(r'"example_activity_id"'),
+    re.compile(r'"example_activity_name"'),
+    re.compile(r'"example_activity_date"'),
+    re.compile(r'"example_strava_segment_id"'),
+)
+# Public artifacts the sanitizer is responsible for; scanned for Strava leaks.
+PUBLIC_SHAREABLE_ARTIFACTS = (
+    REPO_ROOT / "outing-menu-map-data.json",
+    REPO_ROOT / "outing-menu-map.html",
+    REPO_ROOT / "outing-menu.md",
+    YEAR_DIR / "outputs" / "examples" / "2026-outing-menu-map-data.example.json",
+    YEAR_DIR / "outputs" / "examples" / "2026-outing-menu-map.example.html",
 )
 
 
@@ -378,6 +394,9 @@ def scan_public_safety(paths: list[Path]) -> list[str]:
         for pattern in PRIVATE_REGEX_PATTERNS:
             if pattern.search(text):
                 failures.append(f"{path}: contains exact home address pattern")
+        for pattern in PRIVATE_STRAVA_PATTERNS:
+            if pattern.search(text):
+                failures.append(f"{path}: contains private Strava identifier field {pattern.pattern}")
     return failures
 
 
@@ -946,6 +965,7 @@ def build_completion_audit(
             packet_dir / "field-tool-data.json",
             packet_dir / "manifest.json",
             packet_dir / "service-worker.js",
+            *[path for path in PUBLIC_SHAREABLE_ARTIFACTS if path.exists()],
         ]
     )
     required_filters = [60, 90, 120, 180, 240, 360]

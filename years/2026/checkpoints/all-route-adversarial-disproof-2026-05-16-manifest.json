@@ -1,49 +1,54 @@
 {
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-05-24T04:07:04.730200+00:00",
-  "files": {
+  "generated_at": "2026-06-09T23:45:26Z",
+  "source_files": {
+    "field_tool_data": "docs/field-packet/field-tool-data.json",
+    "field_packet_manifest": "docs/field-packet/manifest.json",
+    "route_review": "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json",
+    "private_canonical_map_data": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "public_sanitized_map_data": "outing-menu-map-data.json"
+  },
+  "outputs": {
     "canonical_json": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.json",
     "canonical_md": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md"
   },
   "summary": {
-    "route_count": 49,
-    "proof_count": 49,
+    "route_count": 31,
+    "proof_count": 31,
     "decision_counts": {
-      "HOLD_PROVEN_BUNDLE_PRESSURE": 12,
-      "HOLD_CONDITION_GATED": 7,
-      "HOLD_PROVEN_HIGH_COST": 8,
-      "HOLD_PROVEN_CURRENT": 19,
-      "HOLD_CERTIFIED_REPLACEMENT": 3
+      "HOLD_CURRENT_RECERTIFIED": 25,
+      "NEEDS_REANCHOR_OR_WAIVER": 6
     },
     "area_counts": {
-      "Camels Back / Hulls Gulch": 4,
-      "Rocky Canyon": 3,
-      "Table Rock": 2,
-      "Upper Hulls Gulch": 5,
-      "Dry Creek": 9,
+      "Upper Hulls Gulch": 2,
       "Western Foothills": 2,
-      "Military Reserve": 2,
-      "Upper Military Reserve": 1,
-      "Bogus Basin": 7,
-      "Cartwright": 1,
-      "Hidden Springs": 2,
-      "Cervidae / Arrow Rock": 1,
-      "Avimor / Harlow": 1,
+      "Dry Creek": 7,
+      "Boise River WMA": 2,
       "Hillside to Hollow": 2,
-      "Polecat Gulch": 4,
-      "Full Sail / N 36th St": 1,
+      "13": 1,
+      "Hidden Springs": 2,
       "Hawkins Range Reserve": 1,
-      "Boise River WMA": 1
+      "Bogus Basin": 4,
+      "Cervidae / Arrow Rock": 1,
+      "Polecat Gulch": 1,
+      "Military Reserve": 1,
+      "Table Rock": 1,
+      "Rocky Canyon": 2,
+      "Camels Back / Hulls Gulch": 1,
+      "Harlow's / Hidden Springs west access probe": 1
     },
-    "deterministic_same_credit_failure_count": 0,
-    "repeat_optimization_warning_count_after_disproof": 0,
-    "repeat_optimization_warning_count_closed": 39,
-    "route_efficiency_verdict": "proven",
-    "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 49,
-    "public_access_recheck_candidate_count": 0,
-    "public_source_reevaluation": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json",
-    "user_confirmed_access_candidate_count": 1,
-    "route_source_regeneration_refresh": "2026-05-26: refreshed from the current 49-card field-ready packet after FD12A Kemper 1 credit assignment and stale West Climb source-geometry cleanup."
+    "deterministic_same_credit_failure_count": 6,
+    "failed_route_labels": [
+      "5A",
+      "16A-2",
+      "1A-2",
+      "1A-1",
+      "16C-1",
+      "15B"
+    ],
+    "route_efficiency_verdict": "open_dominance_failures",
+    "route_efficiency_achieved": false,
+    "accepted_active_candidate_target": 25,
+    "review_today": "2026-06-09"
   }
 }

@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-06T05:33:27.210235+00:00",
-  "status": "passed",
+  "audited_at": "2026-06-09T23:40:48.346361+00:00",
+  "status": "needs_repair",
   "summary": {
     "route_count": 31,
     "routes_missing_gpx": 0,
@@ -12,8 +12,26 @@
     "claimed_elsewhere_segment_count": 0,
     "reconciled_claimed_elsewhere_segment_count": 42,
     "unclaimed_uncompleted_segment_count": 0,
-    "repeat_completed_segment_count": 0
+    "repeat_completed_segment_count": 0,
+    "dual_claimed_exact_credit_segment_count": 1
   },
+  "dual_claimed_exact_credit_segments": [
+    {
+      "seg_id": "1680",
+      "trail_name": "The Face Trail",
+      "official_miles": 1.1528655303030304,
+      "claiming_routes": [
+        {
+          "outing_id": "18-1",
+          "label": "18-1: 18A"
+        },
+        {
+          "outing_id": "17-1",
+          "label": "17-1: 17"
+        }
+      ]
+    }
+  ],
   "source_files": {
     "field_tool_data_json": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
     "packet_dir": "/Users/scott/dev/boise-trails-ai/docs/field-packet",

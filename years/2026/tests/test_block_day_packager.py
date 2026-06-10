@@ -393,6 +393,62 @@ def test_build_map_data_adds_signpost_labels_to_route_cues():
     assert cue["return_to_car"]["official_repeat_segment_ids"] == [1578]
 
 
+def test_route_cue_reorients_next_segment_before_stale_inter_link(monkeypatch):
+    packager = load_packager()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Out",
+            "direction": "both",
+            "coordinates": [(-116.100, 43.100), (-116.101, 43.100)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Fork",
+            "direction": "both",
+            "coordinates": [(-116.103, 43.100), (-116.101, 43.100)],
+        },
+    }
+    monkeypatch.setattr(packager, "route_cue_official_index", lambda: official_index)
+    candidate = {
+        "candidate_id": "stale-inter-link-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "Out"},
+            {"seg_id": 2, "trail_name": "Fork"},
+        ],
+        "trail_names": ["Out", "Fork"],
+        "inter_segment_links": {
+            "links": [
+                {
+                    "from_segment_id": 1,
+                    "to_segment_id": 2,
+                    "distance_miles": 0.5,
+                    "path_coordinates": [
+                        [-116.101, 43.100],
+                        [-116.102, 43.101],
+                        [-116.103, 43.100],
+                    ],
+                }
+            ]
+        },
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+        "trailhead": {"name": "Trailhead", "lat": 43.100, "lon": -116.100},
+    }
+
+    cue = packager.route_cue(
+        candidate,
+        {"candidate_id": "stale-inter-link-route"},
+        connector_graph={"graph": {}, "nodes": [(-116.101, 43.100), (-116.103, 43.100)]},
+    )
+
+    assert cue["segments"][1]["start"] == [-116.101, 43.1]
+    assert cue["segments"][1]["end"] == [-116.103, 43.1]
+    assert "pre_connector_link" not in cue["segments"][1]
+    assert cue["between_links"] == []
+
+
 def test_render_html_includes_direction_arrow_controls():
     packager = load_packager()
     html = packager.render_html(

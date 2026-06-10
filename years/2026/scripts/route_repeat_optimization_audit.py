@@ -513,6 +513,37 @@ def cue_interval(route: dict[str, Any], cue: dict[str, Any]) -> tuple[float, flo
     return start, start + length
 
 
+def coordinate_pair(value: Any) -> tuple[float, float] | None:
+    if not isinstance(value, (list, tuple)) or len(value) < 2:
+        return None
+    try:
+        return (float(value[0]), float(value[1]))
+    except (TypeError, ValueError):
+        return None
+
+
+def cue_source_path_coords(cue: dict[str, Any]) -> list[tuple[float, float]]:
+    coords = [
+        point
+        for point in (coordinate_pair(value) for value in cue.get("source_path_coordinates") or [])
+        if point is not None
+    ]
+    return coords if len(coords) >= 2 else []
+
+
+def cue_review_coords(
+    activity_coords: list[tuple[float, float]],
+    cue: dict[str, Any],
+) -> list[tuple[float, float]]:
+    source_coords = cue_source_path_coords(cue)
+    if source_coords:
+        return source_coords
+    interval = cue_interval({}, cue)
+    if not interval:
+        return []
+    return interval_coordinates(activity_coords, start_mile=interval[0], end_mile=interval[1])
+
+
 def post_credit_repeat_savings_threshold(current_miles: float) -> float:
     return max(0.10, float(current_miles or 0) * 0.10)
 
@@ -903,10 +934,7 @@ def non_credit_full_segment_ids(
     for cue in route.get("wayfinding_cues") or []:
         if str(cue.get("cue_type") or "") not in NON_CREDIT_CUE_TYPES:
             continue
-        interval = cue_interval(route, cue)
-        if not interval:
-            continue
-        interval_coords = interval_coordinates(activity_coords, start_mile=interval[0], end_mile=interval[1])
+        interval_coords = cue_review_coords(activity_coords, cue)
         if len(interval_coords) < 2:
             continue
         cue_completed, _partial, _candidate_count = review_completed_segment_ids(
@@ -942,22 +970,20 @@ def post_credit_hidden_self_repeat_ids(
     hidden: set[str] = set()
     for cue in route.get("wayfinding_cues") or []:
         if str(cue.get("cue_type") or "") in NON_CREDIT_CUE_TYPES:
-            interval = cue_interval(route, cue)
-            if interval:
-                interval_coords = interval_coordinates(activity_coords, start_mile=interval[0], end_mile=interval[1])
-                if len(interval_coords) >= 2:
-                    cue_completed, _partial, _candidate_count = review_completed_segment_ids(
-                        interval_coords,
-                        official_segments,
-                        planned_ids=claimed,
-                        threshold_miles=threshold_miles,
-                        endpoint_threshold_miles=endpoint_threshold_miles,
-                        min_fraction=min_fraction,
-                        partial_min_fraction=partial_min_fraction,
-                        max_activity_points=max_activity_points,
-                        elevation_sampler=elevation_sampler,
-                    )
-                    hidden.update((cue_completed & credited) - declared_repeat)
+            interval_coords = cue_review_coords(activity_coords, cue)
+            if len(interval_coords) >= 2:
+                cue_completed, _partial, _candidate_count = review_completed_segment_ids(
+                    interval_coords,
+                    official_segments,
+                    planned_ids=claimed,
+                    threshold_miles=threshold_miles,
+                    endpoint_threshold_miles=endpoint_threshold_miles,
+                    min_fraction=min_fraction,
+                    partial_min_fraction=partial_min_fraction,
+                    max_activity_points=max_activity_points,
+                    elevation_sampler=elevation_sampler,
+                )
+                hidden.update((cue_completed & credited) - declared_repeat)
         credited.update(cue_credit_segment_ids(cue, claimed))
     return hidden
 

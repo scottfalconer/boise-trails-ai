@@ -277,9 +277,33 @@ def build_latent_credit_audit(
     repair_routes = [row for row in route_reviews if row["audit_status"] == "needs_repair"]
     reconciled_routes = [row for row in route_reviews if row["audit_status"] == "reconciled"]
     repeat_only_routes = [row for row in route_reviews if row["audit_status"] == "repeat_only"]
+
+    # Dual-claim guard: one official segment must be exact credit for at most one
+    # active route. A route's segment_ids is its pure exact-credit claim (segments
+    # it walks only as repeat/connector are excluded and listed under
+    # declared_owned_elsewhere instead), so any seg_id in >1 route's segment_ids
+    # is double-counted official credit. This is what let segment 1680 be claimed
+    # by both routes 17 and 18A and inflate plan-wide official miles.
+    dual_claimed_segments = []
+    for seg_id, claims in sorted(segment_claim_index.items()):
+        if seg_id in completed_at_export or len(claims) <= 1:
+            continue
+        brief = segment_index.get(seg_id) or {}
+        dual_claimed_segments.append(
+            {
+                "seg_id": seg_id,
+                "trail_name": brief.get("trail_name") or brief.get("seg_name"),
+                "official_miles": brief.get("official_miles"),
+                "claiming_routes": [
+                    {"outing_id": claim.get("outing_id"), "label": claim.get("label")}
+                    for claim in claims
+                ],
+            }
+        )
+
     if missing_gpx_routes:
         status = "incomplete_audit"
-    elif repair_routes:
+    elif repair_routes or dual_claimed_segments:
         status = "needs_repair"
     else:
         status = "passed"
@@ -311,7 +335,9 @@ def build_latent_credit_audit(
             "reconciled_claimed_elsewhere_segment_count": len(reconciled_claimed_elsewhere_ids),
             "unclaimed_uncompleted_segment_count": len(unclaimed_uncompleted_ids),
             "repeat_completed_segment_count": len(repeat_completed_ids),
+            "dual_claimed_exact_credit_segment_count": len(dual_claimed_segments),
         },
+        "dual_claimed_exact_credit_segments": dual_claimed_segments,
         "source_files": source_files or {},
         "parameters": {
             "threshold_miles": threshold_miles,

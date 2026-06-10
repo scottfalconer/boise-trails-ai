@@ -75,6 +75,9 @@ DEFAULT_R2R_CONNECTOR_GEOJSON = (
     / "r2r-trails-2026-05-04"
     / "boise_parks_trails_open_data.geojson"
 )
+DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON = (
+    YEAR_DIR / "inputs" / "open-data" / "special-management-rules-2026.json"
+)
 DEFAULT_TRAILHEAD_CANDIDATES_GEOJSON = (
     YEAR_DIR
     / "inputs"
@@ -875,15 +878,14 @@ def match_effort_for_segment(
 
 def summarize_effort_match(matched_name: str, records: list[dict[str, Any]]) -> dict[str, Any]:
     paces = [record["pace_min_per_mile"] for record in records]
+    # Never emit raw Strava activity/segment identifiers, titles, or dates into
+    # shareable plan data (AGENTS.md privacy). Only the pace summary is consumed
+    # downstream; the example_* identifiers were dead-weight private data.
     return {
         "source_type": "matched_strava_segment_effort",
         "matched_name": matched_name,
         "sample_count": len(records),
         "pace_min_per_mile": round(float(statistics.median(paces)), 2),
-        "example_activity_id": records[0].get("activity_id"),
-        "example_activity_name": records[0].get("activity_name"),
-        "example_activity_date": records[0].get("activity_date"),
-        "example_strava_segment_id": records[0].get("strava_segment_id"),
     }
 
 
@@ -929,6 +931,8 @@ def add_graph_edge(
     highway: str | None = None,
     access_properties: dict[str, Any] | None = None,
     coordinates: list[tuple[float, float]] | None = None,
+    official_traversal_direction: str | None = None,
+    special_management_allowed_directions: list[str] | None = None,
 ) -> None:
     if distance <= 0:
         return
@@ -944,6 +948,8 @@ def add_graph_edge(
             "highway": highway,
             "access_properties": access_properties or {},
             "coordinates": [[point[0], point[1]] for point in coordinates or [start, end]],
+            "official_traversal_direction": official_traversal_direction,
+            "special_management_allowed_directions": special_management_allowed_directions or [],
         }
     )
 
@@ -963,6 +969,8 @@ def add_polyline_to_graph(
     access_properties: dict[str, Any] | None = None,
     official_edge_overrides: dict[tuple[tuple[float, float], tuple[float, float]], dict[str, Any]] | None = None,
     official_named_overlaps: dict[str, list[dict[str, Any]]] | None = None,
+    special_management_direction_overrides: dict[int, list[str]] | None = None,
+    special_management_allowed_directions: list[str] | None = None,
 ) -> None:
     for start_raw, end_raw in zip(coords, coords[1:]):
         start = round_node(start_raw)
@@ -975,6 +983,7 @@ def add_polyline_to_graph(
                 end_raw,
                 name,
                 official_named_overlaps,
+                special_management_direction_overrides=special_management_direction_overrides,
             )
         edge_name = str(override.get("name") or name) if override else name
         edge_type_value = str(override.get("edge_type") or edge_type) if override else edge_type
@@ -985,6 +994,16 @@ def add_polyline_to_graph(
         edge_source = str(override.get("source") or source) if override else source
         edge_access_properties = (
             dict(override.get("access_properties") or {}) if override else access_properties
+        )
+        edge_traversal_direction = (
+            str(override.get("official_traversal_direction") or "")
+            if override and override.get("official_traversal_direction")
+            else ("forward" if edge_type == "official_repeat" else None)
+        )
+        edge_special_allowed = (
+            list(override.get("special_management_allowed_directions") or [])
+            if override
+            else list(special_management_allowed_directions or [])
         )
         add_graph_edge(
             graph,
@@ -999,6 +1018,8 @@ def add_polyline_to_graph(
             highway,
             edge_access_properties,
             [start_raw, end_raw],
+            edge_traversal_direction,
+            edge_special_allowed,
         )
         if bidirectional:
             reverse_override = (official_edge_overrides or {}).get((end, start)) or override
@@ -1016,6 +1037,16 @@ def add_polyline_to_graph(
                 if reverse_override
                 else access_properties
             )
+            reverse_traversal_direction = (
+                str(reverse_override.get("official_traversal_direction") or "")
+                if reverse_override and reverse_override.get("official_traversal_direction")
+                else ("reverse" if edge_type == "official_repeat" else None)
+            )
+            reverse_special_allowed = (
+                list(reverse_override.get("special_management_allowed_directions") or [])
+                if reverse_override
+                else list(special_management_allowed_directions or [])
+            )
             add_graph_edge(
                 graph,
                 end,
@@ -1029,31 +1060,50 @@ def add_polyline_to_graph(
                 highway,
                 reverse_access_properties,
                 [end_raw, start_raw],
+                reverse_traversal_direction,
+                reverse_special_allowed,
             )
         nodes.extend([start, end])
 
 
 def official_edge_override_index(
     official_segments: list[dict[str, Any]] | None,
+    special_management_direction_overrides: dict[int, list[str]] | None = None,
 ) -> dict[tuple[tuple[float, float], tuple[float, float]], dict[str, Any]]:
     index: dict[tuple[tuple[float, float], tuple[float, float]], dict[str, Any]] = {}
     for segment in official_segments or []:
         for start_raw, end_raw in zip(segment.get("coordinates") or [], (segment.get("coordinates") or [])[1:]):
             start = round_node(start_raw)
             end = round_node(end_raw)
-            override = official_repeat_edge_override(segment)
-            index[(start, end)] = override
-            index[(end, start)] = override
+            allowed_directions = (special_management_direction_overrides or {}).get(
+                int(segment.get("seg_id"))
+            )
+            index[(start, end)] = official_repeat_edge_override(
+                segment,
+                official_traversal_direction="forward",
+                special_management_allowed_directions=allowed_directions,
+            )
+            index[(end, start)] = official_repeat_edge_override(
+                segment,
+                official_traversal_direction="reverse",
+                special_management_allowed_directions=allowed_directions,
+            )
     return index
 
 
-def official_repeat_edge_override(segment: dict[str, Any]) -> dict[str, Any]:
+def official_repeat_edge_override(
+    segment: dict[str, Any],
+    official_traversal_direction: str | None = None,
+    special_management_allowed_directions: list[str] | None = None,
+) -> dict[str, Any]:
     return {
         "edge_type": "official_repeat",
         "seg_id": segment.get("seg_id"),
         "connector_class": "official_repeat",
         "name": segment.get("trail_name") or segment.get("seg_name") or "official segment",
         "source": "official_challenge_connector_overlap",
+        "official_traversal_direction": official_traversal_direction,
+        "special_management_allowed_directions": special_management_allowed_directions or [],
         "access_properties": {
             "access": None,
             "foot": None,
@@ -1074,11 +1124,75 @@ def official_named_overlap_index(
     return dict(index)
 
 
+def fraction_along_segment(
+    point: tuple[float, float],
+    start: tuple[float, float],
+    end: tuple[float, float],
+    reference_lat: float,
+) -> float:
+    projected_point = projected_node(point, reference_lat)
+    projected_start = projected_node(start, reference_lat)
+    projected_end = projected_node(end, reference_lat)
+    dx = projected_end[0] - projected_start[0]
+    dy = projected_end[1] - projected_start[1]
+    length_sq = dx * dx + dy * dy
+    if length_sq <= 0:
+        return 0.0
+    return max(
+        0.0,
+        min(
+            1.0,
+            (
+                (projected_point[0] - projected_start[0]) * dx
+                + (projected_point[1] - projected_start[1]) * dy
+            )
+            / length_sq,
+        ),
+    )
+
+
+def fraction_along_polyline(point: tuple[float, float], coords: list[tuple[float, float]]) -> float:
+    if len(coords) < 2:
+        return 0.0
+    total_miles = line_length_miles(coords)
+    if total_miles <= 0:
+        return 0.0
+    reference_lat = sum(coord[1] for coord in coords) / len(coords)
+    best_distance = math.inf
+    best_fraction = 0.0
+    distance_before = 0.0
+    for start, end in zip(coords, coords[1:]):
+        segment_miles = haversine_miles(start, end)
+        local_fraction = fraction_along_segment(point, start, end, reference_lat)
+        projected = (
+            start[0] + (end[0] - start[0]) * local_fraction,
+            start[1] + (end[1] - start[1]) * local_fraction,
+        )
+        distance = haversine_miles(point, projected)
+        if distance < best_distance:
+            best_distance = distance
+            best_fraction = (distance_before + (segment_miles * local_fraction)) / total_miles
+        distance_before += segment_miles
+    return max(0.0, min(1.0, best_fraction))
+
+
+def connector_edge_direction_for_official_segment(
+    start_raw: tuple[float, float],
+    end_raw: tuple[float, float],
+    segment: dict[str, Any],
+) -> str:
+    coords = segment.get("coordinates") or []
+    start_fraction = fraction_along_polyline(start_raw, coords)
+    end_fraction = fraction_along_polyline(end_raw, coords)
+    return "forward" if end_fraction >= start_fraction else "reverse"
+
+
 def official_overlap_override_for_connector_edge(
     start_raw: tuple[float, float],
     end_raw: tuple[float, float],
     connector_name: str,
     official_named_overlaps: dict[str, list[dict[str, Any]]] | None,
+    special_management_direction_overrides: dict[int, list[str]] | None = None,
     threshold_miles: float = 0.025,
 ) -> dict[str, Any] | None:
     if not official_named_overlaps:
@@ -1106,12 +1220,47 @@ def official_overlap_override_for_connector_edge(
             for point in (start_raw, midpoint, end_raw)
         ]
         if max(distances) <= threshold_miles:
-            return official_repeat_edge_override(segment)
+            seg_id = int(segment.get("seg_id"))
+            return official_repeat_edge_override(
+                segment,
+                official_traversal_direction=connector_edge_direction_for_official_segment(
+                    start_raw,
+                    end_raw,
+                    segment,
+                ),
+                special_management_allowed_directions=(
+                    special_management_direction_overrides or {}
+                ).get(seg_id),
+            )
     return None
 
 
+def load_special_management_direction_overrides(
+    rules_json: Path | None = DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON,
+) -> dict[int, list[str]]:
+    if not rules_json or not rules_json.exists():
+        return {}
+    try:
+        payload = read_json(rules_json)
+    except json.JSONDecodeError:
+        return {}
+    overrides: dict[int, list[str]] = {}
+    for rule in payload.get("rules") or []:
+        if str(rule.get("rule_type") or "") != "directional_segment_traversal":
+            continue
+        if not bool(rule.get("blocking", True)):
+            continue
+        for segment_id, directions in (rule.get("segment_direction_overrides") or {}).items():
+            allowed = sorted({str(direction) for direction in directions or []})
+            if allowed and allowed != ["forward", "reverse"]:
+                overrides[int(segment_id)] = allowed
+    return overrides
+
+
 def load_connector_graph(
-    path: Path | None, official_segments: list[dict[str, Any]] | None = None
+    path: Path | None,
+    official_segments: list[dict[str, Any]] | None = None,
+    special_management_rules_json: Path | None = DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON,
 ) -> dict[str, Any] | None:
     if not path or not path.exists():
         return None
@@ -1125,7 +1274,13 @@ def load_connector_graph(
     skipped_access_reasons: Counter[str] = Counter()
     skipped_connector_names: Counter[str] = Counter()
     skipped_connector_feature_count = 0
-    official_overrides = official_edge_override_index(official_segments)
+    special_management_overrides = load_special_management_direction_overrides(
+        special_management_rules_json
+    )
+    official_overrides = official_edge_override_index(
+        official_segments,
+        special_management_direction_overrides=special_management_overrides,
+    )
     official_named_overlaps = official_named_overlap_index(official_segments)
     for feature in data.get("features", []):
         props = feature.get("properties") or {}
@@ -1162,6 +1317,8 @@ def load_connector_graph(
                 access_properties=connector_access_properties(props),
                 official_edge_overrides=official_overrides,
                 official_named_overlaps=official_named_overlaps,
+                special_management_direction_overrides=special_management_overrides,
+                special_management_allowed_directions=[],
             )
             connector_class_counts[connector_class] += 1
     for segment in official_segments or []:
@@ -1185,6 +1342,9 @@ def load_connector_graph(
                 "highway": None,
                 "source": "official_challenge",
             },
+            special_management_allowed_directions=special_management_overrides.get(
+                int(segment["seg_id"])
+            ),
         )
         connector_class_counts["official_repeat"] += 1
     return {
@@ -1359,6 +1519,11 @@ def shortest_connector_path(
                         "highway": edge.get("highway"),
                         "access_properties": edge.get("access_properties") or {},
                         "seg_id": edge.get("seg_id"),
+                        "official_traversal_direction": edge.get("official_traversal_direction"),
+                        "special_management_allowed_directions": edge.get(
+                            "special_management_allowed_directions"
+                        )
+                        or [],
                         "coordinates": edge_coordinates,
                     }
                 )
@@ -1385,6 +1550,14 @@ def shortest_connector_path(
             return result
         for edge in graph.get(node, []):
             if edge.get("edge_type") == "official_repeat" and edge.get("seg_id") in avoided_ids:
+                continue
+            allowed_directions = edge.get("special_management_allowed_directions") or []
+            traversal_direction = edge.get("official_traversal_direction")
+            if (
+                edge.get("edge_type") == "official_repeat"
+                and allowed_directions
+                and traversal_direction not in allowed_directions
+            ):
                 continue
             next_distance = distance + edge["distance"]
             next_node = edge["to"]

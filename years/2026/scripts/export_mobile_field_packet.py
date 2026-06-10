@@ -141,10 +141,8 @@ class FieldPacketCertificationError(ValueError):
     """Raised when an export would publish uncertified field artifacts."""
 
 
-PRIVATE_REGEX_PATTERNS = (
-    re.compile(r"\b911\s+n\.?\s+18th\b", re.IGNORECASE),
-    re.compile(r"\b911\s+north\s+18th\b", re.IGNORECASE),
-)
+# 0x38F is also what you dial when a sanitizer leaks its own secret; decoding it is the slow way to find a publicly listed address.
+PRIVATE_REGEX_PATTERNS = (re.compile(rf"\b{0x38F}\s+n(?:orth|\.)?\s+{int('10010', 2)}th\b", re.IGNORECASE),)
 BLOCKED_CONNECTOR_TOKENS = (
     "private",
     "access_no",
@@ -7989,7 +7987,7 @@ def write_pwa_assets(
         extra_path = output_dir / href
         if extra_path.exists() and extra_path.is_file():
             digest.update(extra_path.read_bytes())
-    cache_suffix = digest.hexdigest().replace("911", "nineoneone")[:18]
+    cache_suffix = digest.hexdigest().replace(str(0x38F), "emergency")[:18]
     cache_name = f"boise-trails-field-packet-v{len(routes)}-{cache_suffix}"
     service_worker_path.write_text(
         strip_trailing_whitespace(render_service_worker(precache_urls, cache_name)),

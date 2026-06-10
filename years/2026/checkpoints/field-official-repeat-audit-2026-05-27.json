@@ -1,0 +1,6728 @@
+{
+  "schema": "boise_trails_field_official_repeat_audit_v1",
+  "generated_at": "2026-05-28T01:08:41Z",
+  "status": "passed",
+  "source_files": {
+    "map_data_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "field_tool_json": "docs/field-packet/field-tool-data.json"
+  },
+  "summary": {
+    "route_count": 29,
+    "source_repeat_leg_count": 73,
+    "public_repeat_cue_count": 91,
+    "bucket_a_bad_hidden_self_repeat_count": 0,
+    "bucket_b_legitimate_repeat_or_optimization_target_count": 70,
+    "bucket_c_reconciled_extra_credit_route_count": 15,
+    "repeat_legs_missing_segment_ids": 0,
+    "source_public_repeat_id_drift_count": 12,
+    "repeat_cues_missing_text": 0,
+    "unreconciled_extra_credit_segment_count": 0
+  },
+  "bucket_a_bad_hidden_self_repeat": [],
+  "bucket_b_legitimate_repeat_or_optimization_targets": [
+    {
+      "candidate_id": "block-bogus_atm_deer_elk_sunshine",
+      "label": "17",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1655",
+        "1703"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#92 Shindig",
+        "Bogus Creek Loop",
+        "Brewers Byway",
+        "Deer Point",
+        "Elk Meadows",
+        "Shindig"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-bogus_atm_deer_elk_sunshine",
+      "label": "17",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1679"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#95 Tempest",
+        "Lodge",
+        "Lodge Cat Track",
+        "OSM track connector 107366",
+        "Tempest",
+        "The Face",
+        "War Eagle Road"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-bogus_atm_deer_elk_sunshine",
+      "label": "17",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.06,
+      "official_repeat_segment_ids": [
+        "1721"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#142 Sunshine",
+        "Bogus Creek Loop",
+        "Elk Meadows",
+        "Lodge",
+        "Lodge Cat Track",
+        "OSM track connector 12046",
+        "OSM track connector 8307",
+        "OSM track connector 91509",
+        "Shafer Butte Road",
+        "Sunshine XC",
+        "Toll Road"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "label": "2",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.26,
+      "official_repeat_segment_ids": [
+        "1728"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1728"
+      ],
+      "connector_names": [
+        "#0 Hull's Gulch Interpretive Trail",
+        "Hull's Gulch Interpretive Trail"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "label": "2",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.14,
+      "official_repeat_segment_ids": [
+        "1483",
+        "1484"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#0 Hull's Gulch Interpretive Trail",
+        "#4 8th Street Motorcycle",
+        "8th Street Motorcycle",
+        "Connector Trail",
+        "Hull's Gulch Interpretive Trail",
+        "OSM service connector 12945",
+        "OSM service connector 12946"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "label": "2",
+      "place": "between_links[5]",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1481"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1481"
+      ],
+      "connector_names": [
+        "15th St. Trail",
+        "15th Street #41",
+        "Red Fox (Dog Off-Leash)"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "label": "2",
+      "place": "between_links[6]",
+      "official_repeat_miles": 0.0,
+      "official_repeat_segment_ids": [
+        "1585"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1585"
+      ],
+      "connector_names": [
+        "#29 Lower Hulls Gulch",
+        "Lower Hull's Gulch",
+        "North Sunset Peak Road",
+        "OSM service connector 19868",
+        "Red Fox (Dog Off-Leash)"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "label": "2",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1585",
+        "1616"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1585",
+        "1616"
+      ],
+      "connector_names": [
+        "#29 Lower Hulls Gulch",
+        "#39 Red Cliffs",
+        "Lower Hull's Gulch",
+        "Red Cliffs"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "label": "6",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1597",
+        "1666"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1597"
+      ],
+      "connector_names": [
+        "#77 Sweet Connie",
+        "Sweet Connie"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "label": "6",
+      "place": "between_links[3]",
+      "official_repeat_miles": 0.41,
+      "official_repeat_segment_ids": [
+        "1508",
+        "1509",
+        "1541",
+        "1599",
+        "1604",
+        "1610"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1508",
+        "1509"
+      ],
+      "connector_names": [
+        "#81 Polecat Loop",
+        "#82 Doe Ridge",
+        "#83 Quick Draw",
+        "#84 Cartwright Ridge",
+        "Cartwright Ridge",
+        "Doe Ridge",
+        "North Cartwright Road",
+        "OSM service connector 69243",
+        "OSM track connector 110342",
+        "Polecat Loop",
+        "Polecat Loop (STM)",
+        "Quick Draw"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "label": "6",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.5,
+      "official_repeat_segment_ids": [
+        "1516",
+        "1541",
+        "1610"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1516"
+      ],
+      "connector_names": [
+        "#81 Polecat Loop",
+        "#82 Doe Ridge",
+        "#83 Quick Draw",
+        "Doe Ridge",
+        "OSM path connector 110670",
+        "OSM path connector 13996",
+        "OSM track connector 106014",
+        "OSM track connector 106931",
+        "Polecat Loop (STM)",
+        "Quick Draw"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-cervidae_peak",
+      "label": "19",
+      "place": "return_to_car",
+      "official_repeat_miles": 2.24,
+      "official_repeat_segment_ids": [
+        "1731"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1731"
+      ],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "block-eagle_bike_park_red_tail",
+      "label": "9",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.05,
+      "official_repeat_segment_ids": [
+        "1692",
+        "1693"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1692",
+        "1693"
+      ],
+      "connector_names": [
+        "Access Trail (#113 Big Springs Loop)",
+        "Big Springs Loop",
+        "Rabbit Run",
+        "Veteran's Trail",
+        "Veterans"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-eagle_bike_park_red_tail",
+      "label": "9",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.0,
+      "official_repeat_segment_ids": [
+        "1611"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1611"
+      ],
+      "connector_names": [
+        "Concrete Jungle",
+        "Concrete Jungle Alt.",
+        "OSM path connector 74487",
+        "OSM service connector 12726",
+        "Rabbit Run",
+        "Rolling Thunder"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-eagle_bike_park_red_tail",
+      "label": "9",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.15,
+      "official_repeat_segment_ids": [
+        "1691",
+        "1692",
+        "1693"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1691",
+        "1692",
+        "1693"
+      ],
+      "connector_names": [
+        "Access Trail (#113 Big Springs Loop)",
+        "Big Springs Loop",
+        "REI Connector",
+        "Veteran's Trail",
+        "Veterans",
+        "Veterans (Dog On-Leash)"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "start_access",
+      "official_repeat_miles": 0.06,
+      "official_repeat_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.1,
+      "official_repeat_segment_ids": [
+        "1685",
+        "1695"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1685"
+      ],
+      "connector_names": [
+        "#26 Three Bears",
+        "#3 Watchman",
+        "Three Bears",
+        "Watchman"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.05,
+      "official_repeat_segment_ids": [
+        "1682"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1682"
+      ],
+      "connector_names": [
+        "#26 Three Bears",
+        "Three Bears"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "between_links[3]",
+      "official_repeat_miles": 0.03,
+      "official_repeat_segment_ids": [
+        "1651"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1651"
+      ],
+      "connector_names": [
+        "#26A Shane's",
+        "Shane's"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "between_links[4]",
+      "official_repeat_miles": 0.1,
+      "official_repeat_segment_ids": [
+        "1650",
+        "1652"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1650",
+        "1652"
+      ],
+      "connector_names": [
+        "#26A Shane's",
+        "Shane's"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "between_links[5]",
+      "official_repeat_miles": 0.49,
+      "official_repeat_segment_ids": [
+        "1563",
+        "1681"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1563",
+        "1681"
+      ],
+      "connector_names": [
+        "#20 Ridgecrest",
+        "#26 Three Bears",
+        "#5 Freestone Ridge",
+        "Freestone Ridge",
+        "OSM path connector 11312",
+        "OSM unclassified connector 11309",
+        "Ridge Crest",
+        "Three Bears"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "between_links[6]",
+      "official_repeat_miles": 0.04,
+      "official_repeat_segment_ids": [
+        "1555"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1555"
+      ],
+      "connector_names": [
+        "#42 Fat Tire Traverse",
+        "8th Street Motorcycle",
+        "Curlew Connection",
+        "Fat Tire Traverse"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.49,
+      "official_repeat_segment_ids": [
+        "1563",
+        "1681",
+        "1710"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1563",
+        "1681",
+        "1710"
+      ],
+      "connector_names": [
+        "#26 Three Bears",
+        "#45 Curlew Connection",
+        "#5 Freestone Ridge",
+        "Curlew Connection",
+        "Freestone Ridge",
+        "Three Bears"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.05,
+      "official_repeat_segment_ids": [
+        "1590"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1590"
+      ],
+      "connector_names": [
+        "#22C Mountain Cove",
+        "#23 Military Reserve Connection",
+        "Military Reserve Connection",
+        "Mountain Cove"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.09,
+      "official_repeat_segment_ids": [
+        "1748"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#20 Ridgecrest",
+        "#26A Shane's",
+        "Bucktail",
+        "Ridge Crest",
+        "Two Point"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.08,
+      "official_repeat_segment_ids": [
+        "1720"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1720"
+      ],
+      "connector_names": [
+        "#20 Ridgecrest",
+        "#22A Central Ridge Spur (North)",
+        "Central Ridge Spur (North)",
+        "OSM unclassified connector 11309",
+        "Ridge Crest"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[5]",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1591"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1591"
+      ],
+      "connector_names": [
+        "#22C Mountain Cove",
+        "#25 Eagle Ridge",
+        "#27 Cottonwood Creek",
+        "#27A Toll Road Trail",
+        "Cottonwood Creek",
+        "Eagle Ridge (AWT)",
+        "Elephant Rock Loop",
+        "Mountain Cove",
+        "OSM steps connector 42714"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.19,
+      "official_repeat_segment_ids": [
+        "1552",
+        "1574",
+        "1575",
+        "1592",
+        "1593"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1552",
+        "1574",
+        "1575",
+        "1592",
+        "1593"
+      ],
+      "connector_names": [
+        "#22C Mountain Cove",
+        "Elephant Rock Loop",
+        "Heroes Trail",
+        "Military Reserve Connection",
+        "Mountain Cove",
+        "OSM service connector 14900"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "12",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.17,
+      "official_repeat_segment_ids": [
+        "1498",
+        "1524",
+        "1576",
+        "1577"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1524"
+      ],
+      "connector_names": [
+        "#1 Highlands Trail",
+        "#30 Bob's",
+        "#31 Corrals",
+        "#4 8th Street Motorcycle",
+        "8th Street Connection",
+        "8th Street Motorcycle",
+        "Bob's",
+        "Corrals",
+        "East Sunset Peak Road",
+        "Highlands",
+        "OSM service connector 12944",
+        "OSM service connector 12946"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "12",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1486"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1486"
+      ],
+      "connector_names": [
+        "#4 8th Street Motorcycle",
+        "8th Street Motorcycle"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "12",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.2,
+      "official_repeat_segment_ids": [
+        "1483",
+        "1484",
+        "1532"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1483",
+        "1484"
+      ],
+      "connector_names": [
+        "#28 Crestline",
+        "#4 8th Street Motorcycle",
+        "8th Street Motorcycle",
+        "Connector Trail",
+        "Crestline",
+        "East Sunset Peak Road",
+        "Hull's Gulch Interpretive Trail",
+        "OSM service connector 12944",
+        "OSM service connector 12946"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "label": "14",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1562",
+        "1685"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1562"
+      ],
+      "connector_names": [
+        "#26 Three Bears",
+        "East Shaw Mountain Road",
+        "Five Mile Gulch",
+        "Three Bears"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "label": "14",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.0,
+      "official_repeat_segment_ids": [
+        "1695"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1695"
+      ],
+      "connector_names": [
+        "#6 Femrite's Patrol Trail",
+        "Curlew Connection",
+        "Femrite's Patrol",
+        "Watchman"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "label": "14",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.2,
+      "official_repeat_segment_ids": [
+        "1561",
+        "1595"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1561",
+        "1595"
+      ],
+      "connector_names": [
+        "#2 Five Mile Gulch",
+        "#7 Orchard Gulch",
+        "Five Mile Gulch",
+        "Orchard Gulch"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-westside_seaman_veterans",
+      "label": "7",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.03,
+      "official_repeat_segment_ids": [
+        "1646"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1646"
+      ],
+      "connector_names": [
+        "Seaman Gulch",
+        "Seamans Gulch Trail"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-westside_seaman_veterans",
+      "label": "7",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1702"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1702"
+      ],
+      "connector_names": [
+        "OSM service connector 78374",
+        "Seaman Gulch",
+        "Seamans Gulch",
+        "Wild Phlox"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "bobs-trail-urban-connector",
+      "label": "4A",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.15,
+      "official_repeat_segment_ids": [
+        "1498",
+        "1500",
+        "1577"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1498",
+        "1500"
+      ],
+      "connector_names": [
+        "#1 Highlands Trail",
+        "#30 Bob's",
+        "Bob's",
+        "Highlands"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "bobs-trail-urban-connector",
+      "label": "4A",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1498"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1498"
+      ],
+      "connector_names": [
+        "#30 Bob's",
+        "Bob's"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "place": "start_access",
+      "official_repeat_miles": 0.09,
+      "official_repeat_segment_ids": [
+        "1713"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.0,
+      "official_repeat_segment_ids": [
+        "1655"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#144 Cabin Traverse",
+        "#95 Tempest",
+        "Brewers Byway",
+        "Deer Point",
+        "Elk Meadows",
+        "National Forest Development Road 374",
+        "OSM track connector 8183",
+        "Packing Trail",
+        "Shafer Butte Road",
+        "The Face"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.32,
+      "official_repeat_segment_ids": [
+        "1501",
+        "1502",
+        "1503",
+        "1655"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1501",
+        "1502",
+        "1503"
+      ],
+      "connector_names": [
+        "#144 Cabin Traverse",
+        "#93 The Face",
+        "#96 Brewer's Byway",
+        "#96 Brewers Byway Ext",
+        "Brewers Byway",
+        "Brewers Byway Ext",
+        "Deer Point",
+        "Elk Meadows"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "place": "between_links[3]",
+      "official_repeat_miles": 0.1,
+      "official_repeat_segment_ids": [
+        "1492",
+        "1554",
+        "1679",
+        "1721"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1679"
+      ],
+      "connector_names": [
+        "#95 Tempest",
+        "Elk Meadows",
+        "Lodge",
+        "Lodge Cat Track",
+        "Mores Mountain Bike Trail",
+        "Mores Mountain Interpretive Trail",
+        "National Forest Development Road 374",
+        "OSM service connector 8611",
+        "OSM service connector 94685",
+        "OSM service connector 94686",
+        "OSM track connector 12046",
+        "OSM track connector 92827"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.12,
+      "official_repeat_segment_ids": [
+        "1493",
+        "1713",
+        "1732",
+        "1750"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1732"
+      ],
+      "connector_names": [
+        "#142 Sunshine",
+        "#96 Brewer's Byway",
+        "#98 Around the Mountain",
+        "Around the Mountain",
+        "Mores Mountain Bike Trail",
+        "Mores Mountain Interpretive Trail",
+        "National Forest Development Road 374",
+        "OSM service connector 8611",
+        "OSM service connector 94685",
+        "OSM service connector 94686",
+        "OSM track connector 107366",
+        "OSM track connector 92827"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "place": "start_access",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1713"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.03,
+      "official_repeat_segment_ids": [
+        "1679",
+        "1680"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#144 Cabin Traverse",
+        "#93 The Face",
+        "#95 Tempest",
+        "Elk Meadows",
+        "Tempest",
+        "The Face"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.66,
+      "official_repeat_segment_ids": [
+        "1655",
+        "1721"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1655",
+        "1721"
+      ],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "label": "4C",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1676"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1676"
+      ],
+      "connector_names": [
+        "#14 Tram",
+        "#16A Rock Garden",
+        "#16B Rock Island (Jump Line)",
+        "#16B Rock Island (West)",
+        "Connector",
+        "Rock Garden",
+        "Rock Island (Jump Line)",
+        "Rock Island (West)",
+        "Table Rock",
+        "Tram"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "label": "4C",
+      "place": "between_links[6]",
+      "official_repeat_miles": 0.04,
+      "official_repeat_segment_ids": [
+        "1638"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1638"
+      ],
+      "connector_names": [
+        "#16B Rock Island (Jump Line)",
+        "Rock Garden",
+        "Rock Island (Jump Line)"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "label": "4C",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.08,
+      "official_repeat_segment_ids": [
+        "1635",
+        "1638",
+        "1658",
+        "1659"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1635",
+        "1638",
+        "1658",
+        "1659"
+      ],
+      "connector_names": [
+        "#15 Table Rock",
+        "#15A Old Pen",
+        "#16A Rock Garden",
+        "#16B Rock Island (Jump Line)",
+        "#16B Rock Island (West)",
+        "#19 Shoshone-Paiute Tribes Trail",
+        "Connector",
+        "OSM path connector 106734",
+        "Old Pen",
+        "Rock Garden",
+        "Rock Island (Jump Line)",
+        "Rock Island (West)"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "label": "1B",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.22,
+      "official_repeat_segment_ids": [
+        "1579",
+        "1581",
+        "1699",
+        "1717",
+        "1755"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1579",
+        "1581",
+        "1699",
+        "1717"
+      ],
+      "connector_names": [
+        "#53 Buena Vista",
+        "Connector",
+        "Kemper\u2019s Ridge #52",
+        "Who Now Loop",
+        "Who Now Loop #51"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "label": "1B",
+      "place": "between_links[3]",
+      "official_repeat_miles": 0.77,
+      "official_repeat_segment_ids": [
+        "1698",
+        "1699"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1698",
+        "1699"
+      ],
+      "connector_names": [
+        "#51 Who Now Loop"
+      ],
+      "connector_classes": [
+        "official_repeat"
+      ]
+    },
+    {
+      "candidate_id": "manual-10a",
+      "label": "10A",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1708"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1708"
+      ],
+      "connector_names": [
+        "Harlow's Hollows - #16",
+        "Harlow's Hollows Connector (HHC) - #16a",
+        "Spring Creek - #9"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
+    {
+      "candidate_id": "manual-10a",
+      "label": "10A",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1708"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1708"
+      ],
+      "connector_names": [
+        "Harlow's Hollows - #16",
+        "Harlow's Hollows Connector (HHC) - #16a"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
+    {
+      "candidate_id": "manual-10a",
+      "label": "10A",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.05,
+      "official_repeat_segment_ids": [
+        "1704"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1704"
+      ],
+      "connector_names": [
+        "Burnt Car Draw - #10",
+        "Cartwright Road - #20",
+        "OSM path connector 105691",
+        "OSM path connector 13946",
+        "OSM path connector 13947",
+        "The Wall - #29"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road"
+      ]
+    },
+    {
+      "candidate_id": "manual-10a",
+      "label": "10A",
+      "place": "return_to_car",
+      "official_repeat_miles": 3.26,
+      "official_repeat_segment_ids": [],
+      "missing_repeat_segment_ids": true,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "manual-10b",
+      "label": "10B",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.08,
+      "official_repeat_segment_ids": [
+        "1497",
+        "1520"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1497"
+      ],
+      "connector_names": [
+        "#74 Chukar Butte",
+        "Chukar Butte (Dog On-Leash)",
+        "Currant Creek"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "manual-10b",
+      "label": "10B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.24,
+      "official_repeat_segment_ids": [],
+      "missing_repeat_segment_ids": true,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-1-red-tail-trail-landslide",
+      "label": "15A",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.23,
+      "official_repeat_segment_ids": [
+        "1536",
+        "1622",
+        "1623",
+        "1624"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1622",
+        "1623",
+        "1624"
+      ],
+      "connector_names": [
+        "#70 Landslide Loop",
+        "#71 Red Tail",
+        "Lookout Loop",
+        "OSM path connector 15043",
+        "W. Currant Creek"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
+      "label": "15B",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.45,
+      "official_repeat_segment_ids": [
+        "1527",
+        "1528"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#31 Corrals",
+        "#33 Hard Guy",
+        "#78 Dry Creek",
+        "Boise Ridge Road",
+        "Corrals",
+        "Dry Creek",
+        "Hard Guy"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
+      "label": "15B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.73,
+      "official_repeat_segment_ids": [
+        "1528",
+        "1576",
+        "1577"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "connector_names": [
+        "#31 Corrals",
+        "Corrals",
+        "Highlands"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector",
+      "label": "16C-1",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.86,
+      "official_repeat_segment_ids": [
+        "1663",
+        "1664"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1663",
+        "1664"
+      ],
+      "connector_names": [
+        "#125 Freddys Stack Rock Trail",
+        "Freddys Stack Rock Trail"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail",
+      "label": "16C-2",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.84,
+      "official_repeat_segment_ids": [
+        "1544",
+        "1656"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1656"
+      ],
+      "connector_names": [
+        "#78 Dry Creek",
+        "#79 Shingle Creek",
+        "#80 Sheep Camp",
+        "Dry Creek",
+        "Shingle Creek"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail",
+      "label": "16C-2",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.82,
+      "official_repeat_segment_ids": [
+        "1542",
+        "1543",
+        "1653"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1653"
+      ],
+      "connector_names": [
+        "#78 Dry Creek",
+        "#80 Sheep Camp",
+        "Dry Creek",
+        "Sheep Camp"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
+      "label": "1A-1",
+      "place": "start_access",
+      "official_repeat_miles": 0.0,
+      "official_repeat_segment_ids": [
+        "1516"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "OSM path connector 13996",
+        "OSM path connector 83300",
+        "OSM path connector 83301"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
+      "label": "1A-1",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.39,
+      "official_repeat_segment_ids": [
+        "1482"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1482"
+      ],
+      "connector_names": [
+        "OSM path connector 13997"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie",
+      "label": "1A-2",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.28,
+      "official_repeat_segment_ids": [
+        "1565"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1565"
+      ],
+      "connector_names": [
+        "#56 Full Sail",
+        "Full Sail"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie",
+      "label": "1A-2",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.3,
+      "official_repeat_segment_ids": [
+        "1507",
+        "1755"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1507",
+        "1755"
+      ],
+      "connector_names": [
+        "#53 Buena Vista",
+        "Buena Vista"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-5-5-ms-04-1-barn-owl",
+      "label": "5A",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.94,
+      "official_repeat_segment_ids": [
+        "1494",
+        "1495",
+        "1508"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1494",
+        "1495"
+      ],
+      "connector_names": [],
+      "connector_classes": [
+        "official_repeat"
+      ]
+    },
+    {
+      "candidate_id": "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw",
+      "label": "5B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.68,
+      "official_repeat_segment_ids": [
+        "1541",
+        "1599",
+        "1603",
+        "1604",
+        "1610"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1541",
+        "1599",
+        "1603",
+        "1604",
+        "1610"
+      ],
+      "connector_names": [
+        "Polecat Loop (STM)"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "scotts-trail",
+      "label": "4B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1643"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1643"
+      ],
+      "connector_names": [
+        "#32 Scott's",
+        "Scott's"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    }
+  ],
+  "bucket_c_extra_official_credit": [
+    {
+      "candidate_id": "block-bogus_atm_deer_elk_sunshine",
+      "label": "17",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1655",
+          "trail_name": "Shindig",
+          "official_miles": 0.12,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1679",
+          "trail_name": "Tempest Trail",
+          "official_miles": 0.52,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-1",
+              "label": "18A",
+              "candidate_ids": [
+                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1721",
+          "trail_name": "Lodge Trail",
+          "official_miles": 0.54,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "label": "2",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1483",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.44,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1484",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.22,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "label": "6",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1541",
+          "trail_name": "Doe Ridge",
+          "official_miles": 0.46,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1599",
+          "trail_name": "Polecat Loop",
+          "official_miles": 0.07,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1604",
+          "trail_name": "Polecat Loop",
+          "official_miles": 0.23,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1610",
+          "trail_name": "Quick Draw",
+          "official_miles": 0.48,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1666",
+          "trail_name": "Sweet Connie Trail",
+          "official_miles": 0.71,
+          "owned_by_routes": [
+            {
+              "outing_id": "16-4",
+              "label": "16C-2",
+              "candidate_ids": [
+                "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail"
+              ]
+            },
+            {
+              "outing_id": "16-1",
+              "label": "16A-1",
+              "candidate_ids": [
+                "manual-16a-1",
+                "manual-16a-1"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1593",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.26,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1594",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.22,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1629",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.2,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1630",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.09,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1631",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.07,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1695",
+          "trail_name": "Watchman Trail",
+          "official_miles": 0.76,
+          "owned_by_routes": [
+            {
+              "outing_id": "14-1",
+              "label": "14",
+              "candidate_ids": [
+                "block-watchman_five_mile_rocky"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1748",
+          "trail_name": "Two Point",
+          "official_miles": 1.2,
+          "owned_by_routes": [
+            {
+              "outing_id": "13-1",
+              "label": "13",
+              "candidate_ids": [
+                "block-freestone_three_bears_curlew"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "12",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1498",
+          "trail_name": "Bob's Trail",
+          "official_miles": 0.39,
+          "owned_by_routes": [
+            {
+              "outing_id": "4-1",
+              "label": "4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1532",
+          "trail_name": "Crestline Trail",
+          "official_miles": 0.77,
+          "owned_by_routes": [
+            {
+              "outing_id": "2-1",
+              "label": "2",
+              "candidate_ids": [
+                "block-camels_lower_hulls_even_day"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1576",
+          "trail_name": "Highlands Trail",
+          "official_miles": 1.06,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1577",
+          "trail_name": "Highlands Trail",
+          "official_miles": 0.62,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "label": "14",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1558",
+          "trail_name": "Femrite's Patrol",
+          "official_miles": 0.06,
+          "owned_by_routes": [
+            {
+              "outing_id": "13-1",
+              "label": "13",
+              "candidate_ids": [
+                "block-freestone_three_bears_curlew"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1685",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.85,
+          "owned_by_routes": [
+            {
+              "outing_id": "13-1",
+              "label": "13",
+              "candidate_ids": [
+                "block-freestone_three_bears_curlew"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "bobs-trail-urban-connector",
+      "label": "4A",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1577",
+          "trail_name": "Highlands Trail",
+          "official_miles": 0.62,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1553",
+          "trail_name": "Elk Meadows Trail",
+          "official_miles": 0.38,
+          "owned_by_routes": [
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1655",
+          "trail_name": "Shindig",
+          "official_miles": 0.12,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1721",
+          "trail_name": "Lodge Trail",
+          "official_miles": 0.54,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1750",
+          "trail_name": "Around the Mountain Trail",
+          "official_miles": 0.34,
+          "owned_by_routes": [
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1553",
+          "trail_name": "Elk Meadows Trail",
+          "official_miles": 0.38,
+          "owned_by_routes": [
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1679",
+          "trail_name": "Tempest Trail",
+          "official_miles": 0.52,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-1",
+              "label": "18A",
+              "candidate_ids": [
+                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1680",
+          "trail_name": "The Face Trail",
+          "official_miles": 1.15,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-1",
+              "label": "18A",
+              "candidate_ids": [
+                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+              ]
+            },
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "label": "1B",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1755",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.14,
+          "owned_by_routes": [
+            {
+              "outing_id": "1-2",
+              "label": "1A-2",
+              "candidate_ids": [
+                "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "harris-ridge-trail",
+      "label": "8A",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1722",
+          "trail_name": "Peace Valley Overlook",
+          "official_miles": 0.3,
+          "owned_by_routes": [
+            {
+              "outing_id": "8-2",
+              "label": "8B",
+              "candidate_ids": [
+                "peace-valley-overlook"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "manual-10b",
+      "label": "10B",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1520",
+          "trail_name": "Chukar Butte Trail",
+          "official_miles": 0.69,
+          "owned_by_routes": [
+            {
+              "outing_id": "6-1",
+              "label": "6",
+              "candidate_ids": [
+                "block-cartwright_peggy_interface"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1521",
+          "trail_name": "Chukar Butte Trail",
+          "official_miles": 0.84,
+          "owned_by_routes": [
+            {
+              "outing_id": "6-1",
+              "label": "6",
+              "candidate_ids": [
+                "block-cartwright_peggy_interface"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1619",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.14,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1622",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.02,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1623",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.25,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1624",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.1,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
+      "label": "15B",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1527",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.6,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1528",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.4,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail",
+      "label": "16C-2",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1542",
+          "trail_name": "Dry Creek Trail",
+          "official_miles": 0.58,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1543",
+          "trail_name": "Dry Creek Trail",
+          "official_miles": 0.74,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1544",
+          "trail_name": "Dry Creek Trail",
+          "official_miles": 0.99,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    }
+  ],
+  "repeat_legs_missing_segment_ids": [],
+  "source_public_repeat_id_drift": [
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.05,
+      "official_repeat_segment_ids": [
+        "1590"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1590"
+      ],
+      "connector_names": [
+        "#22C Mountain Cove",
+        "#23 Military Reserve Connection",
+        "Military Reserve Connection",
+        "Mountain Cove"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[1]",
+      "official_repeat_miles": 0.09,
+      "official_repeat_segment_ids": [
+        "1748"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#20 Ridgecrest",
+        "#26A Shane's",
+        "Bucktail",
+        "Ridge Crest",
+        "Two Point"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[2]",
+      "official_repeat_miles": 0.08,
+      "official_repeat_segment_ids": [
+        "1720"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1720"
+      ],
+      "connector_names": [
+        "#20 Ridgecrest",
+        "#22A Central Ridge Spur (North)",
+        "Central Ridge Spur (North)",
+        "OSM unclassified connector 11309",
+        "Ridge Crest"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "between_links[5]",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1591"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1591"
+      ],
+      "connector_names": [
+        "#22C Mountain Cove",
+        "#25 Eagle Ridge",
+        "#27 Cottonwood Creek",
+        "#27A Toll Road Trail",
+        "Cottonwood Creek",
+        "Eagle Ridge (AWT)",
+        "Elephant Rock Loop",
+        "Mountain Cove",
+        "OSM steps connector 42714"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.19,
+      "official_repeat_segment_ids": [
+        "1552",
+        "1574",
+        "1575",
+        "1592",
+        "1593"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1552",
+        "1574",
+        "1575",
+        "1592",
+        "1593"
+      ],
+      "connector_names": [
+        "#22C Mountain Cove",
+        "Elephant Rock Loop",
+        "Heroes Trail",
+        "Military Reserve Connection",
+        "Mountain Cove",
+        "OSM service connector 14900"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "place": "start_access",
+      "official_repeat_miles": 0.02,
+      "official_repeat_segment_ids": [
+        "1713"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.03,
+      "official_repeat_segment_ids": [
+        "1679",
+        "1680"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [],
+      "connector_names": [
+        "#144 Cabin Traverse",
+        "#93 The Face",
+        "#95 Tempest",
+        "Elk Meadows",
+        "Tempest",
+        "The Face"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.66,
+      "official_repeat_segment_ids": [
+        "1655",
+        "1721"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1655",
+        "1721"
+      ],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "label": "1B",
+      "place": "between_links[0]",
+      "official_repeat_miles": 0.22,
+      "official_repeat_segment_ids": [
+        "1579",
+        "1581",
+        "1699",
+        "1717",
+        "1755"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1579",
+        "1581",
+        "1699",
+        "1717"
+      ],
+      "connector_names": [
+        "#53 Buena Vista",
+        "Connector",
+        "Kemper\u2019s Ridge #52",
+        "Who Now Loop",
+        "Who Now Loop #51"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ]
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "label": "1B",
+      "place": "between_links[3]",
+      "official_repeat_miles": 0.77,
+      "official_repeat_segment_ids": [
+        "1698",
+        "1699"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1698",
+        "1699"
+      ],
+      "connector_names": [
+        "#51 Who Now Loop"
+      ],
+      "connector_classes": [
+        "official_repeat"
+      ]
+    },
+    {
+      "candidate_id": "manual-10a",
+      "label": "10A",
+      "place": "return_to_car",
+      "official_repeat_miles": 3.26,
+      "official_repeat_segment_ids": [],
+      "missing_repeat_segment_ids": true,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    },
+    {
+      "candidate_id": "manual-10b",
+      "label": "10B",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.24,
+      "official_repeat_segment_ids": [],
+      "missing_repeat_segment_ids": true,
+      "self_repeat_segment_ids": [],
+      "connector_names": [],
+      "connector_classes": []
+    }
+  ],
+  "repeat_cues_missing_text": [],
+  "top_non_credit_burden_routes": [
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "label": "13",
+      "official_miles": 14.35,
+      "on_foot_miles": 33.19,
+      "non_credit_miles": 18.84
+    },
+    {
+      "candidate_id": "manual-10a",
+      "label": "10A",
+      "official_miles": 7.3,
+      "on_foot_miles": 21.84,
+      "non_credit_miles": 14.54
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail",
+      "label": "16C-2",
+      "official_miles": 11.61,
+      "on_foot_miles": 24.01,
+      "non_credit_miles": 12.4
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
+      "label": "15B",
+      "official_miles": 9.33,
+      "on_foot_miles": 21.04,
+      "non_credit_miles": 11.71
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "label": "18A",
+      "official_miles": 5.58,
+      "on_foot_miles": 15.3,
+      "non_credit_miles": 9.72
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "label": "6",
+      "official_miles": 13.67,
+      "on_foot_miles": 22.74,
+      "non_credit_miles": 9.07
+    },
+    {
+      "candidate_id": "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "label": "4C",
+      "official_miles": 6.6,
+      "on_foot_miles": 14.19,
+      "non_credit_miles": 7.59
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "label": "18B",
+      "official_miles": 0.66,
+      "on_foot_miles": 7.43,
+      "non_credit_miles": 6.77
+    },
+    {
+      "candidate_id": "block-military_core",
+      "label": "3",
+      "official_miles": 8.31,
+      "on_foot_miles": 14.92,
+      "non_credit_miles": 6.61
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "12",
+      "official_miles": 7.81,
+      "on_foot_miles": 14.22,
+      "non_credit_miles": 6.41
+    }
+  ],
+  "routes": [
+    {
+      "candidate_id": "block-bogus_atm_deer_elk_sunshine",
+      "outing_id": "17-1",
+      "label": "17",
+      "official_miles": 11.29,
+      "on_foot_miles": 15.19,
+      "non_credit_miles": 3.9,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1655",
+            "1703"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#92 Shindig",
+            "Bogus Creek Loop",
+            "Brewers Byway",
+            "Deer Point",
+            "Elk Meadows",
+            "Shindig"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1679"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#95 Tempest",
+            "Lodge",
+            "Lodge Cat Track",
+            "OSM track connector 107366",
+            "Tempest",
+            "The Face",
+            "War Eagle Road"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.06,
+          "official_repeat_segment_ids": [
+            "1721"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#142 Sunshine",
+            "Bogus Creek Loop",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "OSM track connector 12046",
+            "OSM track connector 8307",
+            "OSM track connector 91509",
+            "Shafer Butte Road",
+            "Sunshine XC",
+            "Toll Road"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.06,
+          "official_repeat_segment_ids": [
+            "1655",
+            "1703"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1679"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1679"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 11,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.14,
+          "official_repeat_segment_ids": [
+            "1713",
+            "1721"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1655",
+          "trail_name": "Shindig",
+          "official_miles": 0.12,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1679",
+          "trail_name": "Tempest Trail",
+          "official_miles": 0.52,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-1",
+              "label": "18A",
+              "candidate_ids": [
+                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1721",
+          "trail_name": "Lodge Trail",
+          "official_miles": 0.54,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "outing_id": "2-1",
+      "label": "2",
+      "official_miles": 13.11,
+      "on_foot_miles": 19.09,
+      "non_credit_miles": 5.98,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.26,
+          "official_repeat_segment_ids": [
+            "1728"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1728"
+          ],
+          "connector_names": [
+            "#0 Hull's Gulch Interpretive Trail",
+            "Hull's Gulch Interpretive Trail"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.14,
+          "official_repeat_segment_ids": [
+            "1483",
+            "1484"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#0 Hull's Gulch Interpretive Trail",
+            "#4 8th Street Motorcycle",
+            "8th Street Motorcycle",
+            "Connector Trail",
+            "Hull's Gulch Interpretive Trail",
+            "OSM service connector 12945",
+            "OSM service connector 12946"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[5]",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1481"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1481"
+          ],
+          "connector_names": [
+            "15th St. Trail",
+            "15th Street #41",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[6]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1585"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1585"
+          ],
+          "connector_names": [
+            "#29 Lower Hulls Gulch",
+            "Lower Hull's Gulch",
+            "North Sunset Peak Road",
+            "OSM service connector 19868",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1585",
+            "1616"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1585",
+            "1616"
+          ],
+          "connector_names": [
+            "#29 Lower Hulls Gulch",
+            "#39 Red Cliffs",
+            "Lower Hull's Gulch",
+            "Red Cliffs"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 7,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.58,
+          "official_repeat_segment_ids": [
+            "1728",
+            "1730"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.23,
+          "official_repeat_segment_ids": [
+            "1483",
+            "1484"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 13,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.45,
+          "official_repeat_segment_ids": [
+            "1481"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 16,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.06,
+          "official_repeat_segment_ids": [
+            "1585"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 20,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.15,
+          "official_repeat_segment_ids": [
+            "1481"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 22,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.06,
+          "official_repeat_segment_ids": [
+            "1585"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 24,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.88,
+          "official_repeat_segment_ids": [
+            "1585",
+            "1615",
+            "1616"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1483",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.44,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1484",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.22,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "outing_id": "6-1",
+      "label": "6",
+      "official_miles": 13.67,
+      "on_foot_miles": 22.74,
+      "non_credit_miles": 9.07,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1597",
+            "1666"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1597"
+          ],
+          "connector_names": [
+            "#77 Sweet Connie",
+            "Sweet Connie"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#84 Cartwright Ridge",
+            "Cartwright Ridge"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail",
+            "target_official_snap"
+          ]
+        },
+        {
+          "place": "between_links[3]",
+          "official_repeat_miles": 0.41,
+          "official_repeat_segment_ids": [
+            "1508",
+            "1509",
+            "1541",
+            "1599",
+            "1604",
+            "1610"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1508",
+            "1509"
+          ],
+          "connector_names": [
+            "#81 Polecat Loop",
+            "#82 Doe Ridge",
+            "#83 Quick Draw",
+            "#84 Cartwright Ridge",
+            "Cartwright Ridge",
+            "Doe Ridge",
+            "North Cartwright Road",
+            "OSM service connector 69243",
+            "OSM track connector 110342",
+            "Polecat Loop",
+            "Polecat Loop (STM)",
+            "Quick Draw"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.5,
+          "official_repeat_segment_ids": [
+            "1516",
+            "1541",
+            "1610"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1516"
+          ],
+          "connector_names": [
+            "#81 Polecat Loop",
+            "#82 Doe Ridge",
+            "#83 Quick Draw",
+            "Doe Ridge",
+            "OSM path connector 110670",
+            "OSM path connector 13996",
+            "OSM track connector 106014",
+            "OSM track connector 106931",
+            "Polecat Loop (STM)",
+            "Quick Draw"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.14,
+          "official_repeat_segment_ids": [
+            "1597",
+            "1666"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1624"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 12,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 1.71,
+          "official_repeat_segment_ids": [
+            "1508",
+            "1509",
+            "1541",
+            "1599",
+            "1603",
+            "1604",
+            "1610"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 14,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.96,
+          "official_repeat_segment_ids": [
+            "1516",
+            "1541",
+            "1601",
+            "1603",
+            "1610"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1541",
+          "trail_name": "Doe Ridge",
+          "official_miles": 0.46,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1599",
+          "trail_name": "Polecat Loop",
+          "official_miles": 0.07,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1604",
+          "trail_name": "Polecat Loop",
+          "official_miles": 0.23,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1610",
+          "trail_name": "Quick Draw",
+          "official_miles": 0.48,
+          "owned_by_routes": [
+            {
+              "outing_id": "5-2",
+              "label": "5B",
+              "candidate_ids": [
+                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1666",
+          "trail_name": "Sweet Connie Trail",
+          "official_miles": 0.71,
+          "owned_by_routes": [
+            {
+              "outing_id": "16-4",
+              "label": "16C-2",
+              "candidate_ids": [
+                "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail"
+              ]
+            },
+            {
+              "outing_id": "16-1",
+              "label": "16A-1",
+              "candidate_ids": [
+                "manual-16a-1",
+                "manual-16a-1"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-cervidae_peak",
+      "outing_id": "19-1",
+      "label": "19",
+      "official_miles": 2.24,
+      "on_foot_miles": 4.52,
+      "non_credit_miles": 2.28,
+      "source_repeat_legs": [
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 2.24,
+          "official_repeat_segment_ids": [
+            "1731"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1731"
+          ],
+          "connector_names": [],
+          "connector_classes": []
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 2.24,
+          "official_repeat_segment_ids": [
+            "1731"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "block-eagle_bike_park_red_tail",
+      "outing_id": "9-1",
+      "label": "9",
+      "official_miles": 4.68,
+      "on_foot_miles": 6.79,
+      "non_credit_miles": 2.11,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1692",
+            "1693"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1692",
+            "1693"
+          ],
+          "connector_names": [
+            "Access Trail (#113 Big Springs Loop)",
+            "Big Springs Loop",
+            "Rabbit Run",
+            "Veteran's Trail",
+            "Veterans"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1611"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1611"
+          ],
+          "connector_names": [
+            "Concrete Jungle",
+            "Concrete Jungle Alt.",
+            "OSM path connector 74487",
+            "OSM service connector 12726",
+            "Rabbit Run",
+            "Rolling Thunder"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.15,
+          "official_repeat_segment_ids": [
+            "1691",
+            "1692",
+            "1693"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1691",
+            "1692",
+            "1693"
+          ],
+          "connector_names": [
+            "Access Trail (#113 Big Springs Loop)",
+            "Big Springs Loop",
+            "REI Connector",
+            "Veteran's Trail",
+            "Veterans",
+            "Veterans (Dog On-Leash)"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.28,
+          "official_repeat_segment_ids": [
+            "1692",
+            "1693"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.28,
+          "official_repeat_segment_ids": [
+            "1692",
+            "1693"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.1,
+          "official_repeat_segment_ids": [
+            "1611",
+            "1612"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1754"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 11,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.42,
+          "official_repeat_segment_ids": [
+            "1691",
+            "1692",
+            "1693"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "outing_id": "13-1",
+      "label": "13",
+      "official_miles": 14.35,
+      "on_foot_miles": 33.19,
+      "non_credit_miles": 18.84,
+      "source_repeat_legs": [
+        {
+          "place": "start_access",
+          "official_repeat_miles": 0.06,
+          "official_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [],
+          "connector_classes": []
+        },
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.1,
+          "official_repeat_segment_ids": [
+            "1685",
+            "1695"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1685"
+          ],
+          "connector_names": [
+            "#26 Three Bears",
+            "#3 Watchman",
+            "Three Bears",
+            "Watchman"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1682"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1682"
+          ],
+          "connector_names": [
+            "#26 Three Bears",
+            "Three Bears"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[3]",
+          "official_repeat_miles": 0.03,
+          "official_repeat_segment_ids": [
+            "1651"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1651"
+          ],
+          "connector_names": [
+            "#26A Shane's",
+            "Shane's"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[4]",
+          "official_repeat_miles": 0.1,
+          "official_repeat_segment_ids": [
+            "1650",
+            "1652"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1650",
+            "1652"
+          ],
+          "connector_names": [
+            "#26A Shane's",
+            "Shane's"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[5]",
+          "official_repeat_miles": 0.49,
+          "official_repeat_segment_ids": [
+            "1563",
+            "1681"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1563",
+            "1681"
+          ],
+          "connector_names": [
+            "#20 Ridgecrest",
+            "#26 Three Bears",
+            "#5 Freestone Ridge",
+            "Freestone Ridge",
+            "OSM path connector 11312",
+            "OSM unclassified connector 11309",
+            "Ridge Crest",
+            "Three Bears"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[6]",
+          "official_repeat_miles": 0.04,
+          "official_repeat_segment_ids": [
+            "1555"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1555"
+          ],
+          "connector_names": [
+            "#42 Fat Tire Traverse",
+            "8th Street Motorcycle",
+            "Curlew Connection",
+            "Fat Tire Traverse"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.49,
+          "official_repeat_segment_ids": [
+            "1563",
+            "1681",
+            "1710"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1563",
+            "1681",
+            "1710"
+          ],
+          "connector_names": [
+            "#26 Three Bears",
+            "#45 Curlew Connection",
+            "#5 Freestone Ridge",
+            "Curlew Connection",
+            "Freestone Ridge",
+            "Three Bears"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.68,
+          "official_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.27,
+          "official_repeat_segment_ids": [
+            "1685",
+            "1695"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.04,
+          "official_repeat_segment_ids": [
+            "1558",
+            "1695"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.09,
+          "official_repeat_segment_ids": [
+            "1682"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.13,
+          "official_repeat_segment_ids": [
+            "1651"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 11,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.51,
+          "official_repeat_segment_ids": [
+            "1650",
+            "1652"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 13,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 1.67,
+          "official_repeat_segment_ids": [
+            "1563",
+            "1627",
+            "1629",
+            "1630",
+            "1631",
+            "1681"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 15,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 1.2,
+          "official_repeat_segment_ids": [
+            "1555"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 17,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 2.78,
+          "official_repeat_segment_ids": [
+            "1563",
+            "1681",
+            "1710",
+            "1711"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1593",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.26,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1594",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.22,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1629",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.2,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1630",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.09,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1631",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.07,
+          "owned_by_routes": [
+            {
+              "outing_id": "3-1",
+              "label": "3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1695",
+          "trail_name": "Watchman Trail",
+          "official_miles": 0.76,
+          "owned_by_routes": [
+            {
+              "outing_id": "14-1",
+              "label": "14",
+              "candidate_ids": [
+                "block-watchman_five_mile_rocky"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-hawkins",
+      "outing_id": "11-1",
+      "label": "11",
+      "official_miles": 5.63,
+      "on_foot_miles": 5.64,
+      "non_credit_miles": 0.01,
+      "source_repeat_legs": [],
+      "public_repeat_cues": [],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "block-military_core",
+      "outing_id": "3-1",
+      "label": "3",
+      "official_miles": 8.31,
+      "on_foot_miles": 14.92,
+      "non_credit_miles": 6.61,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1590"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1590"
+          ],
+          "connector_names": [
+            "#22C Mountain Cove",
+            "#23 Military Reserve Connection",
+            "Military Reserve Connection",
+            "Mountain Cove"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.09,
+          "official_repeat_segment_ids": [
+            "1748"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#20 Ridgecrest",
+            "#26A Shane's",
+            "Bucktail",
+            "Ridge Crest",
+            "Two Point"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1720"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1720"
+          ],
+          "connector_names": [
+            "#20 Ridgecrest",
+            "#22A Central Ridge Spur (North)",
+            "Central Ridge Spur (North)",
+            "OSM unclassified connector 11309",
+            "Ridge Crest"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[5]",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1591"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1591"
+          ],
+          "connector_names": [
+            "#22C Mountain Cove",
+            "#25 Eagle Ridge",
+            "#27 Cottonwood Creek",
+            "#27A Toll Road Trail",
+            "Cottonwood Creek",
+            "Eagle Ridge (AWT)",
+            "Elephant Rock Loop",
+            "Mountain Cove",
+            "OSM steps connector 42714"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.19,
+          "official_repeat_segment_ids": [
+            "1552",
+            "1574",
+            "1575",
+            "1592",
+            "1593"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1552",
+            "1574",
+            "1575",
+            "1592",
+            "1593"
+          ],
+          "connector_names": [
+            "#22C Mountain Cove",
+            "Elephant Rock Loop",
+            "Heroes Trail",
+            "Military Reserve Connection",
+            "Mountain Cove",
+            "OSM service connector 14900"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.44,
+          "official_repeat_segment_ids": [
+            "1590"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 1.2,
+          "official_repeat_segment_ids": [
+            "1748"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 1.2,
+          "official_repeat_segment_ids": [
+            "1748"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.32,
+          "official_repeat_segment_ids": [
+            "1513",
+            "1592",
+            "1593",
+            "1594"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 17,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.12,
+          "official_repeat_segment_ids": [
+            "1591"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 19,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.07,
+          "official_repeat_segment_ids": [
+            "1552"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 21,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.64,
+          "official_repeat_segment_ids": [
+            "1552",
+            "1574",
+            "1575",
+            "1590",
+            "1591",
+            "1592",
+            "1593"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [
+        "1720"
+      ],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1748",
+          "trail_name": "Two Point",
+          "official_miles": 1.2,
+          "owned_by_routes": [
+            {
+              "outing_id": "13-1",
+              "label": "13",
+              "candidate_ids": [
+                "block-freestone_three_bears_curlew"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "outing_id": "12-1",
+      "label": "12",
+      "official_miles": 7.81,
+      "on_foot_miles": 14.22,
+      "non_credit_miles": 6.41,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.17,
+          "official_repeat_segment_ids": [
+            "1498",
+            "1524",
+            "1576",
+            "1577"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1524"
+          ],
+          "connector_names": [
+            "#1 Highlands Trail",
+            "#30 Bob's",
+            "#31 Corrals",
+            "#4 8th Street Motorcycle",
+            "8th Street Connection",
+            "8th Street Motorcycle",
+            "Bob's",
+            "Corrals",
+            "East Sunset Peak Road",
+            "Highlands",
+            "OSM service connector 12944",
+            "OSM service connector 12946"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1486"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1486"
+          ],
+          "connector_names": [
+            "#4 8th Street Motorcycle",
+            "8th Street Motorcycle"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.2,
+          "official_repeat_segment_ids": [
+            "1483",
+            "1484",
+            "1532"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1483",
+            "1484"
+          ],
+          "connector_names": [
+            "#28 Crestline",
+            "#4 8th Street Motorcycle",
+            "8th Street Motorcycle",
+            "Connector Trail",
+            "Crestline",
+            "East Sunset Peak Road",
+            "Hull's Gulch Interpretive Trail",
+            "OSM service connector 12944",
+            "OSM service connector 12946"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 1.08,
+          "official_repeat_segment_ids": [
+            "1498",
+            "1499",
+            "1500",
+            "1524",
+            "1576",
+            "1577"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1486"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.4,
+          "official_repeat_segment_ids": [
+            "1483",
+            "1484",
+            "1532"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1498",
+          "trail_name": "Bob's Trail",
+          "official_miles": 0.39,
+          "owned_by_routes": [
+            {
+              "outing_id": "4-1",
+              "label": "4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1532",
+          "trail_name": "Crestline Trail",
+          "official_miles": 0.77,
+          "owned_by_routes": [
+            {
+              "outing_id": "2-1",
+              "label": "2",
+              "candidate_ids": [
+                "block-camels_lower_hulls_even_day"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1576",
+          "trail_name": "Highlands Trail",
+          "official_miles": 1.06,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1577",
+          "trail_name": "Highlands Trail",
+          "official_miles": 0.62,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "outing_id": "14-1",
+      "label": "14",
+      "official_miles": 8.45,
+      "on_foot_miles": 13.41,
+      "non_credit_miles": 4.96,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1562",
+            "1685"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1562"
+          ],
+          "connector_names": [
+            "#26 Three Bears",
+            "East Shaw Mountain Road",
+            "Five Mile Gulch",
+            "Three Bears"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1695"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1695"
+          ],
+          "connector_names": [
+            "#6 Femrite's Patrol Trail",
+            "Curlew Connection",
+            "Femrite's Patrol",
+            "Watchman"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.2,
+          "official_repeat_segment_ids": [
+            "1561",
+            "1595"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1561",
+            "1595"
+          ],
+          "connector_names": [
+            "#2 Five Mile Gulch",
+            "#7 Orchard Gulch",
+            "Five Mile Gulch",
+            "Orchard Gulch"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 1.46,
+          "official_repeat_segment_ids": [
+            "1560"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.19,
+          "official_repeat_segment_ids": [
+            "1560"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.06,
+          "official_repeat_segment_ids": [
+            "1562",
+            "1685"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.03,
+          "official_repeat_segment_ids": [
+            "1558",
+            "1695",
+            "1710"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 11,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.41,
+          "official_repeat_segment_ids": [
+            "1561",
+            "1595"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1558",
+          "trail_name": "Femrite's Patrol",
+          "official_miles": 0.06,
+          "owned_by_routes": [
+            {
+              "outing_id": "13-1",
+              "label": "13",
+              "candidate_ids": [
+                "block-freestone_three_bears_curlew"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1685",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.85,
+          "owned_by_routes": [
+            {
+              "outing_id": "13-1",
+              "label": "13",
+              "candidate_ids": [
+                "block-freestone_three_bears_curlew"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "block-westside_seaman_veterans",
+      "outing_id": "7-1",
+      "label": "7",
+      "official_miles": 2.25,
+      "on_foot_miles": 2.59,
+      "non_credit_miles": 0.34,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.03,
+          "official_repeat_segment_ids": [
+            "1646"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1646"
+          ],
+          "connector_names": [
+            "Seaman Gulch",
+            "Seamans Gulch Trail"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1702"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1702"
+          ],
+          "connector_names": [
+            "OSM service connector 78374",
+            "Seaman Gulch",
+            "Seamans Gulch",
+            "Wild Phlox"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.17,
+          "official_repeat_segment_ids": [
+            "1646"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.07,
+          "official_repeat_segment_ids": [
+            "1646"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1702"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "bobs-trail-urban-connector",
+      "outing_id": "4-1",
+      "label": "4A",
+      "official_miles": 2.84,
+      "on_foot_miles": 5.68,
+      "non_credit_miles": 2.84,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.15,
+          "official_repeat_segment_ids": [
+            "1498",
+            "1500",
+            "1577"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1498",
+            "1500"
+          ],
+          "connector_names": [
+            "#1 Highlands Trail",
+            "#30 Bob's",
+            "Bob's",
+            "Highlands"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1498"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1498"
+          ],
+          "connector_names": [
+            "#30 Bob's",
+            "Bob's"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 4,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.36,
+          "official_repeat_segment_ids": [
+            "1498",
+            "1499",
+            "1500",
+            "1577"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 6,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1498",
+            "1499"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1577",
+          "trail_name": "Highlands Trail",
+          "official_miles": 0.62,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "outing_id": "18-1",
+      "label": "18A",
+      "official_miles": 5.58,
+      "on_foot_miles": 15.3,
+      "non_credit_miles": 9.72,
+      "source_repeat_legs": [
+        {
+          "place": "start_access",
+          "official_repeat_miles": 0.09,
+          "official_repeat_segment_ids": [
+            "1713"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [],
+          "connector_classes": []
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1655"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#144 Cabin Traverse",
+            "#95 Tempest",
+            "Brewers Byway",
+            "Deer Point",
+            "Elk Meadows",
+            "National Forest Development Road 374",
+            "OSM track connector 8183",
+            "Packing Trail",
+            "Shafer Butte Road",
+            "The Face"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.32,
+          "official_repeat_segment_ids": [
+            "1501",
+            "1502",
+            "1503",
+            "1655"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1501",
+            "1502",
+            "1503"
+          ],
+          "connector_names": [
+            "#144 Cabin Traverse",
+            "#93 The Face",
+            "#96 Brewer's Byway",
+            "#96 Brewers Byway Ext",
+            "Brewers Byway",
+            "Brewers Byway Ext",
+            "Deer Point",
+            "Elk Meadows"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[3]",
+          "official_repeat_miles": 0.1,
+          "official_repeat_segment_ids": [
+            "1492",
+            "1554",
+            "1679",
+            "1721"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1679"
+          ],
+          "connector_names": [
+            "#95 Tempest",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 12046",
+            "OSM track connector 92827"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.12,
+          "official_repeat_segment_ids": [
+            "1493",
+            "1713",
+            "1732",
+            "1750"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1732"
+          ],
+          "connector_names": [
+            "#142 Sunshine",
+            "#96 Brewer's Byway",
+            "#98 Around the Mountain",
+            "Around the Mountain",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 107366",
+            "OSM track connector 92827"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.87,
+          "official_repeat_segment_ids": [
+            "1713"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.04,
+          "official_repeat_segment_ids": [
+            "1655"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 1.0,
+          "official_repeat_segment_ids": [
+            "1501",
+            "1502",
+            "1503",
+            "1655",
+            "1703"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.17,
+          "official_repeat_segment_ids": [
+            "1492",
+            "1554",
+            "1679",
+            "1721"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 11,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.13,
+          "official_repeat_segment_ids": [
+            "1493",
+            "1501",
+            "1713",
+            "1732",
+            "1750"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1553",
+          "trail_name": "Elk Meadows Trail",
+          "official_miles": 0.38,
+          "owned_by_routes": [
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1655",
+          "trail_name": "Shindig",
+          "official_miles": 0.12,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1721",
+          "trail_name": "Lodge Trail",
+          "official_miles": 0.54,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-2",
+              "label": "18B",
+              "candidate_ids": [
+                "combo-lodge-trail-shindig"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1750",
+          "trail_name": "Around the Mountain Trail",
+          "official_miles": 0.34,
+          "owned_by_routes": [
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "combo-lodge-trail-shindig",
+      "outing_id": "18-2",
+      "label": "18B",
+      "official_miles": 0.66,
+      "on_foot_miles": 7.43,
+      "non_credit_miles": 6.77,
+      "source_repeat_legs": [
+        {
+          "place": "start_access",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1713"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [],
+          "connector_classes": []
+        },
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.03,
+          "official_repeat_segment_ids": [
+            "1679",
+            "1680"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#144 Cabin Traverse",
+            "#93 The Face",
+            "#95 Tempest",
+            "Elk Meadows",
+            "Tempest",
+            "The Face"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.66,
+          "official_repeat_segment_ids": [
+            "1655",
+            "1721"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1655",
+            "1721"
+          ],
+          "connector_names": [],
+          "connector_classes": []
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.87,
+          "official_repeat_segment_ids": [
+            "1713"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 3,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.12,
+          "official_repeat_segment_ids": [
+            "1679",
+            "1680"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.25,
+          "official_repeat_segment_ids": [
+            "1554",
+            "1655"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [
+        "1721"
+      ],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1553",
+          "trail_name": "Elk Meadows Trail",
+          "official_miles": 0.38,
+          "owned_by_routes": [
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1679",
+          "trail_name": "Tempest Trail",
+          "official_miles": 0.52,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-1",
+              "label": "18A",
+              "candidate_ids": [
+                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1680",
+          "trail_name": "The Face Trail",
+          "official_miles": 1.15,
+          "owned_by_routes": [
+            {
+              "outing_id": "18-1",
+              "label": "18A",
+              "candidate_ids": [
+                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+              ]
+            },
+            {
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "outing_id": "4-3",
+      "label": "4C",
+      "official_miles": 6.6,
+      "on_foot_miles": 14.19,
+      "non_credit_miles": 7.59,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#15 Table Rock",
+            "#17 Table Rock Quarry",
+            "OSM path connector 74668",
+            "OSM path connector 74670",
+            "OSM path connector 74671",
+            "OSM path connector 74676",
+            "OSM path connector 74683",
+            "OSM service connector 74679",
+            "Table Rock",
+            "Table Rock Quarry"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail",
+            "target_official_snap"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1676"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1676"
+          ],
+          "connector_names": [
+            "#14 Tram",
+            "#16A Rock Garden",
+            "#16B Rock Island (Jump Line)",
+            "#16B Rock Island (West)",
+            "Connector",
+            "Rock Garden",
+            "Rock Island (Jump Line)",
+            "Rock Island (West)",
+            "Table Rock",
+            "Tram"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[6]",
+          "official_repeat_miles": 0.04,
+          "official_repeat_segment_ids": [
+            "1638"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1638"
+          ],
+          "connector_names": [
+            "#16B Rock Island (Jump Line)",
+            "Rock Garden",
+            "Rock Island (Jump Line)"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1635",
+            "1638",
+            "1658",
+            "1659"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1635",
+            "1638",
+            "1658",
+            "1659"
+          ],
+          "connector_names": [
+            "#15 Table Rock",
+            "#15A Old Pen",
+            "#16A Rock Garden",
+            "#16B Rock Island (Jump Line)",
+            "#16B Rock Island (West)",
+            "#19 Shoshone-Paiute Tribes Trail",
+            "Connector",
+            "OSM path connector 106734",
+            "Old Pen",
+            "Rock Garden",
+            "Rock Island (Jump Line)",
+            "Rock Island (West)"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.11,
+          "official_repeat_segment_ids": [
+            "1676"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 13,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1632"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 17,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1632",
+            "1638"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 19,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.22,
+          "official_repeat_segment_ids": [
+            "1633",
+            "1634",
+            "1635",
+            "1636",
+            "1638",
+            "1658",
+            "1659",
+            "1671",
+            "1675"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "outing_id": "1-3",
+      "label": "1B",
+      "official_miles": 4.72,
+      "on_foot_miles": 6.36,
+      "non_credit_miles": 1.64,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.22,
+          "official_repeat_segment_ids": [
+            "1579",
+            "1581",
+            "1699",
+            "1717",
+            "1755"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1579",
+            "1581",
+            "1699",
+            "1717"
+          ],
+          "connector_names": [
+            "#53 Buena Vista",
+            "Connector",
+            "Kemper\u2019s Ridge #52",
+            "Who Now Loop",
+            "Who Now Loop #51"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[3]",
+          "official_repeat_miles": 0.77,
+          "official_repeat_segment_ids": [
+            "1698",
+            "1699"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1698",
+            "1699"
+          ],
+          "connector_names": [
+            "#51 Who Now Loop"
+          ],
+          "connector_classes": [
+            "official_repeat"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 1.13,
+          "official_repeat_segment_ids": [
+            "1579",
+            "1581",
+            "1699",
+            "1717",
+            "1755"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1699"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [
+        "1698"
+      ],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1755",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.14,
+          "owned_by_routes": [
+            {
+              "outing_id": "1-2",
+              "label": "1A-2",
+              "candidate_ids": [
+                "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "harris-ridge-trail",
+      "outing_id": "8-1",
+      "label": "8A",
+      "official_miles": 1.72,
+      "on_foot_miles": 4.44,
+      "non_credit_miles": 2.72,
+      "source_repeat_legs": [],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.72,
+          "official_repeat_segment_ids": [
+            "1724"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1722",
+          "trail_name": "Peace Valley Overlook",
+          "official_miles": 0.3,
+          "owned_by_routes": [
+            {
+              "outing_id": "8-2",
+              "label": "8B",
+              "candidate_ids": [
+                "peace-valley-overlook"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "manual-10a",
+      "outing_id": "10-1",
+      "label": "10A",
+      "official_miles": 7.3,
+      "on_foot_miles": 21.84,
+      "non_credit_miles": 14.54,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1708"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1708"
+          ],
+          "connector_names": [
+            "Harlow's Hollows - #16",
+            "Harlow's Hollows Connector (HHC) - #16a",
+            "Spring Creek - #9"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1708"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1708"
+          ],
+          "connector_names": [
+            "Harlow's Hollows - #16",
+            "Harlow's Hollows Connector (HHC) - #16a"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        },
+        {
+          "place": "between_links[2]",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1704"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1704"
+          ],
+          "connector_names": [
+            "Burnt Car Draw - #10",
+            "Cartwright Road - #20",
+            "OSM path connector 105691",
+            "OSM path connector 13946",
+            "OSM path connector 13947",
+            "The Wall - #29"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road"
+          ]
+        },
+        {
+          "place": "between_links[4]",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "North McLeod Way",
+            "OSM footway connector 22138",
+            "OSM footway connector 22310",
+            "OSM footway connector 22424",
+            "OSM footway connector 22427",
+            "OSM service connector 22620",
+            "Twisted Spring Trail - #8",
+            "West Creeks Edge Drive",
+            "Whistling Pig - #3"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "target_official_snap"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 3.26,
+          "official_repeat_segment_ids": [],
+          "missing_repeat_segment_ids": true,
+          "self_repeat_segment_ids": [],
+          "connector_names": [],
+          "connector_classes": []
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 4,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.88,
+          "official_repeat_segment_ids": [
+            "1708"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 6,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1708"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 8,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1704"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "manual-10b",
+      "outing_id": "10-2",
+      "label": "10B",
+      "official_miles": 2.45,
+      "on_foot_miles": 6.18,
+      "non_credit_miles": 3.73,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.08,
+          "official_repeat_segment_ids": [
+            "1497",
+            "1520"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1497"
+          ],
+          "connector_names": [
+            "#74 Chukar Butte",
+            "Chukar Butte (Dog On-Leash)",
+            "Currant Creek"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.24,
+          "official_repeat_segment_ids": [],
+          "missing_repeat_segment_ids": true,
+          "self_repeat_segment_ids": [],
+          "connector_names": [],
+          "connector_classes": []
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.25,
+          "official_repeat_segment_ids": [
+            "1497",
+            "1519",
+            "1520"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1537"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 8,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.22,
+          "official_repeat_segment_ids": [
+            "1622",
+            "1623",
+            "1624"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1520",
+          "trail_name": "Chukar Butte Trail",
+          "official_miles": 0.69,
+          "owned_by_routes": [
+            {
+              "outing_id": "6-1",
+              "label": "6",
+              "candidate_ids": [
+                "block-cartwright_peggy_interface"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1521",
+          "trail_name": "Chukar Butte Trail",
+          "official_miles": 0.84,
+          "owned_by_routes": [
+            {
+              "outing_id": "6-1",
+              "label": "6",
+              "candidate_ids": [
+                "block-cartwright_peggy_interface"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1619",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.14,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1622",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.02,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1623",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.25,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1624",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.1,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-1",
+              "label": "15A",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-1-red-tail-trail-landslide",
+      "outing_id": "15-1",
+      "label": "15A",
+      "official_miles": 4.02,
+      "on_foot_miles": 5.06,
+      "non_credit_miles": 1.04,
+      "source_repeat_legs": [
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.23,
+          "official_repeat_segment_ids": [
+            "1536",
+            "1622",
+            "1623",
+            "1624"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1622",
+            "1623",
+            "1624"
+          ],
+          "connector_names": [
+            "#70 Landslide Loop",
+            "#71 Red Tail",
+            "Lookout Loop",
+            "OSM path connector 15043",
+            "W. Currant Creek"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 4,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.23,
+          "official_repeat_segment_ids": [
+            "1536",
+            "1622",
+            "1623",
+            "1624"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
+      "outing_id": "15-2",
+      "label": "15B",
+      "official_miles": 9.33,
+      "on_foot_miles": 21.04,
+      "non_credit_miles": 11.71,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.45,
+          "official_repeat_segment_ids": [
+            "1527",
+            "1528"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "#31 Corrals",
+            "#33 Hard Guy",
+            "#78 Dry Creek",
+            "Boise Ridge Road",
+            "Corrals",
+            "Dry Creek",
+            "Hard Guy"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.73,
+          "official_repeat_segment_ids": [
+            "1528",
+            "1576",
+            "1577"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1576",
+            "1577"
+          ],
+          "connector_names": [
+            "#31 Corrals",
+            "Corrals",
+            "Highlands"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.45,
+          "official_repeat_segment_ids": [
+            "1527",
+            "1528"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.46,
+          "official_repeat_segment_ids": [
+            "1546"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 1.25,
+          "official_repeat_segment_ids": [
+            "1523",
+            "1542"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.73,
+          "official_repeat_segment_ids": [
+            "1528",
+            "1576",
+            "1577"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1527",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.6,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1528",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.4,
+          "owned_by_routes": [
+            {
+              "outing_id": "12-1",
+              "label": "12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector",
+      "outing_id": "16-3",
+      "label": "16C-1",
+      "official_miles": 3.5,
+      "on_foot_miles": 7.07,
+      "non_credit_miles": 3.57,
+      "source_repeat_legs": [
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.86,
+          "official_repeat_segment_ids": [
+            "1663",
+            "1664"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1663",
+            "1664"
+          ],
+          "connector_names": [
+            "#125 Freddys Stack Rock Trail",
+            "Freddys Stack Rock Trail"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.86,
+          "official_repeat_segment_ids": [
+            "1663",
+            "1664"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "multi-start-16c-16c-ms-02-2-sweet-connie-trail-shingle-creek-trail-sheep-camp-trail",
+      "outing_id": "16-4",
+      "label": "16C-2",
+      "official_miles": 11.61,
+      "on_foot_miles": 24.01,
+      "non_credit_miles": 12.4,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.84,
+          "official_repeat_segment_ids": [
+            "1544",
+            "1656"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1656"
+          ],
+          "connector_names": [
+            "#78 Dry Creek",
+            "#79 Shingle Creek",
+            "#80 Sheep Camp",
+            "Dry Creek",
+            "Shingle Creek"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.82,
+          "official_repeat_segment_ids": [
+            "1542",
+            "1543",
+            "1653"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1653"
+          ],
+          "connector_names": [
+            "#78 Dry Creek",
+            "#80 Sheep Camp",
+            "Dry Creek",
+            "Sheep Camp"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.19,
+          "official_repeat_segment_ids": [
+            "1665"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.84,
+          "official_repeat_segment_ids": [
+            "1544",
+            "1656"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.82,
+          "official_repeat_segment_ids": [
+            "1542",
+            "1543",
+            "1653"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1542",
+          "trail_name": "Dry Creek Trail",
+          "official_miles": 0.58,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1543",
+          "trail_name": "Dry Creek Trail",
+          "official_miles": 0.74,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1544",
+          "trail_name": "Dry Creek Trail",
+          "official_miles": 0.99,
+          "owned_by_routes": [
+            {
+              "outing_id": "15-2",
+              "label": "15B",
+              "candidate_ids": [
+                "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
+      "outing_id": "1-1",
+      "label": "1A-1",
+      "official_miles": 0.74,
+      "on_foot_miles": 4.87,
+      "non_credit_miles": 4.13,
+      "source_repeat_legs": [
+        {
+          "place": "start_access",
+          "official_repeat_miles": 0.0,
+          "official_repeat_segment_ids": [
+            "1516"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [],
+          "connector_names": [
+            "OSM path connector 13996",
+            "OSM path connector 83300",
+            "OSM path connector 83301"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.39,
+          "official_repeat_segment_ids": [
+            "1482"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1482"
+          ],
+          "connector_names": [
+            "OSM path connector 13997"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.81,
+          "official_repeat_segment_ids": [
+            "1516"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.39,
+          "official_repeat_segment_ids": [
+            "1482"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie",
+      "outing_id": "1-2",
+      "label": "1A-2",
+      "official_miles": 3.13,
+      "on_foot_miles": 4.86,
+      "non_credit_miles": 1.73,
+      "source_repeat_legs": [
+        {
+          "place": "between_links[0]",
+          "official_repeat_miles": 0.28,
+          "official_repeat_segment_ids": [
+            "1565"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1565"
+          ],
+          "connector_names": [
+            "#56 Full Sail",
+            "Full Sail"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        },
+        {
+          "place": "between_links[1]",
+          "official_repeat_miles": 0.3,
+          "official_repeat_segment_ids": [
+            "1507",
+            "1755"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1507",
+            "1755"
+          ],
+          "connector_names": [
+            "#53 Buena Vista",
+            "Buena Vista"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.07,
+          "official_repeat_segment_ids": [
+            "1565"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.42,
+          "official_repeat_segment_ids": [
+            "1504",
+            "1505"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1505"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "overlap_repeat",
+          "official_repeat_miles": 0.3,
+          "official_repeat_segment_ids": [
+            "1507",
+            "1755"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "multi-start-5-5-ms-04-1-barn-owl",
+      "outing_id": "5-1",
+      "label": "5A",
+      "official_miles": 1.44,
+      "on_foot_miles": 2.96,
+      "non_credit_miles": 1.52,
+      "source_repeat_legs": [
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.94,
+          "official_repeat_segment_ids": [
+            "1494",
+            "1495",
+            "1508"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1494",
+            "1495"
+          ],
+          "connector_names": [],
+          "connector_classes": [
+            "official_repeat"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.94,
+          "official_repeat_segment_ids": [
+            "1494",
+            "1495",
+            "1508"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw",
+      "outing_id": "5-2",
+      "label": "5B",
+      "official_miles": 6.56,
+      "on_foot_miles": 8.38,
+      "non_credit_miles": 1.82,
+      "source_repeat_legs": [
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.68,
+          "official_repeat_segment_ids": [
+            "1541",
+            "1599",
+            "1603",
+            "1604",
+            "1610"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1541",
+            "1599",
+            "1603",
+            "1604",
+            "1610"
+          ],
+          "connector_names": [
+            "Polecat Loop (STM)"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.12,
+          "official_repeat_segment_ids": [
+            "1603",
+            "1604"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 8,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.68,
+          "official_repeat_segment_ids": [
+            "1541",
+            "1599",
+            "1603",
+            "1604",
+            "1610"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "peace-valley-overlook",
+      "outing_id": "8-2",
+      "label": "8B",
+      "official_miles": 0.54,
+      "on_foot_miles": 2.7,
+      "non_credit_miles": 2.16,
+      "source_repeat_legs": [],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.14,
+          "official_repeat_segment_ids": [
+            "1723"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "scotts-trail",
+      "outing_id": "4-2",
+      "label": "4B",
+      "official_miles": 1.05,
+      "on_foot_miles": 2.61,
+      "non_credit_miles": 1.56,
+      "source_repeat_legs": [
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.02,
+          "official_repeat_segment_ids": [
+            "1643"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1643"
+          ],
+          "connector_names": [
+            "#32 Scott's",
+            "Scott's"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.11,
+          "official_repeat_segment_ids": [
+            "1643"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    }
+  ]
+}

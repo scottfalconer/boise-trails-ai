@@ -806,6 +806,149 @@ def test_shortest_connector_path_treats_named_near_overlap_connector_edges_as_of
     assert avoided_path is None
 
 
+def test_shortest_connector_path_blocks_special_management_reverse_official_repeat(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "One Way Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                },
+            }
+        ],
+    )
+    rules = tmp_path / "rules.json"
+    rules.write_text(
+        json.dumps(
+            {
+                "rules": [
+                    {
+                        "rule_type": "directional_segment_traversal",
+                        "blocking": True,
+                        "segment_direction_overrides": {"1": ["forward"]},
+                    }
+                ]
+            }
+        )
+    )
+    connector = tmp_path / "empty-connectors.geojson"
+    connector.write_text(json.dumps({"type": "FeatureCollection", "features": []}))
+    segments, _ = planner.load_official_segments(official)
+    graph = planner.load_connector_graph(
+        connector,
+        official_segments=segments,
+        special_management_rules_json=rules,
+    )
+
+    forward_path = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.204, 43.626),
+        graph,
+        0.01,
+    )
+    reverse_path = planner.shortest_connector_path(
+        (-116.204, 43.626),
+        (-116.205, 43.626),
+        graph,
+        0.01,
+    )
+
+    assert forward_path["official_repeat_segment_ids"] == [1]
+    assert forward_path["connector_edges"][0]["official_traversal_direction"] == "forward"
+    assert reverse_path is None
+
+
+def test_shortest_connector_path_blocks_special_management_reverse_duplicate_connector(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "One Way Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                },
+            }
+        ],
+    )
+    rules = tmp_path / "rules.json"
+    rules.write_text(
+        json.dumps(
+            {
+                "rules": [
+                    {
+                        "rule_type": "directional_segment_traversal",
+                        "blocking": True,
+                        "segment_direction_overrides": {"1": ["forward"]},
+                    }
+                ]
+            }
+        )
+    )
+    connector = tmp_path / "duplicate-connector.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "One Way Trail"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                        },
+                    }
+                ],
+            }
+        )
+    )
+    segments, _ = planner.load_official_segments(official)
+    graph = planner.load_connector_graph(
+        connector,
+        official_segments=segments,
+        special_management_rules_json=rules,
+    )
+
+    forward_path = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.204, 43.626),
+        graph,
+        0.01,
+    )
+    reverse_path = planner.shortest_connector_path(
+        (-116.204, 43.626),
+        (-116.205, 43.626),
+        graph,
+        0.01,
+    )
+
+    assert forward_path["official_repeat_segment_ids"] == [1]
+    assert reverse_path is None
+
+
 def test_between_trail_links_avoid_required_official_repeat_when_connector_exists(tmp_path):
     planner = load_planner()
     official = tmp_path / "official.geojson"

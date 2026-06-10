@@ -119,6 +119,41 @@ def test_hidden_self_repeat_fails_when_non_credit_leg_reuses_claimed_segment(tmp
     assert audit["advisory_closure"]["status"] == "blocked_by_hard_failures"
 
 
+def test_hidden_self_repeat_review_uses_explicit_source_path_when_present(tmp_path):
+    packet_dir = tmp_path / "packet"
+    write_gpx(
+        packet_dir / "gpx" / "audit" / "route-a.gpx",
+        [(-116.0, 43.0), (-115.99, 43.0), (-116.0, 43.0)],
+    )
+    route = {
+        "outing_id": "route-a",
+        "label": "Route A",
+        "trailhead": "Trailhead A",
+        "segment_ids": [101],
+        "audit_gpx_href": "gpx/audit/route-a.gpx",
+        "official_miles": 0.5,
+        "on_foot_miles": 1.0,
+        "wayfinding_cues": [
+            {"seq": 1, "cue_type": "follow_official_segment", "route_miles": 0.0, "route_leg_miles": 0.51},
+            {
+                "seq": 2,
+                "cue_type": "exit_access",
+                "route_miles": 0.51,
+                "route_leg_miles": 0.51,
+                "source_path_coordinates": [(-115.99, 43.0), (-115.99, 43.01)],
+            },
+        ],
+    }
+
+    audit = build_audit(
+        tmp_path,
+        route,
+        [segment(101, [(-116.0, 43.0), (-115.99, 43.0)])],
+    )
+
+    assert audit["hard_failures"]["hidden_self_repeat_segment_ids"] == []
+
+
 def test_latent_credit_without_ownership_decision_fails(tmp_path):
     packet_dir = tmp_path / "packet"
     write_gpx(

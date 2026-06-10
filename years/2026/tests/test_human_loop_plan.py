@@ -1126,6 +1126,60 @@ def test_sync_official_segment_features_rebuilds_layer_from_active_components():
     assert features[1]["properties"]["direction_cue"] == "Ascent-only official segment; follow the planned uphill direction."
 
 
+def test_sync_route_direction_cues_replaces_stale_opposite_geometry_labels(monkeypatch):
+    module = load_human_loop_plan()
+    monkeypatch.setattr(
+        module,
+        "special_management_segment_direction_overrides",
+        lambda: {"1490": "forward"},
+    )
+    package_map = {
+        "route_cues": {
+            "stale": {
+                "segments": [
+                    {
+                        "seg_id": 1490,
+                        "direction_rule": "ascent",
+                        "direction_cue": "ASCENT REQUIRED: follow map arrows opposite official geometry.",
+                    },
+                    {
+                        "seg_id": 1571,
+                        "direction_rule": "ascent",
+                        "direction_cue": "ASCENT REQUIRED: follow map arrows opposite official geometry.",
+                    },
+                    {
+                        "seg_id": 1600,
+                        "direction_rule": "both",
+                        "direction_cue": "Either direction allowed; planned opposite official geometry.",
+                    },
+                ],
+            }
+        },
+        "feature_collections": {
+            "official_segments": {
+                "features": [
+                    {
+                        "properties": {
+                            "seg_id": 1490,
+                            "direction_rule": "ascent",
+                            "direction_cue": "ASCENT REQUIRED: follow map arrows opposite official geometry.",
+                        }
+                    }
+                ]
+            }
+        },
+    }
+
+    module.sync_route_direction_cues(package_map)
+
+    segments = package_map["route_cues"]["stale"]["segments"]
+    assert segments[0]["direction_cue"] == "SPECIAL MANAGEMENT: follow the signed one-way direction."
+    assert segments[1]["direction_cue"] == "ASCENT REQUIRED: follow map arrows uphill."
+    assert segments[2]["direction_cue"] == "Either direction allowed; follow map arrows."
+    feature_props = package_map["feature_collections"]["official_segments"]["features"][0]["properties"]
+    assert feature_props["direction_cue"] == "SPECIAL MANAGEMENT: follow the signed one-way direction."
+
+
 def test_build_human_plan_reports_package_component_count_when_route_pass_is_stale(tmp_path):
     module = load_human_loop_plan()
     route_pass = {
