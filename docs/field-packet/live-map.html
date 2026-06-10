@@ -162,7 +162,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "0b9773e3e5b4f1ce";
+    const DEFAULT_ASSET_VERSION = "f614300fba0c06ab";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -768,6 +768,22 @@
       const cueM = cueRouteM(cues[index]);
       return displayedRoutePositionForM(cueM, { context: true }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
     }
+    function userRouteReadoutSuffix() {
+      if (!state.user) return "";
+      const nearest = projectPointToRoute(state.user);
+      if (!nearest) return "";
+      const parts = [];
+      if (Number.isFinite(nearest.distanceM)) {
+        parts.push(`${fmtDistance(nearest.distanceM)} to route`);
+      }
+      const cardTotal = cardRouteTotalM();
+      if (cardTotal > 0) {
+        const doneCardM = routeMToCardM(nearest.routeM);
+        const pct = Math.max(0, Math.min(100, Math.round((doneCardM / cardTotal) * 100)));
+        parts.push(`${pct}% done`);
+      }
+      return parts.length ? ` · ${parts.join(" · ")}` : "";
+    }
     function updateActiveCuePanel() {
       if (routeUnavailable(state.route)) {
         nearestCue.textContent = routeUnavailableMessage(state.route);
@@ -787,7 +803,7 @@
         const nextSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
         const legMiles = activeLegMilesText(leg);
         const warning = cueWarning(leg.cue);
-        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · ${legMiles} · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
+        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · ${legMiles} · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}${userRouteReadoutSuffix()}`;
       }
       previousCue.disabled = !cues.length || previousDistinctCueIndex() === state.activeCueIndex;
       nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
@@ -923,7 +939,7 @@
       const right = { x: marker.x + Math.cos(angle - 2.45) * 10 * unit, y: marker.y + Math.sin(angle - 2.45) * 10 * unit };
       const label = nearest ? `GPS off map · ${fmtDistance(nearest.distanceM)} to route` : "GPS off map";
       return `<g><title>${escapeText(label)}</title>` +
-        `<path class="user-offscreen" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} Z" />` +
+        `<path class="user-offscreen" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />` +
         `<text class="user-offscreen-label" x="${(marker.x + 18 * unit).toFixed(1)}" y="${(marker.y + 5 * unit).toFixed(1)}" font-size="${(13 * unit).toFixed(1)}" stroke-width="${(5 * unit).toFixed(1)}">GPS off map</text>` +
         `</g>`;
     }
@@ -1338,7 +1354,7 @@
           : nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true })
       );
       const arrowSegments = sourceActiveSegments.length
-        ? []
+        ? activeSegments
         : smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       const activeLaneClass = activeLegUsesSplitLane(leg) ? " split-lane" : "";
@@ -1466,8 +1482,17 @@
       routeSelect.value = route.outing_id;
       updateRouteAvailabilityState();
       nearestCue.textContent = "Loading GPX...";
-      const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
-      const gpx = parseGpx(await response.text());
+      let gpx;
+      try {
+        const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        gpx = parseGpx(await response.text());
+      } catch (error) {
+        nearestCue.textContent = "Could not load route GPX — tap to retry";
+        return;
+      }
       state.trackSegments = gpx.trackSegments;
       state.waypoints = gpx.waypoints;
       const flatTrack = state.trackSegments.flat();
@@ -1508,6 +1533,9 @@
     routeSelect.addEventListener("change", () => {
       const route = state.routes.find(item => item.outing_id === routeSelect.value);
       if (route) loadRoute(route);
+    });
+    nearestCue.addEventListener("click", () => {
+      if (state.route && !state.totalRouteM) loadRoute(state.route);
     });
     document.querySelectorAll("[data-style]").forEach(button => button.addEventListener("click", () => {
       document.querySelectorAll("[data-style]").forEach(item => item.classList.toggle("active", item === button));

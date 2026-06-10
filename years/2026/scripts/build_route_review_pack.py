@@ -286,6 +286,26 @@ def start_justification_for_route(route: dict[str, Any], replacements_payload: d
     return None
 
 
+# Generic location-type words that differ between a route's display anchor and an
+# alternative's anchor label without meaning a different physical start (e.g.
+# "West Climb" vs "West Climb Trailhead", "... road-parking" vs "... road-parking
+# anchor"). Distinguishing location qualifiers like "N 36th St" are NOT here, so
+# "Full Sail" and "Full Sail Trailhead, N 36th St Parking" stay DIFFERENT anchors.
+_GENERIC_ANCHOR_TOKENS = {
+    "anchor", "parking", "trailhead", "roadside", "road", "lot", "the", "at", "near",
+}
+
+
+def _anchor_token_set(value: Any) -> frozenset[str]:
+    tokens = "".join(ch if ch.isalnum() else " " for ch in str(value or "").lower()).split()
+    return frozenset(token for token in tokens if token not in _GENERIC_ANCHOR_TOKENS)
+
+
+def _same_anchor(left: Any, right: Any) -> bool:
+    a, b = _anchor_token_set(left), _anchor_token_set(right)
+    return bool(a) and bool(b) and a == b
+
+
 def route_pack(
     route: dict[str, Any],
     multi_start_audit: dict[str, Any],
@@ -293,6 +313,22 @@ def route_pack(
 ) -> dict[str, Any]:
     alternatives = manifest_same_credit_alternatives(route, replacements_payload)
     alternatives.extend(multi_start_same_credit_alternatives(route, multi_start_audit, replacements_payload))
+    # A same-credit alternative can only DOMINATE if it offers a DIFFERENT,
+    # better start anchor. When the route is already parked at the alternative's
+    # anchor, it IS that alternative; its lower planning-estimate mileage is not
+    # a re-anchoring opportunity (route-shape efficiency is handled by the
+    # efficiency/repeat audits, not the start-dominance gate). This prevents the
+    # gate from flagging routes as "dominated" by their own current anchor.
+    current_anchor = route.get("trailhead_display") or route.get("trailhead")
+    if not current_anchor:
+        parking = route.get("parking") or {}
+        current_anchor = parking.get("display_name") or parking.get("name")
+    for alternative in alternatives:
+        if not alternative.get("applied_to_current_route") and _same_anchor(
+            current_anchor, alternative.get("anchor_label")
+        ):
+            alternative["applied_to_current_route"] = True
+            alternative["same_as_current_anchor"] = True
     justification = start_justification_for_route(route, replacements_payload)
     return {
         "route_label": route.get("label"),

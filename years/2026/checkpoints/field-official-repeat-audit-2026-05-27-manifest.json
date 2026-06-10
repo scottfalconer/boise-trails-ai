@@ -1,0 +1,43 @@
+{
+  "run_id": "field-official-repeat-audit-2026-05-27",
+  "generated_at": "2026-05-28T01:08:41Z",
+  "command": "python years/2026/scripts/field_official_repeat_audit.py",
+  "inputs": [
+    {
+      "path": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+      "exists": true,
+      "size_bytes": 20281677,
+      "sha256": "e2e770a065269db38cbd360fd6146c028efc44b34f3ad77a583954c7341ede89"
+    },
+    {
+      "path": "docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 2902383,
+      "sha256": "b51ccb10370fcced49294d4e461b1ec215f2073f8f9a90b2649c03f288b92d1b"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-27.json",
+      "exists": true,
+      "size_bytes": 181442,
+      "sha256": "7d6325ea9368e4ae16848bcc12dc99a43022ad267fa73428d0ade841adfd7af1"
+    },
+    {
+      "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-27.md",
+      "exists": true,
+      "size_bytes": 3220,
+      "sha256": "c22501604fc21fa6a502c5eb1a321b6c6d475d92216eafa7a05c2857819fbdd8"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_field_official_repeat_audit_v1",
+    "status": "passed"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 4,
+    "missing": [],
+    "mismatches": []
+  }
+}

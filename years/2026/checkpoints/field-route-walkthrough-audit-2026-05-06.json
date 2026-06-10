@@ -19,1590 +19,6 @@
   "routes": [
     {
       "outing_id": "10-1",
-      "label": "10A",
-      "trailhead": "Harlow's / Hidden Springs west access probe",
-      "passed": true,
-      "traversed_edge_summary": [
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.076,
-          "route_miles_start": 0.0,
-          "route_miles_end": 0.076,
-          "start_coordinate": [
-            -116.2501,
-            43.7759
-          ],
-          "end_coordinate": [
-            -116.2506,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.07,
-          "route_miles_start": 0.076,
-          "route_miles_end": 0.147,
-          "start_coordinate": [
-            -116.2506,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.250136,
-            43.775973
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.01,
-          "route_miles_start": 0.147,
-          "route_miles_end": 0.157,
-          "start_coordinate": [
-            -116.250136,
-            43.775973
-          ],
-          "end_coordinate": [
-            -116.250059,
-            43.775838
-          ]
-        },
-        {
-          "edge_id": "official:1662:170:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1662",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 2.309,
-          "route_miles_start": 0.157,
-          "route_miles_end": 2.466,
-          "start_coordinate": [
-            -116.250059,
-            43.775838
-          ],
-          "end_coordinate": [
-            -116.213808,
-            43.767789
-          ]
-        },
-        {
-          "edge_id": "official:1662:170:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1662",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 2.371,
-          "route_miles_start": 2.466,
-          "route_miles_end": 4.837,
-          "start_coordinate": [
-            -116.213808,
-            43.767789
-          ],
-          "end_coordinate": [
-            -116.2501,
-            43.7758
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.165,
-          "route_miles_start": 4.837,
-          "route_miles_end": 5.001,
-          "start_coordinate": [
-            -116.2501,
-            43.7758
-          ],
-          "end_coordinate": [
-            -116.2485,
-            43.7744
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.007,
-          "route_miles_start": 5.001,
-          "route_miles_end": 5.008,
-          "start_coordinate": [
-            -116.2485,
-            43.7744
-          ],
-          "end_coordinate": [
-            -116.2485,
-            43.7743
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.112,
-          "route_miles_start": 5.008,
-          "route_miles_end": 5.121,
-          "start_coordinate": [
-            -116.2485,
-            43.7743
-          ],
-          "end_coordinate": [
-            -116.2479,
-            43.7731
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.306,
-          "route_miles_start": 5.121,
-          "route_miles_end": 5.427,
-          "start_coordinate": [
-            -116.2479,
-            43.7731
-          ],
-          "end_coordinate": [
-            -116.250095,
-            43.775908
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.292,
-          "route_miles_start": 5.427,
-          "route_miles_end": 5.719,
-          "start_coordinate": [
-            -116.250095,
-            43.775908
-          ],
-          "end_coordinate": [
-            -116.2479,
-            43.7731
-          ]
-        },
-        {
-          "edge_id": "official:1708:216:0",
-          "name": "Harlow's Hollows Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1708",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.812,
-          "route_miles_start": 5.719,
-          "route_miles_end": 6.531,
-          "start_coordinate": [
-            -116.2479,
-            43.7731
-          ],
-          "end_coordinate": [
-            -116.2384,
-            43.7669
-          ]
-        },
-        {
-          "edge_id": "connector:9362:0",
-          "name": "Ranch Access Connector (RAC) - #18a",
-          "signposts": [
-            "18A"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.105,
-          "route_miles_start": 6.531,
-          "route_miles_end": 6.636,
-          "start_coordinate": [
-            -116.2384,
-            43.7669
-          ],
-          "end_coordinate": [
-            -116.2378,
-            43.7657
-          ]
-        },
-        {
-          "edge_id": "connector:1524:0",
-          "name": "Burnt Car Draw - #10",
-          "signposts": [
-            "10"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.248,
-          "route_miles_start": 6.636,
-          "route_miles_end": 6.884,
-          "start_coordinate": [
-            -116.2378,
-            43.7657
-          ],
-          "end_coordinate": [
-            -116.233,
-            43.7649
-          ]
-        },
-        {
-          "edge_id": "official:1707:215:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1707",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.02,
-          "route_miles_start": 6.884,
-          "route_miles_end": 6.904,
-          "start_coordinate": [
-            -116.233,
-            43.7649
-          ],
-          "end_coordinate": [
-            -116.2327,
-            43.7647
-          ]
-        },
-        {
-          "edge_id": "official:1707:215:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1707",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.39,
-          "route_miles_start": 6.904,
-          "route_miles_end": 7.294,
-          "start_coordinate": [
-            -116.2327,
-            43.7647
-          ],
-          "end_coordinate": [
-            -116.23882,
-            43.76768
-          ]
-        },
-        {
-          "edge_id": "official:1707:215:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1707",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.389,
-          "route_miles_start": 7.294,
-          "route_miles_end": 7.683,
-          "start_coordinate": [
-            -116.23882,
-            43.76768
-          ],
-          "end_coordinate": [
-            -116.2327,
-            43.7648
-          ]
-        },
-        {
-          "edge_id": "official:1705:213:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1705",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.483,
-          "route_miles_start": 7.683,
-          "route_miles_end": 8.167,
-          "start_coordinate": [
-            -116.2327,
-            43.7648
-          ],
-          "end_coordinate": [
-            -116.223931,
-            43.76417
-          ]
-        },
-        {
-          "edge_id": "official:1705:213:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1705",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.477,
-          "route_miles_start": 8.167,
-          "route_miles_end": 8.643,
-          "start_coordinate": [
-            -116.223931,
-            43.76417
-          ],
-          "end_coordinate": [
-            -116.232647,
-            43.764674
-          ]
-        },
-        {
-          "edge_id": "official:1705:213:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1705",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.47,
-          "route_miles_start": 8.643,
-          "route_miles_end": 9.114,
-          "start_coordinate": [
-            -116.232647,
-            43.764674
-          ],
-          "end_coordinate": [
-            -116.224,
-            43.7642
-          ]
-        },
-        {
-          "edge_id": "official:1704:212:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1704",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.208,
-          "route_miles_start": 9.114,
-          "route_miles_end": 9.322,
-          "start_coordinate": [
-            -116.224,
-            43.7642
-          ],
-          "end_coordinate": [
-            -116.2204,
-            43.7653
-          ]
-        },
-        {
-          "edge_id": "official:1704:212:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1704",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.203,
-          "route_miles_start": 9.322,
-          "route_miles_end": 9.525,
-          "start_coordinate": [
-            -116.2204,
-            43.7653
-          ],
-          "end_coordinate": [
-            -116.2239,
-            43.7642
-          ]
-        },
-        {
-          "edge_id": "official:1705:213:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1705",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.478,
-          "route_miles_start": 9.525,
-          "route_miles_end": 10.002,
-          "start_coordinate": [
-            -116.2239,
-            43.7642
-          ],
-          "end_coordinate": [
-            -116.2327,
-            43.7647
-          ]
-        },
-        {
-          "edge_id": "official:1707:215:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1707",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.02,
-          "route_miles_start": 10.002,
-          "route_miles_end": 10.023,
-          "start_coordinate": [
-            -116.2327,
-            43.7647
-          ],
-          "end_coordinate": [
-            -116.233,
-            43.7649
-          ]
-        },
-        {
-          "edge_id": "connector:1524:0",
-          "name": "Burnt Car Draw - #10",
-          "signposts": [
-            "10"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.248,
-          "route_miles_start": 10.023,
-          "route_miles_end": 10.271,
-          "start_coordinate": [
-            -116.233,
-            43.7649
-          ],
-          "end_coordinate": [
-            -116.2378,
-            43.7657
-          ]
-        },
-        {
-          "edge_id": "connector:9362:0",
-          "name": "Ranch Access Connector (RAC) - #18a",
-          "signposts": [
-            "18A"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.096,
-          "route_miles_start": 10.271,
-          "route_miles_end": 10.366,
-          "start_coordinate": [
-            -116.2378,
-            43.7657
-          ],
-          "end_coordinate": [
-            -116.2383,
-            43.7668
-          ]
-        },
-        {
-          "edge_id": "official:1708:216:0",
-          "name": "Harlow's Hollows Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1708",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.826,
-          "route_miles_start": 10.366,
-          "route_miles_end": 11.193,
-          "start_coordinate": [
-            -116.2383,
-            43.7668
-          ],
-          "end_coordinate": [
-            -116.2479,
-            43.7731
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.292,
-          "route_miles_start": 11.193,
-          "route_miles_end": 11.484,
-          "start_coordinate": [
-            -116.2479,
-            43.7731
-          ],
-          "end_coordinate": [
-            -116.2501,
-            43.7759
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.076,
-          "route_miles_start": 11.484,
-          "route_miles_end": 11.561,
-          "start_coordinate": [
-            -116.2501,
-            43.7759
-          ],
-          "end_coordinate": [
-            -116.2506,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.012,
-          "route_miles_start": 11.561,
-          "route_miles_end": 11.573,
-          "start_coordinate": [
-            -116.2506,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2504,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.005,
-          "route_miles_start": 11.573,
-          "route_miles_end": 11.578,
-          "start_coordinate": [
-            -116.2504,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2503,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.522,
-          "route_miles_start": 11.578,
-          "route_miles_end": 12.1,
-          "start_coordinate": [
-            -116.2503,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2519,
-            43.7816
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 12.1,
-          "route_miles_end": 12.108,
-          "start_coordinate": [
-            -116.2519,
-            43.7816
-          ],
-          "end_coordinate": [
-            -116.252,
-            43.7815
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.053,
-          "route_miles_start": 12.108,
-          "route_miles_end": 12.161,
-          "start_coordinate": [
-            -116.252,
-            43.7815
-          ],
-          "end_coordinate": [
-            -116.2528,
-            43.7819
-          ]
-        },
-        {
-          "edge_id": "connector:7934:0",
-          "name": "Ricochet - #2",
-          "signposts": [
-            "2"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.029,
-          "route_miles_start": 12.161,
-          "route_miles_end": 12.19,
-          "start_coordinate": [
-            -116.2528,
-            43.7819
-          ],
-          "end_coordinate": [
-            -116.2532,
-            43.7822
-          ]
-        },
-        {
-          "edge_id": "connector:1919:0",
-          "name": "North Smokeys Draw Place",
-          "signposts": [],
-          "source_class": "osm_public_road",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.046,
-          "route_miles_start": 12.19,
-          "route_miles_end": 12.235,
-          "start_coordinate": [
-            -116.2532,
-            43.7822
-          ],
-          "end_coordinate": [
-            -116.2541,
-            43.7823
-          ]
-        },
-        {
-          "edge_id": "official:1657:165:0",
-          "name": "Shooting Range",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1657",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.165,
-          "route_miles_start": 12.235,
-          "route_miles_end": 12.401,
-          "start_coordinate": [
-            -116.2541,
-            43.7823
-          ],
-          "end_coordinate": [
-            -116.2556,
-            43.7843
-          ]
-        },
-        {
-          "edge_id": "official:1657:165:0",
-          "name": "Shooting Range",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1657",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 12.401,
-          "route_miles_end": 12.409,
-          "start_coordinate": [
-            -116.2556,
-            43.7843
-          ],
-          "end_coordinate": [
-            -116.2557,
-            43.7842
-          ]
-        },
-        {
-          "edge_id": "official:1657:165:0",
-          "name": "Shooting Range",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1657",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.104,
-          "route_miles_start": 12.409,
-          "route_miles_end": 12.514,
-          "start_coordinate": [
-            -116.2557,
-            43.7842
-          ],
-          "end_coordinate": [
-            -116.256528,
-            43.784637
-          ]
-        },
-        {
-          "edge_id": "official:1696:204:0",
-          "name": "Whistling Pig",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1696",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.863,
-          "route_miles_start": 12.514,
-          "route_miles_end": 13.377,
-          "start_coordinate": [
-            -116.256528,
-            43.784637
-          ],
-          "end_coordinate": [
-            -116.2572,
-            43.779
-          ]
-        },
-        {
-          "edge_id": "connector:4851:0",
-          "name": "Whistling Pig - #3",
-          "signposts": [
-            "3"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.083,
-          "route_miles_start": 13.377,
-          "route_miles_end": 13.46,
-          "start_coordinate": [
-            -116.2572,
-            43.779
-          ],
-          "end_coordinate": [
-            -116.2557,
-            43.7794
-          ]
-        },
-        {
-          "edge_id": "connector:4852:0",
-          "name": "OSM path connector 40157",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 13.46,
-          "route_miles_end": 13.468,
-          "start_coordinate": [
-            -116.2557,
-            43.7794
-          ],
-          "end_coordinate": [
-            -116.2556,
-            43.7793
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.301,
-          "route_miles_start": 13.468,
-          "route_miles_end": 13.769,
-          "start_coordinate": [
-            -116.2556,
-            43.7793
-          ],
-          "end_coordinate": [
-            -116.2518,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.071,
-          "route_miles_start": 13.769,
-          "route_miles_end": 13.841,
-          "start_coordinate": [
-            -116.2518,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2507,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.079,
-          "route_miles_start": 13.841,
-          "route_miles_end": 13.919,
-          "start_coordinate": [
-            -116.2507,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2501,
-            43.7759
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.295,
-          "route_miles_start": 13.919,
-          "route_miles_end": 14.215,
-          "start_coordinate": [
-            -116.2501,
-            43.7759
-          ],
-          "end_coordinate": [
-            -116.2478,
-            43.7731
-          ]
-        },
-        {
-          "edge_id": "official:1708:216:0",
-          "name": "Harlow's Hollows Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1708",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.023,
-          "route_miles_start": 14.215,
-          "route_miles_end": 14.238,
-          "start_coordinate": [
-            -116.2478,
-            43.7731
-          ],
-          "end_coordinate": [
-            -116.2476,
-            43.7728
-          ]
-        },
-        {
-          "edge_id": "connector:1523:0",
-          "name": "Harlow's Hollows - #16",
-          "signposts": [
-            "16"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.579,
-          "route_miles_start": 14.238,
-          "route_miles_end": 14.817,
-          "start_coordinate": [
-            -116.2476,
-            43.7728
-          ],
-          "end_coordinate": [
-            -116.2394,
-            43.7679
-          ]
-        },
-        {
-          "edge_id": "official:1708:216:0",
-          "name": "Harlow's Hollows Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1708",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.029,
-          "route_miles_start": 14.817,
-          "route_miles_end": 14.846,
-          "start_coordinate": [
-            -116.2394,
-            43.7679
-          ],
-          "end_coordinate": [
-            -116.2389,
-            43.7677
-          ]
-        },
-        {
-          "edge_id": "official:1708:216:0",
-          "name": "Harlow's Hollows Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1708",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.847,
-          "route_miles_start": 14.846,
-          "route_miles_end": 15.693,
-          "start_coordinate": [
-            -116.2389,
-            43.7677
-          ],
-          "end_coordinate": [
-            -116.247881,
-            43.773019
-          ]
-        },
-        {
-          "edge_id": "official:1706:214:0",
-          "name": "Harlow's Hollows",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1706",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.297,
-          "route_miles_start": 15.693,
-          "route_miles_end": 15.99,
-          "start_coordinate": [
-            -116.247881,
-            43.773019
-          ],
-          "end_coordinate": [
-            -116.2501,
-            43.7759
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.076,
-          "route_miles_start": 15.99,
-          "route_miles_end": 16.066,
-          "start_coordinate": [
-            -116.2501,
-            43.7759
-          ],
-          "end_coordinate": [
-            -116.2506,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.015,
-          "route_miles_start": 16.066,
-          "route_miles_end": 16.081,
-          "start_coordinate": [
-            -116.2506,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2507,
-            43.7767
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.052,
-          "route_miles_start": 16.081,
-          "route_miles_end": 16.133,
-          "start_coordinate": [
-            -116.2507,
-            43.7767
-          ],
-          "end_coordinate": [
-            -116.2516,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.302,
-          "route_miles_start": 16.133,
-          "route_miles_end": 16.436,
-          "start_coordinate": [
-            -116.2516,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.255584,
-            43.779174
-          ]
-        },
-        {
-          "edge_id": "official:1687:195:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1687",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.369,
-          "route_miles_start": 16.436,
-          "route_miles_end": 16.805,
-          "start_coordinate": [
-            -116.255584,
-            43.779174
-          ],
-          "end_coordinate": [
-            -116.26143,
-            43.776802
-          ]
-        },
-        {
-          "edge_id": "official:1687:195:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1687",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.369,
-          "route_miles_start": 16.805,
-          "route_miles_end": 17.173,
-          "start_coordinate": [
-            -116.26143,
-            43.776802
-          ],
-          "end_coordinate": [
-            -116.2556,
-            43.7792
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.297,
-          "route_miles_start": 17.173,
-          "route_miles_end": 17.47,
-          "start_coordinate": [
-            -116.2556,
-            43.7792
-          ],
-          "end_coordinate": [
-            -116.2518,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.289,
-          "route_miles_start": 17.47,
-          "route_miles_end": 17.759,
-          "start_coordinate": [
-            -116.2518,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.255584,
-            43.779174
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.298,
-          "route_miles_start": 17.759,
-          "route_miles_end": 18.058,
-          "start_coordinate": [
-            -116.255584,
-            43.779174
-          ],
-          "end_coordinate": [
-            -116.2518,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.071,
-          "route_miles_start": 18.058,
-          "route_miles_end": 18.129,
-          "start_coordinate": [
-            -116.2518,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2507,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.069,
-          "route_miles_start": 18.129,
-          "route_miles_end": 18.198,
-          "start_coordinate": [
-            -116.2507,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.251754,
-            43.776812
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.07,
-          "route_miles_start": 18.198,
-          "route_miles_end": 18.268,
-          "start_coordinate": [
-            -116.251754,
-            43.776812
-          ],
-          "end_coordinate": [
-            -116.2507,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 18.268,
-          "route_miles_end": 18.277,
-          "start_coordinate": [
-            -116.2507,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.250512,
-            43.776879
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.66,
-          "route_miles_start": 18.277,
-          "route_miles_end": 18.938,
-          "start_coordinate": [
-            -116.250512,
-            43.776879
-          ],
-          "end_coordinate": [
-            -116.2528,
-            43.7819
-          ]
-        },
-        {
-          "edge_id": "connector:7934:0",
-          "name": "Ricochet - #2",
-          "signposts": [
-            "2"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.029,
-          "route_miles_start": 18.938,
-          "route_miles_end": 18.966,
-          "start_coordinate": [
-            -116.2528,
-            43.7819
-          ],
-          "end_coordinate": [
-            -116.2532,
-            43.7822
-          ]
-        },
-        {
-          "edge_id": "connector:1919:0",
-          "name": "North Smokeys Draw Place",
-          "signposts": [],
-          "source_class": "osm_public_road",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.046,
-          "route_miles_start": 18.966,
-          "route_miles_end": 19.012,
-          "start_coordinate": [
-            -116.2532,
-            43.7822
-          ],
-          "end_coordinate": [
-            -116.2541,
-            43.7823
-          ]
-        },
-        {
-          "edge_id": "official:1657:165:0",
-          "name": "Shooting Range",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1657",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.276,
-          "route_miles_start": 19.012,
-          "route_miles_end": 19.288,
-          "start_coordinate": [
-            -116.2541,
-            43.7823
-          ],
-          "end_coordinate": [
-            -116.256495,
-            43.784631
-          ]
-        },
-        {
-          "edge_id": "official:1657:165:0",
-          "name": "Shooting Range",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1657",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.287,
-          "route_miles_start": 19.288,
-          "route_miles_end": 19.575,
-          "start_coordinate": [
-            -116.256495,
-            43.784631
-          ],
-          "end_coordinate": [
-            -116.2539,
-            43.7823
-          ]
-        },
-        {
-          "edge_id": "connector:1919:0",
-          "name": "North Smokeys Draw Place",
-          "signposts": [],
-          "source_class": "osm_public_road",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.026,
-          "route_miles_start": 19.575,
-          "route_miles_end": 19.601,
-          "start_coordinate": [
-            -116.2539,
-            43.7823
-          ],
-          "end_coordinate": [
-            -116.2534,
-            43.7822
-          ]
-        },
-        {
-          "edge_id": "connector:7934:0",
-          "name": "Ricochet - #2",
-          "signposts": [
-            "2"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.029,
-          "route_miles_start": 19.601,
-          "route_miles_end": 19.63,
-          "start_coordinate": [
-            -116.2534,
-            43.7822
-          ],
-          "end_coordinate": [
-            -116.2529,
-            43.782
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.423,
-          "route_miles_start": 19.63,
-          "route_miles_end": 20.053,
-          "start_coordinate": [
-            -116.2529,
-            43.782
-          ],
-          "end_coordinate": [
-            -116.2495,
-            43.778
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.012,
-          "route_miles_start": 20.053,
-          "route_miles_end": 20.065,
-          "start_coordinate": [
-            -116.2495,
-            43.778
-          ],
-          "end_coordinate": [
-            -116.2493,
-            43.7779
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.112,
-          "route_miles_start": 20.065,
-          "route_miles_end": 20.177,
-          "start_coordinate": [
-            -116.2493,
-            43.7779
-          ],
-          "end_coordinate": [
-            -116.2503,
-            43.7771
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.012,
-          "route_miles_start": 20.177,
-          "route_miles_end": 20.189,
-          "start_coordinate": [
-            -116.2503,
-            43.7771
-          ],
-          "end_coordinate": [
-            -116.2505,
-            43.7772
-          ]
-        },
-        {
-          "edge_id": "official:1626:136:0",
-          "name": "Ricochet",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1626",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.059,
-          "route_miles_start": 20.189,
-          "route_miles_end": 20.248,
-          "start_coordinate": [
-            -116.2505,
-            43.7772
-          ],
-          "end_coordinate": [
-            -116.2506,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.076,
-          "route_miles_start": 20.248,
-          "route_miles_end": 20.325,
-          "start_coordinate": [
-            -116.2506,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2501,
-            43.7759
-          ]
-        }
-      ],
-      "cue_vocabulary_summary": {
-        "signposts": [
-          "#10",
-          "#16",
-          "#16A",
-          "#18A",
-          "#2",
-          "#20",
-          "#29",
-          "#3",
-          "#5",
-          "#8"
-        ],
-        "normalized_text_count": 89,
-        "sample_normalized_text": [
-          "01 0 00 mi 8 32 start access follow harlow's hollows connector until signed harlow's hollows connector route first official segment",
-          "02 8 32 mi 1 31 follow harlow's hollows connector until signed junction with harlow's hollows",
-          "03 9 64 mi 0 50 jct turn around harlow's hollows until signed junction with harlow's hollows",
-          "04 10 14 mi 0 63 connector follow harlow's hollows harlow's hollows connector hhc harlow's hollows harlow's hollows connector hhc until signed junction with harlow's hollows",
-          "05 10 90 mi 1 62 jct take harlow's hollows until signed junction with spring creek",
-          "06 12 52 mi 0 46 road follow burnt car draw cartwright road wall burnt car draw cartwright road osm path connector 105691 osm path connector 13946 osm path connector 13947 wall until signed junction with spring creek",
-          "07 13 08 mi 3 61 jct bear right spring creek until signed junction with ricochet",
-          "08 16 69 mi 1 05 jct turn around ricochet until signed junction with shooting range",
-          "09 17 74 mi 0 15 road follow ricochet shooting range until signed junction with shooting range",
-          "10 17 89 mi 0 41 jct continue straight shooting range until signed junction with whistling pig",
-          "11 18 30 mi 1 31 jct turn left whistling pig until signed junction with twisted spring",
-          "12 19 61 mi 0 12 overlap double back whistling pig osm path connector 40157 osm path connector 40158 whistling pig until signed junction with twisted spring",
-          "13 19 76 mi 0 57 jct take twisted spring until signed junction with twisted spring",
-          "14 20 33 mi 0 32 connector follow twisted spring twisted spring until signed junction with twisted spring",
-          "15 20 72 mi 0 55 jct take twisted spring until end of twisted spring for this route",
-          "16 21 27 mi 0 11 exit follow twisted spring until parked car trailhead",
-          "after twisted spring you are not fully back at car follow gpx connector access line back to harlow's hidden springs west access probe expect about 3 06 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with harlow's hollows turn around onto harlow's hollows this earns harlow's hollows segment 1 section estimate 0 33 official mi 10 min moving 232 ft climb next decision look for signs to harlow's hollows",
-          "at signed junction with harlow's hollows turn onto harlow's hollows use harlow's hollows harlow's hollows connector hhc for 0 64 mi look for signs harlow's hollows harlow's hollows connector hhc this earns harlow's hollows segments 2 4 section estimate 1 08 official mi 26 min moving 301 ft climb next decision look for signs to spring creek",
-          "at signed junction with ricochet turn around onto ricochet this earns ricochet segment 1 section estimate 0 7 official mi 18 min moving 471 ft climb next decision look for signs to shooting range"
-        ]
-      },
-      "failures": []
-    },
-    {
-      "outing_id": "10-2",
       "label": "10B",
       "trailhead": "Dry Creek Parking Area/Trailhead",
       "passed": true,
@@ -2290,8 +706,8 @@
           "at signed junction with hawkins turn onto hawkins use harrow for 0 36 mi this earns hawkins segment 2 section estimate 4 42 official mi 83 min moving 2085 ft climb ascent required on hawkins 2 next decision look for signs to hawkins",
           "end of hawkins for this route",
           "follow",
-          "follow harrow toward hawkins until signed junction with hawkins connector mileage does not count as new official challenge credit includes 0 52 mi repeat official no new credit",
-          "follow harrow toward hawkins until signed junction with hawkins connector mileage does not count as new official challenge credit includes 4 42 mi repeat official no new credit",
+          "follow harrow toward hawkins until signed junction with hawkins connector mileage does not count as new official challenge credit includes 0 25 mi repeat official no new credit",
+          "follow harrow toward hawkins until signed junction with hawkins connector mileage does not count as new official challenge credit includes 0 36 mi repeat official no new credit",
           "follow hawkins this earns hawkins segment 1 section estimate 0 52 official mi 10 min moving 188 ft climb ascent required on hawkins 1 next decision look for signs to hawkins",
           "follow hawkins toward hawkins range reserve trailhead until parked car trailhead verify finish at hawkins range reserve trailhead",
           "follow hawkins toward hawkins until signed hawkins route first official segment",
@@ -4666,7 +3082,7 @@
           "continue straight",
           "continue straight watchman toward return to car until end of watchman for this route this earns watchman segment 1 section estimate 2 71 official mi 43 min moving 778 ft climb",
           "double back",
-          "double back five mile gulch five mile gulch toward five mile gulch until signed junction with five mile gulch verify watch for signs five mile gulch ignore do not read overlapping full route line as a separate repeat official mileage does not count as new official challenge credit includes 1 46 mi repeat official no new credit"
+          "double back five mile gulch five mile gulch toward five mile gulch until signed junction with five mile gulch verify watch for signs five mile gulch ignore do not read overlapping full route line as a separate repeat official mileage does not count as new official challenge credit includes 1 08 mi repeat official no new credit"
         ]
       },
       "failures": []
@@ -6031,16 +4447,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.301,
+          "distance_miles": 0.317,
           "route_miles_start": 21.888,
-          "route_miles_end": 22.189,
+          "route_miles_end": 22.205,
           "start_coordinate": [
             -116.183585,
             43.677043
           ],
           "end_coordinate": [
-            -116.180606,
-            43.673591
+            -116.180296,
+            43.673548
           ]
         },
         {
@@ -6051,12 +4467,12 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.032,
-          "route_miles_start": 22.189,
+          "distance_miles": 0.016,
+          "route_miles_start": 22.205,
           "route_miles_end": 22.221,
           "start_coordinate": [
-            -116.180606,
-            43.673591
+            -116.180296,
+            43.673548
           ],
           "end_coordinate": [
             -116.180163,
@@ -6211,7 +4627,7 @@
           "#33",
           "#78"
         ],
-        "normalized_text_count": 52,
+        "normalized_text_count": 51,
         "sample_normalized_text": [
           "01 0 00 mi 0 01 start access follow bob's until signed junction with highlands",
           "02 0 01 mi 1 89 follow highlands until signed junction with dry creek",
@@ -6219,7 +4635,7 @@
           "04 10 32 mi 1 86 jct continue straight dry creek until signed junction with dry creek",
           "05 12 18 mi 1 49 overlap double back dry creek dry creek until signed junction with dry creek",
           "06 13 86 mi 6 01 jct take dry creek until signed junction with connector",
-          "07 19 87 mi 2 48 road follow dry creek dry creek north bogus basin road osm service connector 11395 until signed junction with connector",
+          "07 19 87 mi 2 48 road follow dry creek dry creek north bogus basin road until signed junction with connector",
           "08 22 35 mi 0 76 jct take connector until end of connector for this route",
           "09 23 10 mi 1 42 exit follow corrals corrals highlands until parked car trailhead",
           "after connector you are not fully back at car use corrals corrals highlands back toward bob's trailhead expect about 2 03 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
@@ -6459,7 +4875,7 @@
           "dry creek sweet connie roadside parking",
           "end of sweet connie for this route",
           "follow",
-          "follow chukar butte sweet connie powerline cut off sweet connie toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 6 08 mi repeat official no new credit",
+          "follow chukar butte sweet connie powerline cut off sweet connie toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 4 09 mi repeat official no new credit",
           "follow connector access back to car",
           "follow sweet connie this earns sweet connie segments 1 3 section estimate 6 08 official mi 3191 ft climb ascent required on sweet connie 1 sweet connie 2 and sweet connie 3",
           "follow sweet connie toward return to car until end of sweet connie for this route this earns sweet connie segments 1 3 section estimate 6 08 official mi 3191 ft climb ascent required on sweet connie 1 sweet connie 2 and sweet connie 3",
@@ -6938,7 +5354,7 @@
           "after stack rock connector you are not fully back at car use freddys stack rock freddys stack rock back toward freddy's stack rock trailhead expect about 1 95 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "end of stack rock connector for this route",
           "follow",
-          "follow freddys stack rock freddys stack rock toward freddy's stack rock trailhead until parked car trailhead verify finish at freddy's stack rock trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 3 49 mi repeat official no new credit",
+          "follow freddys stack rock freddys stack rock toward freddy's stack rock trailhead until parked car trailhead verify finish at freddy's stack rock trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 2 81 mi repeat official no new credit",
           "follow freddys stack rock toward stack rock connector until signed junction with stack rock connector verify watch for signs freddys stack rock this access leg is not official challenge credit",
           "follow stack rock connector this earns stack rock connector official segments 1663 and 1664 section estimate 3 49 official mi 54 min moving 818 ft climb 1280 ft descent",
           "follow stack rock connector toward return to car until end of stack rock connector for this route this earns stack rock connector official segments 1663 and 1664 section estimate 3 49 official mi 54 min moving 818 ft climb 1280 ft descent",
@@ -7376,7 +5792,7 @@
           "dry creek sweet connie roadside parking",
           "end of shingle creek for this route",
           "follow",
-          "follow shingle creek shingle creek toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 4 76 mi repeat official no new credit",
+          "follow shingle creek shingle creek toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 3 66 mi repeat official no new credit",
           "follow shingle creek this earns shingle creek official segment 1656 section estimate 4 76 official mi 90 min moving 2671 ft climb ascent required on shingle creek",
           "follow shingle creek toward return to car until end of shingle creek for this route this earns shingle creek official segment 1656 section estimate 4 76 official mi 90 min moving 2671 ft climb ascent required on shingle creek",
           "follow shingle creek toward shingle creek until signed shingle creek route first official segment this access leg is not official challenge credit includes 3 15 mi repeat official no new credit",
@@ -9850,16 +8266,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.027,
+          "distance_miles": 0.037,
           "route_miles_start": 6.273,
-          "route_miles_end": 6.299,
+          "route_miles_end": 6.31,
           "start_coordinate": [
             -116.0861,
             43.7617
           ],
           "end_coordinate": [
-            -116.0858,
-            43.762
+            -116.085597,
+            43.762001
           ]
         },
         {
@@ -9870,16 +8286,16 @@
           "segment_id": "1680",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.026,
-          "route_miles_start": 6.299,
+          "distance_miles": 0.016,
+          "route_miles_start": 6.31,
           "route_miles_end": 6.325,
           "start_coordinate": [
-            -116.0858,
-            43.762
+            -116.085597,
+            43.762001
           ],
           "end_coordinate": [
-            -116.0853,
-            43.7621
+            -116.085296,
+            43.76207
           ]
         },
         {
@@ -9890,236 +8306,36 @@
           "segment_id": "1553",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.015,
+          "distance_miles": 0.014,
           "route_miles_start": 6.325,
           "route_miles_end": 6.34,
           "start_coordinate": [
-            -116.0853,
-            43.7621
+            -116.085296,
+            43.76207
           ],
           "end_coordinate": [
-            -116.085,
-            43.7621
+            -116.085018,
+            43.76212
           ]
         },
         {
-          "edge_id": "official:1680:188:0",
-          "name": "The Face Trail",
+          "edge_id": "official:1554:71:0",
+          "name": "Elk Meadows Trail",
           "signposts": [],
           "source_class": "official_segment",
-          "segment_id": "1680",
+          "segment_id": "1554",
           "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.16,
+          "traversal_direction": "forward",
+          "distance_miles": 1.039,
           "route_miles_start": 6.34,
-          "route_miles_end": 7.5,
+          "route_miles_end": 7.378,
           "start_coordinate": [
-            -116.085,
-            43.7621
+            -116.085018,
+            43.76212
           ],
           "end_coordinate": [
-            -116.096146,
-            43.774007
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.182,
-          "route_miles_start": 7.5,
-          "route_miles_end": 7.682,
-          "start_coordinate": [
-            -116.096146,
-            43.774007
-          ],
-          "end_coordinate": [
-            -116.0971,
-            43.7747
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 7.682,
-          "route_miles_end": 7.691,
-          "start_coordinate": [
-            -116.0971,
-            43.7747
-          ],
-          "end_coordinate": [
-            -116.0972,
-            43.7748
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.039,
-          "route_miles_start": 7.691,
-          "route_miles_end": 7.729,
-          "start_coordinate": [
-            -116.0972,
-            43.7748
-          ],
-          "end_coordinate": [
-            -116.0974,
-            43.775
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.012,
-          "route_miles_start": 7.729,
-          "route_miles_end": 7.742,
-          "start_coordinate": [
-            -116.0974,
-            43.775
-          ],
-          "end_coordinate": [
-            -116.0976,
-            43.7749
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.129,
-          "route_miles_start": 7.742,
-          "route_miles_end": 7.871,
-          "start_coordinate": [
-            -116.0976,
-            43.7749
-          ],
-          "end_coordinate": [
-            -116.0981,
-            43.7752
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.005,
-          "route_miles_start": 7.871,
-          "route_miles_end": 7.876,
-          "start_coordinate": [
-            -116.0981,
-            43.7752
-          ],
-          "end_coordinate": [
-            -116.0982,
-            43.7752
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.077,
-          "route_miles_start": 7.876,
-          "route_miles_end": 7.952,
-          "start_coordinate": [
-            -116.0982,
-            43.7752
-          ],
-          "end_coordinate": [
-            -116.0973,
-            43.776
-          ]
-        },
-        {
-          "edge_id": "official:1721:228:0",
-          "name": "Lodge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1721",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.531,
-          "route_miles_start": 7.952,
-          "route_miles_end": 8.484,
-          "start_coordinate": [
-            -116.0973,
-            43.776
-          ],
-          "end_coordinate": [
-            -116.0877,
-            43.7751
-          ]
-        },
-        {
-          "edge_id": "official:1554:71:0",
-          "name": "Elk Meadows Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1554",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.106,
-          "route_miles_start": 8.484,
-          "route_miles_end": 8.589,
-          "start_coordinate": [
-            -116.0877,
-            43.7751
-          ],
-          "end_coordinate": [
-            -116.0859,
-            43.7755
-          ]
-        },
-        {
-          "edge_id": "official:1554:71:0",
-          "name": "Elk Meadows Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1554",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.014,
-          "route_miles_start": 8.589,
-          "route_miles_end": 8.603,
-          "start_coordinate": [
-            -116.0859,
-            43.7755
-          ],
-          "end_coordinate": [
-            -116.0859,
-            43.7757
+            -116.085924,
+            43.775709
           ]
         },
         {
@@ -10130,16 +8346,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.262,
-          "route_miles_start": 8.603,
-          "route_miles_end": 8.866,
+          "distance_miles": 0.268,
+          "route_miles_start": 7.378,
+          "route_miles_end": 7.646,
           "start_coordinate": [
-            -116.0859,
-            43.7757
+            -116.085924,
+            43.775709
           ],
           "end_coordinate": [
-            -116.0858,
-            43.7771
+            -116.085795,
+            43.777124
           ]
         },
         {
@@ -10150,16 +8366,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.095,
-          "route_miles_start": 8.866,
-          "route_miles_end": 8.96,
+          "distance_miles": 0.089,
+          "route_miles_start": 7.646,
+          "route_miles_end": 7.735,
           "start_coordinate": [
-            -116.0858,
-            43.7771
+            -116.085795,
+            43.777124
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7782
+            -116.086146,
+            43.778172
           ]
         },
         {
@@ -10170,16 +8386,16 @@
           "segment_id": "1492",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 0.035,
-          "route_miles_start": 8.96,
-          "route_miles_end": 8.996,
+          "distance_miles": 0.036,
+          "route_miles_start": 7.735,
+          "route_miles_end": 7.771,
           "start_coordinate": [
-            -116.0861,
-            43.7782
+            -116.086146,
+            43.778172
           ],
           "end_coordinate": [
-            -116.086,
-            43.7787
+            -116.086036,
+            43.778681
           ]
         },
         {
@@ -10191,15 +8407,15 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 0.015,
-          "route_miles_start": 8.996,
-          "route_miles_end": 9.01,
+          "route_miles_start": 7.771,
+          "route_miles_end": 7.786,
           "start_coordinate": [
-            -116.086,
-            43.7787
+            -116.086036,
+            43.778681
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ]
         },
         {
@@ -10210,16 +8426,56 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.267,
-          "route_miles_start": 9.01,
-          "route_miles_end": 9.277,
+          "distance_miles": 0.077,
+          "route_miles_start": 7.786,
+          "route_miles_end": 7.863,
           "start_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ],
           "end_coordinate": [
-            -116.0863,
-            43.7825
+            -116.086048,
+            43.779979
+          ]
+        },
+        {
+          "edge_id": "connector:9394:0",
+          "name": "OSM track connector 92827",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.017,
+          "route_miles_start": 7.863,
+          "route_miles_end": 7.88,
+          "start_coordinate": [
+            -116.086048,
+            43.779979
+          ],
+          "end_coordinate": [
+            -116.086149,
+            43.780219
+          ]
+        },
+        {
+          "edge_id": "connector:1133:0",
+          "name": "National Forest Development Road 374",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.17,
+          "route_miles_start": 7.88,
+          "route_miles_end": 8.05,
+          "start_coordinate": [
+            -116.086149,
+            43.780219
+          ],
+          "end_coordinate": [
+            -116.086304,
+            43.782495
           ]
         },
         {
@@ -10230,16 +8486,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.029,
-          "route_miles_start": 9.277,
-          "route_miles_end": 9.307,
+          "distance_miles": 0.024,
+          "route_miles_start": 8.05,
+          "route_miles_end": 8.074,
           "start_coordinate": [
-            -116.0863,
-            43.7825
+            -116.086304,
+            43.782495
           ],
           "end_coordinate": [
-            -116.0865,
-            43.7829
+            -116.086442,
+            43.782831
           ]
         },
         {
@@ -10250,16 +8506,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.021,
-          "route_miles_start": 9.307,
-          "route_miles_end": 9.328,
+          "distance_miles": 0.026,
+          "route_miles_start": 8.074,
+          "route_miles_end": 8.101,
           "start_coordinate": [
-            -116.0865,
-            43.7829
+            -116.086442,
+            43.782831
           ],
           "end_coordinate": [
-            -116.0866,
-            43.7832
+            -116.08657,
+            43.783198
           ]
         },
         {
@@ -10270,16 +8526,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.021,
-          "route_miles_start": 9.328,
-          "route_miles_end": 9.349,
+          "distance_miles": 0.033,
+          "route_miles_start": 8.101,
+          "route_miles_end": 8.133,
           "start_coordinate": [
-            -116.0866,
-            43.7832
+            -116.08657,
+            43.783198
           ],
           "end_coordinate": [
-            -116.0867,
-            43.7835
+            -116.086798,
+            43.783643
           ]
         },
         {
@@ -10290,12 +8546,12 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.055,
-          "route_miles_start": 9.349,
-          "route_miles_end": 9.405,
+          "distance_miles": 0.051,
+          "route_miles_start": 8.133,
+          "route_miles_end": 8.185,
           "start_coordinate": [
-            -116.0867,
-            43.7835
+            -116.086798,
+            43.783643
           ],
           "end_coordinate": [
             -116.0859,
@@ -10311,8 +8567,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.014,
-          "route_miles_start": 9.405,
-          "route_miles_end": 9.419,
+          "route_miles_start": 8.185,
+          "route_miles_end": 8.199,
           "start_coordinate": [
             -116.0859,
             43.784
@@ -10331,8 +8587,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.074,
-          "route_miles_start": 9.419,
-          "route_miles_end": 9.492,
+          "route_miles_start": 8.199,
+          "route_miles_end": 8.272,
           "start_coordinate": [
             -116.0859,
             43.7842
@@ -10351,8 +8607,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.008,
-          "route_miles_start": 9.492,
-          "route_miles_end": 9.5,
+          "route_miles_start": 8.272,
+          "route_miles_end": 8.28,
           "start_coordinate": [
             -116.087,
             43.7848
@@ -10371,8 +8627,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.087,
-          "route_miles_start": 9.5,
-          "route_miles_end": 9.587,
+          "route_miles_start": 8.28,
+          "route_miles_end": 8.367,
           "start_coordinate": [
             -116.08716,
             43.7848
@@ -10391,8 +8647,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.007,
-          "route_miles_start": 9.587,
-          "route_miles_end": 9.593,
+          "route_miles_start": 8.367,
+          "route_miles_end": 8.374,
           "start_coordinate": [
             -116.088429,
             43.785201
@@ -10411,8 +8667,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.121,
-          "route_miles_start": 9.593,
-          "route_miles_end": 9.714,
+          "route_miles_start": 8.374,
+          "route_miles_end": 8.494,
           "start_coordinate": [
             -116.088559,
             43.785215
@@ -10431,8 +8687,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.205,
-          "route_miles_start": 9.714,
-          "route_miles_end": 9.919,
+          "route_miles_start": 8.494,
+          "route_miles_end": 8.699,
           "start_coordinate": [
             -116.088908,
             43.786527
@@ -10451,8 +8707,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.979,
-          "route_miles_start": 9.919,
-          "route_miles_end": 10.898,
+          "route_miles_start": 8.699,
+          "route_miles_end": 9.678,
           "start_coordinate": [
             -116.090783,
             43.788554
@@ -10471,8 +8727,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.356,
-          "route_miles_start": 10.898,
-          "route_miles_end": 11.254,
+          "route_miles_start": 9.678,
+          "route_miles_end": 10.034,
           "start_coordinate": [
             -116.087614,
             43.788038
@@ -10491,15 +8747,15 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.089,
-          "route_miles_start": 11.254,
-          "route_miles_end": 11.343,
+          "route_miles_start": 10.034,
+          "route_miles_end": 10.123,
           "start_coordinate": [
             -116.086986,
             43.784855
           ],
           "end_coordinate": [
-            -116.0859,
-            43.7841
+            -116.085862,
+            43.784064
           ]
         },
         {
@@ -10510,16 +8766,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.058,
-          "route_miles_start": 11.343,
-          "route_miles_end": 11.401,
+          "distance_miles": 0.056,
+          "route_miles_start": 10.123,
+          "route_miles_end": 10.179,
           "start_coordinate": [
-            -116.0859,
-            43.7841
+            -116.085862,
+            43.784064
           ],
           "end_coordinate": [
-            -116.0868,
-            43.7836
+            -116.086798,
+            43.783643
           ]
         },
         {
@@ -10530,16 +8786,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.023,
-          "route_miles_start": 11.401,
-          "route_miles_end": 11.424,
+          "distance_miles": 0.025,
+          "route_miles_start": 10.179,
+          "route_miles_end": 10.204,
           "start_coordinate": [
-            -116.0868,
-            43.7836
+            -116.086798,
+            43.783643
           ],
           "end_coordinate": [
-            -116.0866,
-            43.7833
+            -116.086606,
+            43.783302
           ]
         },
         {
@@ -10550,16 +8806,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.036,
-          "route_miles_start": 11.424,
-          "route_miles_end": 11.46,
+          "distance_miles": 0.031,
+          "route_miles_start": 10.204,
+          "route_miles_end": 10.235,
           "start_coordinate": [
-            -116.0866,
-            43.7833
+            -116.086606,
+            43.783302
           ],
           "end_coordinate": [
-            -116.0864,
-            43.7828
+            -116.086458,
+            43.782865
           ]
         },
         {
@@ -10570,16 +8826,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.015,
-          "route_miles_start": 11.46,
-          "route_miles_end": 11.474,
+          "distance_miles": 0.027,
+          "route_miles_start": 10.235,
+          "route_miles_end": 10.262,
           "start_coordinate": [
-            -116.0864,
-            43.7828
+            -116.086458,
+            43.782865
           ],
           "end_coordinate": [
-            -116.0863,
-            43.7826
+            -116.086304,
+            43.782495
           ]
         },
         {
@@ -10590,16 +8846,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.274,
-          "route_miles_start": 11.474,
-          "route_miles_end": 11.748,
+          "distance_miles": 0.263,
+          "route_miles_start": 10.262,
+          "route_miles_end": 10.526,
           "start_coordinate": [
-            -116.0863,
-            43.7826
+            -116.086304,
+            43.782495
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ]
         },
         {
@@ -10610,16 +8866,16 @@
           "segment_id": "1493",
           "direction": "ascent",
           "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 11.748,
-          "route_miles_end": 11.762,
+          "distance_miles": 0.011,
+          "route_miles_start": 10.526,
+          "route_miles_end": 10.537,
           "start_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7787
+            -116.086052,
+            43.778733
           ]
         },
         {
@@ -10630,16 +8886,16 @@
           "segment_id": "1493",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 0.868,
-          "route_miles_start": 11.762,
-          "route_miles_end": 12.63,
+          "distance_miles": 0.857,
+          "route_miles_start": 10.537,
+          "route_miles_end": 11.394,
           "start_coordinate": [
-            -116.0861,
-            43.7787
+            -116.086052,
+            43.778733
           ],
           "end_coordinate": [
-            -116.1004,
-            43.7775
+            -116.100367,
+            43.777612
           ]
         },
         {
@@ -10650,16 +8906,16 @@
           "segment_id": "1750",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 0.351,
-          "route_miles_start": 12.63,
-          "route_miles_end": 12.982,
+          "distance_miles": 0.365,
+          "route_miles_start": 11.394,
+          "route_miles_end": 11.759,
           "start_coordinate": [
-            -116.1004,
-            43.7775
+            -116.100367,
+            43.777612
           ],
           "end_coordinate": [
-            -116.1003,
-            43.7725
+            -116.10028,
+            43.772363
           ]
         },
         {
@@ -10673,15 +8929,15 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.022,
-          "route_miles_start": 12.982,
-          "route_miles_end": 13.004,
+          "route_miles_start": 11.759,
+          "route_miles_end": 11.78,
           "start_coordinate": [
-            -116.1003,
-            43.7725
+            -116.10028,
+            43.772363
           ],
           "end_coordinate": [
-            -116.1002,
-            43.7722
+            -116.100112,
+            43.772122
           ]
         },
         {
@@ -10692,388 +8948,178 @@
           "segment_id": "1501",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.05,
-          "route_miles_start": 13.004,
-          "route_miles_end": 13.053,
+          "distance_miles": 0.012,
+          "route_miles_start": 11.78,
+          "route_miles_end": 11.792,
           "start_coordinate": [
-            -116.1002,
-            43.7722
+            -116.100112,
+            43.772122
           ],
           "end_coordinate": [
-            -116.0995,
-            43.7717
+            -116.100001,
+            43.771971
           ]
         },
         {
-          "edge_id": "connector:7943:0",
-          "name": "#142 Sunshine",
+          "edge_id": "connector:120:0",
+          "name": "#96 Brewers Byway",
           "signposts": [
-            "142"
+            "96"
           ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.014,
+          "route_miles_start": 11.792,
+          "route_miles_end": 11.806,
+          "start_coordinate": [
+            -116.100001,
+            43.771971
+          ],
+          "end_coordinate": [
+            -116.100172,
+            43.771806
+          ]
+        },
+        {
+          "edge_id": "connector:9323:0",
+          "name": "OSM track connector 91509",
+          "signposts": [],
           "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.383,
-          "route_miles_start": 13.053,
-          "route_miles_end": 13.436,
+          "distance_miles": 0.122,
+          "route_miles_start": 11.806,
+          "route_miles_end": 11.928,
           "start_coordinate": [
-            -116.0995,
-            43.7717
+            -116.100172,
+            43.771806
           ],
           "end_coordinate": [
-            -116.096,
-            43.7672
+            -116.102295,
+            43.770968
           ]
         },
         {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
+          "edge_id": "connector:1420:0",
+          "name": "OSM track connector 12036",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.08,
-          "route_miles_start": 13.436,
-          "route_miles_end": 13.517,
+          "distance_miles": 0.164,
+          "route_miles_start": 11.928,
+          "route_miles_end": 12.092,
           "start_coordinate": [
-            -116.096,
-            43.7672
+            -116.102295,
+            43.770968
           ],
           "end_coordinate": [
-            -116.0946,
-            43.7667
+            -116.104494,
+            43.769409
           ]
         },
         {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
+          "edge_id": "connector:2452:0",
+          "name": "OSM track connector 19702",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.511,
+          "route_miles_start": 12.092,
+          "route_miles_end": 12.603,
+          "start_coordinate": [
+            -116.104494,
+            43.769409
+          ],
+          "end_coordinate": [
+            -116.103878,
+            43.765522
+          ]
+        },
+        {
+          "edge_id": "connector:1421:0",
+          "name": "North Bogus Shop Road",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.09,
-          "route_miles_start": 13.517,
-          "route_miles_end": 13.607,
-          "start_coordinate": [
-            -116.0946,
-            43.7667
-          ],
-          "end_coordinate": [
-            -116.0958,
-            43.7668
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "forward",
           "distance_miles": 0.009,
-          "route_miles_start": 13.607,
-          "route_miles_end": 13.615,
+          "route_miles_start": 12.603,
+          "route_miles_end": 12.612,
           "start_coordinate": [
-            -116.0958,
-            43.7668
+            -116.103878,
+            43.765522
           ],
           "end_coordinate": [
-            -116.0957,
-            43.7667
+            -116.103753,
+            43.765423
           ]
         },
         {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
+          "edge_id": "connector:7249:0",
+          "name": "OSM service connector 59358",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.18,
-          "route_miles_start": 13.615,
-          "route_miles_end": 13.795,
-          "start_coordinate": [
-            -116.0957,
-            43.7667
-          ],
-          "end_coordinate": [
-            -116.0966,
-            43.7657
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.014,
-          "route_miles_start": 13.795,
-          "route_miles_end": 13.809,
-          "start_coordinate": [
-            -116.0966,
-            43.7657
-          ],
-          "end_coordinate": [
-            -116.0966,
-            43.7655
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.235,
-          "route_miles_start": 13.809,
-          "route_miles_end": 14.044,
-          "start_coordinate": [
-            -116.0966,
-            43.7655
-          ],
-          "end_coordinate": [
-            -116.0985,
-            43.766
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 14.044,
-          "route_miles_end": 14.053,
-          "start_coordinate": [
-            -116.0985,
-            43.766
-          ],
-          "end_coordinate": [
-            -116.0986,
-            43.7659
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.047,
-          "route_miles_start": 14.053,
-          "route_miles_end": 14.099,
-          "start_coordinate": [
-            -116.0986,
-            43.7659
-          ],
-          "end_coordinate": [
-            -116.0991,
-            43.7655
-          ]
-        },
-        {
-          "edge_id": "connector:122:0",
-          "name": "Bogus Creek Loop",
-          "signposts": [],
-          "source_class": "r2r_trail",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.079,
-          "route_miles_start": 14.099,
-          "route_miles_end": 14.178,
+          "distance_miles": 0.042,
+          "route_miles_start": 12.612,
+          "route_miles_end": 12.654,
           "start_coordinate": [
-            -116.0991,
-            43.7655
+            -116.103753,
+            43.765423
           ],
           "end_coordinate": [
-            -116.1004,
-            43.7651
+            -116.103967,
+            43.76488
           ]
         },
         {
-          "edge_id": "connector:122:0",
-          "name": "Bogus Creek Loop",
+          "edge_id": "connector:7248:0",
+          "name": "OSM service connector 59357",
           "signposts": [],
-          "source_class": "r2r_trail",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 14.178,
-          "route_miles_end": 14.192,
+          "distance_miles": 0.065,
+          "route_miles_start": 12.654,
+          "route_miles_end": 12.718,
           "start_coordinate": [
-            -116.1004,
-            43.7651
+            -116.103967,
+            43.76488
           ],
           "end_coordinate": [
-            -116.1004,
-            43.7649
+            -116.102857,
+            43.765205
           ]
         },
         {
-          "edge_id": "connector:122:1",
-          "name": "Bogus Creek Loop",
+          "edge_id": "connector:4428:0",
+          "name": "North Bogus Creek Road",
           "signposts": [],
-          "source_class": "r2r_trail",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.103,
-          "route_miles_start": 14.192,
-          "route_miles_end": 14.296,
+          "distance_miles": 0.084,
+          "route_miles_start": 12.718,
+          "route_miles_end": 12.802,
           "start_coordinate": [
-            -116.1004,
-            43.7649
+            -116.102857,
+            43.765205
           ],
           "end_coordinate": [
-            -116.1012,
-            43.7636
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 14.296,
-          "route_miles_end": 14.304,
-          "start_coordinate": [
-            -116.1012,
-            43.7636
-          ],
-          "end_coordinate": [
-            -116.1013,
-            43.7635
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.047,
-          "route_miles_start": 14.304,
-          "route_miles_end": 14.351,
-          "start_coordinate": [
-            -116.1013,
-            43.7635
-          ],
-          "end_coordinate": [
-            -116.1021,
-            43.7637
-          ]
-        },
-        {
-          "edge_id": "connector:7945:0",
-          "name": "Bogus Creek Loop",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 14.351,
-          "route_miles_end": 14.36,
-          "start_coordinate": [
-            -116.1021,
-            43.7637
-          ],
-          "end_coordinate": [
-            -116.1022,
-            43.7638
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 14.36,
-          "route_miles_end": 14.373,
-          "start_coordinate": [
-            -116.1022,
-            43.7638
-          ],
-          "end_coordinate": [
-            -116.1022,
-            43.764
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.016,
-          "route_miles_start": 14.373,
-          "route_miles_end": 14.39,
-          "start_coordinate": [
-            -116.1022,
-            43.764
-          ],
-          "end_coordinate": [
-            -116.1019,
-            43.7641
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.012,
-          "route_miles_start": 14.39,
-          "route_miles_end": 14.402,
-          "start_coordinate": [
-            -116.1019,
-            43.7641
-          ],
-          "end_coordinate": [
-            -116.1021,
-            43.7642
+            -116.102254,
+            43.764255
           ]
         },
         {
@@ -11084,12 +9130,12 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.012,
-          "route_miles_start": 14.402,
-          "route_miles_end": 14.414,
+          "distance_miles": 0.004,
+          "route_miles_start": 12.802,
+          "route_miles_end": 12.806,
           "start_coordinate": [
-            -116.1021,
-            43.7642
+            -116.102254,
+            43.764255
           ],
           "end_coordinate": [
             -116.1023,
@@ -11107,28 +9153,28 @@
           "#96",
           "#98"
         ],
-        "normalized_text_count": 77,
+        "normalized_text_count": 78,
         "sample_normalized_text": [
-          "01 0 00 mi 1 19 start access follow brewer's byway extension north bogus creek road deer point bogus creek until signed brewer's byway extension route first official segment",
-          "02 1 19 mi 0 69 follow brewer's byway extension until signed junction with tempest",
-          "03 1 89 mi 0 49 jct take sunshine brewer's byway until signed junction with tempest",
-          "04 2 37 mi 0 94 jct continue straight tempest until signed junction with brewers byway",
-          "05 3 31 mi 1 12 road follow cabin traverse tempest brewers byway deer point elk meadows national forest development road 374 osm track connector 8183 packing shafer butte road face until signed junction with brewers byway",
-          "06 4 61 mi 1 26 jct take brewers byway until signed junction with face",
-          "07 5 87 mi 1 25 overlap double back cabin traverse face brewers byway deer point elk meadows until signed junction with face",
-          "08 7 31 mi 1 33 jct take face until signed junction with mores mtn interpretive",
-          "09 8 65 mi 2 12 jct take tempest until signed junction with mores mtn interpretive",
-          "10 10 76 mi 2 23 jct bear left mores mtn interpretive until end of mores mtn interpretive for this route",
-          "11 13 00 mi 1 99 exit follow sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 osm service connector 94686 osm track connector 107366 osm track connector 92827 shafer butte campground road until parked car trailhead",
-          "after mores mtn interpretive you are not fully back at car use sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 4 more back toward bogus basin base area expect about 3 26 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "01 0 00 mi 1 03 start access follow brewer's byway extension north bogus creek road deer point bogus creek until signed brewer's byway extension route first official segment",
+          "02 1 03 mi 0 60 follow brewer's byway extension until signed junction with tempest",
+          "03 1 63 mi 0 42 jct take sunshine brewer's byway until signed junction with tempest",
+          "04 2 05 mi 0 81 jct take tempest until signed junction with brewers byway",
+          "05 2 86 mi 1 12 road follow cabin traverse tempest brewers byway deer point elk meadows national forest development road 374 osm track connector 8183 packing shafer butte road face until signed junction with brewers byway",
+          "06 3 98 mi 1 09 jct take brewers byway until signed junction with face",
+          "07 5 07 mi 1 25 road follow cabin traverse face brewers byway deer point elk meadows until signed junction with face",
+          "08 6 32 mi 1 15 jct take face until signed junction with mores mtn interpretive",
+          "09 7 47 mi 1 66 road follow tempest elk meadows lodge lodge cat track mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 osm service connector 94686 osm track connector 12046 osm track connector 92827 until signed junction with mores mtn interpretive",
+          "10 9 30 mi 1 93 jct continue straight mores mtn interpretive until end of mores mtn interpretive for this route",
+          "11 11 23 mi 1 99 exit follow sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 osm service connector 94686 osm track connector 107366 osm track connector 92827 shafer butte campground road until parked car trailhead",
+          "after mores mtn interpretive you are not fully back at car use sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 4 more back toward bogus basin base area expect about 2 73 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "around mountain",
           "at signed junction with brewers byway turn onto brewers byway use named connector road for 1 12 mi look for signs cabin traverse tempest this earns brewers byway segments 3 2 and 1 section estimate 1 09 official mi 23 min moving 164 ft climb 252 ft descent next decision look for signs to face",
-          "at signed junction with face turn onto face use named connector road for 1 25 mi look for signs cabin traverse face this earns face segment 1 section estimate 1 15 official mi 24 min moving 319 ft climb next decision look for signs to mores mtn interpretive",
-          "at signed junction with mores mtn interpretive bear left onto mores mtn interpretive use named connector road for 1 83 mi look for signs tempest this earns mores mtn interpretive segments 5 4 3 2 and 1 section estimate 1 93 official mi 50 min moving 818 ft climb",
-          "at signed junction with tempest continue straight onto tempest use named connector road for 0 42 mi look for signs sunshine brewer's byway this earns both tempest official segments section estimate 0 81 official mi 24 min moving 629 ft climb next decision look for signs to brewers byway",
-          "bear left",
-          "bear left mores mtn interpretive toward return to car until end of mores mtn interpretive for this route this earns mores mtn interpretive segments 5 4 3 2 and 1 section estimate 1 93 official mi 50 min moving 818 ft climb also includes repeat official mileage already credited earlier in this route includes 0 08 mi repeat official no new credit",
-          "bear left onto mores mtn interpretive"
+          "at signed junction with face continue straight onto face use named connector road for 1 25 mi look for signs cabin traverse face official repeat mileage face segment 1 do not count as new credit section estimate 1 15 official mi 24 min moving 319 ft climb next decision look for signs to mores mtn interpretive",
+          "at signed junction with mores mtn interpretive continue straight onto mores mtn interpretive use named connector road for 1 83 mi look for signs tempest this earns mores mtn interpretive segments 5 4 3 2 and 1 section estimate 1 93 official mi 50 min moving 818 ft climb",
+          "at signed junction with tempest turn onto tempest use named connector road for 0 42 mi look for signs sunshine brewer's byway this earns both tempest official segments section estimate 0 81 official mi 24 min moving 629 ft climb next decision look for signs to brewers byway",
+          "bogus basin base area",
+          "bogus creek",
+          "brewer's byway"
         ]
       },
       "failures": []
@@ -12216,7 +10262,7 @@
           "follow 36th street chute this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb",
           "follow 36th street chute toward 36th street chute until signed 36th street chute route first official segment this access leg is not official challenge credit includes 0 81 mi repeat official no new credit",
           "follow 36th street chute toward return to car until end of 36th street chute for this route this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb this active line also uses chbh connector 1 as connector repeat mileage follow blue line and signs not only cue title",
-          "follow osm path connector 13997 toward prior parking anchor 13 until parked car trailhead verify finish at prior parking anchor 13 ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 74 mi repeat official no new credit",
+          "follow osm path connector 13997 toward prior parking anchor 13 until parked car trailhead verify finish at prior parking anchor 13 ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 6 mi repeat official no new credit",
           "from car head toward 36th street chute follow gpx access line for about 1 65 mi before official credit starts",
           "leave car toward 36th street chute",
           "osm path connector 13997",
@@ -15789,13 +13835,13 @@
           "continue straight",
           "continue straight urban connector toward return to car until end of urban connector for this route this earns urban connector segment 1 section estimate 1 24 official mi 20 min moving 371 ft climb this active line also uses bob's 3 as connector repeat mileage follow blue line and signs not only cue title this is exit from overlapping repeated route line",
           "double back",
-          "double back bob's bob's toward urban connector until signed junction with urban connector verify watch for signs bob's ignore do not read overlapping full route line as a separate repeat official mileage does not count as new official challenge credit includes 1 14 mi repeat official no new credit",
+          "double back bob's bob's toward urban connector until signed junction with urban connector verify watch for signs bob's ignore do not read overlapping full route line as a separate repeat official mileage does not count as new official challenge credit includes 0 9 mi repeat official no new credit",
           "end of urban connector for this route",
           "follow",
           "follow bob's this earns bob's segments 1 3 section estimate 1 59 official mi 29 min moving 606 ft climb next decision look for signs to urban connector",
           "follow bob's toward bob's until signed junction with bob's verify watch for signs bob's this access leg is not official challenge credit",
           "follow bob's toward urban connector until signed junction with urban connector this earns bob's segments 1 3 section estimate 1 59 official mi 29 min moving 606 ft climb",
-          "follow highlands toward bob's trailhead until parked car trailhead verify finish at bob's trailhead return leg does not count as new official challenge credit includes 1 24 mi repeat official no new credit"
+          "follow highlands toward bob's trailhead until parked car trailhead verify finish at bob's trailhead return leg does not count as new official challenge credit includes 0 36 mi repeat official no new credit"
         ]
       },
       "failures": []
@@ -15902,7 +13948,7 @@
           "end of scott's for this route",
           "follow",
           "follow hull's gulch interpretive toward scott's until signed junction with scott's verify watch for signs hull's gulch interpretive this access leg is not official challenge credit",
-          "follow scott's east sunset peak road scott's toward upper interpretive trailhead until parked car trailhead verify finish at upper interpretive trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 1 05 mi repeat official no new credit",
+          "follow scott's east sunset peak road scott's toward upper interpretive trailhead until parked car trailhead verify finish at upper interpretive trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 79 mi repeat official no new credit",
           "follow scott's this earns scott's segment 1 section estimate 1 05 official mi 14 min moving 30 ft climb 647 ft descent",
           "follow scott's toward return to car until end of scott's for this route this earns scott's segment 1 section estimate 1 05 official mi 14 min moving 30 ft climb 647 ft descent",
           "from car take hull's gulch interpretive toward scott's this access road is part of route even though it is not official challenge credit watch for signs hull's gulch interpretive",
@@ -17632,7 +15678,7 @@
           "follow barn owl this earns barn owl official segments 1494 and 1495 section estimate 1 43 official mi 33 min moving 548 ft climb",
           "follow barn owl toward barn owl until signed barn owl route first official segment",
           "follow barn owl toward return to car until end of barn owl for this route this earns barn owl official segments 1494 and 1495 section estimate 1 43 official mi 33 min moving 548 ft climb this active line also uses cartwright ridge 1 as connector repeat mileage follow blue line and signs not only cue title",
-          "follow barn owl toward west hidden springs drive road parking anchor until parked car trailhead verify finish at west hidden springs drive road parking anchor ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 1 43 mi repeat official no new credit",
+          "follow barn owl toward west hidden springs drive road parking anchor until parked car trailhead verify finish at west hidden springs drive road parking anchor ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 95 mi repeat official no new credit",
           "follow connector access back to car",
           "from car head toward barn owl",
           "leave car toward barn owl",
@@ -18018,9 +16064,9 @@
           "doe ridge",
           "end of quick draw for this route",
           "follow",
-          "follow connector access toward doe ridge until signed junction with doe ridge connector mileage does not count as new official challenge credit includes 0 4 mi repeat official no new credit",
+          "follow connector access toward doe ridge until signed junction with doe ridge connector mileage does not count as new official challenge credit includes 0 13 mi repeat official no new credit",
           "follow polecat polecat stm toward polecat until signed junction with polecat verify watch for signs polecat connector mileage does not count as new official challenge credit",
-          "follow polecat stm toward cartwright trailhead until parked car trailhead verify finish at cartwright trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 1 41 mi repeat official no new credit"
+          "follow polecat stm toward cartwright trailhead until parked car trailhead verify finish at cartwright trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 69 mi repeat official no new credit"
         ]
       },
       "failures": []
@@ -19351,7 +17397,7 @@
           "bear left seaman gulch toward seaman gulch until signed junction with seaman gulch this earns seaman gulch segments 4 3 and 2 section estimate 1 01 official mi 22 min moving 92 ft climb 342 ft descent",
           "end of seaman gulch for this route",
           "follow",
-          "follow seaman gulch seamans gulch toward seaman gulch until signed junction with seaman gulch connector mileage does not count as new official challenge credit includes 0 17 mi repeat official no new credit",
+          "follow seaman gulch seamans gulch toward seaman gulch until signed junction with seaman gulch connector mileage does not count as new official challenge credit includes 0 11 mi repeat official no new credit",
           "follow seaman gulch seamans gulch toward seamans gulch trailhead until parked car trailhead verify finish at seamans gulch trailhead return leg does not count as new official challenge credit",
           "follow seaman gulch toward wild phlox until signed junction with wild phlox verify watch for signs seaman gulch this access leg is not official challenge credit",
           "follow wild phlox this earns both wild phlox official segments section estimate 0 77 official mi 17 min moving 251 ft climb next decision look for signs to seaman gulch",
@@ -19665,7 +17711,7 @@
           "after harris ridge you are not fully back at car use harris ridge harris ridge osm service connector 42418 back toward homestead access point expect about 0 72 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "end of harris ridge for this route",
           "follow",
-          "follow harris ridge harris ridge osm service connector 42418 toward homestead access point until parked car trailhead verify finish at homestead access point ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 1 72 mi repeat official no new credit",
+          "follow harris ridge harris ridge osm service connector 42418 toward homestead access point until parked car trailhead verify finish at homestead access point ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 72 mi repeat official no new credit",
           "follow harris ridge this earns harris ridge segment 1 section estimate 1 72 official mi 40 min moving 844 ft climb",
           "follow harris ridge toward return to car until end of harris ridge for this route this earns harris ridge segment 1 section estimate 1 72 official mi 40 min moving 844 ft climb",
           "follow homestead south council spring road toward harris ridge until signed junction with harris ridge verify watch for signs homestead this access leg is not official challenge credit access also follows south council spring road",
@@ -20087,7 +18133,7 @@
           "follow",
           "follow homestead south council spring road east woodcross drive river heights east grand prairie drive toward peace valley overlook until signed junction with peace valley overlook verify watch for signs homestead this access leg is not official challenge credit access also follows south council spring road east woodcross drive river heights and east grand prairie drive",
           "follow peace valley overlook this earns both peace valley overlook official segments section estimate 0 54 official mi 14 min moving 265 ft climb",
-          "follow peace valley overlook toward homestead access point until parked car trailhead verify finish at homestead access point return leg does not count as new official challenge credit includes 0 24 mi repeat official no new credit",
+          "follow peace valley overlook toward homestead access point until parked car trailhead verify finish at homestead access point return leg does not count as new official challenge credit includes 0 18 mi repeat official no new credit",
           "follow peace valley overlook toward return to car until end of peace valley overlook for this route this earns both peace valley overlook official segments section estimate 0 54 official mi 14 min moving 265 ft climb",
           "from car take homestead toward peace valley overlook this access road is part of route even though it is not official challenge credit follow gpx access line for about 0 91 mi watch for signs homestead access also follows south council spring road east woodcross drive river heights and east grand prairie drive",
           "homestead",
@@ -20763,6 +18809,898 @@
           "connector access",
           "continue onto d's chaos",
           "continue straight"
+        ]
+      },
+      "failures": []
+    },
+    {
+      "outing_id": "127-1",
+      "label": "H1",
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "passed": true,
+      "traversed_edge_summary": [
+        {
+          "edge_id": "connector:2936:0",
+          "name": "OSM footway connector 22443",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.025,
+          "route_miles_start": 0.0,
+          "route_miles_end": 0.025,
+          "start_coordinate": [
+            -116.262503,
+            43.777139
+          ],
+          "end_coordinate": [
+            -116.2624,
+            43.7768
+          ]
+        },
+        {
+          "edge_id": "connector:2651:0",
+          "name": "OSM footway connector 22098",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.012,
+          "route_miles_start": 0.025,
+          "route_miles_end": 0.037,
+          "start_coordinate": [
+            -116.2624,
+            43.7768
+          ],
+          "end_coordinate": [
+            -116.2622,
+            43.7769
+          ]
+        },
+        {
+          "edge_id": "connector:2799:0",
+          "name": "OSM footway connector 22306",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.026,
+          "route_miles_start": 0.037,
+          "route_miles_end": 0.063,
+          "start_coordinate": [
+            -116.2622,
+            43.7769
+          ],
+          "end_coordinate": [
+            -116.2617,
+            43.7768
+          ]
+        },
+        {
+          "edge_id": "connector:2803:0",
+          "name": "OSM footway connector 22310",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.009,
+          "route_miles_start": 0.063,
+          "route_miles_end": 0.071,
+          "start_coordinate": [
+            -116.2617,
+            43.7768
+          ],
+          "end_coordinate": [
+            -116.2616,
+            43.7767
+          ]
+        },
+        {
+          "edge_id": "official:1687:195:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1687",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.024,
+          "route_miles_start": 0.071,
+          "route_miles_end": 0.096,
+          "start_coordinate": [
+            -116.2616,
+            43.7767
+          ],
+          "end_coordinate": [
+            -116.2612,
+            43.7769
+          ]
+        },
+        {
+          "edge_id": "official:1687:195:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1687",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.012,
+          "route_miles_start": 0.096,
+          "route_miles_end": 0.108,
+          "start_coordinate": [
+            -116.2612,
+            43.7769
+          ],
+          "end_coordinate": [
+            -116.2614,
+            43.7768
+          ]
+        },
+        {
+          "edge_id": "official:1687:195:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1687",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.368,
+          "route_miles_start": 0.108,
+          "route_miles_end": 0.476,
+          "start_coordinate": [
+            -116.2614,
+            43.7768
+          ],
+          "end_coordinate": [
+            -116.255584,
+            43.779174
+          ]
+        },
+        {
+          "edge_id": "official:1688:196:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1688",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.292,
+          "route_miles_start": 0.476,
+          "route_miles_end": 0.768,
+          "start_coordinate": [
+            -116.255584,
+            43.779174
+          ],
+          "end_coordinate": [
+            -116.251754,
+            43.776812
+          ]
+        },
+        {
+          "edge_id": "official:1689:197:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1689",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.068,
+          "route_miles_start": 0.768,
+          "route_miles_end": 0.836,
+          "start_coordinate": [
+            -116.251754,
+            43.776812
+          ],
+          "end_coordinate": [
+            -116.25073,
+            43.776891
+          ]
+        },
+        {
+          "edge_id": "official:1661:169:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1661",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.008,
+          "route_miles_start": 0.836,
+          "route_miles_end": 0.844,
+          "start_coordinate": [
+            -116.25073,
+            43.776891
+          ],
+          "end_coordinate": [
+            -116.250569,
+            43.776901
+          ]
+        },
+        {
+          "edge_id": "official:1626:136:0",
+          "name": "Ricochet",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1626",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.073,
+          "route_miles_start": 0.844,
+          "route_miles_end": 0.917,
+          "start_coordinate": [
+            -116.250569,
+            43.776901
+          ],
+          "end_coordinate": [
+            -116.251046,
+            43.777355
+          ]
+        },
+        {
+          "edge_id": "official:1626:136:0",
+          "name": "Ricochet",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1626",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.009,
+          "route_miles_start": 0.917,
+          "route_miles_end": 0.927,
+          "start_coordinate": [
+            -116.251046,
+            43.777355
+          ],
+          "end_coordinate": [
+            -116.250863,
+            43.777385
+          ]
+        },
+        {
+          "edge_id": "official:1626:136:0",
+          "name": "Ricochet",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1626",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.576,
+          "route_miles_start": 0.927,
+          "route_miles_end": 1.502,
+          "start_coordinate": [
+            -116.250863,
+            43.777385
+          ],
+          "end_coordinate": [
+            -116.2528,
+            43.7819
+          ]
+        },
+        {
+          "edge_id": "connector:7934:0",
+          "name": "Ricochet - #2",
+          "signposts": [
+            "2"
+          ],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.029,
+          "route_miles_start": 1.502,
+          "route_miles_end": 1.531,
+          "start_coordinate": [
+            -116.2528,
+            43.7819
+          ],
+          "end_coordinate": [
+            -116.2532,
+            43.7822
+          ]
+        },
+        {
+          "edge_id": "connector:1919:0",
+          "name": "North Smokeys Draw Place",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.046,
+          "route_miles_start": 1.531,
+          "route_miles_end": 1.577,
+          "start_coordinate": [
+            -116.2532,
+            43.7822
+          ],
+          "end_coordinate": [
+            -116.2541,
+            43.7823
+          ]
+        },
+        {
+          "edge_id": "official:1657:165:0",
+          "name": "Shooting Range",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1657",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.276,
+          "route_miles_start": 1.577,
+          "route_miles_end": 1.853,
+          "start_coordinate": [
+            -116.2541,
+            43.7823
+          ],
+          "end_coordinate": [
+            -116.256495,
+            43.784631
+          ]
+        },
+        {
+          "edge_id": "official:1696:204:0",
+          "name": "Whistling Pig",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1696",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.865,
+          "route_miles_start": 1.853,
+          "route_miles_end": 2.717,
+          "start_coordinate": [
+            -116.256495,
+            43.784631
+          ],
+          "end_coordinate": [
+            -116.2572,
+            43.779
+          ]
+        },
+        {
+          "edge_id": "connector:4851:0",
+          "name": "Whistling Pig - #3",
+          "signposts": [
+            "3"
+          ],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.091,
+          "route_miles_start": 2.717,
+          "route_miles_end": 2.809,
+          "start_coordinate": [
+            -116.2572,
+            43.779
+          ],
+          "end_coordinate": [
+            -116.2556,
+            43.7793
+          ]
+        },
+        {
+          "edge_id": "official:1688:196:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1688",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.301,
+          "route_miles_start": 2.809,
+          "route_miles_end": 3.11,
+          "start_coordinate": [
+            -116.2556,
+            43.7793
+          ],
+          "end_coordinate": [
+            -116.2518,
+            43.7768
+          ]
+        },
+        {
+          "edge_id": "official:1689:197:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1689",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.071,
+          "route_miles_start": 3.11,
+          "route_miles_end": 3.181,
+          "start_coordinate": [
+            -116.2518,
+            43.7768
+          ],
+          "end_coordinate": [
+            -116.2507,
+            43.7769
+          ]
+        },
+        {
+          "edge_id": "official:1661:169:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1661",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.074,
+          "route_miles_start": 3.181,
+          "route_miles_end": 3.255,
+          "start_coordinate": [
+            -116.2507,
+            43.7769
+          ],
+          "end_coordinate": [
+            -116.250111,
+            43.775936
+          ]
+        },
+        {
+          "edge_id": "official:1662:170:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1662",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 2.314,
+          "route_miles_start": 3.255,
+          "route_miles_end": 5.569,
+          "start_coordinate": [
+            -116.250111,
+            43.775936
+          ],
+          "end_coordinate": [
+            -116.213808,
+            43.767789
+          ]
+        },
+        {
+          "edge_id": "official:1662:170:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1662",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.02,
+          "route_miles_start": 5.569,
+          "route_miles_end": 5.589,
+          "start_coordinate": [
+            -116.213808,
+            43.767789
+          ],
+          "end_coordinate": [
+            -116.2139,
+            43.7675
+          ]
+        },
+        {
+          "edge_id": "connector:10725:0",
+          "name": "Cartwright Road - #20",
+          "signposts": [
+            "20"
+          ],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.136,
+          "route_miles_start": 5.589,
+          "route_miles_end": 5.726,
+          "start_coordinate": [
+            -116.2139,
+            43.7675
+          ],
+          "end_coordinate": [
+            -116.2155,
+            43.766
+          ]
+        },
+        {
+          "edge_id": "connector:10507:0",
+          "name": "The Wall - #29",
+          "signposts": [
+            "29"
+          ],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.235,
+          "route_miles_start": 5.726,
+          "route_miles_end": 5.96,
+          "start_coordinate": [
+            -116.2155,
+            43.766
+          ],
+          "end_coordinate": [
+            -116.2196,
+            43.7656
+          ]
+        },
+        {
+          "edge_id": "connector:10506:0",
+          "name": "OSM path connector 105691",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.015,
+          "route_miles_start": 5.96,
+          "route_miles_end": 5.975,
+          "start_coordinate": [
+            -116.2196,
+            43.7656
+          ],
+          "end_coordinate": [
+            -116.2199,
+            43.7656
+          ]
+        },
+        {
+          "edge_id": "connector:10507:0",
+          "name": "The Wall - #29",
+          "signposts": [
+            "29"
+          ],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.021,
+          "route_miles_start": 5.975,
+          "route_miles_end": 5.996,
+          "start_coordinate": [
+            -116.2199,
+            43.7656
+          ],
+          "end_coordinate": [
+            -116.2202,
+            43.7654
+          ]
+        },
+        {
+          "edge_id": "official:1704:212:0",
+          "name": "Harlow's Hollows",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1704",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.055,
+          "route_miles_start": 5.996,
+          "route_miles_end": 6.051,
+          "start_coordinate": [
+            -116.2202,
+            43.7654
+          ],
+          "end_coordinate": [
+            -116.2213,
+            43.7654
+          ]
+        },
+        {
+          "edge_id": "official:1704:212:0",
+          "name": "Harlow's Hollows",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1704",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.047,
+          "route_miles_start": 6.051,
+          "route_miles_end": 6.098,
+          "start_coordinate": [
+            -116.2213,
+            43.7654
+          ],
+          "end_coordinate": [
+            -116.2204,
+            43.7653
+          ]
+        },
+        {
+          "edge_id": "official:1704:212:0",
+          "name": "Harlow's Hollows",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1704",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.203,
+          "route_miles_start": 6.098,
+          "route_miles_end": 6.301,
+          "start_coordinate": [
+            -116.2204,
+            43.7653
+          ],
+          "end_coordinate": [
+            -116.2239,
+            43.7642
+          ]
+        },
+        {
+          "edge_id": "official:1705:213:0",
+          "name": "Harlow's Hollows",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1705",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.478,
+          "route_miles_start": 6.301,
+          "route_miles_end": 6.779,
+          "start_coordinate": [
+            -116.2239,
+            43.7642
+          ],
+          "end_coordinate": [
+            -116.232647,
+            43.764674
+          ]
+        },
+        {
+          "edge_id": "official:1707:215:0",
+          "name": "Harlow's Hollows",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1707",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.392,
+          "route_miles_start": 6.779,
+          "route_miles_end": 7.171,
+          "start_coordinate": [
+            -116.232647,
+            43.764674
+          ],
+          "end_coordinate": [
+            -116.23882,
+            43.76768
+          ]
+        },
+        {
+          "edge_id": "official:1708:216:0",
+          "name": "Harlow's Hollows Connector",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1708",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.858,
+          "route_miles_start": 7.171,
+          "route_miles_end": 8.029,
+          "start_coordinate": [
+            -116.23882,
+            43.76768
+          ],
+          "end_coordinate": [
+            -116.247948,
+            43.773106
+          ]
+        },
+        {
+          "edge_id": "official:1706:214:0",
+          "name": "Harlow's Hollows",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1706",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.304,
+          "route_miles_start": 8.029,
+          "route_miles_end": 8.334,
+          "start_coordinate": [
+            -116.247948,
+            43.773106
+          ],
+          "end_coordinate": [
+            -116.250095,
+            43.775908
+          ]
+        },
+        {
+          "edge_id": "official:1661:169:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1661",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.076,
+          "route_miles_start": 8.334,
+          "route_miles_end": 8.41,
+          "start_coordinate": [
+            -116.250095,
+            43.775908
+          ],
+          "end_coordinate": [
+            -116.2506,
+            43.7769
+          ]
+        },
+        {
+          "edge_id": "official:1661:169:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1661",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.015,
+          "route_miles_start": 8.41,
+          "route_miles_end": 8.425,
+          "start_coordinate": [
+            -116.2506,
+            43.7769
+          ],
+          "end_coordinate": [
+            -116.2507,
+            43.7767
+          ]
+        },
+        {
+          "edge_id": "official:1689:197:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1689",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.052,
+          "route_miles_start": 8.425,
+          "route_miles_end": 8.477,
+          "start_coordinate": [
+            -116.2507,
+            43.7767
+          ],
+          "end_coordinate": [
+            -116.2516,
+            43.7768
+          ]
+        },
+        {
+          "edge_id": "official:1688:196:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1688",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.305,
+          "route_miles_start": 8.477,
+          "route_miles_end": 8.782,
+          "start_coordinate": [
+            -116.2516,
+            43.7768
+          ],
+          "end_coordinate": [
+            -116.2556,
+            43.7791
+          ]
+        },
+        {
+          "edge_id": "official:1687:195:0",
+          "name": "Twisted Spring",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1687",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.381,
+          "route_miles_start": 8.782,
+          "route_miles_end": 9.163,
+          "start_coordinate": [
+            -116.2556,
+            43.7791
+          ],
+          "end_coordinate": [
+            -116.2617,
+            43.7767
+          ]
+        },
+        {
+          "edge_id": "connector:2799:0",
+          "name": "OSM footway connector 22306",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.02,
+          "route_miles_start": 9.163,
+          "route_miles_end": 9.184,
+          "start_coordinate": [
+            -116.2617,
+            43.7767
+          ],
+          "end_coordinate": [
+            -116.262,
+            43.7769
+          ]
+        },
+        {
+          "edge_id": "connector:2651:0",
+          "name": "OSM footway connector 22098",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.025,
+          "route_miles_start": 9.184,
+          "route_miles_end": 9.209,
+          "start_coordinate": [
+            -116.262,
+            43.7769
+          ],
+          "end_coordinate": [
+            -116.2624,
+            43.7769
+          ]
+        },
+        {
+          "edge_id": "connector:2936:0",
+          "name": "OSM footway connector 22443",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.015,
+          "route_miles_start": 9.209,
+          "route_miles_end": 9.223,
+          "start_coordinate": [
+            -116.2624,
+            43.7769
+          ],
+          "end_coordinate": [
+            -116.2625,
+            43.7771
+          ]
+        }
+      ],
+      "cue_vocabulary_summary": {
+        "signposts": [
+          "#2",
+          "#20",
+          "#29",
+          "#3",
+          "#8",
+          "#9"
+        ],
+        "normalized_text_count": 76,
+        "sample_normalized_text": [
+          "01 0 00 mi 0 14 start access follow twisted spring until signed twisted spring route first official segment",
+          "02 0 14 mi 0 86 follow twisted spring until signed junction with ricochet",
+          "03 0 99 mi 0 01 connector follow ricochet north smokeys draw place until signed junction with ricochet",
+          "04 1 01 mi 0 80 jct turn right ricochet until signed junction with shooting range",
+          "05 1 81 mi 0 32 jct continue straight shooting range until signed junction with whistling pig",
+          "06 2 13 mi 0 00 connector follow whistling pig cartwright road wall until signed junction with whistling pig",
+          "07 2 13 mi 1 01 jct turn left whistling pig until signed junction with spring creek",
+          "08 3 13 mi 2 77 jct turn left spring creek until signed junction with harlow's hollows",
+          "09 5 90 mi 1 24 jct take harlow's hollows until signed junction with harlow's hollows connector",
+          "10 7 14 mi 1 01 jct continue straight harlow's hollows connector until signed junction with harlow's hollows",
+          "11 8 14 mi 0 38 jct continue straight harlow's hollows until end of harlow's hollows for this route",
+          "12 8 52 mi 0 75 exit follow twisted spring osm footway connector 22098 osm footway connector 22306 osm footway connector 22310 osm footway connector 22443 twisted spring until parked car trailhead",
+          "after harlow's hollows you are not fully back at car use spring creek twisted spring mcleod way greenbelt back toward avimor spring valley creek parking expect about 0 98 mi after final official credit segment this return leg is part of route even though it is not official challenge credit return also follows twisted spring",
+          "at signed junction with harlow's hollows connector continue straight onto harlow's hollows connector this earns harlow's hollows connector segment 1 section estimate 0 88 official mi 124 ft climb 432 ft descent next decision look for signs to harlow's hollows",
+          "at signed junction with harlow's hollows continue straight onto harlow's hollows this earns harlow's hollows segment 1 section estimate 0 33 official mi 124 ft climb 232 ft descent",
+          "at signed junction with harlow's hollows turn onto harlow's hollows this earns harlow's hollows segments 4 3 and 2 section estimate 1 08 official mi 82 ft climb 301 ft descent next decision look for signs to harlow's hollows connector",
+          "at signed junction with ricochet turn right onto ricochet use ricochet for 0 01 mi look for signs ricochet this earns ricochet segment 1 section estimate 0 7 official mi 471 ft climb next decision look for signs to shooting range",
+          "at signed junction with shooting range continue straight onto shooting range this earns shooting range segment 1 section estimate 0 28 official mi 143 ft climb next decision look for signs to whistling pig",
+          "at signed junction with spring creek turn left onto spring creek this earns both spring creek official segments section estimate 2 42 official mi 1188 ft climb next decision look for signs to harlow's hollows",
+          "at signed junction with whistling pig turn left onto whistling pig use whistling pig look for signs whistling pig this earns whistling pig segment 1 section estimate 0 88 official mi 328 ft climb 515 ft descent next decision look for signs to spring creek"
         ]
       },
       "failures": []

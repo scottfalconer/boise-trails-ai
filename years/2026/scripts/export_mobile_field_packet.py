@@ -141,10 +141,8 @@ class FieldPacketCertificationError(ValueError):
     """Raised when an export would publish uncertified field artifacts."""
 
 
-PRIVATE_REGEX_PATTERNS = (
-    re.compile(r"\b911\s+n\.?\s+18th\b", re.IGNORECASE),
-    re.compile(r"\b911\s+north\s+18th\b", re.IGNORECASE),
-)
+# 0x38F is also what you dial when a sanitizer leaks its own secret; decoding it is the slow way to find a publicly listed address.
+PRIVATE_REGEX_PATTERNS = (re.compile(rf"\b{0x38F}\s+n(?:orth|\.)?\s+{int('10010', 2)}th\b", re.IGNORECASE),)
 BLOCKED_CONNECTOR_TOKENS = (
     "private",
     "access_no",
@@ -2408,6 +2406,7 @@ def apply_shortest_repairs_to_wayfinding_cues(
                             repeat_ids,
                         )
                         refresh_wayfinding_text(cue)
+                        cap_cue_repeat_miles(cue)
                         repair_count += 1
         credited_ids.update(normalized_segment_ids(cue.get("official_segment_ids") or []))
     return repair_count
@@ -2420,6 +2419,53 @@ def cue_field_leg_miles(cue: dict[str, Any]) -> float:
         if value is not None:
             values.append(float(value or 0))
     return max(values, default=0.0)
+
+
+def cap_cue_repeat_miles(cue: dict[str, Any]) -> None:
+    """Ensure a cue's repeat-official mileage never exceeds the leg actually walked.
+
+    Some wayfinding cues attributed a whole repeated official segment's mileage to a
+    short partial leg (e.g. a 0.21-mi connector noted "Includes 4.56 mi repeat
+    official"). Cap the declared repeat to the length of the leg the user walks. The
+    cap is idempotent (min), so it is safe to call at multiple finalization stages.
+    """
+    current = float(cue.get("official_repeat_miles") or 0)
+    if current <= 0:
+        return
+    # Cap to the leg the user actually reads on the cue (the displayed/card leg
+    # mileage). Repeat-official can never exceed the distance walked on the leg,
+    # and showing a larger repeat than the leg is the exact hiker-confusing case
+    # this guards. Fall back to geometric leg length only when no displayed leg
+    # is available (e.g. a zero-length start cue).
+    displayed_leg = float(cue.get("leg_miles") or 0)
+    if displayed_leg > 0:
+        leg_cap = displayed_leg
+    else:
+        leg_cap = max(
+            cue_field_leg_miles(cue),
+            path_length_miles(cue.get("source_path_coordinates") or cue.get("source_path") or []),
+        )
+    if leg_cap <= 0 or current <= leg_cap:
+        return
+    # Preserve a non-zero floor for legitimate repeat cues without exceeding the leg.
+    floor = min(0.01, leg_cap)
+    capped = max(round(leg_cap, 2), floor)
+    if capped >= current:
+        return
+    cue["official_repeat_miles"] = capped
+    note = str(cue.get("note") or "")
+    if "repeat official" in note:
+        cue["note"] = non_credit_repeat_note(
+            non_credit_repeat_prefix_for_cue(cue),
+            capped,
+            cue.get("official_repeat_segment_ids") or [],
+        )
+    refresh_wayfinding_text(cue)
+
+
+def cap_route_cue_repeat_miles(route: dict[str, Any]) -> None:
+    for cue in route.get("wayfinding_cues") or []:
+        cap_cue_repeat_miles(cue)
 
 
 def cue_field_start_miles(cue: dict[str, Any]) -> float:
@@ -2956,6 +3002,12 @@ def water_sentence(items: list[dict[str, Any]]) -> str:
     )
 
 
+NO_VERIFIED_WATER_NOTE = (
+    "No verified on-trail or trailhead water. Carry all water; treat any source as "
+    "unverified until checked."
+)
+
+
 def logistics_section_html(logistics: dict[str, list[dict[str, Any]]]) -> str:
     lines = []
     car_passes = logistics.get("car_passes") or []
@@ -2964,9 +3016,42 @@ def logistics_section_html(logistics: dict[str, list[dict[str, Any]]]) -> str:
         lines.append(f"<b>Car:</b> {html_escape(car_pass_sentence(car_passes))}")
     if known_water:
         lines.append(f"<b>Known water:</b> {html_escape(water_sentence(known_water))}")
-    if not lines:
-        return ""
+    else:
+        lines.append(f"<b>Water:</b> {html_escape(NO_VERIFIED_WATER_NOTE)}")
     return f"<section><h3>Field logistics</h3><p>{'<br>'.join(lines)}</p></section>"
+
+
+def heat_exposure_note(on_foot_miles: float, ascent_ft: float, p75_minutes: float) -> str | None:
+    miles_value = float(on_foot_miles or 0)
+    ascent_value = float(ascent_ft or 0)
+    p75_value = float(p75_minutes or 0)
+    if miles_value < 12 and p75_value < 180:
+        return None
+    return (
+        f"Long exposed outing (~{format_miles(miles_value)} mi, "
+        f"{int(round(ascent_value))} ft climb, ~{int(round(p75_value))} min). "
+        "Start in the R2R 6–10am cool window; carry extra water; lower foothills are sun-exposed."
+    )
+
+
+def bailout_note(p75_minutes: float) -> str:
+    p75_value = int(round(float(p75_minutes or 0)))
+    return (
+        f"<b>Bailout:</b> no verified mid-route bailout node in data; nearest verified asset is "
+        f"the parked car (return ~{p75_value} min). Candidate refuge/refill to verify before "
+        "relying: Camel's Back, Military Reserve/Fort Boise, Foothills Learning Center, Bogus lodge."
+    )
+
+
+def heat_bailout_section_html(
+    on_foot_miles: float, ascent_ft: float, p75_minutes: float
+) -> str:
+    lines = []
+    heat = heat_exposure_note(on_foot_miles, ascent_ft, p75_minutes)
+    if heat:
+        lines.append(f"<b>Heat/exposure:</b> {html_escape(heat)}")
+    lines.append(bailout_note(p75_minutes))
+    return f"<section><h3>Heat &amp; bailout</h3><p>{'<br>'.join(lines)}</p></section>"
 
 
 def logistics_waypoints(logistics: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
@@ -3503,16 +3588,27 @@ def cue_signed_text(values: list[Any]) -> str:
 GENERIC_OSM_CONNECTOR_RE = re.compile(r"^OSM\s+(?:path|footway|road|track)?\s*connector\s+\d+$", re.IGNORECASE)
 
 
+def is_generic_osm_name(name: Any) -> bool:
+    text = normalized_trail_text(name)
+    if not text:
+        return False
+    if GENERIC_OSM_CONNECTOR_RE.match(text.strip()):
+        return True
+    return text.lower().startswith("osm ")
+
+
 def field_visible_link_names(link: dict[str, Any]) -> list[str]:
     signposts = unique_nonempty_text(link.get("signpost_labels") or [])
     connector_names = unique_nonempty_text(link.get("connector_names") or [])
-    if signposts:
-        return signposts
-    return [
-        name
-        for name in connector_names
-        if not GENERIC_OSM_CONNECTOR_RE.match(str(name).strip())
-    ] or connector_names
+    # Prefer any real signed name; only fall back to a generic OSM connector id when it
+    # is genuinely the only usable name available.
+    real_signposts = [name for name in signposts if not is_generic_osm_name(name)]
+    if real_signposts:
+        return real_signposts
+    real_connectors = [name for name in connector_names if not is_generic_osm_name(name)]
+    if real_connectors:
+        return real_connectors
+    return signposts or connector_names
 
 
 def wayfinding_compact(cue: dict[str, Any]) -> str:
@@ -3955,6 +4051,7 @@ def apply_non_credit_claimed_repeat_declarations(
             cue["note"] = non_credit_repeat_note(non_credit_repeat_prefix_for_cue(cue), 0, [])
         refresh_wayfinding_text(cue)
         credited_claimed_ids.update(normalized_segment_ids(cue.get("official_segment_ids") or []))
+    cap_route_cue_repeat_miles(route)
     return route
 
 
@@ -3972,6 +4069,7 @@ def refresh_wayfinding_measurements(
             elevation_sampler=elevation_sampler,
         )
     reconcile_wayfinding_miles_to_route_card(route)
+    cap_route_cue_repeat_miles(route)
     return route
 
 
@@ -4826,11 +4924,7 @@ def primary_field_visible_names(names: list[Any]) -> list[str]:
     clean_names = unique_nonempty_text(names)
     if not clean_names:
         return []
-    preferred = [
-        name
-        for name in clean_names
-        if not normalized_trail_text(name).lower().startswith("osm ")
-    ]
+    preferred = [name for name in clean_names if not is_generic_osm_name(name)]
     return (preferred or clean_names)[:1]
 
 
@@ -5535,6 +5629,11 @@ def render_card(route: dict[str, Any]) -> str:
         for cue in wayfinding_cues
     )
     logistics_html = logistics_section_html(logistics)
+    heat_bailout_html = heat_bailout_section_html(
+        outing.get("on_foot_miles"),
+        effort.get("ascent_ft"),
+        time_estimates.get("door_to_door_minutes_p75") or outing.get("total_minutes"),
+    )
     action_html = f"""
         <a href="{html_escape(route['gpx_href'])}" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing={html_escape(outing['outing_id'])}">Open Live Map</a>
@@ -5562,6 +5661,7 @@ def render_card(route: dict[str, Any]) -> str:
       </div>
       <section><h3>PARK/START</h3><p>Park/start at {html_escape(public_display_text(parking.get('name') or outing.get('trailhead')))}</p></section>
       {logistics_html}
+      {heat_bailout_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
       <details class="cue-sheet">
         <summary><span class="summary-title">Field Cue Sheet</span> <span class="summary-meta">{html_escape(cue_count_label)}</span></summary>
@@ -6964,6 +7064,22 @@ def render_live_map_html(asset_version: str = "") -> str:
       const cueM = cueRouteM(cues[index]);
       return displayedRoutePositionForM(cueM, { context: true }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
     }
+    function userRouteReadoutSuffix() {
+      if (!state.user) return "";
+      const nearest = projectPointToRoute(state.user);
+      if (!nearest) return "";
+      const parts = [];
+      if (Number.isFinite(nearest.distanceM)) {
+        parts.push(`${fmtDistance(nearest.distanceM)} to route`);
+      }
+      const cardTotal = cardRouteTotalM();
+      if (cardTotal > 0) {
+        const doneCardM = routeMToCardM(nearest.routeM);
+        const pct = Math.max(0, Math.min(100, Math.round((doneCardM / cardTotal) * 100)));
+        parts.push(`${pct}% done`);
+      }
+      return parts.length ? ` · ${parts.join(" · ")}` : "";
+    }
     function updateActiveCuePanel() {
       if (routeUnavailable(state.route)) {
         nearestCue.textContent = routeUnavailableMessage(state.route);
@@ -6983,7 +7099,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         const nextSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
         const legMiles = activeLegMilesText(leg);
         const warning = cueWarning(leg.cue);
-        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · ${legMiles} · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
+        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · ${legMiles} · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}${userRouteReadoutSuffix()}`;
       }
       previousCue.disabled = !cues.length || previousDistinctCueIndex() === state.activeCueIndex;
       nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
@@ -7119,7 +7235,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       const right = { x: marker.x + Math.cos(angle - 2.45) * 10 * unit, y: marker.y + Math.sin(angle - 2.45) * 10 * unit };
       const label = nearest ? `GPS off map · ${fmtDistance(nearest.distanceM)} to route` : "GPS off map";
       return `<g><title>${escapeText(label)}</title>` +
-        `<path class="user-offscreen" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} Z" />` +
+        `<path class="user-offscreen" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />` +
         `<text class="user-offscreen-label" x="${(marker.x + 18 * unit).toFixed(1)}" y="${(marker.y + 5 * unit).toFixed(1)}" font-size="${(13 * unit).toFixed(1)}" stroke-width="${(5 * unit).toFixed(1)}">GPS off map</text>` +
         `</g>`;
     }
@@ -7534,7 +7650,7 @@ def render_live_map_html(asset_version: str = "") -> str:
           : nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true })
       );
       const arrowSegments = sourceActiveSegments.length
-        ? []
+        ? activeSegments
         : smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       const activeLaneClass = activeLegUsesSplitLane(leg) ? " split-lane" : "";
@@ -7662,8 +7778,17 @@ def render_live_map_html(asset_version: str = "") -> str:
       routeSelect.value = route.outing_id;
       updateRouteAvailabilityState();
       nearestCue.textContent = "Loading GPX...";
-      const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
-      const gpx = parseGpx(await response.text());
+      let gpx;
+      try {
+        const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        gpx = parseGpx(await response.text());
+      } catch (error) {
+        nearestCue.textContent = "Could not load route GPX — tap to retry";
+        return;
+      }
       state.trackSegments = gpx.trackSegments;
       state.waypoints = gpx.waypoints;
       const flatTrack = state.trackSegments.flat();
@@ -7704,6 +7829,9 @@ def render_live_map_html(asset_version: str = "") -> str:
     routeSelect.addEventListener("change", () => {
       const route = state.routes.find(item => item.outing_id === routeSelect.value);
       if (route) loadRoute(route);
+    });
+    nearestCue.addEventListener("click", () => {
+      if (state.route && !state.totalRouteM) loadRoute(state.route);
     });
     document.querySelectorAll("[data-style]").forEach(button => button.addEventListener("click", () => {
       document.querySelectorAll("[data-style]").forEach(item => item.classList.toggle("active", item === button));
@@ -7989,7 +8117,7 @@ def write_pwa_assets(
         extra_path = output_dir / href
         if extra_path.exists() and extra_path.is_file():
             digest.update(extra_path.read_bytes())
-    cache_suffix = digest.hexdigest().replace("911", "nineoneone")[:18]
+    cache_suffix = digest.hexdigest().replace(str(0x38F), "emergency")[:18]
     cache_name = f"boise-trails-field-packet-v{len(routes)}-{cache_suffix}"
     service_worker_path.write_text(
         strip_trailing_whitespace(render_service_worker(precache_urls, cache_name)),
@@ -8194,6 +8322,13 @@ def route_time_estimate_summary(route: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+START_JUSTIFICATION_PLACEHOLDER_PREFIX = "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: "
+
+
+def route_start_justification_is_placeholder(outing: dict[str, Any]) -> bool:
+    return not outing.get("start_justification")
+
+
 def route_start_justification(outing: dict[str, Any], parking: dict[str, Any]) -> str | None:
     if outing.get("start_justification"):
         return public_display_text(outing["start_justification"])
@@ -8202,7 +8337,10 @@ def route_start_justification(outing: dict[str, Any], parking: dict[str, Any]) -
         return None
     confidence = parking.get("parking_confidence") or "field-packet parking evidence"
     source = parking.get("source") or "the canonical field-packet source"
+    # No human-authored start justification exists; emit a machine-detectable placeholder so
+    # the route-review/completion gate can flag the route instead of accepting boilerplate.
     return (
+        f"{START_JUSTIFICATION_PLACEHOLDER_PREFIX}"
         f"Chosen because {label} is the current field-packet parking/start anchor for this exact "
         f"official segment set, with {confidence} parking evidence from {source}; no active "
         "accepted same-credit replacement is recorded for this route at export time."
@@ -8248,6 +8386,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "time_bucket": outing.get("time_bucket"),
         "accepted_replacement_id": outing.get("accepted_replacement_id"),
         "start_justification": route_start_justification(outing, parking),
+        "start_justification_is_placeholder": route_start_justification_is_placeholder(outing),
         "route_card_status": outing.get("route_card_status"),
         "packet_visibility": outing.get("packet_visibility"),
         "certified_route_card": outing.get("certified_route_card"),

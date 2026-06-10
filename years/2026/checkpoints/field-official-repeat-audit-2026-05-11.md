@@ -1,17 +1,18 @@
 # Field Official Repeat Audit
 
-Generated: 2026-05-27T03:51:54Z
+Generated: 2026-05-28T12:00:35Z
 Status: `passed`
 
 ## Summary
 
-- Routes audited: 49
-- Source repeat legs: 97
-- Public repeat cues: 102
+- Routes audited: 31
+- Source repeat legs: 67
+- Public repeat cues: 82
 - Bucket A bad hidden self-repeat: 0
-- Bucket B counted/cued repeats or optimization targets: 97
-- Bucket C reconciled extra-credit routes: 23
+- Bucket B counted/cued repeats or optimization targets: 66
+- Bucket C reconciled extra-credit routes: 16
 - Repeat legs missing segment IDs: 0
+- Source/public repeat ID drift: 47
 - Repeat cues missing repeat/no-credit text: 0
 - Unreconciled extra-credit segments: 0
 
@@ -19,16 +20,16 @@ Status: `passed`
 
 | Label | Candidate | Official mi | On-foot mi | Non-credit mi |
 |---|---|---:|---:|---:|
-| 15A-1 | `multi-start-15a-15a-ms-03-1-dry-creek-trail` | 11.73 | 25.67 | 13.94 |
-| FD04A | `combo-two-point-femrites-patrol-shanes-connector` | 1.70 | 14.50 | 12.80 |
-| 14 | `block-watchman_five_mile_rocky` | 8.45 | 19.86 | 11.41 |
-| FD21A | `peace-valley-overlook-harris-ridge-trail` | 2.26 | 11.61 | 9.35 |
-| FD20A | `three-bears-trail-freestone-ridge` | 6.72 | 15.83 | 9.11 |
-| 18 | `block-bogus_mores_lodge_tempest` | 5.08 | 14.08 | 9.00 |
-| FD06A | `fat-tire-traverse-curlew-connection` | 4.09 | 12.38 | 8.29 |
+| 13 | `block-freestone_three_bears_curlew` | 14.35 | 32.47 | 18.12 |
+| 15B | `multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector` | 9.33 | 25.39 | 16.06 |
+| 10A | `manual-10a` | 7.30 | 21.84 | 14.54 |
+| 18A | `brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive` | 5.58 | 15.30 | 9.72 |
+| 16C-2 | `multi-start-16c-16c-ms-02-2-shingle-creek-trail` | 4.76 | 14.31 | 9.55 |
+| 6 | `block-cartwright_peggy_interface` | 13.67 | 22.41 | 8.74 |
 | 16A-1 | `manual-16a-1` | 6.09 | 14.20 | 8.11 |
-| FD01A | `combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail` | 4.26 | 11.97 | 7.71 |
-| FD15A | `block-military_core` | 8.31 | 15.97 | 7.66 |
+| 18B | `combo-lodge-trail-shindig` | 0.66 | 6.82 | 6.16 |
+| 4C | `combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute` | 6.60 | 12.55 | 5.95 |
+| 3 | `block-military_core` | 8.31 | 14.05 | 5.74 |
 
 ## Bucket A
 
@@ -36,26 +37,19 @@ Status: `passed`
 
 ## Bucket C
 
-- `18` `block-bogus_mores_lodge_tempest` reconciles extra official segment ids: ['1553']
-- `FD15A` `block-military_core` reconciles extra official segment ids: ['1748']
+- `17` `block-bogus_atm_deer_elk_sunshine` reconciles extra official segment ids: ['1655', '1679', '1721']
+- `2` `block-camels_lower_hulls_even_day` reconciles extra official segment ids: ['1483', '1484']
+- `6` `block-cartwright_peggy_interface` reconciles extra official segment ids: ['1541', '1599', '1604', '1610', '1666']
+- `13` `block-freestone_three_bears_curlew` reconciles extra official segment ids: ['1593', '1594', '1629', '1630', '1631', '1695']
+- `3` `block-military_core` reconciles extra official segment ids: ['1748']
+- `12` `block-upper_8th_corrals_sidewinder` reconciles extra official segment ids: ['1498', '1499', '1500', '1532', '1576', '1577']
 - `14` `block-watchman_five_mile_rocky` reconciles extra official segment ids: ['1558', '1685']
 - `4A` `bobs-trail-urban-connector` reconciles extra official segment ids: ['1577']
-- `FD14B` `chbh-connector` reconciles extra official segment ids: ['1541', '1599', '1604']
-- `15B` `combo-landslide-red-tail-trail` reconciles extra official segment ids: ['1497']
-- `FD04A` `combo-two-point-femrites-patrol-shanes-connector` reconciles extra official segment ids: ['1593', '1594', '1629', '1630', '1631', '1649', '1650', '1651', '1683', '1684', '1695']
-- `FD12B` `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail` reconciles extra official segment ids: ['1579', '1755']
-- `FD23C` `corrals-trail` reconciles extra official segment ids: ['1498', '1499', '1500', '1523', '1576', '1577']
-- `FD22B` `crestline-trail` reconciles extra official segment ids: ['1615']
-- `FD07B` `deer-point-trail` reconciles extra official segment ids: ['1655']
-- `FD14A` `doe-ridge` reconciles extra official segment ids: ['1599', '1604']
-- `FD25A` `elk-meadows-trail` reconciles extra official segment ids: ['1655']
-- `FD06A` `fat-tire-traverse-curlew-connection` reconciles extra official segment ids: ['1483', '1484', '1485', '1486', '1564', '1751']
-- `FD05A` `hulls-gulch-interpretive` reconciles extra official segment ids: ['1483']
-- `FD19B` `lower-hulls-gulch-trail-red-cliffs` reconciles extra official segment ids: ['1484', '1532', '1533']
-- `10B` `manual-10b` reconciles extra official segment ids: ['1520', '1521', '1619', '1622', '1623', '1624']
+- `18A` `brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive` reconciles extra official segment ids: ['1553', '1655', '1713', '1721', '1750']
+- `18B` `combo-lodge-trail-shindig` reconciles extra official segment ids: ['1553', '1554', '1679', '1680']
+- `1B` `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail` reconciles extra official segment ids: ['1755']
+- `8A` `harris-ridge-trail` reconciles extra official segment ids: ['1722']
+- `10B` `manual-10b` reconciles extra official segment ids: ['1520', '1619', '1622', '1623', '1624']
 - `16A-2` `manual-16a-2` reconciles extra official segment ids: ['1542', '1543']
-- `FD14C` `quick-draw` reconciles extra official segment ids: ['1541', '1599', '1604']
-- `FD19C` `shanes-trail` reconciles extra official segment ids: ['1593', '1594', '1629', '1630', '1631', '1683', '1748']
-- `FD23B` `sidewinder-trail` reconciles extra official segment ids: ['1483', '1484', '1485', '1532']
-- `FD25B` `the-face-trail` reconciles extra official segment ids: ['1679']
-- `FD20A` `three-bears-trail-freestone-ridge` reconciles extra official segment ids: ['1593', '1594', '1629']
+- `15B` `multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector` reconciles extra official segment ids: ['1527', '1528']
+- `16C-2` `multi-start-16c-16c-ms-02-2-shingle-creek-trail` reconciles extra official segment ids: ['1542', '1543', '1544']

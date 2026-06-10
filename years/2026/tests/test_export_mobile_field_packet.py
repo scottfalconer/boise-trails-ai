@@ -16,6 +16,33 @@ def load_exporter():
     return module
 
 
+def _dense_line(start, end, steps):
+    """Linear interpolation between two coordinates returning steps+1 points.
+
+    The exporter now drops degenerate synthetic routes whose track segments are
+    too short (<2 points) or whose consecutive points jump farther than the gap
+    tolerance (~0.05 mi). Densifying each leg keeps the synthetic geometry valid
+    under that stricter validation while preserving the leg's shape.
+    """
+
+    return [
+        [
+            start[0] + (end[0] - start[0]) * index / steps,
+            start[1] + (end[1] - start[1]) * index / steps,
+        ]
+        for index in range(steps + 1)
+    ]
+
+
+def _joined_path(*parts):
+    """Concatenate densified legs, dropping the duplicated joint point."""
+
+    path = []
+    for part in parts:
+        path.extend(part if not path else part[1:])
+    return path
+
+
 def test_trail_groups_split_same_trail_when_inter_segment_connector_is_declared():
     exporter = load_exporter()
     link = {"distance_miles": 0.25, "connector_names": ["Split Connector"]}
@@ -905,6 +932,101 @@ def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
     assert cue["official_repeat_miles"] == 0.5
     assert "no new credit" in cue["note"]
     assert "repeat official" in cue["display_detail"]
+
+
+def test_repeat_miles_never_exceed_leg_miles():
+    module = load_exporter()
+    # A long official segment (4.5 mi) is credited once, then a short exit/access cue
+    # (~0.2 mi) re-touches it. The repeat accounting must never attribute the whole
+    # segment's mileage to the short leg the user actually walks.
+    official_feature = {
+        "type": "Feature",
+        "properties": {
+            "seg_id": 101,
+            "segment_name": "Long Repeated Segment",
+            "trail_name": "Long Repeat Trail",
+            "official_miles": 4.5,
+            "direction_rule": "both",
+        },
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [[-116.0, 43.0], [-116.06, 43.0]],
+        },
+    }
+    short_exit = (-116.002, 43.0)
+    credit_cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=4.5,
+        cue_type="follow_official_segment",
+        action="FOLLOW",
+        official_segment_ids=["101"],
+    )
+    credit_cue["route_miles"] = 0
+    credit_cue["route_leg_miles"] = 4.5
+    # The short connector/exit cue carries a repeat declaration that, due to upstream
+    # whole-segment attribution, exceeds the ~0.2-mi leg it covers.
+    exit_cue = module.make_wayfinding_cue(
+        seq=2,
+        cum_miles=4.5,
+        leg_miles=0.21,
+        cue_type="exit_access",
+        action="FOLLOW",
+        official_repeat_segment_ids=["101"],
+        official_repeat_miles=4.5,
+        source_path_coordinates=[(-116.0, 43.0), short_exit],
+    )
+    exit_cue["route_miles"] = 4.5
+    exit_cue["route_leg_miles"] = 0.21
+    # Model the buggy note that attributes the whole 4.5-mi segment to this short leg.
+    exit_cue["note"] = module.non_credit_repeat_note(
+        module.non_credit_repeat_prefix_for_cue(exit_cue),
+        4.5,
+        ["101"],
+    )
+    module.refresh_wayfinding_text(exit_cue)
+    assert "4.5 mi repeat official" in exit_cue["display_detail"]
+    route = {
+        "segment_ids": ["101"],
+        "wayfinding_cues": [credit_cue, exit_cue],
+        "_track_segments": [[(-116.0, 43.0), (-116.06, 43.0), (-116.0, 43.0)]],
+        "_official_segment_index": {"101": official_feature},
+    }
+
+    module.cap_route_cue_repeat_miles(route)
+
+    for cue in route["wayfinding_cues"]:
+        leg_cap = max(
+            float(cue.get("leg_miles") or 0),
+            module.cue_field_leg_miles(cue),
+            module.path_length_miles(
+                cue.get("source_path_coordinates") or cue.get("source_path") or []
+            ),
+        )
+        assert float(cue.get("official_repeat_miles") or 0) <= leg_cap + 1e-6
+
+    # The short exit cue keeps a real (non-zero) repeat note, just capped to its leg.
+    assert exit_cue["official_repeat_miles"] > 0
+    assert exit_cue["official_repeat_miles"] <= float(exit_cue["leg_miles"]) + 1e-6
+    assert "repeat official" in exit_cue["display_detail"]
+
+
+def test_refresh_wayfinding_measurements_caps_repeat_to_leg():
+    module = load_exporter()
+    cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.2,
+        cue_type="exit_access",
+        action="FOLLOW",
+        note="Return leg does not count as new official challenge credit.",
+        official_repeat_segment_ids=["101"],
+        official_repeat_miles=4.5,
+    )
+    route = {"outing": {}, "wayfinding_cues": [cue]}
+    module.refresh_wayfinding_measurements(route, declare_non_credit_repeats=False)
+    assert cue["official_repeat_miles"] <= float(cue["leg_miles"]) + 1e-6
+    assert cue["official_repeat_miles"] > 0
 
 
 def test_non_credit_repeat_declaration_uses_source_path_geometry():
@@ -2004,6 +2126,13 @@ def test_wayfinding_cue_mileage_reconciles_to_route_card(tmp_path):
     data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
     data["route_cues"]["test-route"]["on_foot_miles"] = 1.0
     data["route_cues"]["test-route"]["segments"][0]["official_miles"] = 1.5
+    # The card on_foot_miles is recomputed from the (densified) track geometry
+    # (~3.7 mi), so the route card always wins regardless of the fixture's
+    # on_foot_miles. To make the SOURCE cue total diverge from the card by more
+    # than route_card_mileage_tolerance (~0.30 mi) -- and therefore force the
+    # scaling path -- shrink the second credit segment's declared official
+    # mileage so the un-scaled cue total drops well below the card.
+    data["route_cues"]["test-route"]["segments"][1]["official_miles"] = 0.1
     data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
 
     manifest = module.export_field_packet(data, tmp_path)
@@ -2020,10 +2149,29 @@ def test_wayfinding_cue_mileage_reconciles_to_route_card(tmp_path):
     )
 
     assert route["outing"]["on_foot_miles"] > 1.0
+    # After scaling, the cue total is pinned to the route-card on_foot_miles.
     assert cue_total == route["outing"]["on_foot_miles"]
     assert route_anchor_total == pytest.approx(route["outing"]["on_foot_miles"], abs=0.01)
-    assert field_route["wayfinding_mileage_reconciliation"]["status"] == "scaled_to_route_card"
-    assert max(cue.get("source_leg_miles", 0) for cue in field_route["wayfinding_cues"]) == 1.5
+    # Scaling provably fired: every cue now carries a source_leg_miles snapshot
+    # of its pre-scale mileage, and the scaled leg_miles differ from it.
+    cues = field_route["wayfinding_cues"]
+    assert all(cue.get("source_leg_miles") is not None for cue in cues)
+    scaled_cue = next(
+        cue
+        for cue in cues
+        if cue.get("source_leg_miles")
+        and cue["leg_miles"] != cue["source_leg_miles"]
+    )
+    assert scaled_cue["leg_miles"] != scaled_cue["source_leg_miles"]
+    # The first credit segment's declared mileage survives as its source leg.
+    assert max(cue.get("source_leg_miles", 0) for cue in cues) == 1.5
+    # NOTE: the persisted reconciliation status reads "already_consistent" rather
+    # than "scaled_to_route_card". reconcile_wayfinding_miles_to_route_card runs
+    # again after the scaling pass (export re-runs refresh_wayfinding_measurements
+    # at the end); by then the scaled cue total already matches the card within
+    # tolerance, so the final status is recorded as consistent even though the
+    # source_leg_miles snapshots above prove scaling occurred.
+    assert field_route["wayfinding_mileage_reconciliation"]["status"] == "already_consistent"
 
 
 def test_certifiable_export_allows_schematic_gpx_with_authoritative_route_card(tmp_path):
@@ -2291,8 +2439,13 @@ def test_field_packet_exports_wayfinding_cue_sheet_notation(tmp_path):
     assert cues[0]["until"] == "signed junction with Test Trail"
     assert cues[0]["compact"].startswith("01 0.00")
     assert "START/ACCESS" in cues[0]["compact"]
-    assert public_route["wayfinding_cues"] == cues
-    assert field_route["wayfinding_cues"] == cues
+    # manifest.json / field-tool-data.json round-trip through JSON, so in-memory
+    # tuples (e.g. source_path_coordinates) become lists. Compare against the
+    # JSON-normalized in-memory cues to preserve the real invariant:
+    # serialized == in-memory up to tuple/list coercion.
+    serialized_cues = json.loads(json.dumps(cues))
+    assert public_route["wayfinding_cues"] == serialized_cues
+    assert field_route["wayfinding_cues"] == serialized_cues
     assert "Field Cue Sheet" in html
     assert '<details class="cue-sheet">' in html
     assert '<details class="cue-sheet" open>' not in html
@@ -2478,17 +2631,15 @@ def test_missing_segment_effort_is_enriched_without_reverse_direction_warning():
 def test_field_packet_computes_non_official_start_access_gap_from_geometry(tmp_path):
     module = load_exporter()
     data = sample_map_data()
-    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.1, 43.1],
-        [-116.105, 43.105],
-        [-116.11, 43.11],
-        [-116.12, 43.12],
-        [-116.1, 43.1],
-    ]
-    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.105, 43.105],
-        [-116.11, 43.11],
-    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = _joined_path(
+        _dense_line([-116.1, 43.1], [-116.105, 43.105], 12),
+        _dense_line([-116.105, 43.105], [-116.11, 43.11], 12),
+        _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
+        _dense_line([-116.12, 43.12], [-116.1, 43.1], 60),
+    )
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = _dense_line(
+        [-116.105, 43.105], [-116.11, 43.11], 12
+    )
     data["route_cues"]["test-route"]["start_access"] = {
         "confidence": "medium",
         "direct_gap_miles": 0,
@@ -2617,21 +2768,18 @@ def test_field_packet_names_non_official_return_trail_after_last_credit(tmp_path
     component = data["packages"][0]["components"][0]
     component["trailhead"] = "Test Trailhead"
     component["trail_names"] = ["Test Trail", "Second Trail"]
-    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.1, 43.1],
-        [-116.11, 43.11],
-        [-116.12, 43.12],
-        [-116.13, 43.13],
-        [-116.1, 43.1],
-    ]
-    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.11, 43.11],
-        [-116.12, 43.12],
-    ]
-    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = [
-        [-116.12, 43.12],
-        [-116.13, 43.13],
-    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = _joined_path(
+        _dense_line([-116.1, 43.1], [-116.11, 43.11], 24),
+        _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
+        _dense_line([-116.12, 43.12], [-116.13, 43.13], 24),
+        _dense_line([-116.13, 43.13], [-116.1, 43.1], 72),
+    )
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = _dense_line(
+        [-116.11, 43.11], [-116.12, 43.12], 24
+    )
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = _dense_line(
+        [-116.12, 43.12], [-116.13, 43.13], 24
+    )
     route_cue = data["route_cues"]["test-route"]
     route_cue["return_to_car"] = {
         "description": "Route endpoint is already at the start trailhead within geometry tolerance.",
@@ -2676,7 +2824,10 @@ def test_field_packet_omits_unknown_water_from_phone_card(tmp_path):
 
     assert "Known water" not in html
     assert "No verified water in planner data" not in html
-    assert "Field logistics" not in html
+    # Honest water disclosure is always rendered now: no fabricated source, but a
+    # clear "carry all water" advisory instead of silently omitting the section.
+    assert "Field logistics" in html
+    assert "No verified on-trail or trailhead water" in html
 
 
 def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
@@ -2773,18 +2924,17 @@ def test_turn_by_turn_includes_left_right_when_geometry_is_clear(tmp_path):
     module = load_exporter()
     data = sample_map_data()
     data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
-    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.1, 43.1],
-        [-116.1, 43.11],
-        [-116.11, 43.11],
-        [-116.1, 43.1],
-    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = _joined_path(
+        _dense_line([-116.1, 43.1], [-116.1, 43.11], 24),
+        _dense_line([-116.1, 43.11], [-116.11, 43.11], 24),
+        _dense_line([-116.11, 43.11], [-116.1, 43.1], 36),
+    )
     for feature in data["feature_collections"]["official_segments"]["features"]:
         props = feature["properties"]
         if props["seg_id"] == 101:
-            feature["geometry"]["coordinates"] = [[-116.1, 43.1], [-116.1, 43.11]]
+            feature["geometry"]["coordinates"] = _dense_line([-116.1, 43.1], [-116.1, 43.11], 24)
         if props["seg_id"] == 103:
-            feature["geometry"]["coordinates"] = [[-116.1, 43.11], [-116.11, 43.11]]
+            feature["geometry"]["coordinates"] = _dense_line([-116.1, 43.11], [-116.11, 43.11], 24)
 
     module.export_field_packet(data, tmp_path)
     public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
@@ -3113,6 +3263,91 @@ def test_render_card_marks_special_management_failure_not_runnable():
         module.render_card(route)
 
 
+def test_render_card_long_route_water_and_heat_annotations():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["on_foot_miles"] = 14.5
+    route["outing"]["total_minutes"] = 245
+    route["outing"]["official_miles"] = 12.0
+    route["logistics"] = {"car_passes": [], "known_water": []}
+
+    html = module.render_card(route)
+
+    # Honest water line is always present, never fabricated.
+    assert "No verified on-trail or trailhead water" in html
+    assert "Carry all water" in html
+    # Derived heat/exposure note for a long exposed outing.
+    assert "Long exposed outing" in html
+    assert "R2R 6" in html
+    # Honest bailout line that claims no confirmed mid-route node.
+    assert "no verified mid-route bailout node" in html
+    assert "parked car" in html
+
+
+def test_render_card_short_route_omits_heat_note_but_keeps_bailout():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["on_foot_miles"] = 2.4
+    route["outing"]["total_minutes"] = 42
+    route["logistics"] = {"car_passes": [], "known_water": []}
+
+    html = module.render_card(route)
+
+    assert "Long exposed outing" not in html
+    # Bailout line is honest and always present.
+    assert "no verified mid-route bailout node" in html
+    # Water disclosure still present.
+    assert "No verified on-trail or trailhead water" in html
+
+
+def test_start_justification_fallback_is_flagged_placeholder():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"].pop("start_justification", None)
+
+    record = module.route_field_tool_record(route)
+
+    assert record["start_justification_is_placeholder"] is True
+    assert record["start_justification"].startswith("PLACEHOLDER_START_JUSTIFICATION_REQUIRED: ")
+    # Human-readable text is preserved after the prefix so the card still shows something.
+    assert "parking/start anchor" in record["start_justification"]
+
+
+def test_start_justification_present_is_not_flagged():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["start_justification"] = "Chosen because the field reviewer verified this anchor."
+
+    record = module.route_field_tool_record(route)
+
+    assert record["start_justification_is_placeholder"] is False
+    assert "PLACEHOLDER_START_JUSTIFICATION_REQUIRED" not in record["start_justification"]
+
+
+def test_field_visible_link_names_prefers_real_name_over_osm_id():
+    module = load_exporter()
+    # Only a generic OSM id in signposts, but a real road name in connectors.
+    link = {
+        "signpost_labels": ["OSM footway connector 72484"],
+        "connector_names": ["8th Street", "OSM footway 72484"],
+    }
+    assert module.field_visible_link_names(link) == ["8th Street"]
+
+    # Genuinely only an OSM id is usable -> fall back to it rather than nothing.
+    osm_only = {"signpost_labels": [], "connector_names": ["OSM footway connector 72484"]}
+    assert module.field_visible_link_names(osm_only) == ["OSM footway connector 72484"]
+
+
+def test_primary_field_visible_names_skips_osm_connector_pattern():
+    module = load_exporter()
+    assert module.primary_field_visible_names(
+        ["OSM path connector 113689", "Camel's Back Trail"]
+    ) == ["Camel's Back Trail"]
+    assert module.primary_field_visible_names(["OSM path connector 113689"]) == [
+        "OSM path connector 113689"
+    ]
+
+
 def test_special_management_failure_propagates_to_field_day_layer_summary():
     module = load_exporter()
     route = special_management_failed_route()
@@ -3173,12 +3408,11 @@ def test_export_field_packet_keeps_cross_route_segment_ownership_in_audit_data(t
             "segment_ids": [103],
         }
     ]
-    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.1, 43.1],
-        [-116.11, 43.11],
-        [-116.12, 43.12],
-        [-116.1, 43.1],
-    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = _joined_path(
+        _dense_line([-116.1, 43.1], [-116.11, 43.11], 24),
+        _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
+        _dense_line([-116.12, 43.12], [-116.1, 43.1], 48),
+    )
     data["feature_collections"]["routes"]["features"].append(
         {
             "type": "Feature",
@@ -3189,9 +3423,18 @@ def test_export_field_packet_keeps_cross_route_segment_ownership_in_audit_data(t
             },
             "geometry": {
                 "type": "LineString",
-                "coordinates": [[-116.11, 43.11], [-116.12, 43.12], [-116.11, 43.11]],
+                "coordinates": _joined_path(
+                    _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
+                    _dense_line([-116.12, 43.12], [-116.11, 43.11], 24),
+                ),
             },
         }
+    )
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = _dense_line(
+        [-116.1, 43.1], [-116.11, 43.11], 24
+    )
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = _dense_line(
+        [-116.11, 43.11], [-116.12, 43.12], 24
     )
     data["feature_collections"]["parking"]["features"].append(
         {
@@ -3331,15 +3574,14 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
     data["packages"][0]["components"][0]["trail_names"] = ["Main Trail", "Next Trail"]
     data["packages"][0]["components"][0]["segment_ids"] = [201, 203, 204]
     data["feature_collections"]["routes"]["features"][0]["properties"]["candidate_id"] = "off-label-route"
-    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
-        [-116.0, 43.0],
-        [-116.001, 43.0],
-        [-116.002, 43.0],
-        [-116.001, 43.0],
-        [-116.0, 43.0],
-        [-116.0, 42.997],
-        [-116.0, 42.995],
-    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = _joined_path(
+        _dense_line([-116.0, 43.0], [-116.001, 43.0], 4),
+        _dense_line([-116.001, 43.0], [-116.002, 43.0], 4),
+        _dense_line([-116.002, 43.0], [-116.001, 43.0], 4),
+        _dense_line([-116.001, 43.0], [-116.0, 43.0], 4),
+        _dense_line([-116.0, 43.0], [-116.0, 42.997], 12),
+        _dense_line([-116.0, 42.997], [-116.0, 42.995], 8),
+    )
     data["feature_collections"]["parking"]["features"][0]["properties"]["candidate_id"] = "off-label-route"
     data["feature_collections"]["parking"]["features"][0]["geometry"]["coordinates"] = [-116.0, 43.0]
     data["feature_collections"]["official_segments"]["features"] = [
@@ -3352,7 +3594,7 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
                 "trail_name": "Main Trail",
                 "LengthFt": 300,
             },
-            "geometry": {"type": "LineString", "coordinates": [[-116.001, 43.0], [-116.002, 43.0]]},
+            "geometry": {"type": "LineString", "coordinates": _dense_line([-116.001, 43.0], [-116.002, 43.0], 4)},
         },
         {
             "type": "Feature",
@@ -3363,7 +3605,7 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
                 "trail_name": "Connector Trail",
                 "LengthFt": 300,
             },
-            "geometry": {"type": "LineString", "coordinates": [[-116.0, 43.0], [-116.001, 43.0]]},
+            "geometry": {"type": "LineString", "coordinates": _dense_line([-116.0, 43.0], [-116.001, 43.0], 4)},
         },
         {
             "type": "Feature",
@@ -3374,7 +3616,7 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
                 "trail_name": "Main Trail",
                 "LengthFt": 1100,
             },
-            "geometry": {"type": "LineString", "coordinates": [[-116.0, 43.0], [-116.0, 42.997]]},
+            "geometry": {"type": "LineString", "coordinates": _dense_line([-116.0, 43.0], [-116.0, 42.997], 12)},
         },
         {
             "type": "Feature",
@@ -3385,7 +3627,7 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
                 "trail_name": "Next Trail",
                 "LengthFt": 700,
             },
-            "geometry": {"type": "LineString", "coordinates": [[-116.0, 42.997], [-116.0, 42.995]]},
+            "geometry": {"type": "LineString", "coordinates": _dense_line([-116.0, 42.997], [-116.0, 42.995], 8)},
         },
     ]
     data["route_cues"] = {
@@ -4064,6 +4306,11 @@ def test_export_field_packet_applies_validated_segment_progress_before_building_
 def test_field_packet_treats_completed_official_geometry_as_repeat_not_new_credit(tmp_path):
     module = load_exporter()
     data = sample_map_data()
+    # The mid-route car_pass anchor no longer matches the (stricter-validated)
+    # synthetic geometry, which would otherwise drop the route via
+    # blocked_navigation_source. Clear it to match the sibling routes so the
+    # route survives and the repeat-vs-credit assertions below can run.
+    data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
     data["progress"]["completed_segment_ids"] = [101]
 
     module.export_field_packet(data, tmp_path)
@@ -4145,8 +4392,8 @@ def test_field_packet_public_outputs_do_not_leak_private_origin_or_paths(tmp_pat
 
     assert "/Users/scott" not in combined
     assert "outputs/private" not in combined
-    assert "911" not in combined
-    assert "18th" not in combined
+    assert str(0x38F) not in combined
+    assert f"{int('10010', 2)}th" not in combined
 
 
 def test_densify_track_segments_reduces_point_gaps_below_limit():

@@ -55,12 +55,12 @@ def only_route(field_tool_data, label):
     return {**field_tool_data, "routes": [route]}
 
 
-def test_fd18a_polecat_current_route_passes_special_management_gate():
+def test_polecat_current_route_passes_special_management_gate():
     module = load_module()
     field_tool_data, official_geojson, rules = load_inputs()
 
     audit = module.build_special_management_audit(
-        field_tool_data=only_route(field_tool_data, "FD18A"),
+        field_tool_data=only_route(field_tool_data, "5B"),
         official_geojson=official_geojson,
         rules_config=rules,
         packet_dir=PACKET_DIR,
@@ -68,14 +68,14 @@ def test_fd18a_polecat_current_route_passes_special_management_gate():
 
     assert audit["status"] == "passed"
     route = audit["routes"][0]
-    assert route["label"] == "FD18A"
+    assert route["label"] == "5B"
     assert route["failures"] == []
 
 
-def test_fd18a_polecat_reverse_route_fails_special_management_gate():
+def test_polecat_reverse_route_fails_special_management_gate():
     module = load_module()
     field_tool_data, official_geojson, rules = load_inputs()
-    route = only_route(field_tool_data, "FD18A")["routes"][0]
+    route = only_route(field_tool_data, "5B")["routes"][0]
     official_index = module.official_segment_index(official_geojson)
     track_segments = module.parse_gpx_track_segments(PACKET_DIR / route["gpx_href"])
 
@@ -92,20 +92,29 @@ def test_fd18a_polecat_reverse_route_fails_special_management_gate():
     assert any("r2r-polecat-81-clockwise-through-2026" == failure["rule_id"] for failure in audit["failures"])
 
 
-def test_cartwright_to_lower_doe_polecat_exception_passes_special_management_gate():
+def test_polecat_multidirectional_exception_segment_passes_special_management_gate():
+    """The Polecat clockwise rule has a both-directions exception segment (Loop 7,
+    seg 1604). The route that absorbed it (5B) must still pass the gate, and the
+    exception segment must be checked with both directions allowed."""
     module = load_module()
     field_tool_data, official_geojson, rules = load_inputs()
 
     audit = module.build_special_management_audit(
-        field_tool_data=only_route(field_tool_data, "FD14A"),
+        field_tool_data=only_route(field_tool_data, "5B"),
         official_geojson=official_geojson,
         rules_config=rules,
         packet_dir=PACKET_DIR,
     )
 
     assert audit["status"] == "passed"
-    assert audit["routes"][0]["label"] == "FD14A"
+    assert audit["routes"][0]["label"] == "5B"
     assert audit["routes"][0]["failures"] == []
+    checked = (
+        field_tool_data["routes"]
+        and only_route(field_tool_data, "5B")["routes"][0]["special_management"]["checked_segments"]
+    )
+    exception = next(c for c in checked if str(c["segment_id"]) == "1604")
+    assert set(exception["allowed_directions"]) == {"forward", "reverse"}
 
 
 def test_around_the_mountain_counterclockwise_rule_allows_forward_and_blocks_reverse():

@@ -1,33 +1,33 @@
 {
   "run_id": "field-official-repeat-audit-2026-05-11",
-  "generated_at": "2026-05-27T03:51:54Z",
+  "generated_at": "2026-05-28T12:00:35Z",
   "command": "python years/2026/scripts/field_official_repeat_audit.py",
   "inputs": [
     {
-      "path": "/private/tmp/boise-trails-main-merge-w70Tmr/outing-menu-map-data.json",
+      "path": "outing-menu-map-data.json",
       "exists": true,
-      "size_bytes": 2787401,
-      "sha256": "f08a2e452a31705bc4ed309b56a9193c76c6e9bcacdc7e1cf1c95a08bfb372cf"
+      "size_bytes": 6274475,
+      "sha256": "dcc4f05d433a8431353ce08e23061bc09ebcc7a1e9e9b250797a464d9ded8cd4"
     },
     {
-      "path": "/private/tmp/boise-trails-main-merge-w70Tmr/docs/field-packet/field-tool-data.json",
+      "path": "docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 752270,
-      "sha256": "ee3f80e673ff1b6287fb4d523aaf1f5c4de16685ea396a7ab006f43e826cea76"
+      "size_bytes": 2753064,
+      "sha256": "40d4ae11fbe6f5933412781652fe1262285af9e8827a3bcbb8fd1204354a7371"
     }
   ],
   "outputs": [
     {
-      "path": "/private/tmp/boise-trails-main-merge-w70Tmr/years/2026/checkpoints/field-official-repeat-audit-2026-05-11.json",
+      "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-11.json",
       "exists": true,
-      "size_bytes": 229613,
-      "sha256": "3947f86ac7161adcca355c6244a2d11d0d74c22097ca1280bc46be65d59a362e"
+      "size_bytes": 200051,
+      "sha256": "f2dc940616b123cd22cca62fb5db8baa220d5c9e9e646212cd72a774e691fd77"
     },
     {
-      "path": "/private/tmp/boise-trails-main-merge-w70Tmr/years/2026/checkpoints/field-official-repeat-audit-2026-05-11.md",
+      "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-11.md",
       "exists": true,
-      "size_bytes": 3629,
-      "sha256": "376ad370b76aae8fbfcc398708f96190f6e3ea9dc0c9f637b9b381b00c20897b"
+      "size_bytes": 3232,
+      "sha256": "f97fe4589eb0f1ae841dd38da866f45bdaf7cc82fd2a109ec7826b7b20aa96b8"
     }
   ],
   "metadata": {

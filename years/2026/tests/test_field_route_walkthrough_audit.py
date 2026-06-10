@@ -86,6 +86,49 @@ def test_start_access_named_edge_passes_when_cued():
     assert result["passed"] is True
 
 
+def test_generic_osm_service_connector_can_be_covered_by_adjacent_signed_cue():
+    module = load_module()
+    service_in = edge(
+        module,
+        "service-1",
+        "OSM service connector 40457",
+        [(0.0, 0.0), (0.001, 0.0)],
+        source_class="osm_public_road",
+    )
+    service_out = edge(
+        module,
+        "service-2",
+        "OSM service connector 112257",
+        [(0.001, 0.0), (0.002, 0.0)],
+        source_class="osm_public_road",
+    )
+    official = edge(
+        module,
+        "official-1664",
+        "Stack Rock Connector",
+        [(0.002, 0.0), (0.003, 0.0)],
+        source_class="official_segment",
+        segment_id="1664",
+    )
+    spur = edge(
+        module,
+        "service-spur",
+        "OSM service connector spur",
+        [(0.001, 0.0), (0.001, 0.001)],
+        source_class="osm_public_road",
+    )
+
+    result = module.audit_route_walkthrough(
+        route("Follow #125 Freddys Stack Rock Trail toward Stack Rock Connector.", segment_ids=("1664",)),
+        [[(0.0, 0.0), (0.001, 0.0), (0.002, 0.0), (0.003, 0.0)]],
+        [service_in, service_out, official, spur],
+        {"1664": official},
+        snap_tolerance_miles=0.002,
+    )
+
+    assert "ambiguous_decision_point" not in {failure["code"] for failure in result["failures"]}
+
+
 def test_named_edge_mentions_allow_minor_plural_variants():
     module = load_module()
     access = edge(module, "access", "Seamans Gulch", [(0.0, 0.0), (0.001, 0.0)])

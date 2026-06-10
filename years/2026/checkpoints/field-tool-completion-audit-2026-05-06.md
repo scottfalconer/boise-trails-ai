@@ -12,7 +12,7 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc; canonical map hash debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3; canonical map hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3 |
 | Field packet route records match canonical outing menu metrics | Pass | field packet route miles, p75 minutes, and segment ids match canonical menu components |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |

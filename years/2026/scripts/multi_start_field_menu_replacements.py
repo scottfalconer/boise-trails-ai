@@ -26,8 +26,14 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
 from export_execution_gpx import (  # noqa: E402
+    candidate_segment_coordinates,
+    candidate_segments_for_track,
+    candidate_track_order_changed,
     candidate_track_coordinates,
     load_official_segment_index,
+    orient_path_to_current,
+    should_auto_orient_segment,
+    special_management_segment_direction_overrides,
     validate_track_segments,
 )
 from export_mobile_field_packet import densify_track_segments  # noqa: E402
@@ -56,6 +62,7 @@ from personal_route_planner import (  # noqa: E402
     load_state,
     read_json,
     round_miles,
+    shortest_connector_path,
 )
 
 
@@ -283,18 +290,139 @@ def component_from_candidate(
     return component
 
 
-def cue_from_candidate(candidate_id: str, candidate: dict[str, Any]) -> dict[str, Any]:
+def normalized_int_segment_ids(values: list[Any] | tuple[Any, ...] | set[Any] | None) -> list[int]:
+    result = []
+    for value in values or []:
+        if str(value).isdigit():
+            result.append(int(value))
+    return result
+
+
+def kept_component_segment_ids(components: list[dict[str, Any]]) -> set[int]:
+    return {
+        segment_id
+        for component in components
+        for segment_id in normalized_int_segment_ids(component.get("segment_ids"))
+    }
+
+
+def component_segment_ids_excluding_kept(
+    component_summary: dict[str, Any],
+    kept_segment_ids: set[int],
+) -> tuple[list[int], list[int]]:
+    original = normalized_int_segment_ids(component_summary.get("segment_ids"))
+    remaining = [segment_id for segment_id in original if segment_id not in kept_segment_ids]
+    removed = [segment_id for segment_id in original if segment_id in kept_segment_ids]
+    return remaining, removed
+
+
+def cue_from_candidate(
+    candidate_id: str,
+    candidate: dict[str, Any],
+    official_index: dict[int, dict[str, Any]] | None = None,
+    connector_graph: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     start_access = candidate.get("trailhead_access") or {}
+    outbound = start_access.get("outbound_path_coordinates") or []
+    current = None
+    if outbound:
+        last = outbound[-1]
+        if isinstance(last, list | tuple) and len(last) >= 2:
+            current = (float(last[0]), float(last[1]))
     planned_directions = (
         (candidate.get("direction_validation") or {}).get("planned_traversal_direction")
         or {}
     )
+    raw_segments = list(candidate.get("segments") or [])
+    cue_segments = (
+        candidate_segments_for_track(candidate, official_index, current)
+        if official_index is not None
+        else raw_segments
+    )
+    order_changed = (
+        official_index is not None
+        and candidate_track_order_changed(candidate, cue_segments)
+    )
+    all_segment_ids = {
+        int(value)
+        for value in candidate.get("segment_ids") or []
+        if str(value).isdigit()
+    }
+    earned_segment_ids: set[int] = set()
     segments = []
-    for raw_segment in candidate.get("segments") or []:
+    for raw_segment in cue_segments:
         segment = copy.deepcopy(raw_segment)
+        segment_id = str(segment.get("seg_id"))
+        if order_changed:
+            segment.pop("pre_connector_link", None)
+        if official_index is not None and segment_id.isdigit() and int(segment_id) in official_index:
+            coords = candidate_segment_coordinates(candidate, segment, official_index)
+            coords = orient_path_to_current(
+                current,
+                coords,
+                enabled=should_auto_orient_segment(
+                    candidate,
+                    official_index[int(segment_id)],
+                    int(segment_id),
+                ),
+            )
+            if coords:
+                if current is not None and connector_graph is not None:
+                    gap = haversine_miles(current, coords[0])
+                    if gap > 0.05:
+                        avoid_ids = all_segment_ids - earned_segment_ids - {int(segment_id)}
+                        repair = shortest_connector_path(
+                            current,
+                            coords[0],
+                            connector_graph,
+                            0.02,
+                            avoid_official_segment_ids=avoid_ids,
+                        )
+                        if repair:
+                            segment["pre_connector_link"] = {
+                                "from_segment_id": (
+                                    segments[-1].get("seg_id") if segments else None
+                                ),
+                                "to_segment_id": int(segment_id),
+                                "from_trail": (
+                                    segments[-1].get("trail_name") if segments else None
+                                ),
+                                "to_trail": segment.get("trail_name"),
+                                "source": "special_management_reordered_graph",
+                                "distance_miles": round_miles(repair["distance_miles"]),
+                                "connector_miles": round_miles(repair["connector_miles"]),
+                                "official_repeat_miles": round_miles(
+                                    repair["official_repeat_miles"]
+                                ),
+                                "connector_names": copy.deepcopy(
+                                    repair.get("connector_names") or []
+                                ),
+                                "connector_classes": copy.deepcopy(
+                                    repair.get("connector_classes") or []
+                                ),
+                                "connector_edges": copy.deepcopy(
+                                    repair.get("connector_edges") or []
+                                ),
+                                "official_repeat_segment_ids": copy.deepcopy(
+                                    repair.get("official_repeat_segment_ids") or []
+                                ),
+                                "earned_segment_ids_before_link": sorted(earned_segment_ids),
+                                "avoided_unearned_segment_ids": sorted(avoid_ids),
+                                "path_coordinates": copy.deepcopy(
+                                    repair.get("path_coordinates") or []
+                                ),
+                                "endpoint_gap_miles": round_miles(gap),
+                            }
+                segment["coordinates"] = [[float(lon), float(lat)] for lon, lat in coords]
+                current = coords[-1]
         direction = str(segment.get("direction") or segment.get("direction_rule") or "both")
         segment["direction_rule"] = direction
-        if direction == "ascent":
+        special_direction = special_management_segment_direction_overrides().get(segment_id)
+        if special_direction == "forward":
+            segment["direction_cue"] = "SPECIAL MANAGEMENT: follow the signed one-way direction."
+        elif special_direction == "reverse":
+            segment["direction_cue"] = "SPECIAL MANAGEMENT: follow the signed one-way direction opposite official geometry."
+        elif direction == "ascent":
             planned_direction = planned_directions.get(str(segment.get("seg_id")))
             if planned_direction == "official_geometry_end_to_start":
                 segment["direction_cue"] = "Ascent-only segment; valid uphill traversal is opposite official geometry direction."
@@ -305,6 +433,9 @@ def cue_from_candidate(candidate_id: str, candidate: dict[str, Any]) -> dict[str
         else:
             segment.setdefault("direction_cue", "Either direction allowed; follow map arrows.")
         segments.append(segment)
+        if segment_id.isdigit():
+            earned_segment_ids.add(int(segment_id))
+    between_links = [] if order_changed else copy.deepcopy((candidate.get("between_trail_links") or {}).get("links") or [])
     return {
         "candidate_id": candidate_id,
         "title": ", ".join(candidate.get("trail_names") or []),
@@ -332,7 +463,7 @@ def cue_from_candidate(candidate_id: str, candidate: dict[str, Any]) -> dict[str
             "connector_classes": copy.deepcopy(start_access.get("connector_classes") or []),
         },
         "segments": segments,
-        "between_links": copy.deepcopy((candidate.get("between_trail_links") or {}).get("links") or []),
+        "between_links": between_links,
         "return_to_car": copy.deepcopy(candidate.get("return_to_car") or {}),
         "validation": copy.deepcopy(candidate.get("validation") or {}),
         "direction_validation": copy.deepcopy(candidate.get("direction_validation") or {}),
@@ -509,6 +640,21 @@ def route_validations_for_candidates(
         for validation in route_validations or []
         if str(validation.get("candidate_id")) in candidate_set
     ]
+
+
+def candidate_ids_with_features(current_map: dict[str, Any], collection_name: str) -> set[str]:
+    collection = ((current_map.get("feature_collections") or {}).get(collection_name) or {})
+    return {
+        str((feature.get("properties") or {}).get("candidate_id"))
+        for feature in collection.get("features") or []
+        if (feature.get("properties") or {}).get("candidate_id")
+    }
+
+
+def candidate_has_route_source(current_map: dict[str, Any], candidate_id: str) -> bool:
+    route_feature_ids = candidate_ids_with_features(current_map, "routes")
+    parking_feature_ids = candidate_ids_with_features(current_map, "parking")
+    return candidate_id in route_feature_ids and candidate_id in parking_feature_ids
 
 
 def baseline_replacement_entry(
@@ -809,23 +955,30 @@ def promotion_target_status(
     target = promotion.get("to") or {}
     package_number = str(target.get("package_number"))
     candidate_id = str(target.get("candidate_id"))
-    packages = list(current_map.get("packages") or [])
-    packages.extend(
-        copy.deepcopy(entry.get("replace_package"))
-        for entry in replacement_entries
-        if isinstance(entry.get("replace_package"), dict)
+    replacement_package = next(
+        (
+            entry.get("replace_package")
+            for entry in reversed(replacement_entries)
+            if str((entry.get("replace_package") or {}).get("package_number")) == package_number
+        ),
+        None,
     )
-    matching_packages = [
-        item
-        for item in packages
-        if str(item.get("package_number")) == package_number
-    ]
-    if not matching_packages:
+    if isinstance(replacement_package, dict):
+        matching_package = replacement_package
+    else:
+        matching_package = next(
+            (
+                package
+                for package in current_map.get("packages") or []
+                if str(package.get("package_number")) == package_number
+            ),
+            None,
+        )
+    if not matching_package:
         return False, "target_package_not_in_current_map"
     if not any(
         str(component.get("candidate_id")) == candidate_id
-        for package in matching_packages
-        for component in package.get("components") or []
+        for component in matching_package.get("components") or []
     ):
         return False, "target_candidate_not_in_current_package"
     return True, None
@@ -988,6 +1141,7 @@ def build_replacement_entry(
             copy.deepcopy(component)
             for component in package.get("components") or []
             if str(component.get("candidate_id")) not in existing_generated_ids
+            and candidate_has_route_source(current_map, str(component.get("candidate_id") or ""))
         ]
     else:
         base_component = component_for_candidate(package, baseline_candidate_id)
@@ -1006,9 +1160,16 @@ def build_replacement_entry(
     parking_features: list[dict[str, Any]] = []
     route_validations: list[dict[str, Any]] = []
     component_count = len(alternative.get("components") or [])
+    kept_segment_ids = kept_component_segment_ids(kept_components)
     for index, component_summary in enumerate(alternative.get("components") or [], 1):
+        component_segment_ids, removed_kept_segment_ids = component_segment_ids_excluding_kept(
+            component_summary,
+            kept_segment_ids,
+        )
+        if not component_segment_ids:
+            continue
         candidate = best_candidate_for_component(
-            segment_ids=[int(value) for value in component_summary.get("segment_ids") or []],
+            segment_ids=component_segment_ids,
             anchor=component_summary.get("start_anchor") or {},
             base_state=context["base_state"],
             performance_profile=context["performance_profile"],
@@ -1037,8 +1198,18 @@ def build_replacement_entry(
             component_count=component_count,
             component_index=index,
         )
+        if removed_kept_segment_ids:
+            component["segment_ownership_pruned_kept_segment_ids"] = removed_kept_segment_ids
         replacement_components.append(component)
-        route_cues[candidate_id] = cue_from_candidate(candidate_id, candidate)
+        route_cue = cue_from_candidate(
+            candidate_id,
+            candidate,
+            context["official_index"],
+            context["connector_graph"],
+        )
+        if removed_kept_segment_ids:
+            route_cue["segment_ownership_pruned_kept_segment_ids"] = removed_kept_segment_ids
+        route_cues[candidate_id] = route_cue
         props = route_properties(
             package=package,
             candidate_id=candidate_id,

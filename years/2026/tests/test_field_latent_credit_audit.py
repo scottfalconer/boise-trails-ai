@@ -93,6 +93,61 @@ def test_latent_credit_audit_flags_segments_claimed_by_another_route(tmp_path):
     assert route["segments"][0]["claimed_by_other_routes"][0]["outing_id"] == "route-b"
 
 
+def test_latent_credit_audit_fails_when_one_segment_is_exact_credit_for_two_routes(tmp_path):
+    module = load_module()
+    packet_dir = tmp_path / "packet"
+    gpx_dir = packet_dir / "gpx"
+    gpx_dir.mkdir(parents=True)
+    # Both routes physically cover segment 102 AND both list it in segment_ids,
+    # i.e. both claim it as exact official credit (the segment-1680 defect).
+    write_gpx(
+        gpx_dir / "route-a.gpx",
+        [(-116.0, 43.0), (-115.99, 43.0), (-116.0, 43.02), (-115.99, 43.02)],
+    )
+    write_gpx(
+        gpx_dir / "route-b.gpx",
+        [(-116.0, 43.04), (-115.99, 43.04), (-116.0, 43.02), (-115.99, 43.02)],
+    )
+    official_segments = [
+        segment(101, [(-116.0, 43.0), (-115.99, 43.0)]),
+        segment(102, [(-116.0, 43.02), (-115.99, 43.02)]),
+        segment(103, [(-116.0, 43.04), (-115.99, 43.04)]),
+    ]
+    field_tool_data = {
+        "progress": {"completed_segment_ids_at_export": []},
+        "routes": [
+            {
+                "outing_id": "route-a",
+                "label": "Route A",
+                "segment_ids": [101, 102],
+                "gpx_href": "gpx/route-a.gpx",
+            },
+            {
+                "outing_id": "route-b",
+                "label": "Route B",
+                "segment_ids": [103, 102],
+                "gpx_href": "gpx/route-b.gpx",
+            },
+        ],
+    }
+
+    audit = module.build_latent_credit_audit(
+        field_tool_data,
+        official_segments=official_segments,
+        packet_dir=packet_dir,
+        threshold_miles=0.015,
+        min_fraction=0.8,
+    )
+
+    assert audit["status"] != "passed"
+    assert audit["summary"]["dual_claimed_exact_credit_segment_count"] == 1
+    dual = audit["dual_claimed_exact_credit_segments"]
+    assert len(dual) == 1
+    assert dual[0]["seg_id"] == "102"
+    claiming = {row["outing_id"] for row in dual[0]["claiming_routes"]}
+    assert claiming == {"route-a", "route-b"}
+
+
 def test_latent_credit_audit_accepts_declared_cross_route_ownership(tmp_path):
     module = load_module()
     packet_dir = tmp_path / "packet"

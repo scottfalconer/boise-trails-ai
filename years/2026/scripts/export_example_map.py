@@ -65,7 +65,10 @@ def sanitize_map_html(html: str, repo_root: Path = REPO_ROOT) -> str:
     match = re.search(r"const DATA = (.*?);\nconst map =", sanitized, flags=re.DOTALL)
     if match:
         data = sanitize_private_map_data(json.loads(match.group(1)))
-        sanitized_payload = json.dumps(data, separators=(",", ":"))
+        # Re-embedding happens after the outer remove_local_paths pass, so scrub
+        # local absolute paths inside the payload too (e.g. route_name_source
+        # provenance paths) — mirrors sanitize_map_data_json.
+        sanitized_payload = remove_local_paths(json.dumps(data, separators=(",", ":")), repo_root)
         sanitized = sanitized[: match.start(1)] + sanitized_payload + sanitized[match.end(1) :]
     return sanitized
 
@@ -220,8 +223,33 @@ def sanitize_private_map_data(data: dict) -> dict:
         ]
     data.setdefault("public_sanitization", {})["private_candidate_ids_redacted"] = sorted(private_candidate_ids)
     sanitize_private_text_fields(data)
+    strip_private_time_source_fields(data)
     apply_human_route_names_to_map_data(data)
     return data
+
+
+# Strava effort-match objects (source_type == "matched_strava_segment_effort")
+# historically carried raw personal activity ids/titles/dates. The generator no
+# longer emits them, but keep a defense-in-depth scrubber so a stale private
+# canonical can never leak them into public artifacts (AGENTS.md privacy).
+PRIVATE_TIME_SOURCE_KEYS = (
+    "example_activity_id",
+    "example_activity_name",
+    "example_activity_date",
+    "example_strava_segment_id",
+)
+
+
+def strip_private_time_source_fields(value):
+    if isinstance(value, dict):
+        for key in PRIVATE_TIME_SOURCE_KEYS:
+            value.pop(key, None)
+        for child in value.values():
+            strip_private_time_source_fields(child)
+    elif isinstance(value, list):
+        for child in value:
+            strip_private_time_source_fields(child)
+    return value
 
 
 def remove_local_paths(text: str, repo_root: Path = REPO_ROOT) -> str:

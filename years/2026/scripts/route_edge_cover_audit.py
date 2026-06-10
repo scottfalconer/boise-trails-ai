@@ -288,6 +288,31 @@ def phase_reset_failures(route: dict[str, Any]) -> list[dict[str, Any]]:
     return failures
 
 
+def phase_reset_is_direction_constrained(route: dict[str, Any], failure: dict[str, Any]) -> bool:
+    """Treat some depot revisits as advisory when one-way credit makes them intrinsic.
+
+    The undirected edge-cover check is intentionally strict for normal routes.
+    For ascent-only route cards, though, a parking point can be the forced
+    uphill end of more than one required edge. In that case a car pass before
+    the final edge is a directed-routing warning, not proof that a shorter
+    same-activity ordering exists.
+    """
+
+    direction_evidence = route.get("segment_direction_evidence") or {}
+    if not direction_evidence:
+        return False
+    required_ids = set(normalized_ids(route.get("segment_ids") or []))
+    remaining_ids = set(normalized_ids(failure.get("remaining_segment_ids") or []))
+    credited_before_failure = required_ids - remaining_ids
+    relevant_ids = credited_before_failure | remaining_ids
+    if not relevant_ids or relevant_ids != required_ids:
+        return False
+    return all(
+        (direction_evidence.get(segment_id) or {}).get("direction_rule") == "ascent"
+        for segment_id in relevant_ids
+    )
+
+
 def audit_route(
     route: dict[str, Any],
     *,
@@ -327,7 +352,17 @@ def audit_route(
     hard_failures = list(missing_gpx_failures)
     advisory_findings = []
     for failure in phase_resets:
-        if component_count <= 1:
+        if phase_reset_is_direction_constrained(route, failure):
+            advisory = dict(failure)
+            advisory["severity"] = "advisory"
+            advisory["message"] = (
+                "The route revisits the depot before all required edges are credited, "
+                "but every required edge in this route is ascent-constrained; keep "
+                "advisory until a directed split-route replacement or stronger "
+                "directed route proof improves it."
+            )
+            advisory_findings.append(advisory)
+        elif component_count <= 1:
             hard_failures.append(failure)
         else:
             advisory = dict(failure)

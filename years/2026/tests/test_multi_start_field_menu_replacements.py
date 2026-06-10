@@ -207,6 +207,46 @@ def test_package_source_can_use_existing_generated_output_as_fallback():
     ]
 
 
+def test_candidate_has_route_source_requires_route_and_parking_features():
+    module = load_module()
+    current_map = {
+        "feature_collections": {
+            "routes": {
+                "features": [
+                    {"properties": {"candidate_id": "complete"}},
+                    {"properties": {"candidate_id": "no-parking"}},
+                ]
+            },
+            "parking": {
+                "features": [
+                    {"properties": {"candidate_id": "complete"}},
+                    {"properties": {"candidate_id": "no-route"}},
+                ]
+            },
+        }
+    }
+
+    assert module.candidate_has_route_source(current_map, "complete") is True
+    assert module.candidate_has_route_source(current_map, "no-parking") is False
+    assert module.candidate_has_route_source(current_map, "no-route") is False
+
+
+def test_component_segment_ids_excluding_kept_removes_already_owned_segments():
+    module = load_module()
+    kept = [
+        {"candidate_id": "sweet-connie", "segment_ids": [1665, 1666, 1667]},
+        {"candidate_id": "sheep-camp", "segment_ids": [1653]},
+    ]
+
+    remaining, removed = module.component_segment_ids_excluding_kept(
+        {"segment_ids": [1665, 1666, 1667, 1656, 1653]},
+        module.kept_component_segment_ids(kept),
+    )
+
+    assert remaining == [1656]
+    assert removed == [1665, 1666, 1667, 1653]
+
+
 def test_segment_ownership_promotion_claims_latent_segment_on_target_route(tmp_path, monkeypatch):
     module = load_module()
     monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
@@ -538,6 +578,62 @@ def test_obsolete_segment_promotion_target_is_skipped_before_evidence_lookup(tmp
             "reason": "target_package_not_in_current_map",
             "from": {"package_number": 114, "candidate_id": "quick-draw"},
             "to": {"package_number": 114, "candidate_id": "chbh-connector"},
+        }
+    ]
+
+
+def test_obsolete_promotion_target_in_replaced_package_is_skipped_before_evidence_lookup(tmp_path, monkeypatch):
+    module = load_module()
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    current_map = {
+        "packages": [
+            {
+                "package_number": 15,
+                "components": [
+                    {"candidate_id": "stale-target"},
+                    {"candidate_id": "current-target"},
+                ],
+            }
+        ]
+    }
+    replacement_entries = [
+        {
+            "replace_package": {
+                "package_number": 15,
+                "components": [{"candidate_id": "current-target"}],
+            }
+        }
+    ]
+    promotions = {
+        "promotions": [
+            {
+                "status": "promoted",
+                "segment_id": 1656,
+                "from": {"package_number": 16, "candidate_id": "source"},
+                "to": {"package_number": 15, "candidate_id": "stale-target"},
+                "evidence": {
+                    "activity_review_json": "missing-stale-target-evidence.json",
+                    "required_status": "completed",
+                },
+            }
+        ]
+    }
+
+    applied, skipped = module.apply_segment_ownership_promotions(
+        replacement_entries,
+        promotions,
+        current_map=current_map,
+        context={"official_segments": []},
+    )
+
+    assert applied == []
+    assert skipped == [
+        {
+            "segment_id": 1656,
+            "status": "skipped",
+            "reason": "target_candidate_not_in_current_package",
+            "from": {"package_number": 16, "candidate_id": "source"},
+            "to": {"package_number": 15, "candidate_id": "stale-target"},
         }
     ]
 

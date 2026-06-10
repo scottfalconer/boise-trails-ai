@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-06T05:33:27.210235+00:00",
+  "audited_at": "2026-06-10T03:15:29.082678+00:00",
   "status": "passed",
   "summary": {
     "route_count": 31,
@@ -12,8 +12,10 @@
     "claimed_elsewhere_segment_count": 0,
     "reconciled_claimed_elsewhere_segment_count": 42,
     "unclaimed_uncompleted_segment_count": 0,
-    "repeat_completed_segment_count": 0
+    "repeat_completed_segment_count": 0,
+    "dual_claimed_exact_credit_segment_count": 0
   },
+  "dual_claimed_exact_credit_segments": [],
   "source_files": {
     "field_tool_data_json": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
     "packet_dir": "/Users/scott/dev/boise-trails-ai/docs/field-packet",
@@ -274,9 +276,9 @@
       ]
     },
     {
-      "route_key": "10-2",
-      "outing_id": "10-2",
-      "label": "10-2: 10B",
+      "route_key": "10-1",
+      "outing_id": "10-1",
+      "label": "10-1: 10B",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -522,14 +524,6 @@
           "official_miles": 1.15,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18A",
-              "candidate_ids": [
-                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-              ]
-            },
             {
               "route_key": "17-1",
               "outing_id": "17-1",
@@ -1080,7 +1074,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -1090,21 +1083,19 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1746,
+      "activity_point_count": 1747,
       "review_point_count": 874,
       "candidate_segment_count": 22,
       "latent_completed_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unexpected_latent_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "claimed_elsewhere_segment_ids": [],
@@ -1112,7 +1103,6 @@
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unclaimed_uncompleted_segment_ids": [],
@@ -1121,7 +1111,9 @@
         "1492",
         "1493",
         "1540",
-        "1554"
+        "1554",
+        "1680",
+        "1721"
       ],
       "segments": [
         {
@@ -1174,24 +1166,6 @@
               "label": "17-1: 17",
               "candidate_ids": [
                 "block-bogus_atm_deer_elk_sunshine"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1721",
-          "seg_name": "Lodge Trail 1",
-          "trail_name": "Lodge Trail",
-          "direction": "both",
-          "official_miles": 0.54,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-2",
-              "outing_id": "18-2",
-              "label": "18-2: 18B",
-              "candidate_ids": [
-                "combo-lodge-trail-shindig"
               ]
             }
           ]
@@ -2225,9 +2199,9 @@
       "segments": []
     },
     {
-      "route_key": "10-2",
-      "outing_id": "10-2",
-      "label": "10-2: 10B",
+      "route_key": "10-1",
+      "outing_id": "10-1",
+      "label": "10-1: 10B",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -2473,14 +2447,6 @@
           "official_miles": 1.15,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18A",
-              "candidate_ids": [
-                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-              ]
-            },
             {
               "route_key": "17-1",
               "outing_id": "17-1",
@@ -3127,6 +3093,42 @@
       ]
     },
     {
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: H1",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "planned_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/avimor-harlow-twisted-spring-h1.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 2233,
+      "review_point_count": 1117,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [],
+      "segments": []
+    },
+    {
       "route_key": "2-1",
       "outing_id": "2-1",
       "label": "2-1: 2",
@@ -3237,7 +3239,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -3247,21 +3248,19 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1746,
+      "activity_point_count": 1747,
       "review_point_count": 874,
       "candidate_segment_count": 22,
       "latent_completed_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unexpected_latent_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "claimed_elsewhere_segment_ids": [],
@@ -3269,7 +3268,6 @@
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unclaimed_uncompleted_segment_ids": [],
@@ -3278,7 +3276,9 @@
         "1492",
         "1493",
         "1540",
-        "1554"
+        "1554",
+        "1680",
+        "1721"
       ],
       "segments": [
         {
@@ -3331,24 +3331,6 @@
               "label": "17-1: 17",
               "candidate_ids": [
                 "block-bogus_atm_deer_elk_sunshine"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1721",
-          "seg_name": "Lodge Trail 1",
-          "trail_name": "Lodge Trail",
-          "direction": "both",
-          "official_miles": 0.54,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-2",
-              "outing_id": "18-2",
-              "label": "18-2: 18B",
-              "candidate_ids": [
-                "combo-lodge-trail-shindig"
               ]
             }
           ]
@@ -3456,42 +3438,6 @@
           ]
         }
       ]
-    },
-    {
-      "route_key": "10-1",
-      "outing_id": "10-1",
-      "label": "10-1: 10A",
-      "candidate_ids": [
-        "manual-10a"
-      ],
-      "planned_segment_ids": [
-        "1626",
-        "1657",
-        "1661",
-        "1662",
-        "1687",
-        "1688",
-        "1689",
-        "1696",
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 3753,
-      "review_point_count": 939,
-      "candidate_segment_count": 13,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
     },
     {
       "route_key": "17-1",

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-06T05:33:50.967950+00:00",
+  "generated_at": "2026-06-10T03:26:28.122004+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -25,7 +25,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc; canonical map hash debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc"
+      "evidence": "field source hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3; canonical map hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -151,7 +151,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-06T05:33:49.481685+00:00",
+    "generated_at": "2026-06-10T03:26:26.358293+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -264,7 +264,7 @@
       },
       {
         "label": "10B",
-        "outing_id": "10-2",
+        "outing_id": "10-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -428,6 +428,14 @@
         "failures": []
       },
       {
+        "label": "H1",
+        "outing_id": "127-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "2",
         "outing_id": "2-1",
         "passed": true,
@@ -447,7 +455,7 @@
             "segment_id": "1493",
             "segment_name": "Around the Mountain Trail 6",
             "observed_directions": {
-              "forward": 0.918
+              "forward": 0.899
             },
             "allowed_directions": [
               "forward"
@@ -458,7 +466,7 @@
             "segment_id": "1750",
             "segment_name": "Around the Mountain Trail 7",
             "observed_directions": {
-              "forward": 0.353
+              "forward": 0.347
             },
             "allowed_directions": [
               "forward"
@@ -471,14 +479,6 @@
       {
         "label": "15B",
         "outing_id": "15-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "10A",
-        "outing_id": "10-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],

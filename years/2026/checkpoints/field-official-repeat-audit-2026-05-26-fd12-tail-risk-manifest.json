@@ -1,0 +1,43 @@
+{
+  "run_id": "field-official-repeat-audit-2026-05-11",
+  "generated_at": "2026-05-26T20:31:50Z",
+  "command": "python years/2026/scripts/field_official_repeat_audit.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/outing-menu-map-data.json",
+      "exists": true,
+      "size_bytes": 2720220,
+      "sha256": "064de815da3a06e0c36e3f02e6a95e26b365ddb8a7eea5ee7484bc3c20aa79fc"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 786304,
+      "sha256": "0eb34160026771fd9afe9abbbffbc7017bff60fb3cf824f5eaa413829e376564"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-26-fd12-tail-risk.json",
+      "exists": true,
+      "size_bytes": 227142,
+      "sha256": "218d22181264ee14a58345d8bee40a956add4df209e5b5070f6253f93867b0ad"
+    },
+    {
+      "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-26-fd12-tail-risk.md",
+      "exists": true,
+      "size_bytes": 3437,
+      "sha256": "f3414869574f474370f3e988d6e32b59eff10b85a5847ac9276d9ddda4ab51b3"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_field_official_repeat_audit_v1",
+    "status": "passed"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 4,
+    "missing": [],
+    "mismatches": []
+  }
+}

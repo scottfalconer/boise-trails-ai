@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v31-23f3c9437046fc126b";
+const CACHE_NAME = "boise-trails-field-packet-v31-3897f2dc04cca69081";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -81,6 +81,9 @@ const PRECACHE_URLS = [
   "gpx/official/dry-creek-shingle-creek-16c-2.gpx",
   "gpx/cues/dry-creek-shingle-creek-16c-2.gpx",
   "gpx/audit/dry-creek-shingle-creek-16c-2.gpx",
+  "gpx/official/avimor-harlow-twisted-spring-h1.gpx",
+  "gpx/cues/avimor-harlow-twisted-spring-h1.gpx",
+  "gpx/audit/avimor-harlow-twisted-spring-h1.gpx",
   "gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
   "gpx/cues/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
   "gpx/audit/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
@@ -90,9 +93,6 @@ const PRECACHE_URLS = [
   "gpx/official/dry-creek-highlands-15b.gpx",
   "gpx/cues/dry-creek-highlands-15b.gpx",
   "gpx/audit/dry-creek-highlands-15b.gpx",
-  "gpx/official/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
-  "gpx/cues/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
-  "gpx/audit/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
   "gpx/official/bogus-basin-sunshine-xc-17.gpx",
   "gpx/cues/bogus-basin-sunshine-xc-17.gpx",
   "gpx/audit/bogus-basin-sunshine-xc-17.gpx",

@@ -6,7 +6,7 @@ from pathlib import Path
 YEAR_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = YEAR_DIR.parent.parent
 DISPROOF_JSON = YEAR_DIR / "checkpoints" / "all-route-adversarial-disproof-2026-05-16.json"
-MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
+FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
 
 
 def read_json(path: Path):
@@ -22,17 +22,11 @@ def load_script(name: str):
 
 
 def current_route_candidates():
-    map_data = read_json(MAP_DATA_JSON)
+    field_tool_data = read_json(FIELD_TOOL_DATA_JSON)
     rows = {}
-    for package in map_data.get("packages") or []:
-        for component in package.get("components") or []:
-            label = str(
-                component.get("field_menu_label")
-                or component.get("label")
-                or package.get("package_number")
-                or ""
-            )
-            rows[label] = str(component.get("candidate_id") or "")
+    for route in field_tool_data.get("routes") or []:
+        label = str(route.get("route_code") or route.get("label") or route.get("outing_id") or "")
+        rows[label] = [str(candidate_id) for candidate_id in route.get("candidate_ids") or []]
     return rows
 
 
@@ -53,61 +47,65 @@ def test_all_current_routes_have_adversarial_disproof_records():
     routes = {route["route_label"]: route for route in artifact["routes"]}
     proofs = {proof["labels"][0]: proof for proof in artifact["proofs"]}
 
+    # Every current route must have a record (no silent omissions), but the
+    # registry no longer rubber-stamps them: each carries the real review state.
     assert artifact["summary"]["route_count"] == len(current)
     assert artifact["summary"]["proof_count"] == len(current)
     assert set(routes) == set(current)
     assert set(proofs) == set(current)
-    assert {label: proof["candidate_id"] for label, proof in proofs.items()} == current
-    assert artifact["summary"]["deterministic_same_credit_failure_count"] == 0
+    assert {label: proof["candidate_ids"] for label, proof in proofs.items()} == current
+
+    # The recorded failure count must equal the number of routes whose decision
+    # is not the accepted decision (i.e. it is sourced, not hardcoded to 0).
+    failed = [r for r in artifact["routes"] if r["decision"] != "HOLD_CURRENT_RECERTIFIED"]
+    assert artifact["summary"]["deterministic_same_credit_failure_count"] == len(failed)
+    assert set(artifact["summary"]["failed_route_labels"]) == {r["route_label"] for r in failed}
+    # Accepted iff route_efficiency_achieved.
+    assert artifact["summary"]["route_efficiency_achieved"] == (len(failed) == 0)
 
 
-def test_h1_public_source_access_gap_is_resolved_by_user_confirmation():
+def test_all_route_disproof_registry_is_sourced_from_current_field_packet():
     artifact = read_json(DISPROOF_JSON)
-    routes = {route["route_label"]: route for route in artifact["routes"]}
-    proofs = {proof["labels"][0]: proof for proof in artifact["proofs"]}
 
-    h1_route = routes["H1"]
-    h1_proof = proofs["H1"]
-
-    assert h1_route["decision"] == "HOLD_PROVEN_CURRENT"
-    assert h1_route["requires_field_walkthrough"] is False
-    assert h1_route["public_source_status"] == "public_source_ambiguous_user_confirmed_access"
-    assert h1_route["user_confirmed_access"] is True
-    assert h1_route["access_status"] == "accepted_user_reviewed"
-
-    assert h1_proof["status"] == "accepted_current"
-    assert h1_proof["decision"] == "HOLD_PROVEN_CURRENT"
-    assert h1_proof["checks"]["public_owner_access_confirmation_present"] is False
-    assert h1_proof["checks"]["access_confirmed_by_public_authoritative_source"] is False
-    assert h1_proof["checks"]["access_confirmed_by_user"] is True
-    assert h1_proof["checks"]["accepted_user_reviewed_access"] is True
+    assert artifact["source_files"]["field_tool_data"] == "docs/field-packet/field-tool-data.json"
+    assert artifact["source_files"]["route_review"] == (
+        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json"
+    )
+    # Decisions are per-route now; they must sum to route_count and use only the
+    # known vocabulary.
+    decision_counts = artifact["summary"]["decision_counts"]
+    assert sum(decision_counts.values()) == artifact["summary"]["route_count"]
+    assert set(decision_counts) <= {"HOLD_CURRENT_RECERTIFIED", "NEEDS_REANCHOR_OR_WAIVER"}
 
 
-def test_certified_repairs_remain_explicitly_recorded():
+def test_failed_routes_are_excluded_from_efficiency_and_repeat_proof_indexes():
+    """Fail-closed contract: only accepted routes' candidate_ids may be indexed
+    as proven; routes the dominance gate failed must drop out so their
+    optimization warnings re-open."""
     artifact = read_json(DISPROOF_JSON)
-    decisions = {route["route_label"]: route["decision"] for route in artifact["routes"]}
-    walkthrough = {route["route_label"]: route["requires_field_walkthrough"] for route in artifact["routes"]}
+    routes_by_label = {route["route_label"]: route for route in artifact["routes"]}
+    current = current_route_candidates()
 
-    assert decisions["FD03A"] == "HOLD_CERTIFIED_REPLACEMENT"
-    assert decisions["FD09A"] == "HOLD_CERTIFIED_REPLACEMENT"
-    assert decisions["FD14D"] == "HOLD_CERTIFIED_REPLACEMENT"
-    assert walkthrough["FD03A"] is False
-    assert walkthrough["FD09A"] is False
-    assert walkthrough["FD14D"] is False
-
-
-def test_all_route_proofs_are_accepted_by_efficiency_and_repeat_audits():
-    artifact = read_json(DISPROOF_JSON)
-    current_candidate_ids = set(current_route_candidates().values())
+    accepted_candidate_ids = set()
+    failed_candidate_ids = set()
+    for label, candidate_ids in current.items():
+        bucket = (
+            accepted_candidate_ids
+            if routes_by_label[label]["decision"] == "HOLD_CURRENT_RECERTIFIED"
+            else failed_candidate_ids
+        )
+        bucket.update(candidate_ids)
+    failed_only = failed_candidate_ids - accepted_candidate_ids
 
     efficiency_audit = load_script("route_efficiency_audit")
     repeat_audit = load_script("route_repeat_optimization_audit")
+    efficiency_index = set(efficiency_audit.route_proof_index([artifact]))
+    repeat_index = set(repeat_audit.route_proof_index([artifact]))
 
-    efficiency_index = efficiency_audit.route_proof_index([artifact])
-    repeat_index = repeat_audit.route_proof_index([artifact])
-
-    assert current_candidate_ids <= set(efficiency_index)
-    assert current_candidate_ids <= set(repeat_index)
+    assert accepted_candidate_ids <= efficiency_index
+    assert accepted_candidate_ids <= repeat_index
+    assert failed_only.isdisjoint(efficiency_index)
+    assert failed_only.isdisjoint(repeat_index)
 
 
 def test_all_route_disproof_artifact_stays_public_safe():

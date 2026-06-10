@@ -1,26 +1,27 @@
 # Multi-Start Alternative Audit
 
-Generated: 2026-05-08T14:10:53.330183+00:00
+Generated: 2026-05-27T20:15:27.819922+00:00
 
 ## Summary
 
-- Outing components evaluated: 24
-- Alternatives retained for review: 50
+- Outing components evaluated: 23
+- Alternatives retained for review: 52
 - Outings with review candidates: 5
-- Status counts: {"needs_parking_check": 3, "not_worth_it": 43, "promising": 4}
+- Status counts: {"needs_parking_check": 3, "not_worth_it": 44, "promising": 5}
 - West Climb candidate found: True
 
 ## Review Candidates
 
 | Outing | Status | Baseline on-foot | Alt on-foot | Savings | Delta min | Benefit | Components | Blockers |
 |---|---|---:|---:|---:|---:|---|---|---|
-| 15A | promising | 18.65 | 16.24 | 2.41 | -38 | refill_bail | Dry Creek Trail / Highlands Trail+Connector |  |
-| 1A | promising | 7.93 | 5.47 | 2.46 | 32 | refill_bail | 36th Street Chute / Bob Smylie+Buena Vista Trail+Full Sail Trail |  |
-| 4C | promising | 11.5 | 10.63 | 0.87 | 9 | refill_bail | Tram Trail+Table Rock Quarry Trail / Shoshone-Paiute+Quarry Trail - Castle Rock+Table Rock Trail+Rock Garden+Rock Island |  |
-| 5 | promising | 13.56 | 9.59 | 3.97 | -47 | refill_bail | Barn Owl / Polecat Loop+Quick Draw+Doe Ridge |  |
-| 10A | needs_parking_check | 13.62 | 10.24 | 3.38 | -43 | refill_bail | Harlow's Hollows+Harlow's Hollows Connector / Ricochet+Shooting Range+Whistling Pig+Twisted Spring+Spring Creek | anchor is not field-ready; assumed paved-road parking requires manual check; parking/access requires manual verification; user marked parking maybe |
-| 10A | needs_parking_check | 13.62 | 10.51 | 3.11 | -24 | refill_bail | Spring Creek+Harlow's Hollows / Twisted Spring+Whistling Pig+Shooting Range+Ricochet+Harlow's Hollows Connector | anchor is not field-ready; assumed paved-road parking requires manual check; parking/access requires manual verification; user marked parking maybe |
-| 10A | needs_parking_check | 13.62 | 10.95 | 2.67 | -27 | refill_bail | Shooting Range / Harlow's Hollows+Harlow's Hollows Connector+Ricochet+Whistling Pig+Twisted Spring+Spring Creek | anchor is not field-ready; assumed paved-road parking requires manual check; parking/access requires manual verification; user marked parking maybe |
+| 15 | promising | 32.03 | 24.74 | 7.29 | -87 | refill_bail | Red Tail Trail+Landslide / Highlands Trail+Dry Creek Trail+Connector |  |
+| 15 | promising | 32.03 | 28.5 | 3.53 | -17 | refill_bail | Highlands Trail+Connector / Dry Creek Trail+Landslide+Red Tail Trail |  |
+| 16C | promising | 31.55 | 27.69 | 3.86 | -43 | refill_bail | Stack Rock Connector / Sweet Connie Trail+Shingle Creek Trail+Sheep Camp Trail |  |
+| 1A | promising | 7.93 | 5.47 | 2.46 | 26 | refill_bail | 36th Street Chute / Full Sail Trail+Buena Vista Trail+Bob Smylie |  |
+| 5 | promising | 15.75 | 12.57 | 3.18 | -29 | refill_bail | Barn Owl / Polecat Loop+Doe Ridge+Quick Draw |  |
+| 10A | needs_parking_check | 13.62 | 10.95 | 2.67 | -25 | refill_bail | Harlow's Hollows+Spring Creek / Twisted Spring+Whistling Pig+Shooting Range+Ricochet+Harlow's Hollows Connector | anchor is not field-ready; assumed paved-road parking requires manual check; parking/access requires manual verification; user marked parking maybe |
+| 10A | needs_parking_check | 13.62 | 11.47 | 2.15 | -20 | refill_bail | Shooting Range / Harlow's Hollows+Harlow's Hollows Connector+Ricochet+Whistling Pig+Twisted Spring+Spring Creek | anchor is not field-ready; assumed paved-road parking requires manual check; parking/access requires manual verification; user marked parking maybe |
+| 10A | needs_parking_check | 13.62 | 11.91 | 1.71 | -14 | refill_bail | Shooting Range+Whistling Pig / Harlow's Hollows+Harlow's Hollows Connector+Ricochet+Twisted Spring+Spring Creek | anchor is not field-ready; assumed paved-road parking requires manual check; parking/access requires manual verification; user marked parking maybe |
 
 ## Caveats
 

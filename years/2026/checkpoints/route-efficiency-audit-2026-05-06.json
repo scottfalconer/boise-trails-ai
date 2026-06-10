@@ -1,25 +1,25 @@
 {
   "objective": "prove the current Boise Trails Challenge route set is as efficient as practical under the user's constraints",
-  "verdict": "proven",
-  "achieved": true,
+  "verdict": "not_proven",
+  "achieved": false,
   "summary": {
     "all_component_totals": {
-      "official_miles": 164.43,
-      "on_foot_miles": 265.22,
-      "ratio": 1.613,
-      "count": 43,
+      "official_miles": 165.59,
+      "on_foot_miles": 321.91,
+      "ratio": 1.944,
+      "count": 31,
       "covered_segment_count": null
     },
     "runnable_field_packet_totals": {
-      "official_miles": 164.43,
-      "on_foot_miles": 265.22,
-      "ratio": 1.613,
-      "count": 43,
+      "official_miles": 165.59,
+      "on_foot_miles": 321.91,
+      "ratio": 1.944,
+      "count": 31,
       "covered_segment_count": 251
     },
     "manual_hold_count": 0,
-    "human_loop_plan_ratio": 1.53,
-    "human_loop_plan_on_foot_miles": 252.33,
+    "human_loop_plan_ratio": 1.68,
+    "human_loop_plan_on_foot_miles": 278.7,
     "alternative_challenge": {
       "available": true,
       "target_count": 8,
@@ -71,17 +71,17 @@
     "route_proofs": {
       "available": true,
       "registry_count": 3,
-      "accepted_proof_count": 47,
+      "accepted_proof_count": 33,
       "proof_status_counts": {
-        "accepted_current": 59
+        "accepted_current": 41,
+        "failed_dominated": 6
       },
       "accepted_candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop",
-        "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
-        "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
         "accepted-replacement-fd14d-36th-street-chute-lower-36th",
         "around-the-mountain-trail",
+        "block-bogus_atm_deer_elk_sunshine",
         "block-bogus_mores_lodge_tempest",
+        "block-camels_lower_hulls_even_day",
         "block-cartwright_peggy_interface",
         "block-cervidae_peak",
         "block-eagle_bike_park_red_tail",
@@ -93,113 +93,139 @@
         "block-watchman_five_mile_rocky",
         "block-westside_seaman_veterans",
         "bobs-trail-urban-connector",
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
         "cartwright-connector",
         "cartwright-ridge",
         "chbh-connector",
         "combo-landslide-red-tail-trail",
-        "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+        "combo-lodge-trail-shindig",
+        "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
         "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
         "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute",
         "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
         "combo-two-point-femrites-patrol-shanes-connector",
         "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
-        "connector",
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
         "connector-highlands-trail-dry-creek-trail",
         "crestline-trail",
         "deer-point-trail",
         "doe-ridge",
         "elk-meadows-trail",
         "fat-tire-traverse-curlew-connection",
+        "harris-ridge-trail",
         "hulls-gulch-interpretive",
         "kestral-trail",
         "lower-hulls-gulch-trail-red-cliffs",
+        "manual-10a",
         "manual-10b",
         "manual-16a-1",
         "manual-16a-2",
+        "multi-start-15-15-ms-15-1-red-tail-trail-landslide",
         "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
+        "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw",
+        "peace-valley-overlook",
         "peace-valley-overlook-harris-ridge-trail",
         "polecat-loop-peggys-trail",
         "scotts-trail",
-        "stack-rock-connector",
         "sunshine-xc",
         "the-face-trail",
         "three-bears-trail-freestone-ridge"
       ],
       "accepted_active_candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop",
-        "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
-        "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
-        "accepted-replacement-fd14d-36th-street-chute-lower-36th",
-        "around-the-mountain-trail",
-        "block-bogus_mores_lodge_tempest",
+        "block-bogus_atm_deer_elk_sunshine",
+        "block-camels_lower_hulls_even_day",
+        "block-cartwright_peggy_interface",
         "block-cervidae_peak",
         "block-eagle_bike_park_red_tail",
+        "block-freestone_three_bears_curlew",
         "block-hawkins",
         "block-military_core",
         "block-upper_8th_corrals_sidewinder",
         "block-watchman_five_mile_rocky",
         "block-westside_seaman_veterans",
         "bobs-trail-urban-connector",
-        "cartwright-connector",
-        "cartwright-ridge",
-        "chbh-connector",
-        "combo-landslide-red-tail-trail",
-        "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
-        "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
-        "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
-        "combo-two-point-femrites-patrol-shanes-connector",
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
-        "connector",
-        "crestline-trail",
-        "deer-point-trail",
-        "doe-ridge",
-        "elk-meadows-trail",
-        "fat-tire-traverse-curlew-connection",
-        "hulls-gulch-interpretive",
-        "kestral-trail",
-        "lower-hulls-gulch-trail-red-cliffs",
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+        "combo-lodge-trail-shindig",
+        "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+        "harris-ridge-trail",
+        "manual-10a",
         "manual-10b",
         "manual-16a-1",
         "manual-16a-2",
-        "multi-start-15a-15a-ms-03-1-dry-creek-trail",
-        "peace-valley-overlook-harris-ridge-trail",
-        "polecat-loop-peggys-trail",
-        "scotts-trail",
-        "stack-rock-connector",
-        "sunshine-xc",
-        "the-face-trail",
-        "three-bears-trail-freestone-ridge"
+        "multi-start-15-15-ms-15-1-red-tail-trail-landslide",
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
+        "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw",
+        "peace-valley-overlook",
+        "scotts-trail"
       ],
       "public_access_gated_active_candidate_ids": []
     },
     "time_estimate_quality": {
-      "component_count": 43,
-      "problem_count": 0,
+      "component_count": 31,
+      "problem_count": 2,
       "missing_cue_count": 0,
       "missing_total_count": 0,
-      "missing_p75_count": 0,
-      "missing_moving_p75_count": 0,
+      "missing_p75_count": 2,
+      "missing_moving_p75_count": 2,
       "missing_effort_count": 0,
       "stale_p75_count": 0,
-      "problem_candidate_ids": [],
-      "problems": []
+      "problem_candidate_ids": [
+        "manual-10a",
+        "manual-10b"
+      ],
+      "problems": [
+        {
+          "label": "10A",
+          "candidate_id": "manual-10a",
+          "missing_cue": false,
+          "missing_total": false,
+          "missing_p75": true,
+          "missing_moving_p75": true,
+          "missing_effort": false,
+          "stale_p75": false,
+          "stale_delta_minutes": null,
+          "component_total_minutes": 360,
+          "door_to_door_p75_minutes": null,
+          "moving_effort_p75_minutes": null,
+          "ascent_ft": 2441,
+          "grade_adjusted_miles": 9.75
+        },
+        {
+          "label": "10B",
+          "candidate_id": "manual-10b",
+          "missing_cue": false,
+          "missing_total": false,
+          "missing_p75": true,
+          "missing_moving_p75": true,
+          "missing_effort": false,
+          "stale_p75": false,
+          "stale_delta_minutes": null,
+          "component_total_minutes": 152,
+          "door_to_door_p75_minutes": null,
+          "moving_effort_p75_minutes": null,
+          "ascent_ft": 286,
+          "grade_adjusted_miles": 2.73
+        }
+      ]
     }
   },
   "gates": [
     {
       "gate": "Full official coverage is represented",
       "status": "passed",
-      "evidence": "map_data covered_segment_count=251; official_miles=164.43"
+      "evidence": "map_data covered_segment_count=251; official_miles=165.59"
     },
     {
       "gate": "Runnable field packet covers all official work",
       "status": "passed",
-      "evidence": "runnable_segments=251; target_segments=251; runnable_official_miles=164.43; manual_holds=0"
+      "evidence": "runnable_segments=251; target_segments=251; runnable_official_miles=165.59; manual_holds=0"
     },
     {
       "gate": "Planwide on-foot/official ratio is within preferred target or accepted proof tolerance",
-      "status": "passed",
-      "evidence": "current_all_component_ratio=1.613; runnable_ratio=1.613; preferred=1.6; accepted_proof_limit=1.65; over_preferred_by_miles=2.13; challenged_targets=8; proofed_challenged_targets=True"
+      "status": "failed",
+      "evidence": "current_all_component_ratio=1.944; runnable_ratio=1.944; preferred=1.6; accepted_proof_limit=1.65; over_preferred_by_miles=56.97; challenged_targets=8; proofed_challenged_targets=True"
     },
     {
       "gate": "No unresolved manual route-design area remains",
@@ -208,18 +234,18 @@
     },
     {
       "gate": "No route exceeds 2.0x without manual/local-map proof",
-      "status": "passed",
-      "evidence": "unchallenged_components_over_2x=0"
+      "status": "failed",
+      "evidence": "unchallenged_components_over_2x=2"
     },
     {
       "gate": "Largest overhead routes have been manually challenged",
-      "status": "passed",
-      "evidence": "unchallenged_components_with_6+_overhead_miles=0"
+      "status": "failed",
+      "evidence": "unchallenged_components_with_6+_overhead_miles=1"
     },
     {
       "gate": "Generated candidate universe has been checked for better exact alternatives",
-      "status": "passed",
-      "evidence": "challenge_available=True; targets=8; better_exact=0; covers_current_targets=True"
+      "status": "failed",
+      "evidence": "challenge_available=True; targets=8; better_exact=0; covers_current_targets=False"
     },
     {
       "gate": "Boundary recombination checks include elevation and p75 time",
@@ -233,8 +259,8 @@
     },
     {
       "gate": "Runnable outings have current p75 time and DEM effort estimates",
-      "status": "passed",
-      "evidence": "components=43; missing_p75=0; missing_moving=0; missing_effort=0; stale_p75=0"
+      "status": "failed",
+      "evidence": "components=31; missing_p75=2; missing_moving=2; missing_effort=0; stale_p75=0"
     },
     {
       "gate": "Accepted manual improvements have been integrated or explicitly rejected",
@@ -245,523 +271,554 @@
   "package16": {
     "status": "manual_design_area",
     "decision": "Do not schedule the Hawkins-start Sweet Connie + Shingle/Sheep placeholder as a normal outing. Keep Stack Rock Connector as a clean 16B outing, and redesign the remaining official segments from a lower Sweet/Dry access or a validated mixed-mode route.",
-    "held_official_miles": 11.62,
-    "held_on_foot_miles": 36.48,
+    "held_official_miles": 0.0,
+    "held_on_foot_miles": 0.0,
     "accepted_split_official_miles": 6.86,
-    "accepted_split_on_foot_miles": 15.51,
-    "improvement_miles": 20.97,
+    "accepted_split_on_foot_miles": 15.5,
+    "improvement_miles": null,
     "remaining_blocker": null
   },
   "worst_ratio_components": [
     {
-      "label": "16A-2",
-      "package_number": 129,
-      "block_name": "Field Day 29 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "trailhead": "Simplot Lodge Parking Area",
+      "trails": [
+        "Shindig",
+        "Lodge Trail"
+      ],
+      "official_miles": 0.66,
+      "on_foot_miles": 6.82,
+      "overhead_miles": 6.16,
+      "ratio": 10.33,
+      "total_minutes": 165,
+      "candidate_ids": [
+        "combo-lodge-trail-shindig"
+      ]
+    },
+    {
+      "label": "16A-2",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": "gpx_generated_parking_manual",
+      "trailhead": "Private prior parking anchor",
       "trails": [
         "Sheep Camp Trail"
       ],
       "official_miles": 0.77,
-      "on_foot_miles": 3.31,
-      "overhead_miles": 2.54,
-      "ratio": 4.3,
+      "on_foot_miles": 4.41,
+      "overhead_miles": 3.64,
+      "ratio": 5.73,
       "total_minutes": 106,
       "candidate_ids": [
         "manual-16a-2"
       ]
     },
     {
-      "label": "FD25B",
-      "package_number": 125,
-      "block_name": "Field Day 25 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "8B",
+      "package_number": 8,
+      "block_name": "Oregon Trail / Harris Ridge / Peace Valley",
+      "planning_status": "accepted_field_executable_split",
       "route_design_status": null,
-      "trailhead": "Pioneer Lodge Parking Area",
+      "trailhead": "Homestead Trail Access Point",
       "trails": [
-        "The Face Trail"
+        "Peace Valley Overlook"
       ],
-      "official_miles": 1.15,
-      "on_foot_miles": 4.3,
-      "overhead_miles": 3.15,
-      "ratio": 3.74,
-      "total_minutes": 160,
+      "official_miles": 0.54,
+      "on_foot_miles": 2.7,
+      "overhead_miles": 2.16,
+      "ratio": 5.0,
+      "total_minutes": 101,
       "candidate_ids": [
-        "the-face-trail"
+        "peace-valley-overlook"
       ]
     },
     {
-      "label": "FD07B",
-      "package_number": 107,
-      "block_name": "Field Day 7 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "1A-1",
+      "package_number": 1,
+      "block_name": "Hillside / Harrison / West Climb frontside",
+      "planning_status": "accepted_multi_start_split",
       "route_design_status": null,
-      "trailhead": "Simplot Lodge Parking Area",
+      "trailhead": "Full Sail Trailhead, N 36th St Parking",
       "trails": [
-        "Deer Point Trail"
+        "36th Street Chute"
       ],
-      "official_miles": 1.14,
-      "on_foot_miles": 3.97,
-      "overhead_miles": 2.83,
-      "ratio": 3.48,
-      "total_minutes": 155,
-      "candidate_ids": [
-        "deer-point-trail"
-      ]
-    },
-    {
-      "label": "FD25A",
-      "package_number": 125,
-      "block_name": "Field Day 25 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Simplot Lodge Parking Area",
-      "trails": [
-        "Elk Meadows Trail"
-      ],
-      "official_miles": 1.49,
-      "on_foot_miles": 4.9,
-      "overhead_miles": 3.41,
-      "ratio": 3.29,
-      "total_minutes": 171,
-      "candidate_ids": [
-        "elk-meadows-trail"
-      ]
-    },
-    {
-      "label": "FD08B",
-      "package_number": 108,
-      "block_name": "Field Day 8 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Cartwright",
-      "trails": [
-        "Cartwright Connector"
-      ],
-      "official_miles": 1.7,
-      "on_foot_miles": 4.65,
-      "overhead_miles": 2.95,
-      "ratio": 2.74,
-      "total_minutes": 127,
-      "candidate_ids": [
-        "cartwright-connector"
-      ]
-    },
-    {
-      "label": "FD04A",
-      "package_number": 104,
-      "block_name": "Field Day 4 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Freestone Creek",
-      "trails": [
-        "Two Point",
-        "Shane's Connector",
-        "Femrite's Patrol",
-        "Shane's Trail"
-      ],
-      "official_miles": 3.54,
-      "on_foot_miles": 9.55,
-      "overhead_miles": 6.01,
-      "ratio": 2.7,
-      "total_minutes": 204,
-      "candidate_ids": [
-        "combo-two-point-femrites-patrol-shanes-connector"
-      ]
-    },
-    {
-      "label": "FD08A",
-      "package_number": 108,
-      "block_name": "Field Day 8 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Cartwright",
-      "trails": [
-        "Cartwright Ridge"
-      ],
-      "official_miles": 1.76,
-      "on_foot_miles": 4.39,
-      "overhead_miles": 2.63,
-      "ratio": 2.49,
-      "total_minutes": 125,
-      "candidate_ids": [
-        "cartwright-ridge"
-      ]
-    },
-    {
-      "label": "FD07A",
-      "package_number": 107,
-      "block_name": "Field Day 7 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Simplot Lodge Parking Area",
-      "trails": [
-        "Sunshine XC"
-      ],
-      "official_miles": 0.87,
-      "on_foot_miles": 2.15,
-      "overhead_miles": 1.28,
-      "ratio": 2.47,
+      "official_miles": 0.74,
+      "on_foot_miles": 3.17,
+      "overhead_miles": 2.43,
+      "ratio": 4.28,
       "total_minutes": 119,
       "candidate_ids": [
-        "sunshine-xc"
+        "multi-start-1a-1a-ms-04-1-36th-street-chute"
+      ]
+    },
+    {
+      "label": "16C-2",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": null,
+      "trailhead": "Private prior parking anchor",
+      "trails": [
+        "Shingle Creek Trail"
+      ],
+      "official_miles": 4.76,
+      "on_foot_miles": 14.31,
+      "overhead_miles": 9.55,
+      "ratio": 3.01,
+      "total_minutes": 259,
+      "candidate_ids": [
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+      ]
+    },
+    {
+      "label": "10A",
+      "package_number": 10,
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": "gpx_generated_parking_manual",
+      "trailhead": "Harlow's / Hidden Springs west access probe",
+      "trails": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
+      ],
+      "official_miles": 7.3,
+      "on_foot_miles": 21.84,
+      "overhead_miles": 14.54,
+      "ratio": 2.99,
+      "total_minutes": 360,
+      "candidate_ids": [
+        "manual-10a"
+      ]
+    },
+    {
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "planning_status": "needs_manual_route_design",
+      "route_design_status": null,
+      "trailhead": "Bogus Basin Base Area",
+      "trails": [
+        "Brewer's Byway Extension",
+        "Tempest Trail",
+        "Brewers Byway",
+        "The Face Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "official_miles": 5.58,
+      "on_foot_miles": 15.3,
+      "overhead_miles": 9.72,
+      "ratio": 2.74,
+      "total_minutes": 357,
+      "candidate_ids": [
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+      ]
+    },
+    {
+      "label": "15",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "planning_status": "accepted_multi_start_split",
+      "route_design_status": null,
+      "trailhead": "Bob's Trailhead",
+      "trails": [
+        "Highlands Trail",
+        "Dry Creek Trail",
+        "Connector"
+      ],
+      "official_miles": 9.33,
+      "on_foot_miles": 25.39,
+      "overhead_miles": 16.06,
+      "ratio": 2.72,
+      "total_minutes": 358,
+      "candidate_ids": [
+        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
       ]
     }
   ],
   "worst_overhead_components": [
     {
-      "label": "FD20A",
-      "package_number": 120,
-      "block_name": "Field Day 20 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "13",
+      "package_number": 13,
+      "block_name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
-      "trailhead": "Freestone Creek",
+      "trailhead": "Freestone Creek Trailhead",
       "trails": [
         "Three Bears Trail",
-        "Freestone Ridge"
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Two Point",
+        "Fat Tire Traverse",
+        "Curlew Connection"
       ],
-      "official_miles": 6.72,
-      "on_foot_miles": 13.1,
-      "overhead_miles": 6.38,
-      "ratio": 1.95,
-      "total_minutes": 255,
+      "official_miles": 14.35,
+      "on_foot_miles": 32.47,
+      "overhead_miles": 18.12,
+      "ratio": 2.26,
+      "total_minutes": 497,
       "candidate_ids": [
-        "three-bears-trail-freestone-ridge"
+        "block-freestone_three_bears_curlew"
+      ]
+    },
+    {
+      "label": "15",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "planning_status": "accepted_multi_start_split",
+      "route_design_status": null,
+      "trailhead": "Bob's Trailhead",
+      "trails": [
+        "Highlands Trail",
+        "Dry Creek Trail",
+        "Connector"
+      ],
+      "official_miles": 9.33,
+      "on_foot_miles": 25.39,
+      "overhead_miles": 16.06,
+      "ratio": 2.72,
+      "total_minutes": 358,
+      "candidate_ids": [
+        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
+      ]
+    },
+    {
+      "label": "10A",
+      "package_number": 10,
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": "gpx_generated_parking_manual",
+      "trailhead": "Harlow's / Hidden Springs west access probe",
+      "trails": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
+      ],
+      "official_miles": 7.3,
+      "on_foot_miles": 21.84,
+      "overhead_miles": 14.54,
+      "ratio": 2.99,
+      "total_minutes": 360,
+      "candidate_ids": [
+        "manual-10a"
       ]
     },
     {
       "label": "18",
-      "package_number": 131,
-      "block_name": "Field Day 31 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
-      "trailhead": "Pioneer Lodge Parking Area",
+      "trailhead": "Bogus Basin Base Area",
       "trails": [
         "Brewer's Byway Extension",
-        "Brewers Byway",
-        "Shindig",
         "Tempest Trail",
-        "Lodge Trail",
+        "Brewers Byway",
+        "The Face Trail",
         "Mores Mtn Interpretive"
       ],
-      "official_miles": 5.08,
-      "on_foot_miles": 11.25,
-      "overhead_miles": 6.17,
-      "ratio": 2.21,
-      "total_minutes": 320,
+      "official_miles": 5.58,
+      "on_foot_miles": 15.3,
+      "overhead_miles": 9.72,
+      "ratio": 2.74,
+      "total_minutes": 357,
       "candidate_ids": [
-        "block-bogus_mores_lodge_tempest"
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+      ]
+    },
+    {
+      "label": "16C-2",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": null,
+      "trailhead": "Private prior parking anchor",
+      "trails": [
+        "Shingle Creek Trail"
+      ],
+      "official_miles": 4.76,
+      "on_foot_miles": 14.31,
+      "overhead_miles": 9.55,
+      "ratio": 3.01,
+      "total_minutes": 259,
+      "candidate_ids": [
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+      ]
+    },
+    {
+      "label": "6",
+      "package_number": 6,
+      "block_name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "planning_status": "needs_manual_route_design",
+      "route_design_status": null,
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ],
+      "official_miles": 13.67,
+      "on_foot_miles": 22.41,
+      "overhead_miles": 8.74,
+      "ratio": 1.64,
+      "total_minutes": 409,
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
       ]
     },
     {
       "label": "16A-1",
-      "package_number": 113,
-      "block_name": "Field Day 13 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": "gpx_generated_parking_manual",
+      "trailhead": "Private prior parking anchor",
       "trails": [
         "Sweet Connie Trail"
       ],
       "official_miles": 6.09,
-      "on_foot_miles": 12.2,
-      "overhead_miles": 6.11,
-      "ratio": 2.0,
+      "on_foot_miles": 14.2,
+      "overhead_miles": 8.11,
+      "ratio": 2.33,
       "total_minutes": 249,
       "candidate_ids": [
         "manual-16a-1"
       ]
     },
     {
-      "label": "FD04A",
-      "package_number": 104,
-      "block_name": "Field Day 4 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Freestone Creek",
-      "trails": [
-        "Two Point",
-        "Shane's Connector",
-        "Femrite's Patrol",
-        "Shane's Trail"
-      ],
-      "official_miles": 3.54,
-      "on_foot_miles": 9.55,
-      "overhead_miles": 6.01,
-      "ratio": 2.7,
-      "total_minutes": 204,
-      "candidate_ids": [
-        "combo-two-point-femrites-patrol-shanes-connector"
-      ]
-    },
-    {
-      "label": "FD06A",
-      "package_number": 106,
-      "block_name": "Field Day 6 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Lower Interpretive",
-      "trails": [
-        "Fat Tire Traverse",
-        "Curlew Connection"
-      ],
-      "official_miles": 4.09,
-      "on_foot_miles": 8.59,
-      "overhead_miles": 4.5,
-      "ratio": 2.1,
-      "total_minutes": 220,
-      "candidate_ids": [
-        "fat-tire-traverse-curlew-connection"
-      ]
-    },
-    {
-      "label": "3",
-      "package_number": 115,
-      "block_name": "Field Day 15 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Freestone Creek",
-      "trails": [
-        "Military Reserve Connection",
-        "Mountain Cove",
-        "Central Ridge Trail",
-        "Central Ridge Spur",
-        "Ridge Crest",
-        "Cottonwood Creek Trail",
-        "Connection (Eagle Ridge)",
-        "Eagle Ridge Trail",
-        "Elephant Rock Loop",
-        "Heroes Trail"
-      ],
-      "official_miles": 8.31,
-      "on_foot_miles": 12.13,
-      "overhead_miles": 3.82,
-      "ratio": 1.46,
-      "total_minutes": 250,
-      "candidate_ids": [
-        "block-military_core"
-      ]
-    },
-    {
-      "label": "FD26A",
-      "package_number": 126,
-      "block_name": "Field Day 26 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
       "trailhead": "Simplot Lodge Parking Area",
       "trails": [
-        "Around the Mountain Trail"
+        "Shindig",
+        "Lodge Trail"
       ],
-      "official_miles": 6.64,
-      "on_foot_miles": 10.17,
-      "overhead_miles": 3.53,
-      "ratio": 1.53,
-      "total_minutes": 279,
+      "official_miles": 0.66,
+      "on_foot_miles": 6.82,
+      "overhead_miles": 6.16,
+      "ratio": 10.33,
+      "total_minutes": 165,
       "candidate_ids": [
-        "around-the-mountain-trail"
-      ]
-    },
-    {
-      "label": "FD25A",
-      "package_number": 125,
-      "block_name": "Field Day 25 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "Simplot Lodge Parking Area",
-      "trails": [
-        "Elk Meadows Trail"
-      ],
-      "official_miles": 1.49,
-      "on_foot_miles": 4.9,
-      "overhead_miles": 3.41,
-      "ratio": 3.29,
-      "total_minutes": 171,
-      "candidate_ids": [
-        "elk-meadows-trail"
+        "combo-lodge-trail-shindig"
       ]
     }
   ],
   "longest_components": [
     {
-      "label": "18",
-      "package_number": 131,
-      "block_name": "Field Day 31 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "13",
+      "package_number": 13,
+      "block_name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
-      "trailhead": "Pioneer Lodge Parking Area",
+      "trailhead": "Freestone Creek Trailhead",
       "trails": [
-        "Brewer's Byway Extension",
-        "Brewers Byway",
-        "Shindig",
-        "Tempest Trail",
-        "Lodge Trail",
-        "Mores Mtn Interpretive"
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Two Point",
+        "Fat Tire Traverse",
+        "Curlew Connection"
       ],
-      "official_miles": 5.08,
-      "on_foot_miles": 11.25,
-      "overhead_miles": 6.17,
-      "ratio": 2.21,
-      "total_minutes": 320,
+      "official_miles": 14.35,
+      "on_foot_miles": 32.47,
+      "overhead_miles": 18.12,
+      "ratio": 2.26,
+      "total_minutes": 497,
       "candidate_ids": [
-        "block-bogus_mores_lodge_tempest"
+        "block-freestone_three_bears_curlew"
       ]
     },
     {
-      "label": "H1",
-      "package_number": 127,
-      "block_name": "Field Day 27 H1 Harlow/Avimor replacement",
-      "planning_status": "harlow_h1_cluster_bundle_promoted",
+      "label": "6",
+      "package_number": 6,
+      "block_name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
-      "trailhead": "Avimor Spring Valley Creek parking",
+      "trailhead": "Cartwright Trailhead",
       "trails": [
-        "Twisted Spring",
-        "Ricochet",
-        "Shooting Range",
-        "Whistling Pig",
-        "Spring Creek",
-        "Harlow's Hollows",
-        "Harlow's Hollows Connector"
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
       ],
-      "official_miles": 7.3,
-      "on_foot_miles": 9.64,
-      "overhead_miles": 2.34,
-      "ratio": 1.32,
-      "total_minutes": 289,
+      "official_miles": 13.67,
+      "on_foot_miles": 22.41,
+      "overhead_miles": 8.74,
+      "ratio": 1.64,
+      "total_minutes": 409,
       "candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop"
+        "block-cartwright_peggy_interface"
       ]
     },
     {
-      "label": "FD26A",
-      "package_number": 126,
-      "block_name": "Field Day 26 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "17",
+      "package_number": 17,
+      "block_name": "Bogus day 1: ATM / Deer / Elk / Sunshine",
+      "planning_status": "schedule_candidate_after_gpx",
       "route_design_status": null,
       "trailhead": "Simplot Lodge Parking Area",
       "trails": [
-        "Around the Mountain Trail"
+        "Sunshine XC",
+        "Deer Point Trail",
+        "Around the Mountain Trail",
+        "The Face Trail",
+        "Elk Meadows Trail"
       ],
-      "official_miles": 6.64,
-      "on_foot_miles": 10.17,
-      "overhead_miles": 3.53,
-      "ratio": 1.53,
-      "total_minutes": 279,
+      "official_miles": 11.29,
+      "on_foot_miles": 16.02,
+      "overhead_miles": 4.73,
+      "ratio": 1.42,
+      "total_minutes": 386,
       "candidate_ids": [
-        "around-the-mountain-trail"
+        "block-bogus_atm_deer_elk_sunshine"
       ]
     },
     {
-      "label": "12",
-      "package_number": 123,
-      "block_name": "Field Day 23 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
-      "route_design_status": null,
-      "trailhead": "8th Street ATV Parking Area",
+      "label": "10A",
+      "package_number": 10,
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "planning_status": "accepted_manual_split_parking_manual",
+      "route_design_status": "gpx_generated_parking_manual",
+      "trailhead": "Harlow's / Hidden Springs west access probe",
       "trails": [
-        "8th Street Motorcycle Trail",
-        "Sidewinder Trail",
-        "Corrals Trail",
-        "Highlands Trail"
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
       ],
-      "official_miles": 9.49,
-      "on_foot_miles": 12.86,
-      "overhead_miles": 3.37,
-      "ratio": 1.36,
-      "total_minutes": 262,
+      "official_miles": 7.3,
+      "on_foot_miles": 21.84,
+      "overhead_miles": 14.54,
+      "ratio": 2.99,
+      "total_minutes": 360,
       "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
+        "manual-10a"
       ]
     },
     {
-      "label": "FD20A",
-      "package_number": 120,
-      "block_name": "Field Day 20 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "15",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "planning_status": "accepted_multi_start_split",
       "route_design_status": null,
-      "trailhead": "Freestone Creek",
+      "trailhead": "Bob's Trailhead",
       "trails": [
-        "Three Bears Trail",
-        "Freestone Ridge"
+        "Highlands Trail",
+        "Dry Creek Trail",
+        "Connector"
       ],
-      "official_miles": 6.72,
-      "on_foot_miles": 13.1,
-      "overhead_miles": 6.38,
-      "ratio": 1.95,
-      "total_minutes": 255,
+      "official_miles": 9.33,
+      "on_foot_miles": 25.39,
+      "overhead_miles": 16.06,
+      "ratio": 2.72,
+      "total_minutes": 358,
       "candidate_ids": [
-        "three-bears-trail-freestone-ridge"
+        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
       ]
     },
     {
-      "label": "FD18A",
-      "package_number": 118,
-      "block_name": "Field Day 18 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "planning_status": "needs_manual_route_design",
       "route_design_status": null,
-      "trailhead": "Cartwright",
+      "trailhead": "Bogus Basin Base Area",
       "trails": [
-        "Polecat Loop",
-        "Peggy's Trail"
+        "Brewer's Byway Extension",
+        "Tempest Trail",
+        "Brewers Byway",
+        "The Face Trail",
+        "Mores Mtn Interpretive"
       ],
-      "official_miles": 10.19,
-      "on_foot_miles": 13.32,
-      "overhead_miles": 3.13,
-      "ratio": 1.31,
-      "total_minutes": 254,
+      "official_miles": 5.58,
+      "on_foot_miles": 15.3,
+      "overhead_miles": 9.72,
+      "ratio": 2.74,
+      "total_minutes": 357,
       "candidate_ids": [
-        "polecat-loop-peggys-trail"
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
       ]
     },
     {
-      "label": "3",
-      "package_number": 115,
-      "block_name": "Field Day 15 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "2",
+      "package_number": 2,
+      "block_name": "Camel's Back / Kestrel / Crestline / Lower Hulls even-day",
+      "planning_status": "schedule_candidate_after_gpx",
       "route_design_status": null,
-      "trailhead": "Freestone Creek",
+      "trailhead": "Hulls Gulch Trailhead",
       "trails": [
-        "Military Reserve Connection",
-        "Mountain Cove",
-        "Central Ridge Trail",
-        "Central Ridge Spur",
-        "Ridge Crest",
-        "Cottonwood Creek Trail",
-        "Connection (Eagle Ridge)",
-        "Eagle Ridge Trail",
-        "Elephant Rock Loop",
-        "Heroes Trail"
+        "Lower Hull's Gulch Trail",
+        "Hull's Gulch Interpretive",
+        "Crestline Trail",
+        "Kestral Trail",
+        "Owl's Roost",
+        "Gold Finch",
+        "15th St. Trail",
+        "Chickadee Ridge Trail",
+        "Red Cliffs"
       ],
-      "official_miles": 8.31,
-      "on_foot_miles": 12.13,
-      "overhead_miles": 3.82,
-      "ratio": 1.46,
-      "total_minutes": 250,
+      "official_miles": 13.11,
+      "on_foot_miles": 18.8,
+      "overhead_miles": 5.69,
+      "ratio": 1.43,
+      "total_minutes": 332,
       "candidate_ids": [
-        "block-military_core"
+        "block-camels_lower_hulls_even_day"
       ]
     },
     {
-      "label": "16A-1",
-      "package_number": 113,
-      "block_name": "Field Day 13 route-card bundle",
-      "planning_status": "field_day_loop_promoted",
+      "label": "14",
+      "package_number": 14,
+      "block_name": "Watchman / Five Mile / Orchard / Rocky Canyon",
+      "planning_status": "schedule_candidate_after_gpx",
       "route_design_status": null,
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "trailhead": "Orchard Gulch Trail Access Point",
       "trails": [
-        "Sweet Connie Trail"
+        "Orchard Gulch Trail",
+        "Five Mile Gulch Trail",
+        "Watchman Trail"
       ],
-      "official_miles": 6.09,
-      "on_foot_miles": 12.2,
-      "overhead_miles": 6.11,
-      "ratio": 2.0,
-      "total_minutes": 249,
+      "official_miles": 8.45,
+      "on_foot_miles": 13.26,
+      "overhead_miles": 4.81,
+      "ratio": 1.57,
+      "total_minutes": 259,
       "candidate_ids": [
-        "manual-16a-1"
+        "block-watchman_five_mile_rocky"
       ]
     }
   ],
   "next_required_work": [
-    "No unresolved efficiency work remains under the current single-car, public-road-allowed, p75-time-aware proof gates."
+    "The generated candidate universe does not contain a better exact route for the high-overhead targets; next proof step is manual/local-map GPX challenge for those areas.",
+    "Planwide ratio is 56.97 on-foot miles above the preferred 1.6x target; challenge and proof the next ratio-gap candidates or lower the route mileage.",
+    "Manually challenge the remaining highest-overhead routes first: Dry Creek lower cluster.",
+    "For each challenged route, record the best alternative found, its official miles, on-foot miles, parking/start, and why the current route wins or loses.",
+    "Only then re-run this audit and consider tightening the preferred ratio gate below 1.7x."
   ]
 }

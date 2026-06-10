@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-06T05:34:24Z",
+  "generated_at": "2026-06-10T03:17:10Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {
     "route_count": 31,
     "failed_route_count": 0,
     "finding_count": 0,
-    "warning_count": 7,
-    "post_credit_connector_proof_count": 96,
+    "warning_count": 6,
+    "post_credit_connector_proof_count": 93,
     "hidden_exit_finding_count": 0,
-    "hidden_exit_warning_count": 7,
+    "hidden_exit_warning_count": 6,
     "shorter_connector_finding_count": 0,
     "stale_connector_savings_finding_count": 0,
     "unproved_connector_finding_count": 0,
@@ -154,26 +154,6 @@
       "actual_route_leg_miles": 0.42,
       "hidden_exit_miles": 0.31,
       "hidden_exit_feet": 1637,
-      "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-    },
-    {
-      "code": "official_credit_cue_hides_post_credit_exit",
-      "status": "warning",
-      "route_key": "18-1",
-      "label": "18-1: 18A",
-      "outing_id": "18-1",
-      "candidate_ids": [
-        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-      ],
-      "seq": 9,
-      "cue_type": "junction_turn",
-      "official_segment_ids": [
-        "1732"
-      ],
-      "official_basis_miles": 0.08,
-      "actual_route_leg_miles": 1.83,
-      "hidden_exit_miles": 1.75,
-      "hidden_exit_feet": 9240,
       "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
     }
   ],
@@ -1327,9 +1307,9 @@
       "warnings": []
     },
     {
-      "route_key": "10-2",
-      "outing_id": "10-2",
-      "label": "10-2: 10B",
+      "route_key": "10-1",
+      "outing_id": "10-1",
+      "label": "10-1: 10B",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -1344,9 +1324,9 @@
       "post_credit_connector_proofs": [
         {
           "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-2",
-          "label": "10-2: 10B",
-          "outing_id": "10-2",
+          "route_key": "10-1",
+          "label": "10-1: 10B",
+          "outing_id": "10-1",
           "candidate_ids": [
             "manual-10b"
           ],
@@ -1389,9 +1369,9 @@
         },
         {
           "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-2",
-          "label": "10-2: 10B",
-          "outing_id": "10-2",
+          "route_key": "10-1",
+          "label": "10-1: 10B",
+          "outing_id": "10-1",
           "candidate_ids": [
             "manual-10b"
           ],
@@ -1432,9 +1412,9 @@
         },
         {
           "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-2",
-          "label": "10-2: 10B",
-          "outing_id": "10-2",
+          "route_key": "10-1",
+          "label": "10-1: 10B",
+          "outing_id": "10-1",
           "candidate_ids": [
             "manual-10b"
           ],
@@ -1489,9 +1469,9 @@
         },
         {
           "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-2",
-          "label": "10-2: 10B",
-          "outing_id": "10-2",
+          "route_key": "10-1",
+          "label": "10-1: 10B",
+          "outing_id": "10-1",
           "candidate_ids": [
             "manual-10b"
           ],
@@ -3758,6 +3738,145 @@
       "warnings": []
     },
     {
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: H1",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "audit_status": "passed",
+      "gpx_path": "docs/field-packet/gpx/official/avimor-harlow-twisted-spring-h1.gpx",
+      "segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "post_credit_connector_proofs": [
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "127-1",
+          "label": "127-1: H1",
+          "outing_id": "127-1",
+          "candidate_ids": [
+            "H1-avimor-native-harlow-spring-loop"
+          ],
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "signed_as": [
+            "Ricochet - #2",
+            "North Smokeys Draw Place"
+          ],
+          "target": "Ricochet",
+          "actual_miles": 0.008,
+          "credited_segment_ids_before_cue": [
+            "1687",
+            "1688",
+            "1689"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1626",
+            "1657",
+            "1661",
+            "1662",
+            "1696",
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ],
+          "shortest_miles": 0.0082,
+          "savings_miles": -0.0002,
+          "savings_feet": -1,
+          "shortest_connector_names": [],
+          "shortest_connector_classes": [
+            "official_repeat"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1626"
+          ],
+          "snap_start_miles": 0.0029,
+          "snap_end_miles": 0.002,
+          "status": "passed",
+          "target_official_sliver_within_snap_tolerance": true
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "127-1",
+          "label": "127-1: H1",
+          "outing_id": "127-1",
+          "candidate_ids": [
+            "H1-avimor-native-harlow-spring-loop"
+          ],
+          "seq": 12,
+          "cue_type": "exit_access",
+          "signed_as": [
+            "#8 Twisted Spring Trail",
+            "OSM footway connector 22098",
+            "OSM footway connector 22306",
+            "OSM footway connector 22310",
+            "OSM footway connector 22443",
+            "Twisted Spring Trail - #8"
+          ],
+          "target": "Avimor Spring Valley Creek parking",
+          "actual_miles": 0.75,
+          "credited_segment_ids_before_cue": [
+            "1626",
+            "1657",
+            "1661",
+            "1662",
+            "1687",
+            "1688",
+            "1689",
+            "1696",
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ],
+          "avoided_unearned_route_segment_ids": [],
+          "shortest_miles": 0.7464,
+          "savings_miles": 0.0036,
+          "savings_feet": 19,
+          "shortest_connector_names": [
+            "OSM footway connector 22098",
+            "OSM footway connector 22306",
+            "OSM footway connector 22310",
+            "OSM footway connector 22443",
+            "Twisted Spring Trail - #8"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1687",
+            "1688",
+            "1689",
+            "1706"
+          ],
+          "snap_start_miles": 0.0023,
+          "snap_end_miles": 0.0004,
+          "status": "passed"
+        }
+      ],
+      "findings": [],
+      "warnings": []
+    },
+    {
       "route_key": "2-1",
       "outing_id": "2-1",
       "label": "2-1: 2",
@@ -4343,7 +4462,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -4385,7 +4503,6 @@
           "avoided_unearned_route_segment_ids": [
             "1502",
             "1503",
-            "1680",
             "1732",
             "1733",
             "1734",
@@ -4429,7 +4546,7 @@
             "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
           ],
           "seq": 7,
-          "cue_type": "overlap_repeat",
+          "cue_type": "connector_road",
           "signed_as": [
             "#144 Cabin Traverse",
             "#93 The Face",
@@ -4448,7 +4565,6 @@
             "1703"
           ],
           "avoided_unearned_route_segment_ids": [
-            "1680",
             "1732",
             "1733",
             "1734",
@@ -4490,6 +4606,81 @@
           "candidate_ids": [
             "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
           ],
+          "seq": 9,
+          "cue_type": "connector_road",
+          "signed_as": [
+            "#95 Tempest",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 12046",
+            "OSM track connector 92827"
+          ],
+          "target": "Mores Mtn Interpretive",
+          "actual_miles": 1.66,
+          "credited_segment_ids_before_cue": [
+            "1501",
+            "1502",
+            "1503",
+            "1678",
+            "1679",
+            "1703",
+            "1732",
+            "1735",
+            "1736"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1733",
+            "1734"
+          ],
+          "shortest_miles": 1.6588,
+          "savings_miles": 0.0012,
+          "savings_feet": 7,
+          "shortest_connector_names": [
+            "#95 Tempest",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 12046",
+            "OSM track connector 92827"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1492",
+            "1554",
+            "1679",
+            "1721",
+            "1732"
+          ],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "18-1",
+          "label": "18-1: 18A",
+          "outing_id": "18-1",
+          "candidate_ids": [
+            "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+          ],
           "seq": 11,
           "cue_type": "exit_access",
           "signed_as": [
@@ -4514,7 +4705,6 @@
             "1503",
             "1678",
             "1679",
-            "1680",
             "1703",
             "1732",
             "1733",
@@ -4578,26 +4768,6 @@
           "actual_route_leg_miles": 0.42,
           "hidden_exit_miles": 0.31,
           "hidden_exit_feet": 1637,
-          "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-        },
-        {
-          "code": "official_credit_cue_hides_post_credit_exit",
-          "status": "warning",
-          "route_key": "18-1",
-          "label": "18-1: 18A",
-          "outing_id": "18-1",
-          "candidate_ids": [
-            "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-          ],
-          "seq": 9,
-          "cue_type": "junction_turn",
-          "official_segment_ids": [
-            "1732"
-          ],
-          "official_basis_miles": 0.08,
-          "actual_route_leg_miles": 1.83,
-          "hidden_exit_miles": 1.75,
-          "hidden_exit_feet": 9240,
           "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
         }
       ]
@@ -4741,8 +4911,7 @@
           "signed_as": [
             "#78 Dry Creek",
             "Dry Creek",
-            "North Bogus Basin Road",
-            "OSM service connector 11395"
+            "North Bogus Basin Road"
           ],
           "target": "Connector",
           "actual_miles": 2.2,
@@ -4810,338 +4979,6 @@
           ],
           "snap_start_miles": 0.0021,
           "snap_end_miles": 0.0024,
-          "status": "passed"
-        }
-      ],
-      "findings": [],
-      "warnings": []
-    },
-    {
-      "route_key": "10-1",
-      "outing_id": "10-1",
-      "label": "10-1: 10A",
-      "candidate_ids": [
-        "manual-10a"
-      ],
-      "audit_status": "passed",
-      "gpx_path": "docs/field-packet/gpx/official/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
-      "segment_ids": [
-        "1626",
-        "1657",
-        "1661",
-        "1662",
-        "1687",
-        "1688",
-        "1689",
-        "1696",
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "post_credit_connector_proofs": [
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-1",
-          "label": "10-1: 10A",
-          "outing_id": "10-1",
-          "candidate_ids": [
-            "manual-10a"
-          ],
-          "seq": 4,
-          "cue_type": "connector_named_trail",
-          "signed_as": [
-            "#16 Harlow's Hollows",
-            "#16A Harlow's Hollows Connector (HHC)",
-            "Harlow's Hollows - #16",
-            "Harlow's Hollows Connector (HHC) - #16a"
-          ],
-          "target": "Harlow's Hollows",
-          "actual_miles": 0.63,
-          "credited_segment_ids_before_cue": [
-            "1706",
-            "1708"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696",
-            "1704",
-            "1705",
-            "1707"
-          ],
-          "shortest_miles": 0.6324,
-          "savings_miles": -0.0024,
-          "savings_feet": -13,
-          "shortest_connector_names": [
-            "Harlow's Hollows - #16",
-            "Harlow's Hollows Connector (HHC) - #16a"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1708"
-          ],
-          "snap_start_miles": 0.0,
-          "snap_end_miles": 0.0,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-1",
-          "label": "10-1: 10A",
-          "outing_id": "10-1",
-          "candidate_ids": [
-            "manual-10a"
-          ],
-          "seq": 6,
-          "cue_type": "connector_road",
-          "signed_as": [
-            "#10 Burnt Car Draw",
-            "#20 Cartwright Road",
-            "#29 The Wall",
-            "Burnt Car Draw - #10",
-            "Cartwright Road - #20",
-            "OSM path connector 105691",
-            "OSM path connector 13946",
-            "OSM path connector 13947",
-            "The Wall - #29"
-          ],
-          "target": "Spring Creek",
-          "actual_miles": 0.46,
-          "credited_segment_ids_before_cue": [
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696"
-          ],
-          "shortest_miles": 0.4637,
-          "savings_miles": -0.0037,
-          "savings_feet": -20,
-          "shortest_connector_names": [
-            "Burnt Car Draw - #10",
-            "Cartwright Road - #20",
-            "OSM path connector 105691",
-            "OSM path connector 13946",
-            "OSM path connector 13947",
-            "The Wall - #29"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "osm_public_road"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1704"
-          ],
-          "snap_start_miles": 0.0,
-          "snap_end_miles": 0.0,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-1",
-          "label": "10-1: 10A",
-          "outing_id": "10-1",
-          "candidate_ids": [
-            "manual-10a"
-          ],
-          "seq": 9,
-          "cue_type": "connector_road",
-          "signed_as": [
-            "#2 Ricochet",
-            "#5 Shooting Range"
-          ],
-          "target": "Shooting Range",
-          "actual_miles": 0.12,
-          "credited_segment_ids_before_cue": [
-            "1626",
-            "1661",
-            "1662",
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1657",
-            "1687",
-            "1688",
-            "1689",
-            "1696"
-          ],
-          "status": "passed",
-          "source_geometry_without_graph_alternative": true,
-          "message": "Explicit source geometry is present and no shorter legal connector graph path was found."
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-1",
-          "label": "10-1: 10A",
-          "outing_id": "10-1",
-          "candidate_ids": [
-            "manual-10a"
-          ],
-          "seq": 12,
-          "cue_type": "overlap_repeat",
-          "signed_as": [
-            "#3 Whistling Pig",
-            "OSM path connector 40157",
-            "OSM path connector 40158",
-            "Whistling Pig - #3"
-          ],
-          "target": "Twisted Spring",
-          "actual_miles": 0.12,
-          "credited_segment_ids_before_cue": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1696",
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1687",
-            "1688",
-            "1689"
-          ],
-          "shortest_miles": 0.1206,
-          "savings_miles": -0.0006,
-          "savings_feet": -3,
-          "shortest_connector_names": [
-            "OSM path connector 40157",
-            "OSM path connector 40158",
-            "Whistling Pig - #3"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1696"
-          ],
-          "snap_start_miles": 0.0018,
-          "snap_end_miles": 0.002,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-1",
-          "label": "10-1: 10A",
-          "outing_id": "10-1",
-          "candidate_ids": [
-            "manual-10a"
-          ],
-          "seq": 14,
-          "cue_type": "connector_named_trail",
-          "signed_as": [
-            "#8 Twisted Spring Trail",
-            "Twisted Spring Trail - #8"
-          ],
-          "target": "Twisted Spring",
-          "actual_miles": 0.32,
-          "credited_segment_ids_before_cue": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1696",
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1688",
-            "1689"
-          ],
-          "shortest_miles": 0.3154,
-          "savings_miles": 0.0046,
-          "savings_feet": 25,
-          "shortest_connector_names": [
-            "Twisted Spring Trail - #8"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1687"
-          ],
-          "snap_start_miles": 0.0015,
-          "snap_end_miles": 0.002,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "10-1",
-          "label": "10-1: 10A",
-          "outing_id": "10-1",
-          "candidate_ids": [
-            "manual-10a"
-          ],
-          "seq": 16,
-          "cue_type": "exit_access",
-          "signed_as": [
-            "Twisted Spring"
-          ],
-          "target": "Harlow's / Hidden Springs west access probe",
-          "actual_miles": 0.11,
-          "credited_segment_ids_before_cue": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696",
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 0.1063,
-          "savings_miles": 0.0037,
-          "savings_feet": 20,
-          "shortest_connector_names": [],
-          "shortest_connector_classes": [
-            "official_repeat"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1626",
-            "1661"
-          ],
-          "snap_start_miles": 0.0001,
-          "snap_end_miles": 0.0002,
           "status": "passed"
         }
       ],
