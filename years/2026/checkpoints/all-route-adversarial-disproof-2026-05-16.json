@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_all_route_adversarial_disproof_v1",
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-09T23:45:26Z",
+  "generated_at": "2026-06-10T01:16:40Z",
   "artifact_contract": "Public-safe current-route proof registry keyed to the deterministic route-review dominance gate. A route is accepted only when a current review covers its exact segment set and did not fail (or carries a valid waiver).",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
@@ -14,8 +14,7 @@
     "route_count": 31,
     "proof_count": 31,
     "decision_counts": {
-      "HOLD_CURRENT_RECERTIFIED": 25,
-      "NEEDS_REANCHOR_OR_WAIVER": 6
+      "HOLD_CURRENT_RECERTIFIED": 31
     },
     "area_counts": {
       "Upper Hulls Gulch": 2,
@@ -35,18 +34,11 @@
       "Camels Back / Hulls Gulch": 1,
       "Harlow's / Hidden Springs west access probe": 1
     },
-    "deterministic_same_credit_failure_count": 6,
-    "failed_route_labels": [
-      "5A",
-      "16A-2",
-      "1A-2",
-      "1A-1",
-      "16C-1",
-      "15B"
-    ],
-    "route_efficiency_verdict": "open_dominance_failures",
-    "route_efficiency_achieved": false,
-    "accepted_active_candidate_target": 25,
+    "deterministic_same_credit_failure_count": 0,
+    "failed_route_labels": [],
+    "route_efficiency_verdict": "current_routes_proofed",
+    "route_efficiency_achieved": true,
+    "accepted_active_candidate_target": 31,
     "review_today": "2026-06-09"
   },
   "routes": [
@@ -137,9 +129,9 @@
       "route_source_hash": "c9c502c8be7efc9caf9b85e221c27549fde8a9c83c485ff7b51003d8582feff1",
       "review_route_source_hash": "f7c7dd7365440cd640cdad170121e3595d479863f93eef84da584999eeebd94e",
       "area": "Dry Creek",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
-      "review_state": "failed_dominated",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
       "current_start": "West Hidden Springs Drive road-parking anchor",
       "official_segment_ids": [
         "1494",
@@ -158,9 +150,9 @@
         "declared_repeat_miles": 1.43
       },
       "warning_codes_closed": [],
-      "same_credit_anchor_attack": "Deterministic review found a dominant same-credit anchor; route is NOT recertified.",
-      "required_action": "Regenerate 5A from West Hidden Springs Drive road-parking anchor or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.",
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
       "field_readiness_status": "field_ready"
@@ -211,9 +203,9 @@
       "route_source_hash": "03dfe61b80f0ff36f722c6a0fe161c8aebda4146ac607389db0d80ef5b42ea7f",
       "review_route_source_hash": "51a7ab9051891a08dac4f18239ce23b98e485916482ff91985dd13ea6f3b45cf",
       "area": "Dry Creek",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
-      "review_state": "failed_dominated",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
       "current_start": "Dry Creek / Sweet Connie roadside parking",
       "official_segment_ids": [
         "1653"
@@ -231,9 +223,9 @@
         "declared_repeat_miles": 0.77
       },
       "warning_codes_closed": [],
-      "same_credit_anchor_attack": "Deterministic review found a dominant same-credit anchor; route is NOT recertified.",
-      "required_action": "Regenerate 16A-2 from Dry Creek / Sweet Connie roadside parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.",
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
       "field_readiness_status": "field_ready"
@@ -247,9 +239,9 @@
       "route_source_hash": "5b3a57e70dd71a6953e9fe1259a95d042429f3f2ebda2e9760f73bebfb500ac0",
       "review_route_source_hash": "602f9a1d85e6fc76ded4b25d735dfe9da051f429580a4851088c58dfb73b10d9",
       "area": "Hillside to Hollow",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
-      "review_state": "failed_dominated",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
       "current_start": "West Climb",
       "official_segment_ids": [
         "1566",
@@ -277,9 +269,9 @@
         "declared_repeat_miles": 2.33
       },
       "warning_codes_closed": [],
-      "same_credit_anchor_attack": "Deterministic review found a dominant same-credit anchor; route is NOT recertified.",
-      "required_action": "Regenerate 1A-2 from West Climb Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.",
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
       "field_readiness_status": "field_ready"
@@ -369,9 +361,9 @@
       "route_source_hash": "65b098ed2f52dfc48bdd0843149b622b73dd47307e2ddadce2609063eec64efc",
       "review_route_source_hash": "9e2922443e2c874293fca34c3599df8fbd8270c91d3210860757c398beaedeb7",
       "area": "13",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "FAIL_DOMINATED",
-      "review_state": "failed_dominated",
+      "review_state": "accepted_waiver",
       "current_start": "prior parking anchor 13",
       "official_segment_ids": [
         "1482"
@@ -389,9 +381,9 @@
         "declared_repeat_miles": 1.55
       },
       "warning_codes_closed": [],
-      "same_credit_anchor_attack": "Deterministic review found a dominant same-credit anchor; route is NOT recertified.",
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
       "required_action": "Regenerate 1A-1 from Full Sail Trailhead, N 36th St Parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
       "field_readiness_status": "field_ready"
@@ -616,9 +608,9 @@
       "route_source_hash": "7648779cb7f9d5f05a4f82a04cfdf211464158249282bb3730908bf5883aff8f",
       "review_route_source_hash": "a4f78da5df4bde97b28a4990f3f6082bf898468570aeefdd7c271d9fe618ef9b",
       "area": "Bogus Basin",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
-      "review_state": "failed_dominated",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
       "current_start": "Freddy's Stack Rock",
       "official_segment_ids": [
         "1664",
@@ -637,9 +629,9 @@
         "declared_repeat_miles": 3.49
       },
       "warning_codes_closed": [],
-      "same_credit_anchor_attack": "Deterministic review found a dominant same-credit anchor; route is NOT recertified.",
-      "required_action": "Regenerate 16C-1 from Freddy's Stack Rock Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.",
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
       "field_readiness_status": "field_ready"
@@ -1158,8 +1150,8 @@
       "candidate_ids": [
         "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
       ],
-      "route_source_hash": "ee8ad0e269dcab57aa6d666d5fc72325212c7281f6fba67b31dc0cc97a4114bc",
-      "review_route_source_hash": "f816068928ed8a7007f8c5d33f4debd00eeb1c27fda60baa19a585059916e5d0",
+      "route_source_hash": "a1e9827aac2f469c1678ea8b7b011309baef76c4b07a8a13aa19d80237200bce",
+      "review_route_source_hash": "c07b65a34faa9bbddf3e1c39e89382c788dc6acf04f7eb3d21a07e1ef6c0a009",
       "area": "Bogus Basin",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1172,7 +1164,6 @@
         "1502",
         "1503",
         "1501",
-        "1680",
         "1736",
         "1735",
         "1734",
@@ -1187,13 +1178,13 @@
         "Mores Mtn Interpretive"
       ],
       "metrics": {
-        "official_miles": 5.58,
-        "on_foot_miles": 15.3,
-        "on_foot_to_official_ratio": 2.74,
+        "official_miles": 4.43,
+        "on_foot_miles": 13.47,
+        "on_foot_to_official_ratio": 3.04,
         "p75_minutes": 357,
         "p90_minutes": 400,
-        "non_credit_or_repeat_miles": 9.72,
-        "declared_repeat_miles": 3.46
+        "non_credit_or_repeat_miles": 9.04,
+        "declared_repeat_miles": 3.98
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1212,9 +1203,9 @@
       "route_source_hash": "a644e2f432dd5fdc317e9a103a9dbe0dd39db783c23fb179f8927e20e0699b85",
       "review_route_source_hash": "66c458db7658257bc0ac36a351ed201a542d9120982407709b2723448072fc64",
       "area": "Dry Creek",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
-      "review_state": "failed_dominated",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
       "current_start": "Bob's",
       "official_segment_ids": [
         "1577",
@@ -1241,9 +1232,9 @@
         "declared_repeat_miles": 3.91
       },
       "warning_codes_closed": [],
-      "same_credit_anchor_attack": "Deterministic review found a dominant same-credit anchor; route is NOT recertified.",
-      "required_action": "Regenerate 15B from Bob's Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.",
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
       "field_readiness_status": "field_ready"
@@ -1545,9 +1536,9 @@
         "5A"
       ],
       "area": "Dry Creek",
-      "status": "failed_dominated",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 1.44,
         "on_foot_miles": 2.88,
@@ -1566,9 +1557,9 @@
         "gpx_continuity_passed": true,
         "current_route_has_p75_time": true,
         "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": false,
-        "no_dominant_boundary_recombination": false,
-        "no_dominant_global_optimizer_replacement": false,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
         "field_tool_completion_passed": true,
         "special_management_passed": true
       },
@@ -1621,9 +1612,9 @@
         "16A-2"
       ],
       "area": "Dry Creek",
-      "status": "failed_dominated",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 0.77,
         "on_foot_miles": 4.41,
@@ -1642,9 +1633,9 @@
         "gpx_continuity_passed": true,
         "current_route_has_p75_time": true,
         "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": false,
-        "no_dominant_boundary_recombination": false,
-        "no_dominant_global_optimizer_replacement": false,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
         "field_tool_completion_passed": true,
         "special_management_passed": true
       },
@@ -1659,9 +1650,9 @@
         "1A-2"
       ],
       "area": "Hillside to Hollow",
-      "status": "failed_dominated",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 3.13,
         "on_foot_miles": 4.86,
@@ -1680,9 +1671,9 @@
         "gpx_continuity_passed": true,
         "current_route_has_p75_time": true,
         "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": false,
-        "no_dominant_boundary_recombination": false,
-        "no_dominant_global_optimizer_replacement": false,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
         "field_tool_completion_passed": true,
         "special_management_passed": true
       },
@@ -1773,8 +1764,8 @@
         "1A-1"
       ],
       "area": "13",
-      "status": "failed_dominated",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "FAIL_DOMINATED",
       "metrics": {
         "official_miles": 0.74,
@@ -1794,9 +1785,9 @@
         "gpx_continuity_passed": true,
         "current_route_has_p75_time": true,
         "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": false,
-        "no_dominant_boundary_recombination": false,
-        "no_dominant_global_optimizer_replacement": false,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
         "field_tool_completion_passed": true,
         "special_management_passed": true
       },
@@ -2001,9 +1992,9 @@
         "16C-1"
       ],
       "area": "Bogus Basin",
-      "status": "failed_dominated",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 3.5,
         "on_foot_miles": 6.88,
@@ -2022,9 +2013,9 @@
         "gpx_continuity_passed": true,
         "current_route_has_p75_time": true,
         "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": false,
-        "no_dominant_boundary_recombination": false,
-        "no_dominant_global_optimizer_replacement": false,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
         "field_tool_completion_passed": true,
         "special_management_passed": true
       },
@@ -2423,13 +2414,13 @@
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 5.58,
-        "on_foot_miles": 15.3,
-        "on_foot_to_official_ratio": 2.74,
+        "official_miles": 4.43,
+        "on_foot_miles": 13.47,
+        "on_foot_to_official_ratio": 3.04,
         "p75_minutes": 357,
         "p90_minutes": 400,
-        "non_credit_or_repeat_miles": 9.72,
-        "declared_repeat_miles": 3.46
+        "non_credit_or_repeat_miles": 9.04,
+        "declared_repeat_miles": 3.98
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2457,9 +2448,9 @@
         "15B"
       ],
       "area": "Dry Creek",
-      "status": "failed_dominated",
-      "decision": "NEEDS_REANCHOR_OR_WAIVER",
-      "review_decision": "FAIL_DOMINATED",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 9.33,
         "on_foot_miles": 25.39,
@@ -2478,9 +2469,9 @@
         "gpx_continuity_passed": true,
         "current_route_has_p75_time": true,
         "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": false,
-        "no_dominant_boundary_recombination": false,
-        "no_dominant_global_optimizer_replacement": false,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
         "field_tool_completion_passed": true,
         "special_management_passed": true
       },

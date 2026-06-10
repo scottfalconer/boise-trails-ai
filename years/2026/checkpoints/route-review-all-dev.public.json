@@ -1,13 +1,13 @@
 {
   "schema": "boise_trails_route_review_pack_v1",
-  "generated_at": "2026-06-09T23:42:08Z",
+  "generated_at": "2026-06-10T01:16:40Z",
   "thresholds": {
     "material_on_foot_savings_miles": 0.25,
     "material_p75_savings_minutes": 10
   },
   "summary": {
     "route_count": 31,
-    "deterministic_failure_count": 6,
+    "deterministic_failure_count": 1,
     "single_segment_route_count": 6
   },
   "routes": [
@@ -174,7 +174,7 @@
             "1494",
             "1495"
           ],
-          "applied_to_current_route": false,
+          "applied_to_current_route": true,
           "baseline_card_ref": {
             "label": "FD09A",
             "candidate_id": "barn-owl",
@@ -195,7 +195,8 @@
               "baseline": "user_review_confirmed_paved_road_parking",
               "replacement": "inferred_from_trailhead_layer"
             }
-          }
+          },
+          "same_as_current_anchor": true
         },
         {
           "source": "multi_start_alternative_audit",
@@ -225,7 +226,9 @@
               "baseline": "user_review_confirmed_paved_road_parking",
               "replacement": "user_review_confirmed_paved_road_parking"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -358,7 +361,9 @@
               "baseline": "source_verified_roadside_plus_strava_seen",
               "replacement": "source_verified_roadside_plus_strava_seen"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -457,7 +462,9 @@
               "baseline": "inferred_from_trailhead_layer",
               "replacement": "inferred_from_trailhead_layer"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -839,7 +846,9 @@
               "baseline": "inferred_from_trailhead_layer",
               "replacement": "inferred_from_trailhead_layer"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -1083,7 +1092,9 @@
               "baseline": "inferred_from_trailhead_layer",
               "replacement": "inferred_from_trailhead_layer"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -1300,7 +1311,9 @@
               "baseline": "inferred_from_trailhead_layer",
               "replacement": "inferred_from_trailhead_layer"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -1792,7 +1805,7 @@
     },
     {
       "route_label": "18A",
-      "route_source_hash": "f816068928ed8a7007f8c5d33f4debd00eeb1c27fda60baa19a585059916e5d0",
+      "route_source_hash": "c07b65a34faa9bbddf3e1c39e89382c788dc6acf04f7eb3d21a07e1ef6c0a009",
       "current_start": "Bogus Basin Base Area",
       "start_justification": "Chosen because Bogus Basin Base Area is the current field-packet parking/start anchor for this exact official segment set, with user_configured_trailhead parking evidence from personal_planner_state; no active accepted same-credit replacement is recorded for this route at export time.",
       "official_segment_ids": [
@@ -1802,7 +1815,6 @@
         "1502",
         "1503",
         "1501",
-        "1680",
         "1736",
         "1735",
         "1734",
@@ -1817,18 +1829,18 @@
         "Mores Mtn Interpretive"
       ],
       "metrics": {
-        "on_foot_miles": 15.3,
+        "on_foot_miles": 13.47,
         "p75_minutes": 357,
         "p90_minutes": 400,
         "drive_minutes": 0,
         "parking_confidence": "user_configured_trailhead",
         "cue_complexity": 11,
         "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 5.58,
-        "on_foot_to_official_ratio": 2.74,
+        "official_miles": 4.43,
+        "on_foot_to_official_ratio": 3.04,
         "start_access_gap_miles": 1.03,
-        "return_access_gap_miles": 3.263,
-        "repeat_or_non_credit_burden_miles": 9.72
+        "return_access_gap_miles": 2.735,
+        "repeat_or_non_credit_burden_miles": 9.04
       },
       "parking": {
         "name": "Bogus Basin Base Area",
@@ -1850,7 +1862,7 @@
       "same_credit_alternatives": [],
       "prior_audit_evidence": {
         "passed": true,
-        "max_trackpoint_gap_miles": 0.0296,
+        "max_trackpoint_gap_miles": 0.0367,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -1942,7 +1954,9 @@
               "baseline": "inferred_from_trailhead_layer",
               "replacement": "inferred_from_trailhead_layer"
             }
-          }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
         }
       ],
       "prior_audit_evidence": {
@@ -2301,21 +2315,21 @@
         "1494",
         "1495"
       ],
-      "decision": "FAIL_DOMINATED",
+      "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1494, 1495.",
       "start_anchor_assessment": "Current start is West Hidden Springs Drive road-parking anchor. Start justification: Chosen because West Hidden Springs Drive road-parking anchor is the current field-packet parking/start anchor for this exact official segment set, with user_review_confirmed_paved_road_parking parking evidence from openstreetmap_public_road_probe; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "2.88 on-foot miles for 1.44 official miles; non-credit/repeat burden is 1.44 miles.",
       "dominance_assessment": {
-        "is_dominated": true,
-        "dominating_anchor": "West Hidden Springs Drive road-parking anchor",
-        "same_credit": true,
-        "estimated_miles_saved": 0.41,
-        "estimated_minutes_saved": -4.0,
-        "reason": "Same credit can be earned from West Hidden Springs Drive road-parking anchor with 0.41 fewer miles and -4 fewer p75 minutes."
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
       },
-      "required_action": "Regenerate 5A from West Hidden Springs Drive road-parking anchor or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "waiver_allowed": true,
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
       "evidence": [
         "route review pack",
         "field-tool route record",
@@ -2364,21 +2378,21 @@
       "segment_ids": [
         "1653"
       ],
-      "decision": "FAIL_DOMINATED",
+      "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1653.",
       "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "4.41 on-foot miles for 0.77 official miles; non-credit/repeat burden is 3.64 miles.",
       "dominance_assessment": {
-        "is_dominated": true,
-        "dominating_anchor": "Dry Creek / Sweet Connie roadside parking",
-        "same_credit": true,
-        "estimated_miles_saved": 1.11,
-        "estimated_minutes_saved": 0.0,
-        "reason": "Same credit can be earned from Dry Creek / Sweet Connie roadside parking with 1.11 fewer miles and 0 fewer p75 minutes."
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
       },
-      "required_action": "Regenerate 16A-2 from Dry Creek / Sweet Connie roadside parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "waiver_allowed": true,
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
       "evidence": [
         "route review pack",
         "field-tool route record",
@@ -2403,21 +2417,21 @@
         "1718",
         "1719"
       ],
-      "decision": "FAIL_DOMINATED",
+      "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1566, 1565, 1504, 1505, 1506, 1507, 1755, 1718, 1719.",
       "start_anchor_assessment": "Current start is West Climb. Start justification: Chosen because West Climb Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "4.86 on-foot miles for 3.13 official miles; non-credit/repeat burden is 1.73 miles.",
       "dominance_assessment": {
-        "is_dominated": true,
-        "dominating_anchor": "West Climb Trailhead",
-        "same_credit": true,
-        "estimated_miles_saved": 0.77,
-        "estimated_minutes_saved": 0.0,
-        "reason": "Same credit can be earned from West Climb Trailhead with 0.77 fewer miles and 0 fewer p75 minutes."
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
       },
-      "required_action": "Regenerate 1A-2 from West Climb Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "waiver_allowed": true,
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
       "evidence": [
         "route review pack",
         "field-tool route record",
@@ -2710,21 +2724,21 @@
         "1664",
         "1663"
       ],
-      "decision": "FAIL_DOMINATED",
+      "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1664, 1663.",
       "start_anchor_assessment": "Current start is Freddy's Stack Rock. Start justification: Chosen because Freddy's Stack Rock Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "6.88 on-foot miles for 3.5 official miles; non-credit/repeat burden is 3.38 miles.",
       "dominance_assessment": {
-        "is_dominated": true,
-        "dominating_anchor": "Freddy's Stack Rock Trailhead",
-        "same_credit": true,
-        "estimated_miles_saved": 0.35,
-        "estimated_minutes_saved": 0.0,
-        "reason": "Same credit can be earned from Freddy's Stack Rock Trailhead with 0.35 fewer miles and 0 fewer p75 minutes."
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
       },
-      "required_action": "Regenerate 16C-1 from Freddy's Stack Rock Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "waiver_allowed": true,
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
       "evidence": [
         "route review pack",
         "field-tool route record",
@@ -3162,7 +3176,7 @@
       "schema": "boise_trails_route_review_v1",
       "route_id": "18A",
       "route_label": "18A",
-      "route_source_hash": "f816068928ed8a7007f8c5d33f4debd00eeb1c27fda60baa19a585059916e5d0",
+      "route_source_hash": "c07b65a34faa9bbddf3e1c39e89382c788dc6acf04f7eb3d21a07e1ef6c0a009",
       "segment_ids": [
         "1703",
         "1679",
@@ -3170,7 +3184,6 @@
         "1502",
         "1503",
         "1501",
-        "1680",
         "1736",
         "1735",
         "1734",
@@ -3179,9 +3192,9 @@
       ],
       "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1703, 1679, 1678, 1502, 1503, 1501, 1680, 1736, 1735, 1734, 1733, 1732.",
+      "official_credit_summary": "Route buys exact official segment set 1703, 1679, 1678, 1502, 1503, 1501, 1736, 1735, 1734, 1733, 1732.",
       "start_anchor_assessment": "Current start is Bogus Basin Base Area. Start justification: Chosen because Bogus Basin Base Area is the current field-packet parking/start anchor for this exact official segment set, with user_configured_trailhead parking evidence from personal_planner_state; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "15.3 on-foot miles for 5.58 official miles; non-credit/repeat burden is 9.72 miles.",
+      "human_footmile_assessment": "13.47 on-foot miles for 4.43 official miles; non-credit/repeat burden is 9.04 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -3215,21 +3228,21 @@
         "1542",
         "1523"
       ],
-      "decision": "FAIL_DOMINATED",
+      "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1577, 1576, 1546, 1545, 1544, 1543, 1542, 1523.",
       "start_anchor_assessment": "Current start is Bob's. Start justification: Chosen because Bob's Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "25.39 on-foot miles for 9.33 official miles; non-credit/repeat burden is 16.06 miles.",
       "dominance_assessment": {
-        "is_dominated": true,
-        "dominating_anchor": "Bob's Trailhead",
-        "same_credit": true,
-        "estimated_miles_saved": 5.51,
-        "estimated_minutes_saved": -1.0,
-        "reason": "Same credit can be earned from Bob's Trailhead with 5.51 fewer miles and -1 fewer p75 minutes."
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
       },
-      "required_action": "Regenerate 15B from Bob's Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "waiver_allowed": true,
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
       "evidence": [
         "route review pack",
         "field-tool route record",

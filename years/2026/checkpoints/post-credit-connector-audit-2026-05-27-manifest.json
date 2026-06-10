@@ -1,13 +1,13 @@
 {
   "run_id": "post-credit-connector-audit-2026-05-27",
-  "generated_at": "2026-06-09T21:28:08Z",
+  "generated_at": "2026-06-10T01:13:24Z",
   "command": "python years/2026/scripts/post_credit_connector_audit.py",
   "inputs": [
     {
       "path": "docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 5197402,
-      "sha256": "42f1df72f678ec7c90c34e279fd83201821cbe26f6f5a0b45d2277941d460353"
+      "size_bytes": 5195807,
+      "sha256": "6a4e9fcc222587d9ee29a5c442488637de2bf0d1f23992d5d1f64bad840f8b6b"
     },
     {
       "path": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -26,14 +26,14 @@
     {
       "path": "years/2026/checkpoints/post-credit-connector-audit-2026-05-27.json",
       "exists": true,
-      "size_bytes": 172949,
-      "sha256": "f808a520342c83a38c62479a1d45468941a6d315960b95fbdab9e0baf9a5fa6c"
+      "size_bytes": 173631,
+      "sha256": "053dcc7215fe2c368ae26a68f4293ebcce05cbc47e6bc5dd68512f318617711e"
     },
     {
       "path": "years/2026/checkpoints/post-credit-connector-audit-2026-05-27.md",
       "exists": true,
-      "size_bytes": 2718,
-      "sha256": "2508feb23fe31a1ee614afb5c40edd58569b9ad438c5225dfeba8ad3fe08169a"
+      "size_bytes": 2471,
+      "sha256": "603f2f0b091a2ff5c017d2a45fc48cf028da2a145544e60a7bc0be46bd130900"
     }
   ],
   "metadata": {

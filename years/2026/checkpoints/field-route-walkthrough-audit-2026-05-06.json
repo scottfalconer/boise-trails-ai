@@ -9850,16 +9850,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.027,
+          "distance_miles": 0.037,
           "route_miles_start": 6.273,
-          "route_miles_end": 6.299,
+          "route_miles_end": 6.31,
           "start_coordinate": [
             -116.0861,
             43.7617
           ],
           "end_coordinate": [
-            -116.0858,
-            43.762
+            -116.085597,
+            43.762001
           ]
         },
         {
@@ -9870,16 +9870,16 @@
           "segment_id": "1680",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.026,
-          "route_miles_start": 6.299,
+          "distance_miles": 0.016,
+          "route_miles_start": 6.31,
           "route_miles_end": 6.325,
           "start_coordinate": [
-            -116.0858,
-            43.762
+            -116.085597,
+            43.762001
           ],
           "end_coordinate": [
-            -116.0853,
-            43.7621
+            -116.085296,
+            43.76207
           ]
         },
         {
@@ -9890,236 +9890,36 @@
           "segment_id": "1553",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.015,
+          "distance_miles": 0.014,
           "route_miles_start": 6.325,
           "route_miles_end": 6.34,
           "start_coordinate": [
-            -116.0853,
-            43.7621
+            -116.085296,
+            43.76207
           ],
           "end_coordinate": [
-            -116.085,
-            43.7621
+            -116.085018,
+            43.76212
           ]
         },
         {
-          "edge_id": "official:1680:188:0",
-          "name": "The Face Trail",
+          "edge_id": "official:1554:71:0",
+          "name": "Elk Meadows Trail",
           "signposts": [],
           "source_class": "official_segment",
-          "segment_id": "1680",
+          "segment_id": "1554",
           "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.16,
+          "traversal_direction": "forward",
+          "distance_miles": 1.039,
           "route_miles_start": 6.34,
-          "route_miles_end": 7.5,
+          "route_miles_end": 7.378,
           "start_coordinate": [
-            -116.085,
-            43.7621
+            -116.085018,
+            43.76212
           ],
           "end_coordinate": [
-            -116.096146,
-            43.774007
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.182,
-          "route_miles_start": 7.5,
-          "route_miles_end": 7.682,
-          "start_coordinate": [
-            -116.096146,
-            43.774007
-          ],
-          "end_coordinate": [
-            -116.0971,
-            43.7747
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 7.682,
-          "route_miles_end": 7.691,
-          "start_coordinate": [
-            -116.0971,
-            43.7747
-          ],
-          "end_coordinate": [
-            -116.0972,
-            43.7748
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.039,
-          "route_miles_start": 7.691,
-          "route_miles_end": 7.729,
-          "start_coordinate": [
-            -116.0972,
-            43.7748
-          ],
-          "end_coordinate": [
-            -116.0974,
-            43.775
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.012,
-          "route_miles_start": 7.729,
-          "route_miles_end": 7.742,
-          "start_coordinate": [
-            -116.0974,
-            43.775
-          ],
-          "end_coordinate": [
-            -116.0976,
-            43.7749
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.129,
-          "route_miles_start": 7.742,
-          "route_miles_end": 7.871,
-          "start_coordinate": [
-            -116.0976,
-            43.7749
-          ],
-          "end_coordinate": [
-            -116.0981,
-            43.7752
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.005,
-          "route_miles_start": 7.871,
-          "route_miles_end": 7.876,
-          "start_coordinate": [
-            -116.0981,
-            43.7752
-          ],
-          "end_coordinate": [
-            -116.0982,
-            43.7752
-          ]
-        },
-        {
-          "edge_id": "official:1679:187:0",
-          "name": "Tempest Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1679",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.077,
-          "route_miles_start": 7.876,
-          "route_miles_end": 7.952,
-          "start_coordinate": [
-            -116.0982,
-            43.7752
-          ],
-          "end_coordinate": [
-            -116.0973,
-            43.776
-          ]
-        },
-        {
-          "edge_id": "official:1721:228:0",
-          "name": "Lodge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1721",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.531,
-          "route_miles_start": 7.952,
-          "route_miles_end": 8.484,
-          "start_coordinate": [
-            -116.0973,
-            43.776
-          ],
-          "end_coordinate": [
-            -116.0877,
-            43.7751
-          ]
-        },
-        {
-          "edge_id": "official:1554:71:0",
-          "name": "Elk Meadows Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1554",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.106,
-          "route_miles_start": 8.484,
-          "route_miles_end": 8.589,
-          "start_coordinate": [
-            -116.0877,
-            43.7751
-          ],
-          "end_coordinate": [
-            -116.0859,
-            43.7755
-          ]
-        },
-        {
-          "edge_id": "official:1554:71:0",
-          "name": "Elk Meadows Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1554",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.014,
-          "route_miles_start": 8.589,
-          "route_miles_end": 8.603,
-          "start_coordinate": [
-            -116.0859,
-            43.7755
-          ],
-          "end_coordinate": [
-            -116.0859,
-            43.7757
+            -116.085924,
+            43.775709
           ]
         },
         {
@@ -10130,16 +9930,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.262,
-          "route_miles_start": 8.603,
-          "route_miles_end": 8.866,
+          "distance_miles": 0.268,
+          "route_miles_start": 7.378,
+          "route_miles_end": 7.646,
           "start_coordinate": [
-            -116.0859,
-            43.7757
+            -116.085924,
+            43.775709
           ],
           "end_coordinate": [
-            -116.0858,
-            43.7771
+            -116.085795,
+            43.777124
           ]
         },
         {
@@ -10150,16 +9950,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.095,
-          "route_miles_start": 8.866,
-          "route_miles_end": 8.96,
+          "distance_miles": 0.089,
+          "route_miles_start": 7.646,
+          "route_miles_end": 7.735,
           "start_coordinate": [
-            -116.0858,
-            43.7771
+            -116.085795,
+            43.777124
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7782
+            -116.086146,
+            43.778172
           ]
         },
         {
@@ -10170,16 +9970,16 @@
           "segment_id": "1492",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 0.035,
-          "route_miles_start": 8.96,
-          "route_miles_end": 8.996,
+          "distance_miles": 0.036,
+          "route_miles_start": 7.735,
+          "route_miles_end": 7.771,
           "start_coordinate": [
-            -116.0861,
-            43.7782
+            -116.086146,
+            43.778172
           ],
           "end_coordinate": [
-            -116.086,
-            43.7787
+            -116.086036,
+            43.778681
           ]
         },
         {
@@ -10191,15 +9991,15 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 0.015,
-          "route_miles_start": 8.996,
-          "route_miles_end": 9.01,
+          "route_miles_start": 7.771,
+          "route_miles_end": 7.786,
           "start_coordinate": [
-            -116.086,
-            43.7787
+            -116.086036,
+            43.778681
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ]
         },
         {
@@ -10210,16 +10010,56 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.267,
-          "route_miles_start": 9.01,
-          "route_miles_end": 9.277,
+          "distance_miles": 0.077,
+          "route_miles_start": 7.786,
+          "route_miles_end": 7.863,
           "start_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ],
           "end_coordinate": [
-            -116.0863,
-            43.7825
+            -116.086048,
+            43.779979
+          ]
+        },
+        {
+          "edge_id": "connector:9394:0",
+          "name": "OSM track connector 92827",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.017,
+          "route_miles_start": 7.863,
+          "route_miles_end": 7.88,
+          "start_coordinate": [
+            -116.086048,
+            43.779979
+          ],
+          "end_coordinate": [
+            -116.086149,
+            43.780219
+          ]
+        },
+        {
+          "edge_id": "connector:1133:0",
+          "name": "National Forest Development Road 374",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.17,
+          "route_miles_start": 7.88,
+          "route_miles_end": 8.05,
+          "start_coordinate": [
+            -116.086149,
+            43.780219
+          ],
+          "end_coordinate": [
+            -116.086304,
+            43.782495
           ]
         },
         {
@@ -10230,16 +10070,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.029,
-          "route_miles_start": 9.277,
-          "route_miles_end": 9.307,
+          "distance_miles": 0.024,
+          "route_miles_start": 8.05,
+          "route_miles_end": 8.074,
           "start_coordinate": [
-            -116.0863,
-            43.7825
+            -116.086304,
+            43.782495
           ],
           "end_coordinate": [
-            -116.0865,
-            43.7829
+            -116.086442,
+            43.782831
           ]
         },
         {
@@ -10250,16 +10090,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.021,
-          "route_miles_start": 9.307,
-          "route_miles_end": 9.328,
+          "distance_miles": 0.026,
+          "route_miles_start": 8.074,
+          "route_miles_end": 8.101,
           "start_coordinate": [
-            -116.0865,
-            43.7829
+            -116.086442,
+            43.782831
           ],
           "end_coordinate": [
-            -116.0866,
-            43.7832
+            -116.08657,
+            43.783198
           ]
         },
         {
@@ -10270,16 +10110,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.021,
-          "route_miles_start": 9.328,
-          "route_miles_end": 9.349,
+          "distance_miles": 0.033,
+          "route_miles_start": 8.101,
+          "route_miles_end": 8.133,
           "start_coordinate": [
-            -116.0866,
-            43.7832
+            -116.08657,
+            43.783198
           ],
           "end_coordinate": [
-            -116.0867,
-            43.7835
+            -116.086798,
+            43.783643
           ]
         },
         {
@@ -10290,12 +10130,12 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.055,
-          "route_miles_start": 9.349,
-          "route_miles_end": 9.405,
+          "distance_miles": 0.051,
+          "route_miles_start": 8.133,
+          "route_miles_end": 8.185,
           "start_coordinate": [
-            -116.0867,
-            43.7835
+            -116.086798,
+            43.783643
           ],
           "end_coordinate": [
             -116.0859,
@@ -10311,8 +10151,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.014,
-          "route_miles_start": 9.405,
-          "route_miles_end": 9.419,
+          "route_miles_start": 8.185,
+          "route_miles_end": 8.199,
           "start_coordinate": [
             -116.0859,
             43.784
@@ -10331,8 +10171,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.074,
-          "route_miles_start": 9.419,
-          "route_miles_end": 9.492,
+          "route_miles_start": 8.199,
+          "route_miles_end": 8.272,
           "start_coordinate": [
             -116.0859,
             43.7842
@@ -10351,8 +10191,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.008,
-          "route_miles_start": 9.492,
-          "route_miles_end": 9.5,
+          "route_miles_start": 8.272,
+          "route_miles_end": 8.28,
           "start_coordinate": [
             -116.087,
             43.7848
@@ -10371,8 +10211,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.087,
-          "route_miles_start": 9.5,
-          "route_miles_end": 9.587,
+          "route_miles_start": 8.28,
+          "route_miles_end": 8.367,
           "start_coordinate": [
             -116.08716,
             43.7848
@@ -10391,8 +10231,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.007,
-          "route_miles_start": 9.587,
-          "route_miles_end": 9.593,
+          "route_miles_start": 8.367,
+          "route_miles_end": 8.374,
           "start_coordinate": [
             -116.088429,
             43.785201
@@ -10411,8 +10251,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.121,
-          "route_miles_start": 9.593,
-          "route_miles_end": 9.714,
+          "route_miles_start": 8.374,
+          "route_miles_end": 8.494,
           "start_coordinate": [
             -116.088559,
             43.785215
@@ -10431,8 +10271,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.205,
-          "route_miles_start": 9.714,
-          "route_miles_end": 9.919,
+          "route_miles_start": 8.494,
+          "route_miles_end": 8.699,
           "start_coordinate": [
             -116.088908,
             43.786527
@@ -10451,8 +10291,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.979,
-          "route_miles_start": 9.919,
-          "route_miles_end": 10.898,
+          "route_miles_start": 8.699,
+          "route_miles_end": 9.678,
           "start_coordinate": [
             -116.090783,
             43.788554
@@ -10471,8 +10311,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.356,
-          "route_miles_start": 10.898,
-          "route_miles_end": 11.254,
+          "route_miles_start": 9.678,
+          "route_miles_end": 10.034,
           "start_coordinate": [
             -116.087614,
             43.788038
@@ -10491,15 +10331,15 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.089,
-          "route_miles_start": 11.254,
-          "route_miles_end": 11.343,
+          "route_miles_start": 10.034,
+          "route_miles_end": 10.123,
           "start_coordinate": [
             -116.086986,
             43.784855
           ],
           "end_coordinate": [
-            -116.0859,
-            43.7841
+            -116.085862,
+            43.784064
           ]
         },
         {
@@ -10510,16 +10350,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.058,
-          "route_miles_start": 11.343,
-          "route_miles_end": 11.401,
+          "distance_miles": 0.056,
+          "route_miles_start": 10.123,
+          "route_miles_end": 10.179,
           "start_coordinate": [
-            -116.0859,
-            43.7841
+            -116.085862,
+            43.784064
           ],
           "end_coordinate": [
-            -116.0868,
-            43.7836
+            -116.086798,
+            43.783643
           ]
         },
         {
@@ -10530,16 +10370,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.023,
-          "route_miles_start": 11.401,
-          "route_miles_end": 11.424,
+          "distance_miles": 0.025,
+          "route_miles_start": 10.179,
+          "route_miles_end": 10.204,
           "start_coordinate": [
-            -116.0868,
-            43.7836
+            -116.086798,
+            43.783643
           ],
           "end_coordinate": [
-            -116.0866,
-            43.7833
+            -116.086606,
+            43.783302
           ]
         },
         {
@@ -10550,16 +10390,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.036,
-          "route_miles_start": 11.424,
-          "route_miles_end": 11.46,
+          "distance_miles": 0.031,
+          "route_miles_start": 10.204,
+          "route_miles_end": 10.235,
           "start_coordinate": [
-            -116.0866,
-            43.7833
+            -116.086606,
+            43.783302
           ],
           "end_coordinate": [
-            -116.0864,
-            43.7828
+            -116.086458,
+            43.782865
           ]
         },
         {
@@ -10570,16 +10410,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.015,
-          "route_miles_start": 11.46,
-          "route_miles_end": 11.474,
+          "distance_miles": 0.027,
+          "route_miles_start": 10.235,
+          "route_miles_end": 10.262,
           "start_coordinate": [
-            -116.0864,
-            43.7828
+            -116.086458,
+            43.782865
           ],
           "end_coordinate": [
-            -116.0863,
-            43.7826
+            -116.086304,
+            43.782495
           ]
         },
         {
@@ -10590,16 +10430,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.274,
-          "route_miles_start": 11.474,
-          "route_miles_end": 11.748,
+          "distance_miles": 0.263,
+          "route_miles_start": 10.262,
+          "route_miles_end": 10.526,
           "start_coordinate": [
-            -116.0863,
-            43.7826
+            -116.086304,
+            43.782495
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ]
         },
         {
@@ -10610,16 +10450,16 @@
           "segment_id": "1493",
           "direction": "ascent",
           "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 11.748,
-          "route_miles_end": 11.762,
+          "distance_miles": 0.011,
+          "route_miles_start": 10.526,
+          "route_miles_end": 10.537,
           "start_coordinate": [
-            -116.0861,
-            43.7789
+            -116.086061,
+            43.778896
           ],
           "end_coordinate": [
-            -116.0861,
-            43.7787
+            -116.086052,
+            43.778733
           ]
         },
         {
@@ -10630,16 +10470,16 @@
           "segment_id": "1493",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 0.868,
-          "route_miles_start": 11.762,
-          "route_miles_end": 12.63,
+          "distance_miles": 0.857,
+          "route_miles_start": 10.537,
+          "route_miles_end": 11.394,
           "start_coordinate": [
-            -116.0861,
-            43.7787
+            -116.086052,
+            43.778733
           ],
           "end_coordinate": [
-            -116.1004,
-            43.7775
+            -116.100367,
+            43.777612
           ]
         },
         {
@@ -10650,16 +10490,16 @@
           "segment_id": "1750",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 0.351,
-          "route_miles_start": 12.63,
-          "route_miles_end": 12.982,
+          "distance_miles": 0.365,
+          "route_miles_start": 11.394,
+          "route_miles_end": 11.759,
           "start_coordinate": [
-            -116.1004,
-            43.7775
+            -116.100367,
+            43.777612
           ],
           "end_coordinate": [
-            -116.1003,
-            43.7725
+            -116.10028,
+            43.772363
           ]
         },
         {
@@ -10673,15 +10513,15 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.022,
-          "route_miles_start": 12.982,
-          "route_miles_end": 13.004,
+          "route_miles_start": 11.759,
+          "route_miles_end": 11.78,
           "start_coordinate": [
-            -116.1003,
-            43.7725
+            -116.10028,
+            43.772363
           ],
           "end_coordinate": [
-            -116.1002,
-            43.7722
+            -116.100112,
+            43.772122
           ]
         },
         {
@@ -10692,388 +10532,178 @@
           "segment_id": "1501",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.05,
-          "route_miles_start": 13.004,
-          "route_miles_end": 13.053,
+          "distance_miles": 0.012,
+          "route_miles_start": 11.78,
+          "route_miles_end": 11.792,
           "start_coordinate": [
-            -116.1002,
-            43.7722
+            -116.100112,
+            43.772122
           ],
           "end_coordinate": [
-            -116.0995,
-            43.7717
+            -116.100001,
+            43.771971
           ]
         },
         {
-          "edge_id": "connector:7943:0",
-          "name": "#142 Sunshine",
+          "edge_id": "connector:120:0",
+          "name": "#96 Brewers Byway",
           "signposts": [
-            "142"
+            "96"
           ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.014,
+          "route_miles_start": 11.792,
+          "route_miles_end": 11.806,
+          "start_coordinate": [
+            -116.100001,
+            43.771971
+          ],
+          "end_coordinate": [
+            -116.100172,
+            43.771806
+          ]
+        },
+        {
+          "edge_id": "connector:9323:0",
+          "name": "OSM track connector 91509",
+          "signposts": [],
           "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.383,
-          "route_miles_start": 13.053,
-          "route_miles_end": 13.436,
+          "distance_miles": 0.122,
+          "route_miles_start": 11.806,
+          "route_miles_end": 11.928,
           "start_coordinate": [
-            -116.0995,
-            43.7717
+            -116.100172,
+            43.771806
           ],
           "end_coordinate": [
-            -116.096,
-            43.7672
+            -116.102295,
+            43.770968
           ]
         },
         {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
+          "edge_id": "connector:1420:0",
+          "name": "OSM track connector 12036",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.08,
-          "route_miles_start": 13.436,
-          "route_miles_end": 13.517,
+          "distance_miles": 0.164,
+          "route_miles_start": 11.928,
+          "route_miles_end": 12.092,
           "start_coordinate": [
-            -116.096,
-            43.7672
+            -116.102295,
+            43.770968
           ],
           "end_coordinate": [
-            -116.0946,
-            43.7667
+            -116.104494,
+            43.769409
           ]
         },
         {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
+          "edge_id": "connector:2452:0",
+          "name": "OSM track connector 19702",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.511,
+          "route_miles_start": 12.092,
+          "route_miles_end": 12.603,
+          "start_coordinate": [
+            -116.104494,
+            43.769409
+          ],
+          "end_coordinate": [
+            -116.103878,
+            43.765522
+          ]
+        },
+        {
+          "edge_id": "connector:1421:0",
+          "name": "North Bogus Shop Road",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.09,
-          "route_miles_start": 13.517,
-          "route_miles_end": 13.607,
-          "start_coordinate": [
-            -116.0946,
-            43.7667
-          ],
-          "end_coordinate": [
-            -116.0958,
-            43.7668
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "forward",
           "distance_miles": 0.009,
-          "route_miles_start": 13.607,
-          "route_miles_end": 13.615,
+          "route_miles_start": 12.603,
+          "route_miles_end": 12.612,
           "start_coordinate": [
-            -116.0958,
-            43.7668
+            -116.103878,
+            43.765522
           ],
           "end_coordinate": [
-            -116.0957,
-            43.7667
+            -116.103753,
+            43.765423
           ]
         },
         {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
+          "edge_id": "connector:7249:0",
+          "name": "OSM service connector 59358",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.18,
-          "route_miles_start": 13.615,
-          "route_miles_end": 13.795,
-          "start_coordinate": [
-            -116.0957,
-            43.7667
-          ],
-          "end_coordinate": [
-            -116.0966,
-            43.7657
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.014,
-          "route_miles_start": 13.795,
-          "route_miles_end": 13.809,
-          "start_coordinate": [
-            -116.0966,
-            43.7657
-          ],
-          "end_coordinate": [
-            -116.0966,
-            43.7655
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.235,
-          "route_miles_start": 13.809,
-          "route_miles_end": 14.044,
-          "start_coordinate": [
-            -116.0966,
-            43.7655
-          ],
-          "end_coordinate": [
-            -116.0985,
-            43.766
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 14.044,
-          "route_miles_end": 14.053,
-          "start_coordinate": [
-            -116.0985,
-            43.766
-          ],
-          "end_coordinate": [
-            -116.0986,
-            43.7659
-          ]
-        },
-        {
-          "edge_id": "official:1713:220:0",
-          "name": "Sunshine XC",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1713",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.047,
-          "route_miles_start": 14.053,
-          "route_miles_end": 14.099,
-          "start_coordinate": [
-            -116.0986,
-            43.7659
-          ],
-          "end_coordinate": [
-            -116.0991,
-            43.7655
-          ]
-        },
-        {
-          "edge_id": "connector:122:0",
-          "name": "Bogus Creek Loop",
-          "signposts": [],
-          "source_class": "r2r_trail",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.079,
-          "route_miles_start": 14.099,
-          "route_miles_end": 14.178,
+          "distance_miles": 0.042,
+          "route_miles_start": 12.612,
+          "route_miles_end": 12.654,
           "start_coordinate": [
-            -116.0991,
-            43.7655
+            -116.103753,
+            43.765423
           ],
           "end_coordinate": [
-            -116.1004,
-            43.7651
+            -116.103967,
+            43.76488
           ]
         },
         {
-          "edge_id": "connector:122:0",
-          "name": "Bogus Creek Loop",
+          "edge_id": "connector:7248:0",
+          "name": "OSM service connector 59357",
           "signposts": [],
-          "source_class": "r2r_trail",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 14.178,
-          "route_miles_end": 14.192,
+          "distance_miles": 0.065,
+          "route_miles_start": 12.654,
+          "route_miles_end": 12.718,
           "start_coordinate": [
-            -116.1004,
-            43.7651
+            -116.103967,
+            43.76488
           ],
           "end_coordinate": [
-            -116.1004,
-            43.7649
+            -116.102857,
+            43.765205
           ]
         },
         {
-          "edge_id": "connector:122:1",
-          "name": "Bogus Creek Loop",
+          "edge_id": "connector:4428:0",
+          "name": "North Bogus Creek Road",
           "signposts": [],
-          "source_class": "r2r_trail",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.103,
-          "route_miles_start": 14.192,
-          "route_miles_end": 14.296,
+          "distance_miles": 0.084,
+          "route_miles_start": 12.718,
+          "route_miles_end": 12.802,
           "start_coordinate": [
-            -116.1004,
-            43.7649
+            -116.102857,
+            43.765205
           ],
           "end_coordinate": [
-            -116.1012,
-            43.7636
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 14.296,
-          "route_miles_end": 14.304,
-          "start_coordinate": [
-            -116.1012,
-            43.7636
-          ],
-          "end_coordinate": [
-            -116.1013,
-            43.7635
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.047,
-          "route_miles_start": 14.304,
-          "route_miles_end": 14.351,
-          "start_coordinate": [
-            -116.1013,
-            43.7635
-          ],
-          "end_coordinate": [
-            -116.1021,
-            43.7637
-          ]
-        },
-        {
-          "edge_id": "connector:7945:0",
-          "name": "Bogus Creek Loop",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 14.351,
-          "route_miles_end": 14.36,
-          "start_coordinate": [
-            -116.1021,
-            43.7637
-          ],
-          "end_coordinate": [
-            -116.1022,
-            43.7638
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 14.36,
-          "route_miles_end": 14.373,
-          "start_coordinate": [
-            -116.1022,
-            43.7638
-          ],
-          "end_coordinate": [
-            -116.1022,
-            43.764
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.016,
-          "route_miles_start": 14.373,
-          "route_miles_end": 14.39,
-          "start_coordinate": [
-            -116.1022,
-            43.764
-          ],
-          "end_coordinate": [
-            -116.1019,
-            43.7641
-          ]
-        },
-        {
-          "edge_id": "connector:300:0",
-          "name": "#91 Deer Point",
-          "signposts": [
-            "91"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.012,
-          "route_miles_start": 14.39,
-          "route_miles_end": 14.402,
-          "start_coordinate": [
-            -116.1019,
-            43.7641
-          ],
-          "end_coordinate": [
-            -116.1021,
-            43.7642
+            -116.102254,
+            43.764255
           ]
         },
         {
@@ -11084,12 +10714,12 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.012,
-          "route_miles_start": 14.402,
-          "route_miles_end": 14.414,
+          "distance_miles": 0.004,
+          "route_miles_start": 12.802,
+          "route_miles_end": 12.806,
           "start_coordinate": [
-            -116.1021,
-            43.7642
+            -116.102254,
+            43.764255
           ],
           "end_coordinate": [
             -116.1023,
@@ -11107,28 +10737,28 @@
           "#96",
           "#98"
         ],
-        "normalized_text_count": 77,
+        "normalized_text_count": 78,
         "sample_normalized_text": [
-          "01 0 00 mi 1 19 start access follow brewer's byway extension north bogus creek road deer point bogus creek until signed brewer's byway extension route first official segment",
-          "02 1 19 mi 0 69 follow brewer's byway extension until signed junction with tempest",
-          "03 1 89 mi 0 49 jct take sunshine brewer's byway until signed junction with tempest",
-          "04 2 37 mi 0 94 jct continue straight tempest until signed junction with brewers byway",
-          "05 3 31 mi 1 12 road follow cabin traverse tempest brewers byway deer point elk meadows national forest development road 374 osm track connector 8183 packing shafer butte road face until signed junction with brewers byway",
-          "06 4 61 mi 1 26 jct take brewers byway until signed junction with face",
-          "07 5 87 mi 1 25 overlap double back cabin traverse face brewers byway deer point elk meadows until signed junction with face",
-          "08 7 31 mi 1 33 jct take face until signed junction with mores mtn interpretive",
-          "09 8 65 mi 2 12 jct take tempest until signed junction with mores mtn interpretive",
-          "10 10 76 mi 2 23 jct bear left mores mtn interpretive until end of mores mtn interpretive for this route",
-          "11 13 00 mi 1 99 exit follow sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 osm service connector 94686 osm track connector 107366 osm track connector 92827 shafer butte campground road until parked car trailhead",
-          "after mores mtn interpretive you are not fully back at car use sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 4 more back toward bogus basin base area expect about 3 26 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "01 0 00 mi 1 03 start access follow brewer's byway extension north bogus creek road deer point bogus creek until signed brewer's byway extension route first official segment",
+          "02 1 03 mi 0 60 follow brewer's byway extension until signed junction with tempest",
+          "03 1 63 mi 0 42 jct take sunshine brewer's byway until signed junction with tempest",
+          "04 2 05 mi 0 81 jct take tempest until signed junction with brewers byway",
+          "05 2 86 mi 1 12 road follow cabin traverse tempest brewers byway deer point elk meadows national forest development road 374 osm track connector 8183 packing shafer butte road face until signed junction with brewers byway",
+          "06 3 98 mi 1 09 jct take brewers byway until signed junction with face",
+          "07 5 07 mi 1 25 road follow cabin traverse face brewers byway deer point elk meadows until signed junction with face",
+          "08 6 32 mi 1 15 jct take face until signed junction with mores mtn interpretive",
+          "09 7 47 mi 1 66 road follow tempest elk meadows lodge lodge cat track mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 osm service connector 94686 osm track connector 12046 osm track connector 92827 until signed junction with mores mtn interpretive",
+          "10 9 30 mi 1 93 jct continue straight mores mtn interpretive until end of mores mtn interpretive for this route",
+          "11 11 23 mi 1 99 exit follow sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 osm service connector 94686 osm track connector 107366 osm track connector 92827 shafer butte campground road until parked car trailhead",
+          "after mores mtn interpretive you are not fully back at car use sunshine around mountain around mountain mores mountain bike mores mountain interpretive national forest development road 374 osm service connector 8611 osm service connector 94685 4 more back toward bogus basin base area expect about 2 73 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "around mountain",
           "at signed junction with brewers byway turn onto brewers byway use named connector road for 1 12 mi look for signs cabin traverse tempest this earns brewers byway segments 3 2 and 1 section estimate 1 09 official mi 23 min moving 164 ft climb 252 ft descent next decision look for signs to face",
-          "at signed junction with face turn onto face use named connector road for 1 25 mi look for signs cabin traverse face this earns face segment 1 section estimate 1 15 official mi 24 min moving 319 ft climb next decision look for signs to mores mtn interpretive",
-          "at signed junction with mores mtn interpretive bear left onto mores mtn interpretive use named connector road for 1 83 mi look for signs tempest this earns mores mtn interpretive segments 5 4 3 2 and 1 section estimate 1 93 official mi 50 min moving 818 ft climb",
-          "at signed junction with tempest continue straight onto tempest use named connector road for 0 42 mi look for signs sunshine brewer's byway this earns both tempest official segments section estimate 0 81 official mi 24 min moving 629 ft climb next decision look for signs to brewers byway",
-          "bear left",
-          "bear left mores mtn interpretive toward return to car until end of mores mtn interpretive for this route this earns mores mtn interpretive segments 5 4 3 2 and 1 section estimate 1 93 official mi 50 min moving 818 ft climb also includes repeat official mileage already credited earlier in this route includes 0 08 mi repeat official no new credit",
-          "bear left onto mores mtn interpretive"
+          "at signed junction with face continue straight onto face use named connector road for 1 25 mi look for signs cabin traverse face official repeat mileage face segment 1 do not count as new credit section estimate 1 15 official mi 24 min moving 319 ft climb next decision look for signs to mores mtn interpretive",
+          "at signed junction with mores mtn interpretive continue straight onto mores mtn interpretive use named connector road for 1 83 mi look for signs tempest this earns mores mtn interpretive segments 5 4 3 2 and 1 section estimate 1 93 official mi 50 min moving 818 ft climb",
+          "at signed junction with tempest turn onto tempest use named connector road for 0 42 mi look for signs sunshine brewer's byway this earns both tempest official segments section estimate 0 81 official mi 24 min moving 629 ft climb next decision look for signs to brewers byway",
+          "bogus basin base area",
+          "bogus creek",
+          "brewer's byway"
         ]
       },
       "failures": []

@@ -1,6 +1,6 @@
 {
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-09T23:45:26Z",
+  "generated_at": "2026-06-10T01:16:40Z",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
     "field_packet_manifest": "docs/field-packet/manifest.json",
@@ -16,8 +16,7 @@
     "route_count": 31,
     "proof_count": 31,
     "decision_counts": {
-      "HOLD_CURRENT_RECERTIFIED": 25,
-      "NEEDS_REANCHOR_OR_WAIVER": 6
+      "HOLD_CURRENT_RECERTIFIED": 31
     },
     "area_counts": {
       "Upper Hulls Gulch": 2,
@@ -37,18 +36,11 @@
       "Camels Back / Hulls Gulch": 1,
       "Harlow's / Hidden Springs west access probe": 1
     },
-    "deterministic_same_credit_failure_count": 6,
-    "failed_route_labels": [
-      "5A",
-      "16A-2",
-      "1A-2",
-      "1A-1",
-      "16C-1",
-      "15B"
-    ],
-    "route_efficiency_verdict": "open_dominance_failures",
-    "route_efficiency_achieved": false,
-    "accepted_active_candidate_target": 25,
+    "deterministic_same_credit_failure_count": 0,
+    "failed_route_labels": [],
+    "route_efficiency_verdict": "current_routes_proofed",
+    "route_efficiency_achieved": true,
+    "accepted_active_candidate_target": 31,
     "review_today": "2026-06-09"
   }
 }

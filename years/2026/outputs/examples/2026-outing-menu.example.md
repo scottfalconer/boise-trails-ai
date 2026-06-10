@@ -9,9 +9,9 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 - Open runnable outings: 31
 - Manual design holds: 0
 - Remaining official segments represented: 251
-- Full-plan official miles: 165.59
-- Full-plan on-foot miles: 321.91
-- Full-plan on-foot/official ratio: 1.94x
+- Full-plan official miles: 164.44
+- Full-plan on-foot miles: 320.08
+- Full-plan on-foot/official ratio: 1.95x
 - Map: `2026-outing-menu-map.example.html`
 
 ## How To Use
@@ -66,7 +66,7 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Rocky Canyon: Orchard Gulch (14) | 4h 19m | Orchard Gulch | 8.45 | 13.26 | 6 / 6 | Package 14: Watchman / Five Mile / Orchard / Rocky Canyon | Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail |
 | Dry Creek: Shingle Creek (16C-2) | 4h 19m | Dry Creek / Sweet Connie roadside parking | 4.76 | 14.31 | 1 / 1 | Package 16 (4 starts): Sweet Connie / Shingle / Sheep Camp / Stack Rock | Shingle Creek Trail |
 | Camels Back / Hulls Gulch: Lower Hull's Gulch (2) | 5h 32m | Hulls Gulch | 13.11 | 18.8 | 25 / 25 | Package 2: Camel's Back / Kestrel / Crestline / Lower Hulls even-day | Lower Hull's Gulch Trail, Hull's Gulch Interpretive, Crestline Trail, Kestral Trail, Owl's Roost, Gold Finch, 15th St. Trail, Chickadee Ridge Trail, Red Cliffs |
-| Bogus Basin: Brewers Byway Ext (18A) | 5h 57m | Bogus Basin Base Area | 5.58 | 15.3 | 12 / 12 | Package 18 (2 starts): Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig | Brewer's Byway Extension, Tempest Trail, Brewers Byway, The Face Trail, Mores Mtn Interpretive |
+| Bogus Basin: Brewers Byway Ext (18A) | 5h 57m | Bogus Basin Base Area | 4.43 | 13.47 | 11 / 11 | Package 18 (2 starts): Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig | Brewer's Byway Extension, Tempest Trail, Brewers Byway, The Face Trail, Mores Mtn Interpretive |
 | Dry Creek: Highlands (15B) | 5h 58m | Bob's | 9.33 | 25.39 | 8 / 8 | Package 15 (2 starts): Dry Creek lower cluster | Highlands Trail, Dry Creek Trail, Connector |
 | Harlow's / Hidden Springs west access probe: Harlow's Hollows (10A) | 6h | Harlow's / Hidden Springs west access probe | 7.3 | 21.84 | 13 / 13 | Package 10 (2 starts): Harlow's / Spring Creek / north pod | Harlow's Hollows, Harlow's Hollows Connector, Ricochet, Shooting Range, Spring Creek, Twisted Spring, Whistling Pig |
 | Bogus Basin: Sunshine XC (17) | 6h 26m | Simplot Lodge Parking Area | 11.29 | 16.02 | 12 / 12 | Package 17: Bogus day 1: ATM / Deer / Elk / Sunshine | Sunshine XC, Deer Point Trail, Around the Mountain Trail, The Face Trail, Elk Meadows Trail |

@@ -6,8 +6,8 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 - Routes: 31
 - Proofs: 31
-- Accepted (recertified): 25
-- Deterministic same-credit failures: 6 (5A, 16A-2, 1A-2, 1A-1, 16C-1, 15B)
+- Accepted (recertified): 31
+- Deterministic same-credit failures: 0
 
 ## Routes
 
@@ -30,9 +30,9 @@ This public-safe registry is refreshed from the deterministic route-review domin
 ### 5A - Dry Creek
 
 - Candidate id: `multi-start-5-5-ms-04-1-barn-owl`
-- Decision: `NEEDS_REANCHOR_OR_WAIVER`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 1.44 official mi / 2.88 on-foot mi / p75 94 min
-- Result: Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.
+- Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 8B - Boise River WMA
@@ -46,17 +46,17 @@ This public-safe registry is refreshed from the deterministic route-review domin
 ### 16A-2 - Dry Creek
 
 - Candidate id: `manual-16a-2`
-- Decision: `NEEDS_REANCHOR_OR_WAIVER`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 0.77 official mi / 4.41 on-foot mi / p75 106 min
-- Result: Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.
+- Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 1A-2 - Hillside to Hollow
 
 - Candidate id: `multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie`
-- Decision: `NEEDS_REANCHOR_OR_WAIVER`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 3.13 official mi / 4.86 on-foot mi / p75 107 min
-- Result: Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.
+- Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 4A - Upper Hulls Gulch
@@ -78,9 +78,9 @@ This public-safe registry is refreshed from the deterministic route-review domin
 ### 1A-1 - 13
 
 - Candidate id: `multi-start-1a-1a-ms-04-1-36th-street-chute`
-- Decision: `NEEDS_REANCHOR_OR_WAIVER`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 0.74 official mi / 3.17 on-foot mi / p75 119 min
-- Result: Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.
+- Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 1B - Hillside to Hollow
@@ -126,9 +126,9 @@ This public-safe registry is refreshed from the deterministic route-review domin
 ### 16C-1 - Bogus Basin
 
 - Candidate id: `multi-start-16c-16c-ms-02-1-stack-rock-connector`
-- Decision: `NEEDS_REANCHOR_OR_WAIVER`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 3.5 official mi / 6.88 on-foot mi / p75 170 min
-- Result: Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.
+- Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 9 - Western Foothills
@@ -215,16 +215,16 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 - Candidate id: `brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 5.58 official mi / 15.3 on-foot mi / p75 357 min
+- Metrics: 4.43 official mi / 13.47 on-foot mi / p75 357 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 15B - Dry Creek
 
 - Candidate id: `multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector`
-- Decision: `NEEDS_REANCHOR_OR_WAIVER`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 9.33 official mi / 25.39 on-foot mi / p75 358 min
-- Result: Open dominance failure (FAIL_DOMINATED); re-anchor or add a route/source-hashed waiver.
+- Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
 ### 10A - Harlow's / Hidden Springs west access probe

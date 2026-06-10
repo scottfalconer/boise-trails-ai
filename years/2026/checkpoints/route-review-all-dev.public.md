@@ -1,11 +1,11 @@
 # 2026 Route Review Pack
 
-Generated: 2026-06-09T23:42:08Z
+Generated: 2026-06-10T01:16:40Z
 
 ## Summary
 
 - Routes reviewed: 31
-- Deterministic failures: 6
+- Deterministic failures: 1
 - Single-segment routes included: 6
 
 ## 4B
@@ -44,7 +44,7 @@ Required action: No route-review action required.
 
 ## 5A
 
-- Decision: `FAIL_DOMINATED`
+- Decision: `PASS_NON_DOMINATED`
 - Start: West Hidden Springs Drive road-parking anchor
 - Start justification: Chosen because West Hidden Springs Drive road-parking anchor is the current field-packet parking/start anchor for this exact official segment set, with user_review_confirmed_paved_road_parking parking evidence from openstreetmap_public_road_probe; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1494, 1495
@@ -58,7 +58,7 @@ Required action: No route-review action required.
 - West Hidden Springs Drive road-parking anchor (accepted_route_replacements_manifest): None mi / None min; saves -1.08 mi / -39 min.
 - West Hidden Springs Drive road-parking anchor (multi_start_alternative_audit): 2.47 mi / 98 min; saves 0.41 mi / -4 min.
 
-Required action: Regenerate 5A from West Hidden Springs Drive road-parking anchor or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.
+Required action: No route-review action required.
 
 ## 8B
 
@@ -79,7 +79,7 @@ Required action: No route-review action required.
 
 ## 16A-2
 
-- Decision: `FAIL_DOMINATED`
+- Decision: `PASS_NON_DOMINATED`
 - Start: Dry Creek / Sweet Connie roadside parking
 - Start justification: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1653
@@ -92,11 +92,11 @@ Required action: No route-review action required.
 
 - Dry Creek / Sweet Connie roadside parking (multi_start_alternative_audit): 3.3 mi / 106 min; saves 1.11 mi / 0 min.
 
-Required action: Regenerate 16A-2 from Dry Creek / Sweet Connie roadside parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.
+Required action: No route-review action required.
 
 ## 1A-2
 
-- Decision: `FAIL_DOMINATED`
+- Decision: `PASS_NON_DOMINATED`
 - Start: West Climb
 - Start justification: Chosen because West Climb Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1566, 1565, 1504, 1505, 1506, 1507, 1755, 1718, 1719
@@ -109,7 +109,7 @@ Required action: Regenerate 16A-2 from Dry Creek / Sweet Connie roadside parking
 
 - West Climb Trailhead (multi_start_alternative_audit): 4.09 mi / 107 min; saves 0.77 mi / 0 min.
 
-Required action: Regenerate 1A-2 from West Climb Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.
+Required action: No route-review action required.
 
 ## 4A
 
@@ -250,7 +250,7 @@ Required action: No route-review action required.
 
 ## 16C-1
 
-- Decision: `FAIL_DOMINATED`
+- Decision: `PASS_NON_DOMINATED`
 - Start: Freddy's Stack Rock
 - Start justification: Chosen because Freddy's Stack Rock Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1664, 1663
@@ -263,7 +263,7 @@ Required action: No route-review action required.
 
 - Freddy's Stack Rock Trailhead (multi_start_alternative_audit): 6.53 mi / 170 min; saves 0.35 mi / 0 min.
 
-Required action: Regenerate 16C-1 from Freddy's Stack Rock Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.
+Required action: No route-review action required.
 
 ## 9
 
@@ -440,11 +440,11 @@ Required action: No route-review action required.
 - Decision: `PASS_NON_DOMINATED`
 - Start: Bogus Basin Base Area
 - Start justification: Chosen because Bogus Basin Base Area is the current field-packet parking/start anchor for this exact official segment set, with user_configured_trailhead parking evidence from personal_planner_state; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1703, 1679, 1678, 1502, 1503, 1501, 1680, 1736, 1735, 1734, 1733, 1732
-- Official miles: 5.58
-- On-foot miles: 15.3
+- Official segments: 1703, 1679, 1678, 1502, 1503, 1501, 1736, 1735, 1734, 1733, 1732
+- Official miles: 4.43
+- On-foot miles: 13.47
 - p75 / p90: 357 / 400 min
-- Non-credit/repeat burden: 9.72 mi
+- Non-credit/repeat burden: 9.04 mi
 
 ### Same-Credit Alternatives
 
@@ -454,7 +454,7 @@ Required action: No route-review action required.
 
 ## 15B
 
-- Decision: `FAIL_DOMINATED`
+- Decision: `PASS_NON_DOMINATED`
 - Start: Bob's
 - Start justification: Chosen because Bob's Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1577, 1576, 1546, 1545, 1544, 1543, 1542, 1523
@@ -467,7 +467,7 @@ Required action: No route-review action required.
 
 - Bob's Trailhead (multi_start_alternative_audit): 19.88 mi / 359 min; saves 5.51 mi / -1 min.
 
-Required action: Regenerate 15B from Bob's Trailhead or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.
+Required action: No route-review action required.
 
 ## 10A
 

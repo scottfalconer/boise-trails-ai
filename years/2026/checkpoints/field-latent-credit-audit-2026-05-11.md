@@ -1,6 +1,6 @@
 # Field latent credit audit
 
-- Status: `needs_repair`
+- Status: `passed`
 - Routes audited: 31
 - Routes needing repair: 0
 - Routes with reconciled latent credit: 16
@@ -60,7 +60,7 @@
   - 1553 Elk Meadows Trail; claimed by 17-1: 17
   - 1554 Elk Meadows Trail; claimed by 17-1: 17
   - 1679 Tempest Trail; claimed by 18-1: 18A
-  - 1680 The Face Trail; claimed by 18-1: 18A, 17-1: 17
+  - 1680 The Face Trail; claimed by 17-1: 17
 
 ### 3-1: 3
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-military-reserve-connection-3.gpx`
@@ -103,12 +103,11 @@
 
 ### 18-1: 18A
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx`
-- Declared owned by other active routes: 1553, 1655, 1713, 1721, 1750
+- Declared owned by other active routes: 1553, 1655, 1713, 1750
 - Segment details:
   - 1553 Elk Meadows Trail; claimed by 17-1: 17
   - 1655 Shindig; claimed by 18-2: 18B
   - 1713 Sunshine XC (ascent); claimed by 17-1: 17
-  - 1721 Lodge Trail; claimed by 18-2: 18B
   - 1750 Around the Mountain Trail (ascent); claimed by 17-1: 17
 
 ### 15-2: 15B

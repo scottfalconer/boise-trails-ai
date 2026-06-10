@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-09T23:40:48.346361+00:00",
-  "status": "needs_repair",
+  "audited_at": "2026-06-10T01:11:43.632396+00:00",
+  "status": "passed",
   "summary": {
     "route_count": 31,
     "routes_missing_gpx": 0,
@@ -13,25 +13,9 @@
     "reconciled_claimed_elsewhere_segment_count": 42,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 0,
-    "dual_claimed_exact_credit_segment_count": 1
+    "dual_claimed_exact_credit_segment_count": 0
   },
-  "dual_claimed_exact_credit_segments": [
-    {
-      "seg_id": "1680",
-      "trail_name": "The Face Trail",
-      "official_miles": 1.1528655303030304,
-      "claiming_routes": [
-        {
-          "outing_id": "18-1",
-          "label": "18-1: 18A"
-        },
-        {
-          "outing_id": "17-1",
-          "label": "17-1: 17"
-        }
-      ]
-    }
-  ],
+  "dual_claimed_exact_credit_segments": [],
   "source_files": {
     "field_tool_data_json": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
     "packet_dir": "/Users/scott/dev/boise-trails-ai/docs/field-packet",
@@ -540,14 +524,6 @@
           "official_miles": 1.15,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18A",
-              "candidate_ids": [
-                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-              ]
-            },
             {
               "route_key": "17-1",
               "outing_id": "17-1",
@@ -1098,7 +1074,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -1108,21 +1083,19 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1746,
+      "activity_point_count": 1747,
       "review_point_count": 874,
       "candidate_segment_count": 22,
       "latent_completed_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unexpected_latent_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "claimed_elsewhere_segment_ids": [],
@@ -1130,7 +1103,6 @@
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unclaimed_uncompleted_segment_ids": [],
@@ -1139,7 +1111,9 @@
         "1492",
         "1493",
         "1540",
-        "1554"
+        "1554",
+        "1680",
+        "1721"
       ],
       "segments": [
         {
@@ -1192,24 +1166,6 @@
               "label": "17-1: 17",
               "candidate_ids": [
                 "block-bogus_atm_deer_elk_sunshine"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1721",
-          "seg_name": "Lodge Trail 1",
-          "trail_name": "Lodge Trail",
-          "direction": "both",
-          "official_miles": 0.54,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-2",
-              "outing_id": "18-2",
-              "label": "18-2: 18B",
-              "candidate_ids": [
-                "combo-lodge-trail-shindig"
               ]
             }
           ]
@@ -2492,14 +2448,6 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18A",
-              "candidate_ids": [
-                "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-              ]
-            },
-            {
               "route_key": "17-1",
               "outing_id": "17-1",
               "label": "17-1: 17",
@@ -3255,7 +3203,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -3265,21 +3212,19 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1746,
+      "activity_point_count": 1747,
       "review_point_count": 874,
       "candidate_segment_count": 22,
       "latent_completed_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unexpected_latent_segment_ids": [
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "claimed_elsewhere_segment_ids": [],
@@ -3287,7 +3232,6 @@
         "1553",
         "1655",
         "1713",
-        "1721",
         "1750"
       ],
       "unclaimed_uncompleted_segment_ids": [],
@@ -3296,7 +3240,9 @@
         "1492",
         "1493",
         "1540",
-        "1554"
+        "1554",
+        "1680",
+        "1721"
       ],
       "segments": [
         {
@@ -3349,24 +3295,6 @@
               "label": "17-1: 17",
               "candidate_ids": [
                 "block-bogus_atm_deer_elk_sunshine"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1721",
-          "seg_name": "Lodge Trail 1",
-          "trail_name": "Lodge Trail",
-          "direction": "both",
-          "official_miles": 0.54,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-2",
-              "outing_id": "18-2",
-              "label": "18-2: 18B",
-              "candidate_ids": [
-                "combo-lodge-trail-shindig"
               ]
             }
           ]

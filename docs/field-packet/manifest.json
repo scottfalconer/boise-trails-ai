@@ -19,7 +19,7 @@
     "audit_gpx_count": 31,
     "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "debc566b770912bd8c86d3c43bbe168bac36dfdf2ac1a5e79237c3c4c885dddc",
+    "map_data_sha256": "9af1bb9574a3e9260dce0cceeb14435114c40b763499ade10d036f783979ac43",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -24307,13 +24307,6 @@
             "direction": "both",
             "official_miles": 1.15,
             "owned_by_routes": [
-              {
-                "outing_id": "18-1",
-                "label": "18A",
-                "candidate_ids": [
-                  "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-                ]
-              },
               {
                 "outing_id": "17-1",
                 "label": "17",
@@ -70187,7 +70180,6 @@
         "1502",
         "1503",
         "1501",
-        "1680",
         "1736",
         "1735",
         "1734",
@@ -70213,8 +70205,8 @@
           "The Face Trail",
           "Mores Mtn Interpretive"
         ],
-        "official_miles": 5.58,
-        "on_foot_miles": 15.3,
+        "official_miles": 4.43,
+        "on_foot_miles": 13.47,
         "total_minutes": 357,
         "candidate_ids": [
           "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
@@ -70226,7 +70218,6 @@
           "1502",
           "1503",
           "1501",
-          "1680",
           "1736",
           "1735",
           "1734",
@@ -70240,14 +70231,13 @@
           "1502",
           "1503",
           "1501",
-          "1680",
           "1736",
           "1735",
           "1734",
           "1733",
           "1732"
         ],
-        "remaining_segment_count": 12,
+        "remaining_segment_count": 11,
         "time_bucket": "4+ hours",
         "manual_design_hold": false,
         "manual_design_area_id": null,
@@ -70263,7 +70253,7 @@
         "anchor_to_credit_endpoint_distance_miles": null,
         "credit_endpoint_used": null,
         "route_quality": {},
-        "source_card_on_foot_miles": 15.3,
+        "source_card_on_foot_miles": 13.47,
         "special_management": {
           "status": "passed",
           "failures": [],
@@ -70273,7 +70263,7 @@
               "segment_id": "1493",
               "segment_name": "Around the Mountain Trail 6",
               "observed_directions": {
-                "forward": 0.918
+                "forward": 0.899
               },
               "allowed_directions": [
                 "forward"
@@ -70284,7 +70274,7 @@
               "segment_id": "1750",
               "segment_name": "Around the Mountain Trail 7",
               "observed_directions": {
-                "forward": 0.353
+                "forward": 0.347
               },
               "allowed_directions": [
                 "forward"
@@ -70319,8 +70309,8 @@
       "validation": {
         "passed": true,
         "track_segment_count": 1,
-        "point_count": 1746,
-        "max_trackpoint_gap_miles": 0.0296,
+        "point_count": 1747,
+        "max_trackpoint_gap_miles": 0.0367,
         "max_allowed_gap_miles": 0.05,
         "failures": [],
         "max_allowed_parking_gap_miles": 0.35,
@@ -70329,7 +70319,7 @@
       "waypoint_count": 7,
       "navigation_waypoint_count": 7,
       "cue_waypoint_count": 7,
-      "audit_waypoint_count": 15,
+      "audit_waypoint_count": 14,
       "track_segment_count": 1,
       "track_source": "route_feature",
       "shortest_connector_repair_count": 4,
@@ -70337,13 +70327,87 @@
         "raw_inter_segment_gap_count": 0,
         "repaired_inter_segment_gap_count": 0,
         "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
+        "repair_method": null,
+        "avoidable_post_credit_repeat_repair_count": 2,
+        "avoidable_post_credit_repeat_repairs": [
+          {
+            "start_mile": 6.729,
+            "end_mile": 9.956,
+            "repeated_segment_ids": [
+              "1679"
+            ],
+            "current_route_leg_miles": 3.227,
+            "alternate_distance_miles": 1.9262,
+            "graph_alternate_distance_miles": 1.6888,
+            "estimated_savings_miles": 1.3008,
+            "alternate_connector_miles": 1.49,
+            "alternate_official_repeat_miles": 0.2,
+            "alternate_connector_names": [
+              "#144 Cabin Traverse",
+              "#93 The Face",
+              "#94 Elk Meadows",
+              "Elk Meadows",
+              "National Forest Development Road 374",
+              "OSM service connector 8611",
+              "OSM service connector 94685",
+              "OSM service connector 94686",
+              "OSM track connector 111242",
+              "OSM track connector 92827",
+              "Shafer Butte Campground Road"
+            ],
+            "alternate_connector_classes": [
+              "official_repeat",
+              "osm_path_footway",
+              "osm_public_road",
+              "r2r_trail"
+            ],
+            "seq": 8,
+            "cue_type": "repeat_official_noncredit",
+            "repair_iteration": 1
+          },
+          {
+            "start_mile": 11.964,
+            "end_mile": 15.299,
+            "repeated_segment_ids": [
+              "1501"
+            ],
+            "current_route_leg_miles": 3.3349,
+            "alternate_distance_miles": 2.8036,
+            "graph_alternate_distance_miles": 2.5124,
+            "estimated_savings_miles": 0.5313,
+            "alternate_connector_miles": 2.39,
+            "alternate_official_repeat_miles": 0.12,
+            "alternate_connector_names": [
+              "#142 Sunshine",
+              "#98 Around the Mountain",
+              "Around the Mountain",
+              "Mores Mountain Bike Trail",
+              "Mores Mountain Interpretive Trail",
+              "National Forest Development Road 374",
+              "North Bogus Creek Road",
+              "North Bogus Shop Road",
+              "OSM service connector 59357",
+              "OSM service connector 59358",
+              "OSM service connector 8611",
+              "OSM service connector 94685"
+            ],
+            "alternate_connector_classes": [
+              "official_repeat",
+              "osm_path_footway",
+              "osm_public_road",
+              "r2r_trail"
+            ],
+            "seq": 11,
+            "cue_type": "exit_access",
+            "repair_iteration": 1
+          }
+        ]
       },
       "route_quality": {},
       "wayfinding_cues": [
         {
           "seq": 1,
-          "leg_miles": 1.19,
+          "leg_miles": 1.03,
           "cue_type": "start_access",
           "action": "FOLLOW",
           "signed_as": [
@@ -70360,18 +70424,15 @@
             "1713"
           ],
           "official_repeat_miles": 0.87,
-          "compact": "01 0.00 mi (+1.19) START/ACCESS FOLLOW Brewer's Byway Extension / North Bogus Creek Road / #91 Deer Point / Bogus Creek Loop UNTIL signed Brewer's Byway Extension route / first official segment.",
+          "compact": "01 0.00 mi (+1.03) START/ACCESS FOLLOW Brewer's Byway Extension / North Bogus Creek Road / #91 Deer Point / Bogus Creek Loop UNTIL signed Brewer's Byway Extension route / first official segment.",
           "display_detail": "Follow Brewer's Byway Extension / North Bogus Creek Road / #91 Deer Point / Bogus Creek Loop toward Brewer's Byway Extension. UNTIL signed Brewer's Byway Extension route / first official segment. This access leg is not official challenge credit. Includes 0.87 mi repeat official; no new credit.",
           "route_miles": 0.0,
-          "route_leg_miles": 1.151,
-          "source_cum_miles": 0.0,
-          "source_leg_miles": 1.03,
-          "cum_miles": 0.0
+          "route_leg_miles": 1.03
         },
         {
           "seq": 2,
-          "cum_miles": 1.19,
-          "leg_miles": 0.69,
+          "cum_miles": 1.03,
+          "leg_miles": 0.6,
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
           "signed_as": [
@@ -70385,18 +70446,16 @@
             "1703"
           ],
           "official_miles": 0.6,
-          "compact": "02 1.19 mi (+0.69) FOLLOW Brewer's Byway Extension UNTIL signed junction with Tempest Trail.",
+          "compact": "02 1.03 mi (+0.60) FOLLOW Brewer's Byway Extension UNTIL signed junction with Tempest Trail.",
           "display_detail": "Follow Brewer's Byway Extension toward Tempest Trail. UNTIL signed junction with Tempest Trail. This earns: Brewer's Byway Extension segment 1. Section estimate: 0.6 official mi, ~16 min moving, 349 ft climb. This active line also uses Sunshine XC 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 1.151,
-          "route_leg_miles": 0.66,
-          "source_cum_miles": 1.03,
-          "source_leg_miles": 0.6,
+          "route_miles": 1.03,
+          "route_leg_miles": 0.599,
           "field_warning": "This active line also uses Sunshine XC 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 3,
-          "cum_miles": 1.89,
-          "leg_miles": 0.49,
+          "cum_miles": 1.63,
+          "leg_miles": 0.42,
           "cue_type": "junction_turn",
           "action": "TAKE",
           "signed_as": [
@@ -70570,24 +70629,22 @@
               43.776
             ]
           ],
-          "compact": "03 1.89 mi (+0.49) JCT TAKE #142 Sunshine / #96 Brewer's Byway UNTIL signed junction with Tempest Trail.",
+          "compact": "03 1.63 mi (+0.42) JCT TAKE #142 Sunshine / #96 Brewer's Byway UNTIL signed junction with Tempest Trail.",
           "display_detail": "Take #142 Sunshine / #96 Brewer's Byway toward Tempest Trail. UNTIL signed junction with Tempest Trail. VERIFY: watch for signs: #142 Sunshine; #96 Brewer's Byway. This earns: Brewers Byway 1. This active line also uses Brewers Byway 2 and Brewer's Byway Extension 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 1.811,
-          "route_leg_miles": 0.789,
+          "route_miles": 1.629,
+          "route_leg_miles": 0.441,
           "official_segment_ids": [
             "1501"
           ],
           "official_miles": 0.11,
-          "source_cum_miles": 1.63,
-          "source_leg_miles": 0.42,
           "field_warning": "This active line also uses Brewers Byway 2 and Brewer's Byway Extension 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 4,
-          "cum_miles": 2.37,
-          "leg_miles": 0.94,
+          "cum_miles": 2.05,
+          "leg_miles": 0.81,
           "cue_type": "junction_turn",
-          "action": "CONTINUE STRAIGHT",
+          "action": "TAKE",
           "signed_as": [
             "Tempest Trail"
           ],
@@ -70600,16 +70657,14 @@
             "1679"
           ],
           "official_miles": 0.81,
-          "compact": "04 2.37 mi (+0.94) JCT CONTINUE STRAIGHT Tempest Trail UNTIL signed junction with Brewers Byway.",
-          "display_detail": "Continue Straight Tempest Trail toward Brewers Byway. UNTIL signed junction with Brewers Byway. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~24 min moving, 629 ft climb.",
-          "route_miles": 2.6,
-          "route_leg_miles": 0.349,
-          "source_cum_miles": 2.05,
-          "source_leg_miles": 0.81
+          "compact": "04 2.05 mi (+0.81) JCT TAKE Tempest Trail UNTIL signed junction with Brewers Byway.",
+          "display_detail": "Take Tempest Trail toward Brewers Byway. UNTIL signed junction with Brewers Byway. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~24 min moving, 629 ft climb.",
+          "route_miles": 2.07,
+          "route_leg_miles": 0.819
         },
         {
           "seq": 5,
-          "cum_miles": 3.31,
+          "cum_miles": 2.86,
           "leg_miles": 1.12,
           "cue_type": "connector_road",
           "action": "FOLLOW",
@@ -71164,18 +71219,17 @@
               43.7616
             ]
           ],
-          "compact": "05 3.31 mi (+1.12) ROAD FOLLOW #144 Cabin Traverse / #95 Tempest / Brewers Byway / Deer Point / Elk Meadows / National Forest Development Road 374 / OSM track connector 8183 / Packing Trail / Shafer Butte Road / The Face UNTIL signed junction with Brewers Byway.",
+          "compact": "05 2.86 mi (+1.12) ROAD FOLLOW #144 Cabin Traverse / #95 Tempest / Brewers Byway / Deer Point / Elk Meadows / National Forest Development Road 374 / OSM track connector 8183 / Packing Trail / Shafer Butte Road / The Face UNTIL signed junction with Brewers Byway.",
           "display_detail": "Follow #144 Cabin Traverse / #95 Tempest / Brewers Byway / Deer Point / Elk Meadows / National Forest Development Road 374 / OSM track connector 8183 / Packing Trail / Shafer Butte Road / The Face toward Brewers Byway. UNTIL signed junction with Brewers Byway. VERIFY: watch for signs: #144 Cabin Traverse; #95 Tempest. Connector mileage does not count as new official challenge credit. Includes 0.04 mi repeat official; no new credit.",
-          "route_miles": 2.949,
-          "route_leg_miles": 1.191,
+          "route_miles": 2.894,
+          "route_leg_miles": 1.246,
           "source_leg_miles": 1.12,
-          "applied_shortest_repair_savings_miles": 0.18,
-          "source_cum_miles": 2.86
+          "applied_shortest_repair_savings_miles": 0.13
         },
         {
           "seq": 6,
-          "cum_miles": 4.61,
-          "leg_miles": 1.26,
+          "cum_miles": 3.98,
+          "leg_miles": 1.09,
           "cue_type": "junction_turn",
           "action": "TAKE",
           "signed_as": [
@@ -71190,24 +71244,22 @@
             "1503"
           ],
           "official_miles": 0.98,
-          "compact": "06 4.61 mi (+1.26) JCT TAKE Brewers Byway UNTIL signed junction with The Face Trail.",
+          "compact": "06 3.98 mi (+1.09) JCT TAKE Brewers Byway UNTIL signed junction with The Face Trail.",
           "display_detail": "Take Brewers Byway toward The Face Trail. UNTIL signed junction with The Face Trail. This earns: Brewers Byway segments 3, 2, and 1. Section estimate: 1.09 official mi, ~23 min moving, 164 ft climb, 252 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.11 mi repeat official; no new credit. This active line also uses Shindig 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 4.846,
-          "route_leg_miles": 1.514,
+          "route_miles": 4.14,
+          "route_leg_miles": 0.987,
           "official_repeat_segment_ids": [
             "1501"
           ],
           "official_repeat_miles": 0.11,
-          "source_cum_miles": 3.98,
-          "source_leg_miles": 1.09,
           "field_warning": "This active line also uses Shindig 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 7,
-          "cum_miles": 5.87,
+          "cum_miles": 5.07,
           "leg_miles": 1.25,
-          "cue_type": "overlap_repeat",
-          "action": "DOUBLE BACK",
+          "cue_type": "connector_road",
+          "action": "FOLLOW",
           "signed_as": [
             "#144 Cabin Traverse",
             "#93 The Face",
@@ -71219,7 +71271,7 @@
           "until": "signed junction with The Face Trail",
           "verify": "watch for signs: #144 Cabin Traverse; #93 The Face",
           "confidence": "planner",
-          "note": "Repeat official mileage does not count as new official challenge credit. Includes 1.69 mi repeat official; no new credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 1.69 mi repeat official; no new credit.",
           "official_repeat_segment_ids": [
             "1501",
             "1502",
@@ -71989,28 +72041,17 @@
               43.7621
             ]
           ],
-          "compact": "07 5.87 mi (+1.25) OVERLAP DOUBLE BACK #144 Cabin Traverse / #93 The Face / Brewers Byway / Deer Point / Elk Meadows UNTIL signed junction with The Face Trail.",
-          "display_detail": "Double Back #144 Cabin Traverse / #93 The Face / Brewers Byway / Deer Point / Elk Meadows toward The Face Trail. UNTIL signed junction with The Face Trail. VERIFY: watch for signs: #144 Cabin Traverse; #93 The Face. IGNORE: do not read the overlapping full-route line as a separate trail. Repeat official mileage does not count as new official challenge credit. Includes 1.69 mi repeat official; no new credit.",
-          "route_miles": 6.36,
-          "route_leg_miles": 0.422,
+          "compact": "07 5.07 mi (+1.25) ROAD FOLLOW #144 Cabin Traverse / #93 The Face / Brewers Byway / Deer Point / Elk Meadows UNTIL signed junction with The Face Trail.",
+          "display_detail": "Follow #144 Cabin Traverse / #93 The Face / Brewers Byway / Deer Point / Elk Meadows toward The Face Trail. UNTIL signed junction with The Face Trail. VERIFY: watch for signs: #144 Cabin Traverse; #93 The Face. Connector mileage does not count as new official challenge credit. Includes 1.69 mi repeat official; no new credit.",
+          "route_miles": 5.239,
+          "route_leg_miles": 1.49,
           "source_leg_miles": 1.25,
-          "applied_shortest_repair_savings_miles": 0.23,
-          "source_cum_miles": 5.07,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 6. Follow the active blue leg and arrows until signed junction with The Face Trail.",
-          "overlap_match": {
-            "matched_cue_seq": 6,
-            "matched_fraction": 0.82,
-            "matched_miles": 1.23,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
+          "applied_shortest_repair_savings_miles": 0.24
         },
         {
           "seq": 8,
-          "cum_miles": 7.31,
-          "leg_miles": 1.33,
+          "cum_miles": 6.32,
+          "leg_miles": 1.15,
           "cue_type": "junction_turn",
           "action": "TAKE",
           "signed_as": [
@@ -72019,37 +72060,48 @@
           "target": "Mores Mtn Interpretive",
           "until": "signed junction with Mores Mtn Interpretive",
           "confidence": "planner",
-          "note": "This earns: The Face Trail segment 1. Section estimate: 1.15 official mi, ~24 min moving, 319 ft climb. This active line also uses Elk Meadows Trail 2, Tempest Trail 2, and Lodge Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
+          "note": "This earns: Mores Mtn Interpretive 1, Mores Mtn Interpretive 4, and Mores Mtn Interpretive 5.",
+          "official_miles": 0.52,
+          "compact": "08 6.32 mi (+1.15) JCT TAKE The Face Trail UNTIL signed junction with Mores Mtn Interpretive.",
+          "display_detail": "Take The Face Trail toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. This earns: Mores Mtn Interpretive 1, Mores Mtn Interpretive 4, and Mores Mtn Interpretive 5.",
+          "route_miles": 8.648,
+          "route_leg_miles": 0.538,
           "official_segment_ids": [
-            "1680"
-          ],
-          "official_miles": 1.15,
-          "compact": "08 7.31 mi (+1.33) JCT TAKE The Face Trail UNTIL signed junction with Mores Mtn Interpretive.",
-          "display_detail": "Take The Face Trail toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. This earns: The Face Trail segment 1. Section estimate: 1.15 official mi, ~24 min moving, 319 ft climb. This active line also uses Elk Meadows Trail 2, Tempest Trail 2, and Lodge Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
-          "route_miles": 6.782,
-          "route_leg_miles": 3.174,
-          "source_cum_miles": 6.32,
-          "source_leg_miles": 1.15,
-          "field_warning": "This active line also uses Elk Meadows Trail 2, Tempest Trail 2, and Lodge Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+            "1732",
+            "1735",
+            "1736"
+          ]
         },
         {
           "seq": 9,
-          "cum_miles": 8.65,
-          "leg_miles": 2.12,
-          "cue_type": "junction_turn",
-          "action": "TAKE",
+          "cum_miles": 7.47,
+          "leg_miles": 1.66,
+          "cue_type": "connector_road",
+          "action": "FOLLOW",
           "signed_as": [
-            "#95 Tempest"
+            "#95 Tempest",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 12046",
+            "OSM track connector 92827"
           ],
           "target": "Mores Mtn Interpretive",
           "until": "signed junction with Mores Mtn Interpretive",
           "verify": "watch for signs: #95 Tempest",
           "confidence": "planner",
-          "note": "This earns: Mores Mtn Interpretive 1. Also includes repeat official mileage already credited earlier in this route. Includes 0.52 mi repeat official; no new credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.6 mi repeat official; no new credit.",
           "official_repeat_segment_ids": [
-            "1679"
+            "1679",
+            "1732"
           ],
-          "official_repeat_miles": 0.52,
+          "official_repeat_miles": 0.6,
           "source_path_start": [
             -116.0961,
             43.774
@@ -73296,159 +73348,117 @@
               43.7842195718634
             ],
             [
-              -116.0858232,
-              43.7842493
+              -116.085860520379,
+              43.7842916986395
             ],
             [
-              -116.085645,
-              43.7847743
+              -116.085889781206,
+              43.7843401814617
             ],
             [
-              -116.0855592,
-              43.7848413
+              -116.085926595444,
+              43.7843837518973
             ],
             [
-              -116.085519,
-              43.7848727
+              -116.085957186708,
+              43.7844056164867
             ],
             [
-              -116.0854733,
-              43.7849243
+              -116.086018878619,
+              43.7844211873716
             ],
             [
-              -116.0854536,
-              43.7849529
+              -116.08606777557,
+              43.7844171055447
             ],
             [
-              -116.0855403,
-              43.7850418
+              -116.086142024686,
+              43.7844103240639
             ],
             [
-              -116.0856186,
-              43.7850816
+              -116.086190053042,
+              43.7844174910693
             ],
             [
-              -116.085646517942,
-              43.7851052523504
+              -116.08622007366,
+              43.7844350358394
             ],
             [
-              -116.085740764757,
-              43.7852319221686
+              -116.086234677251,
+              43.7844546822801
             ],
             [
-              -116.085822735785,
-              43.7854087797422
+              -116.08624529,
+              43.7844968
             ],
             [
-              -116.08591963647,
-              43.7856463120225
+              -116.08627699,
+              43.78456021
             ],
             [
-              -116.086074674809,
-              43.7858776527939
+              -116.08634975802,
+              43.7846210533868
             ],
             [
-              -116.08612913779,
-              43.7859908162293
+              -116.08641201775,
+              43.7846529847758
             ],
             [
-              -116.086160314978,
-              43.7860576706413
+              -116.086557725393,
+              43.7847034185145
             ],
             [
-              -116.086206149609,
-              43.7861381805426
+              -116.08663153,
+              43.78472998
             ],
             [
-              -116.086215296418,
-              43.7861690857584
-            ],
-            [
-              -116.08625,
-              43.7860701
-            ],
-            [
-              -116.0863831,
-              43.7857599
-            ],
-            [
-              -116.0865727,
-              43.7855118
-            ],
-            [
-              -116.0867136,
-              43.7852344
-            ],
-            [
-              -116.086789612531,
-              43.7850926798742
-            ],
-            [
-              -116.08689156525,
-              43.7849246509868
-            ],
-            [
-              -116.087033556267,
-              43.7847606444859
-            ],
-            [
-              -116.0869643,
-              43.784766
-            ],
-            [
-              -116.0870981,
-              43.7847702
+              -116.08708961,
+              43.78476106
             ],
             [
               -116.0871,
               43.7848
             ]
           ],
-          "compact": "09 8.65 mi (+2.12) JCT TAKE #95 Tempest UNTIL signed junction with Mores Mtn Interpretive.",
-          "display_detail": "Take #95 Tempest toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. VERIFY: watch for signs: #95 Tempest. This earns: Mores Mtn Interpretive 1. Also includes repeat official mileage already credited earlier in this route. Includes 0.52 mi repeat official; no new credit.",
-          "route_miles": 9.956,
-          "route_leg_miles": 0.597,
-          "official_segment_ids": [
-            "1732"
-          ],
-          "official_miles": 0.08,
-          "source_cum_miles": 7.47,
-          "source_leg_miles": 1.83
+          "compact": "09 7.47 mi (+1.66) ROAD FOLLOW #95 Tempest / Elk Meadows / Lodge / Lodge Cat Track / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 12046 / OSM track connector 92827 UNTIL signed junction with Mores Mtn Interpretive.",
+          "display_detail": "Follow #95 Tempest / Elk Meadows / Lodge / Lodge Cat Track / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 12046 / OSM track connector 92827 toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. VERIFY: watch for signs: #95 Tempest. Connector mileage does not count as new official challenge credit. Includes 0.6 mi repeat official; no new credit.",
+          "route_miles": 9.186,
+          "route_leg_miles": 0.066,
+          "source_leg_miles": 1.66,
+          "applied_shortest_repair_savings_miles": 0.39
         },
         {
           "seq": 10,
-          "cum_miles": 10.76,
-          "leg_miles": 2.23,
+          "cum_miles": 9.3,
+          "leg_miles": 1.93,
           "cue_type": "junction_turn",
-          "action": "BEAR LEFT",
+          "action": "CONTINUE STRAIGHT",
           "signed_as": [
             "Mores Mtn Interpretive"
           ],
           "target": "return to car",
           "until": "end of Mores Mtn Interpretive for this route",
           "confidence": "planner",
-          "note": "This earns: Mores Mtn Interpretive segments 5, 4, 3, 2, and 1. Section estimate: 1.93 official mi, ~50 min moving, 818 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.08 mi repeat official; no new credit.",
+          "note": "This earns: Mores Mtn Interpretive segments 5, 4, 3, 2, and 1. Section estimate: 1.93 official mi, ~50 min moving, 818 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.52 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1733",
-            "1734",
+            "1734"
+          ],
+          "official_miles": 1.41,
+          "compact": "10 9.30 mi (+1.93) JCT CONTINUE STRAIGHT Mores Mtn Interpretive UNTIL end of Mores Mtn Interpretive for this route.",
+          "display_detail": "Continue Straight Mores Mtn Interpretive toward return to car. UNTIL end of Mores Mtn Interpretive for this route. This earns: Mores Mtn Interpretive segments 5, 4, 3, 2, and 1. Section estimate: 1.93 official mi, ~50 min moving, 818 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.52 mi repeat official; no new credit.",
+          "route_miles": 9.252,
+          "route_leg_miles": 1.346,
+          "official_repeat_segment_ids": [
+            "1732",
             "1735",
             "1736"
           ],
-          "official_miles": 1.85,
-          "compact": "10 10.76 mi (+2.23) JCT BEAR LEFT Mores Mtn Interpretive UNTIL end of Mores Mtn Interpretive for this route.",
-          "display_detail": "Bear Left Mores Mtn Interpretive toward return to car. UNTIL end of Mores Mtn Interpretive for this route. This earns: Mores Mtn Interpretive segments 5, 4, 3, 2, and 1. Section estimate: 1.93 official mi, ~50 min moving, 818 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.08 mi repeat official; no new credit.",
-          "route_miles": 10.553,
-          "route_leg_miles": 1.346,
-          "official_repeat_segment_ids": [
-            "1732"
-          ],
-          "official_repeat_miles": 0.08,
-          "source_cum_miles": 9.3,
-          "source_leg_miles": 1.93
+          "official_repeat_miles": 0.52
         },
         {
           "seq": 11,
-          "cum_miles": 13.0,
+          "cum_miles": 11.23,
           "leg_miles": 1.99,
           "cue_type": "exit_access",
           "action": "FOLLOW",
@@ -74574,24 +74584,2641 @@
               43.7667
             ]
           ],
-          "compact": "11 13.00 mi (+1.99) EXIT FOLLOW #142 Sunshine / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 / Shafer Butte Campground Road UNTIL parked car / trailhead.",
+          "compact": "11 11.23 mi (+1.99) EXIT FOLLOW #142 Sunshine / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 / Shafer Butte Campground Road UNTIL parked car / trailhead.",
           "display_detail": "Follow #142 Sunshine / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 / Shafer Butte Campground Road toward Bogus Basin Base Area. UNTIL parked car / trailhead. VERIFY: finish at Bogus Basin Base Area. Return leg does not count as new official challenge credit. Includes 0.19 mi repeat official; no new credit.",
-          "route_miles": 11.964,
-          "route_leg_miles": 3.335,
+          "route_miles": 10.598,
+          "route_leg_miles": 2.869,
           "source_leg_miles": 1.99,
-          "applied_shortest_repair_savings_miles": 1.35,
-          "source_cum_miles": 11.23
+          "applied_shortest_repair_savings_miles": 0.88
         }
       ],
       "wayfinding_mileage_reconciliation": {
         "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
         "status": "already_consistent",
-        "card_on_foot_miles": 15.3,
-        "source_cue_miles": 14.99
+        "card_on_foot_miles": 13.47,
+        "source_cue_miles": 13.22
       },
+      "on_foot_miles": 13.47,
+      "avoidable_post_credit_repeat_repairs": [
+        {
+          "start_mile": 6.729,
+          "end_mile": 9.956,
+          "replacement_coords": [
+            [
+              -116.08559749626066,
+              43.76200083457978
+            ],
+            [
+              -116.0855676,
+              43.7620316
+            ],
+            [
+              -116.0852961,
+              43.7620703
+            ],
+            [
+              -116.0852434,
+              43.7620872
+            ],
+            [
+              -116.0851997,
+              43.7621376
+            ],
+            [
+              -116.0850182,
+              43.7621204
+            ],
+            [
+              -116.0850302,
+              43.762154
+            ],
+            [
+              -116.085033147067,
+              43.7622079447614
+            ],
+            [
+              -116.085019735151,
+              43.7622592816494
+            ],
+            [
+              -116.08497,
+              43.76234
+            ],
+            [
+              -116.08501,
+              43.76282
+            ],
+            [
+              -116.0850353,
+              43.7628138
+            ],
+            [
+              -116.0850153,
+              43.7628933
+            ],
+            [
+              -116.085019952939,
+              43.7629491623452
+            ],
+            [
+              -116.084983069677,
+              43.7629833056421
+            ],
+            [
+              -116.0849556,
+              43.7629743
+            ],
+            [
+              -116.084917,
+              43.7629965
+            ],
+            [
+              -116.0848786,
+              43.7630395
+            ],
+            [
+              -116.0848738,
+              43.7630824
+            ],
+            [
+              -116.0848877,
+              43.7631941
+            ],
+            [
+              -116.0849147,
+              43.7633
+            ],
+            [
+              -116.084946491158,
+              43.7633458264331
+            ],
+            [
+              -116.084936134299,
+              43.7633763759639
+            ],
+            [
+              -116.0848734,
+              43.7634385
+            ],
+            [
+              -116.0848608,
+              43.7634943
+            ],
+            [
+              -116.0848671,
+              43.7635313
+            ],
+            [
+              -116.0849118,
+              43.7635725
+            ],
+            [
+              -116.084933795829,
+              43.7635862013894
+            ],
+            [
+              -116.08496750081,
+              43.7636522273529
+            ],
+            [
+              -116.084992420256,
+              43.7637157358659
+            ],
+            [
+              -116.085010412621,
+              43.7637957945108
+            ],
+            [
+              -116.085024826246,
+              43.7638631485926
+            ],
+            [
+              -116.0849955,
+              43.7639133
+            ],
+            [
+              -116.0850543,
+              43.7640133
+            ],
+            [
+              -116.0850646,
+              43.7640825
+            ],
+            [
+              -116.085085844479,
+              43.7641071222355
+            ],
+            [
+              -116.085052975322,
+              43.7641911456537
+            ],
+            [
+              -116.085026976484,
+              43.7642484454319
+            ],
+            [
+              -116.085000998884,
+              43.7643095599259
+            ],
+            [
+              -116.085014152331,
+              43.764465931131
+            ],
+            [
+              -116.08502863709,
+              43.7645460009434
+            ],
+            [
+              -116.085020196605,
+              43.7646057924371
+            ],
+            [
+              -116.085015138722,
+              43.7646426835097
+            ],
+            [
+              -116.084996015981,
+              43.7646745312272
+            ],
+            [
+              -116.08495813,
+              43.76469371
+            ],
+            [
+              -116.08484899,
+              43.764779
+            ],
+            [
+              -116.084752948494,
+              43.7648227519736
+            ],
+            [
+              -116.084647764309,
+              43.7648395907223
+            ],
+            [
+              -116.0846157,
+              43.7648458
+            ],
+            [
+              -116.0845872,
+              43.7648594
+            ],
+            [
+              -116.084574,
+              43.7648973
+            ],
+            [
+              -116.0845671,
+              43.7649575
+            ],
+            [
+              -116.0845891,
+              43.7650034
+            ],
+            [
+              -116.0846564,
+              43.7650684
+            ],
+            [
+              -116.0849607,
+              43.7653034
+            ],
+            [
+              -116.085,
+              43.76534
+            ],
+            [
+              -116.08502875,
+              43.76565119
+            ],
+            [
+              -116.0850234,
+              43.7656795
+            ],
+            [
+              -116.085137,
+              43.7658193
+            ],
+            [
+              -116.0853592,
+              43.7661636
+            ],
+            [
+              -116.0854435,
+              43.7662232
+            ],
+            [
+              -116.085664,
+              43.7666359
+            ],
+            [
+              -116.0855981,
+              43.7668545
+            ],
+            [
+              -116.08558178,
+              43.76689574
+            ],
+            [
+              -116.08547,
+              43.76717
+            ],
+            [
+              -116.085481339639,
+              43.767240295815
+            ],
+            [
+              -116.085353482941,
+              43.7674228320632
+            ],
+            [
+              -116.085331938234,
+              43.767538971208
+            ],
+            [
+              -116.0852807,
+              43.7675337
+            ],
+            [
+              -116.0852724,
+              43.7677395
+            ],
+            [
+              -116.0852309,
+              43.7678771
+            ],
+            [
+              -116.085235029117,
+              43.7679092200612
+            ],
+            [
+              -116.085193776152,
+              43.7679848447567
+            ],
+            [
+              -116.085163722934,
+              43.7682001166455
+            ],
+            [
+              -116.085164271002,
+              43.7682982689505
+            ],
+            [
+              -116.085143832816,
+              43.768370056498
+            ],
+            [
+              -116.08509301649,
+              43.768455978236
+            ],
+            [
+              -116.0850581,
+              43.76852456
+            ],
+            [
+              -116.08490952,
+              43.76884373
+            ],
+            [
+              -116.0849231,
+              43.7688287
+            ],
+            [
+              -116.0847702,
+              43.7690564
+            ],
+            [
+              -116.084718,
+              43.7691746
+            ],
+            [
+              -116.084742158903,
+              43.7692055422315
+            ],
+            [
+              -116.084643016841,
+              43.7692759798871
+            ],
+            [
+              -116.0845895,
+              43.7693393
+            ],
+            [
+              -116.0844986,
+              43.7693927
+            ],
+            [
+              -116.0844484,
+              43.7694465
+            ],
+            [
+              -116.0844385,
+              43.7694885
+            ],
+            [
+              -116.0844441,
+              43.7695411
+            ],
+            [
+              -116.0844425,
+              43.7695769
+            ],
+            [
+              -116.0844124,
+              43.7696353
+            ],
+            [
+              -116.0842637,
+              43.7698501
+            ],
+            [
+              -116.0842301,
+              43.7699282
+            ],
+            [
+              -116.0841206,
+              43.7700454
+            ],
+            [
+              -116.0840525,
+              43.7702213
+            ],
+            [
+              -116.0839995,
+              43.7703158
+            ],
+            [
+              -116.0839717,
+              43.7704192
+            ],
+            [
+              -116.08395112,
+              43.77040652
+            ],
+            [
+              -116.08399698,
+              43.77075227
+            ],
+            [
+              -116.08393828,
+              43.77095313
+            ],
+            [
+              -116.083893017809,
+              43.771025979065
+            ],
+            [
+              -116.083846476379,
+              43.7711410389752
+            ],
+            [
+              -116.08382089029,
+              43.7712241668371
+            ],
+            [
+              -116.0838012,
+              43.7712105
+            ],
+            [
+              -116.0835755,
+              43.7714527
+            ],
+            [
+              -116.083503,
+              43.7716613
+            ],
+            [
+              -116.0834012,
+              43.7717543
+            ],
+            [
+              -116.0833664,
+              43.7717903
+            ],
+            [
+              -116.0833424,
+              43.7718415
+            ],
+            [
+              -116.0833315,
+              43.7718763
+            ],
+            [
+              -116.0832764,
+              43.7719295
+            ],
+            [
+              -116.0832513,
+              43.7719622
+            ],
+            [
+              -116.0832141,
+              43.7720928
+            ],
+            [
+              -116.0832137,
+              43.7721395
+            ],
+            [
+              -116.0832713,
+              43.7722825
+            ],
+            [
+              -116.0833192,
+              43.7724348
+            ],
+            [
+              -116.0833575,
+              43.7725184
+            ],
+            [
+              -116.0834408,
+              43.7726355
+            ],
+            [
+              -116.0834576,
+              43.7727096
+            ],
+            [
+              -116.0834881,
+              43.7727984
+            ],
+            [
+              -116.083493018612,
+              43.7727859797631
+            ],
+            [
+              -116.083580126591,
+              43.7728972621703
+            ],
+            [
+              -116.0835599,
+              43.7729309
+            ],
+            [
+              -116.0835687,
+              43.7729609
+            ],
+            [
+              -116.083580798056,
+              43.7730180642347
+            ],
+            [
+              -116.083596930988,
+              43.7731086206143
+            ],
+            [
+              -116.083633017407,
+              43.7732859794255
+            ],
+            [
+              -116.083766457889,
+              43.7734502147476
+            ],
+            [
+              -116.0837877,
+              43.7735102
+            ],
+            [
+              -116.0839448,
+              43.7736469
+            ],
+            [
+              -116.0840328,
+              43.773691
+            ],
+            [
+              -116.0841184,
+              43.7737771
+            ],
+            [
+              -116.0843776,
+              43.7739701
+            ],
+            [
+              -116.084443018962,
+              43.7740359792406
+            ],
+            [
+              -116.084583017901,
+              43.7742259790177
+            ],
+            [
+              -116.0845869,
+              43.7742498
+            ],
+            [
+              -116.0846217,
+              43.7743205
+            ],
+            [
+              -116.0847512,
+              43.7744689
+            ],
+            [
+              -116.0848305,
+              43.7745498
+            ],
+            [
+              -116.0848799,
+              43.7746114
+            ],
+            [
+              -116.084988,
+              43.7747661
+            ],
+            [
+              -116.085033018223,
+              43.7748059792819
+            ],
+            [
+              -116.085143019244,
+              43.7748859794881
+            ],
+            [
+              -116.08509133,
+              43.77491588
+            ],
+            [
+              -116.08517649,
+              43.77496556
+            ],
+            [
+              -116.0852479,
+              43.7750035
+            ],
+            [
+              -116.0854142,
+              43.7751
+            ],
+            [
+              -116.0855275,
+              43.7751754
+            ],
+            [
+              -116.0856385,
+              43.7752612
+            ],
+            [
+              -116.0857867,
+              43.7754059
+            ],
+            [
+              -116.08580104,
+              43.77542332
+            ],
+            [
+              -116.08590749,
+              43.77553333
+            ],
+            [
+              -116.0858882,
+              43.7755224
+            ],
+            [
+              -116.0858864,
+              43.7756331
+            ],
+            [
+              -116.0859238,
+              43.7757085
+            ],
+            [
+              -116.086005,
+              43.7758021
+            ],
+            [
+              -116.0860554,
+              43.7758742
+            ],
+            [
+              -116.086142,
+              43.7760234
+            ],
+            [
+              -116.0861805,
+              43.7760712
+            ],
+            [
+              -116.0862378,
+              43.7761024
+            ],
+            [
+              -116.086318,
+              43.776117
+            ],
+            [
+              -116.086429,
+              43.776113
+            ],
+            [
+              -116.086552,
+              43.776079
+            ],
+            [
+              -116.086657,
+              43.776039
+            ],
+            [
+              -116.0869135,
+              43.7759394
+            ],
+            [
+              -116.0869663,
+              43.7759454
+            ],
+            [
+              -116.0869974,
+              43.7759698
+            ],
+            [
+              -116.0869732,
+              43.7760186
+            ],
+            [
+              -116.0869099,
+              43.7760685
+            ],
+            [
+              -116.0868405,
+              43.7761207
+            ],
+            [
+              -116.0867624,
+              43.7762049
+            ],
+            [
+              -116.0866614,
+              43.7763244
+            ],
+            [
+              -116.0865687,
+              43.77643
+            ],
+            [
+              -116.086501,
+              43.7764837
+            ],
+            [
+              -116.0863754,
+              43.7765595
+            ],
+            [
+              -116.0864224,
+              43.7766338
+            ],
+            [
+              -116.0864701,
+              43.7766273
+            ],
+            [
+              -116.0865615,
+              43.7765887
+            ],
+            [
+              -116.0867367,
+              43.7764669
+            ],
+            [
+              -116.0870382,
+              43.7762801
+            ],
+            [
+              -116.0870852,
+              43.7762687
+            ],
+            [
+              -116.0871457,
+              43.7762743
+            ],
+            [
+              -116.087176,
+              43.7762986
+            ],
+            [
+              -116.0871676,
+              43.7763375
+            ],
+            [
+              -116.0870295,
+              43.7764978
+            ],
+            [
+              -116.086823,
+              43.77681
+            ],
+            [
+              -116.086754,
+              43.776939
+            ],
+            [
+              -116.086674,
+              43.7770098
+            ],
+            [
+              -116.0865935,
+              43.7770605
+            ],
+            [
+              -116.0864934,
+              43.7771049
+            ],
+            [
+              -116.0864018,
+              43.7771226
+            ],
+            [
+              -116.0862905,
+              43.7771233
+            ],
+            [
+              -116.0860958,
+              43.7771235
+            ],
+            [
+              -116.0857949,
+              43.7771244
+            ],
+            [
+              -116.08577,
+              43.7771607
+            ],
+            [
+              -116.0857799,
+              43.7772156
+            ],
+            [
+              -116.0858545,
+              43.7772723
+            ],
+            [
+              -116.086047,
+              43.7773561
+            ],
+            [
+              -116.0862333,
+              43.7774224
+            ],
+            [
+              -116.0863131,
+              43.7774783
+            ],
+            [
+              -116.086355,
+              43.7775385
+            ],
+            [
+              -116.0863831,
+              43.7777246
+            ],
+            [
+              -116.0863301,
+              43.7779135
+            ],
+            [
+              -116.0861457,
+              43.7781725
+            ],
+            [
+              -116.0860932,
+              43.778244
+            ],
+            [
+              -116.0860504,
+              43.7783846
+            ],
+            [
+              -116.0860358,
+              43.7786812
+            ],
+            [
+              -116.08600247,
+              43.7786578
+            ],
+            [
+              -116.08606253,
+              43.77867638
+            ],
+            [
+              -116.0860522,
+              43.7787332
+            ],
+            [
+              -116.0860608,
+              43.7788962
+            ],
+            [
+              -116.0862222,
+              43.7792894
+            ],
+            [
+              -116.08622,
+              43.7794884
+            ],
+            [
+              -116.0861928,
+              43.7795731
+            ],
+            [
+              -116.0860968,
+              43.7798116
+            ],
+            [
+              -116.0860482,
+              43.7799789
+            ],
+            [
+              -116.0860499,
+              43.7800367
+            ],
+            [
+              -116.0860963,
+              43.7800819
+            ],
+            [
+              -116.0860641,
+              43.7800958
+            ],
+            [
+              -116.086149,
+              43.7802187
+            ],
+            [
+              -116.0862253,
+              43.7803065
+            ],
+            [
+              -116.0863225,
+              43.7803904
+            ],
+            [
+              -116.0864846,
+              43.7805121
+            ],
+            [
+              -116.0865639,
+              43.7806186
+            ],
+            [
+              -116.0866337,
+              43.7807878
+            ],
+            [
+              -116.0866302,
+              43.7809064
+            ],
+            [
+              -116.0865907,
+              43.7810269
+            ],
+            [
+              -116.0863894,
+              43.7812757
+            ],
+            [
+              -116.0863031,
+              43.7813624
+            ],
+            [
+              -116.0862428,
+              43.7814642
+            ],
+            [
+              -116.0862126,
+              43.781603
+            ],
+            [
+              -116.086219,
+              43.7817579
+            ],
+            [
+              -116.0862059,
+              43.7819263
+            ],
+            [
+              -116.0862272,
+              43.7820846
+            ],
+            [
+              -116.0862446,
+              43.7822116
+            ],
+            [
+              -116.0862685,
+              43.7823078
+            ],
+            [
+              -116.0862805,
+              43.7823484
+            ],
+            [
+              -116.0863026,
+              43.7823953
+            ],
+            [
+              -116.0863095,
+              43.7824421
+            ],
+            [
+              -116.0863044,
+              43.7824951
+            ],
+            [
+              -116.0862843,
+              43.782571
+            ],
+            [
+              -116.0863618,
+              43.7826686
+            ],
+            [
+              -116.086411,
+              43.7827449
+            ],
+            [
+              -116.0864418,
+              43.782831
+            ],
+            [
+              -116.0864579,
+              43.7828654
+            ],
+            [
+              -116.0865337,
+              43.7830403
+            ],
+            [
+              -116.0865697,
+              43.7831984
+            ],
+            [
+              -116.0866055,
+              43.7833015
+            ],
+            [
+              -116.0866892,
+              43.783466
+            ],
+            [
+              -116.0867589,
+              43.7835852
+            ],
+            [
+              -116.0867975,
+              43.7836435
+            ],
+            [
+              -116.0866085,
+              43.7836862
+            ],
+            [
+              -116.086499,
+              43.7837269
+            ],
+            [
+              -116.0863047,
+              43.7838314
+            ],
+            [
+              -116.0860973,
+              43.783936
+            ],
+            [
+              -116.0860314,
+              43.7839532
+            ],
+            [
+              -116.08600432459212,
+              43.78399567540787
+            ]
+          ],
+          "repeated_segment_ids": [
+            "1679"
+          ],
+          "current_route_leg_miles": 3.227,
+          "alternate_distance_miles": 1.9262,
+          "graph_alternate_distance_miles": 1.6888,
+          "estimated_savings_miles": 1.3008,
+          "alternate_connector_miles": 1.49,
+          "alternate_official_repeat_miles": 0.2,
+          "alternate_connector_names": [
+            "#144 Cabin Traverse",
+            "#93 The Face",
+            "#94 Elk Meadows",
+            "Elk Meadows",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 111242",
+            "OSM track connector 92827",
+            "Shafer Butte Campground Road"
+          ],
+          "alternate_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "seq": 8,
+          "cue_type": "repeat_official_noncredit",
+          "repair_iteration": 1
+        },
+        {
+          "start_mile": 11.964,
+          "end_mile": 15.299,
+          "replacement_coords": [
+            [
+              -116.08628114103293,
+              43.78456436690746
+            ],
+            [
+              -116.08627699,
+              43.78456021
+            ],
+            [
+              -116.08624529,
+              43.7844968
+            ],
+            [
+              -116.086234677251,
+              43.7844546822801
+            ],
+            [
+              -116.08622007366,
+              43.7844350358394
+            ],
+            [
+              -116.086190053042,
+              43.7844174910693
+            ],
+            [
+              -116.086142024686,
+              43.7844103240639
+            ],
+            [
+              -116.08606777557,
+              43.7844171055447
+            ],
+            [
+              -116.086018878619,
+              43.7844211873716
+            ],
+            [
+              -116.085957186708,
+              43.7844056164867
+            ],
+            [
+              -116.085926595444,
+              43.7843837518973
+            ],
+            [
+              -116.085889781206,
+              43.7843401814617
+            ],
+            [
+              -116.085860520379,
+              43.7842916986395
+            ],
+            [
+              -116.085836562894,
+              43.7842195718634
+            ],
+            [
+              -116.085854379318,
+              43.7841657005503
+            ],
+            [
+              -116.08586131114,
+              43.7841092352463
+            ],
+            [
+              -116.085862123728,
+              43.7840642358369
+            ],
+            [
+              -116.085857289768,
+              43.784038362873
+            ],
+            [
+              -116.0858578,
+              43.7839516
+            ],
+            [
+              -116.085967,
+              43.7839573
+            ],
+            [
+              -116.0860314,
+              43.7839532
+            ],
+            [
+              -116.0860973,
+              43.783936
+            ],
+            [
+              -116.0863047,
+              43.7838314
+            ],
+            [
+              -116.086499,
+              43.7837269
+            ],
+            [
+              -116.0866085,
+              43.7836862
+            ],
+            [
+              -116.0867975,
+              43.7836435
+            ],
+            [
+              -116.0867589,
+              43.7835852
+            ],
+            [
+              -116.0866892,
+              43.783466
+            ],
+            [
+              -116.0866055,
+              43.7833015
+            ],
+            [
+              -116.0865697,
+              43.7831984
+            ],
+            [
+              -116.0865337,
+              43.7830403
+            ],
+            [
+              -116.0864579,
+              43.7828654
+            ],
+            [
+              -116.0864418,
+              43.782831
+            ],
+            [
+              -116.086411,
+              43.7827449
+            ],
+            [
+              -116.0863618,
+              43.7826686
+            ],
+            [
+              -116.0862843,
+              43.782571
+            ],
+            [
+              -116.0863044,
+              43.7824951
+            ],
+            [
+              -116.0863095,
+              43.7824421
+            ],
+            [
+              -116.0863026,
+              43.7823953
+            ],
+            [
+              -116.0862805,
+              43.7823484
+            ],
+            [
+              -116.0862685,
+              43.7823078
+            ],
+            [
+              -116.0862446,
+              43.7822116
+            ],
+            [
+              -116.0862272,
+              43.7820846
+            ],
+            [
+              -116.0862059,
+              43.7819263
+            ],
+            [
+              -116.086219,
+              43.7817579
+            ],
+            [
+              -116.0862126,
+              43.781603
+            ],
+            [
+              -116.0862428,
+              43.7814642
+            ],
+            [
+              -116.0863031,
+              43.7813624
+            ],
+            [
+              -116.0863894,
+              43.7812757
+            ],
+            [
+              -116.0865907,
+              43.7810269
+            ],
+            [
+              -116.0866302,
+              43.7809064
+            ],
+            [
+              -116.0866337,
+              43.7807878
+            ],
+            [
+              -116.0865639,
+              43.7806186
+            ],
+            [
+              -116.0864846,
+              43.7805121
+            ],
+            [
+              -116.0863225,
+              43.7803904
+            ],
+            [
+              -116.0862253,
+              43.7803065
+            ],
+            [
+              -116.086149,
+              43.7802187
+            ],
+            [
+              -116.0860641,
+              43.7800958
+            ],
+            [
+              -116.0860963,
+              43.7800819
+            ],
+            [
+              -116.0860499,
+              43.7800367
+            ],
+            [
+              -116.0860482,
+              43.7799789
+            ],
+            [
+              -116.0860968,
+              43.7798116
+            ],
+            [
+              -116.0861928,
+              43.7795731
+            ],
+            [
+              -116.08622,
+              43.7794884
+            ],
+            [
+              -116.0862222,
+              43.7792894
+            ],
+            [
+              -116.0860608,
+              43.7788962
+            ],
+            [
+              -116.0860522,
+              43.7787332
+            ],
+            [
+              -116.0861346,
+              43.7787079
+            ],
+            [
+              -116.0862944,
+              43.7787179
+            ],
+            [
+              -116.086298202073,
+              43.7787054607982
+            ],
+            [
+              -116.086385405143,
+              43.7786827969888
+            ],
+            [
+              -116.0864194,
+              43.7786863
+            ],
+            [
+              -116.0865791,
+              43.7785967
+            ],
+            [
+              -116.086607303529,
+              43.7785565647941
+            ],
+            [
+              -116.086676795307,
+              43.7785043184476
+            ],
+            [
+              -116.0867408,
+              43.7784635
+            ],
+            [
+              -116.0868565,
+              43.7783681
+            ],
+            [
+              -116.086858441611,
+              43.7783592231428
+            ],
+            [
+              -116.086953072279,
+              43.7782818819633
+            ],
+            [
+              -116.0870019,
+              43.7782544
+            ],
+            [
+              -116.0870547,
+              43.778181
+            ],
+            [
+              -116.087067405628,
+              43.778173923903
+            ],
+            [
+              -116.0871243795,
+              43.7780944987147
+            ],
+            [
+              -116.0871292,
+              43.7780639
+            ],
+            [
+              -116.0872591,
+              43.7778907
+            ],
+            [
+              -116.087318492687,
+              43.7778529517022
+            ],
+            [
+              -116.087459388567,
+              43.7777303702819
+            ],
+            [
+              -116.08750499,
+              43.7776875
+            ],
+            [
+              -116.08760684,
+              43.77749631
+            ],
+            [
+              -116.087609579917,
+              43.7775037399759
+            ],
+            [
+              -116.087669452169,
+              43.7774238082878
+            ],
+            [
+              -116.0877018,
+              43.7773554
+            ],
+            [
+              -116.0877259,
+              43.7773254
+            ],
+            [
+              -116.0877671,
+              43.7772921
+            ],
+            [
+              -116.0878439,
+              43.7772502
+            ],
+            [
+              -116.087903,
+              43.7772222
+            ],
+            [
+              -116.0879356,
+              43.7771646
+            ],
+            [
+              -116.0879949,
+              43.7771431
+            ],
+            [
+              -116.088039835187,
+              43.7771205344183
+            ],
+            [
+              -116.088112163908,
+              43.7771290146347
+            ],
+            [
+              -116.0881449,
+              43.7771302
+            ],
+            [
+              -116.088174,
+              43.7771134
+            ],
+            [
+              -116.0882298,
+              43.7770727
+            ],
+            [
+              -116.0882725,
+              43.7770694
+            ],
+            [
+              -116.0883468,
+              43.7770756
+            ],
+            [
+              -116.0883803,
+              43.7770808
+            ],
+            [
+              -116.0884322,
+              43.7770873
+            ],
+            [
+              -116.0885721,
+              43.7770651
+            ],
+            [
+              -116.0886427,
+              43.777076
+            ],
+            [
+              -116.0887148,
+              43.7770714
+            ],
+            [
+              -116.088716304045,
+              43.777067273825
+            ],
+            [
+              -116.088814403522,
+              43.7770604262171
+            ],
+            [
+              -116.088928997461,
+              43.7770229151147
+            ],
+            [
+              -116.0889487,
+              43.7770265
+            ],
+            [
+              -116.0889855,
+              43.7770229
+            ],
+            [
+              -116.0891682,
+              43.7770643
+            ],
+            [
+              -116.0893594,
+              43.7770963
+            ],
+            [
+              -116.08944469,
+              43.77710146
+            ],
+            [
+              -116.08965951,
+              43.77716213
+            ],
+            [
+              -116.089744333542,
+              43.77723766034
+            ],
+            [
+              -116.089845275059,
+              43.7772909290876
+            ],
+            [
+              -116.089955707439,
+              43.7773631381034
+            ],
+            [
+              -116.090043440154,
+              43.7774209356803
+            ],
+            [
+              -116.090120968459,
+              43.7774627008227
+            ],
+            [
+              -116.0901199,
+              43.7774679
+            ],
+            [
+              -116.0902525,
+              43.7774981
+            ],
+            [
+              -116.0904559,
+              43.7775169
+            ],
+            [
+              -116.090541013505,
+              43.7774859783757
+            ],
+            [
+              -116.090651967544,
+              43.777445309563
+            ],
+            [
+              -116.090753294824,
+              43.7774164889386
+            ],
+            [
+              -116.090876221003,
+              43.7773838106312
+            ],
+            [
+              -116.090949275656,
+              43.7773658210371
+            ],
+            [
+              -116.09111505758,
+              43.7773614036078
+            ],
+            [
+              -116.091232934686,
+              43.7773656359479
+            ],
+            [
+              -116.091358805877,
+              43.777372138196
+            ],
+            [
+              -116.091445151437,
+              43.777367520148
+            ],
+            [
+              -116.091616906008,
+              43.7773890379405
+            ],
+            [
+              -116.091706000111,
+              43.7774007720888
+            ],
+            [
+              -116.091822829802,
+              43.7774587656794
+            ],
+            [
+              -116.0918413,
+              43.7774736
+            ],
+            [
+              -116.0919552,
+              43.7775323
+            ],
+            [
+              -116.0920691,
+              43.7775909
+            ],
+            [
+              -116.092139987319,
+              43.7776149352382
+            ],
+            [
+              -116.092236977257,
+              43.777625782309
+            ],
+            [
+              -116.09230201365,
+              43.7776426806935
+            ],
+            [
+              -116.092364542654,
+              43.7777044567334
+            ],
+            [
+              -116.092396,
+              43.7777294
+            ],
+            [
+              -116.0924354,
+              43.7777654
+            ],
+            [
+              -116.0926027,
+              43.7778139
+            ],
+            [
+              -116.0927045,
+              43.7778611
+            ],
+            [
+              -116.09273094,
+              43.77789094
+            ],
+            [
+              -116.0928714,
+              43.77801908
+            ],
+            [
+              -116.092856418445,
+              43.7779963743952
+            ],
+            [
+              -116.092951485066,
+              43.7780952004354
+            ],
+            [
+              -116.093003162066,
+              43.7781647417241
+            ],
+            [
+              -116.093063369057,
+              43.7782133629654
+            ],
+            [
+              -116.093176216779,
+              43.7782764912792
+            ],
+            [
+              -116.09324842321,
+              43.7783194572709
+            ],
+            [
+              -116.093273715706,
+              43.7783795609807
+            ],
+            [
+              -116.09330536997,
+              43.77843337491
+            ],
+            [
+              -116.093379781466,
+              43.7784978576593
+            ],
+            [
+              -116.093485257573,
+              43.7785714406217
+            ],
+            [
+              -116.093541952862,
+              43.778605739983
+            ],
+            [
+              -116.093590850695,
+              43.7786612919466
+            ],
+            [
+              -116.0936034,
+              43.7786623
+            ],
+            [
+              -116.0936811,
+              43.778773
+            ],
+            [
+              -116.09371541426,
+              43.7788106349447
+            ],
+            [
+              -116.09378791555,
+              43.7788775691597
+            ],
+            [
+              -116.09380797,
+              43.77891101
+            ],
+            [
+              -116.09396409,
+              43.77897924
+            ],
+            [
+              -116.094031728916,
+              43.7789766946041
+            ],
+            [
+              -116.094203118404,
+              43.7789693310658
+            ],
+            [
+              -116.094182,
+              43.7789916
+            ],
+            [
+              -116.0944556,
+              43.778974
+            ],
+            [
+              -116.094485751645,
+              43.7789563863789
+            ],
+            [
+              -116.094691788671,
+              43.778890584651
+            ],
+            [
+              -116.0946741,
+              43.7789036
+            ],
+            [
+              -116.0948951,
+              43.7788512
+            ],
+            [
+              -116.095219,
+              43.7787722
+            ],
+            [
+              -116.0956249,
+              43.7786767
+            ],
+            [
+              -116.0958086,
+              43.7786013
+            ],
+            [
+              -116.0959706,
+              43.7785475
+            ],
+            [
+              -116.0960344,
+              43.7784883
+            ],
+            [
+              -116.0960697,
+              43.7784423
+            ],
+            [
+              -116.096074943613,
+              43.7784313587133
+            ],
+            [
+              -116.096162938247,
+              43.7783965549808
+            ],
+            [
+              -116.0962434,
+              43.7783909
+            ],
+            [
+              -116.0963743,
+              43.7783748
+            ],
+            [
+              -116.0964713,
+              43.7783492
+            ],
+            [
+              -116.0965829,
+              43.778307
+            ],
+            [
+              -116.096627758248,
+              43.7782858091484
+            ],
+            [
+              -116.096776718406,
+              43.7782471159471
+            ],
+            [
+              -116.096864772945,
+              43.7782144128125
+            ],
+            [
+              -116.09706659816,
+              43.778188994638
+            ],
+            [
+              -116.097197313539,
+              43.7781704542764
+            ],
+            [
+              -116.097319415371,
+              43.7781609229753
+            ],
+            [
+              -116.0973177,
+              43.7781636
+            ],
+            [
+              -116.0975533,
+              43.7781118
+            ],
+            [
+              -116.097753,
+              43.7780605
+            ],
+            [
+              -116.097999,
+              43.7780078
+            ],
+            [
+              -116.098011684481,
+              43.7779998574326
+            ],
+            [
+              -116.09813588228,
+              43.7779798212712
+            ],
+            [
+              -116.0981336,
+              43.7779878
+            ],
+            [
+              -116.0983139,
+              43.7779916
+            ],
+            [
+              -116.098347521087,
+              43.7779780164276
+            ],
+            [
+              -116.098454271528,
+              43.7779833416396
+            ],
+            [
+              -116.098453,
+              43.7779844
+            ],
+            [
+              -116.098567,
+              43.7779911
+            ],
+            [
+              -116.098587821353,
+              43.7779942680347
+            ],
+            [
+              -116.098719536975,
+              43.7780069412217
+            ],
+            [
+              -116.099025412132,
+              43.7780120172504
+            ],
+            [
+              -116.099161853471,
+              43.778007774936
+            ],
+            [
+              -116.0992288,
+              43.7780168
+            ],
+            [
+              -116.0994657,
+              43.7780032
+            ],
+            [
+              -116.099520034009,
+              43.7779855634495
+            ],
+            [
+              -116.09969791842,
+              43.7779701309936
+            ],
+            [
+              -116.099682,
+              43.7779769
+            ],
+            [
+              -116.0999598,
+              43.777922
+            ],
+            [
+              -116.100012077355,
+              43.777895291941
+            ],
+            [
+              -116.100199231159,
+              43.7778150538347
+            ],
+            [
+              -116.100279672008,
+              43.7777619080383
+            ],
+            [
+              -116.1003127,
+              43.7777708
+            ],
+            [
+              -116.1003583,
+              43.7777193
+            ],
+            [
+              -116.1003683,
+              43.7776574
+            ],
+            [
+              -116.1003742,
+              43.777579
+            ],
+            [
+              -116.100366942477,
+              43.7776115396241
+            ],
+            [
+              -116.100364437072,
+              43.7775427895571
+            ],
+            [
+              -116.10038277,
+              43.77748938
+            ],
+            [
+              -116.10048025,
+              43.77676031
+            ],
+            [
+              -116.100466306904,
+              43.7768023288828
+            ],
+            [
+              -116.100465919618,
+              43.7767475022297
+            ],
+            [
+              -116.1004807,
+              43.7766736
+            ],
+            [
+              -116.100451,
+              43.776477
+            ],
+            [
+              -116.1003393,
+              43.7760811
+            ],
+            [
+              -116.100348509362,
+              43.7761026367834
+            ],
+            [
+              -116.100305025745,
+              43.7759478743094
+            ],
+            [
+              -116.100274658361,
+              43.7758255777614
+            ],
+            [
+              -116.1002575,
+              43.7757917
+            ],
+            [
+              -116.1002109,
+              43.7754255
+            ],
+            [
+              -116.1001919,
+              43.7751237
+            ],
+            [
+              -116.1001448,
+              43.7745935
+            ],
+            [
+              -116.1001382,
+              43.7744273
+            ],
+            [
+              -116.10012856616,
+              43.7744013803454
+            ],
+            [
+              -116.100177345819,
+              43.7741720976756
+            ],
+            [
+              -116.100197390559,
+              43.7740371277618
+            ],
+            [
+              -116.100193687608,
+              43.773746919024
+            ],
+            [
+              -116.1002023,
+              43.7737067
+            ],
+            [
+              -116.100213,
+              43.7736153
+            ],
+            [
+              -116.1002263,
+              43.7735021
+            ],
+            [
+              -116.1002571,
+              43.7731471
+            ],
+            [
+              -116.1002592,
+              43.77294
+            ],
+            [
+              -116.1002443,
+              43.77283
+            ],
+            [
+              -116.100198962368,
+              43.7727969043107
+            ],
+            [
+              -116.100209236599,
+              43.7727017499465
+            ],
+            [
+              -116.100245754111,
+              43.7725775259048
+            ],
+            [
+              -116.100260881932,
+              43.77250774892
+            ],
+            [
+              -116.100268512497,
+              43.772453748082
+            ],
+            [
+              -116.100279725508,
+              43.7723626476872
+            ],
+            [
+              -116.100300094871,
+              43.7722551343064
+            ],
+            [
+              -116.1003315,
+              43.7722867
+            ],
+            [
+              -116.1003255,
+              43.7722395
+            ],
+            [
+              -116.100291,
+              43.7722
+            ],
+            [
+              -116.1002288,
+              43.7721805
+            ],
+            [
+              -116.1001125,
+              43.7721218
+            ],
+            [
+              -116.1000565,
+              43.772053
+            ],
+            [
+              -116.1000007,
+              43.7719705
+            ],
+            [
+              -116.1000674,
+              43.7718666
+            ],
+            [
+              -116.1001715,
+              43.7718065
+            ],
+            [
+              -116.100392,
+              43.771735
+            ],
+            [
+              -116.1008867,
+              43.771593
+            ],
+            [
+              -116.100997,
+              43.7715349
+            ],
+            [
+              -116.1012124,
+              43.7714358
+            ],
+            [
+              -116.1013016,
+              43.7714101
+            ],
+            [
+              -116.1013971,
+              43.7713918
+            ],
+            [
+              -116.1014685,
+              43.7713683
+            ],
+            [
+              -116.1015346,
+              43.77133
+            ],
+            [
+              -116.1016645,
+              43.7712545
+            ],
+            [
+              -116.1019645,
+              43.771099
+            ],
+            [
+              -116.102132,
+              43.7710225
+            ],
+            [
+              -116.1022953,
+              43.7709683
+            ],
+            [
+              -116.102442,
+              43.7709417
+            ],
+            [
+              -116.1026961,
+              43.7709085
+            ],
+            [
+              -116.1029108,
+              43.7708872
+            ],
+            [
+              -116.1030822,
+              43.7708407
+            ],
+            [
+              -116.1032176,
+              43.7707572
+            ],
+            [
+              -116.1033064,
+              43.7706645
+            ],
+            [
+              -116.1033749,
+              43.7705814
+            ],
+            [
+              -116.103466,
+              43.7704213
+            ],
+            [
+              -116.1035495,
+              43.7702038
+            ],
+            [
+              -116.1036622,
+              43.7700343
+            ],
+            [
+              -116.1037762,
+              43.7699012
+            ],
+            [
+              -116.1038993,
+              43.7698086
+            ],
+            [
+              -116.104063,
+              43.769691
+            ],
+            [
+              -116.104178,
+              43.769623
+            ],
+            [
+              -116.1043047,
+              43.7695196
+            ],
+            [
+              -116.1044935,
+              43.7694091
+            ],
+            [
+              -116.1041564,
+              43.7692413
+            ],
+            [
+              -116.104037,
+              43.7691648
+            ],
+            [
+              -116.1038918,
+              43.7690535
+            ],
+            [
+              -116.1037154,
+              43.7689519
+            ],
+            [
+              -116.1034786,
+              43.7688583
+            ],
+            [
+              -116.1031927,
+              43.7687664
+            ],
+            [
+              -116.1030551,
+              43.7687243
+            ],
+            [
+              -116.1029809,
+              43.7686752
+            ],
+            [
+              -116.1028181,
+              43.7684248
+            ],
+            [
+              -116.1027325,
+              43.7682353
+            ],
+            [
+              -116.1027078,
+              43.7681486
+            ],
+            [
+              -116.1027216,
+              43.7680803
+            ],
+            [
+              -116.1027724,
+              43.7680454
+            ],
+            [
+              -116.1028659,
+              43.7678113
+            ],
+            [
+              -116.1029559,
+              43.7676722
+            ],
+            [
+              -116.1029954,
+              43.7676252
+            ],
+            [
+              -116.1030643,
+              43.7675734
+            ],
+            [
+              -116.1033079,
+              43.7674461
+            ],
+            [
+              -116.1034509,
+              43.7673791
+            ],
+            [
+              -116.1035306,
+              43.7673167
+            ],
+            [
+              -116.1036109,
+              43.7671929
+            ],
+            [
+              -116.1036958,
+              43.7670191
+            ],
+            [
+              -116.1037879,
+              43.7669168
+            ],
+            [
+              -116.1039294,
+              43.7668299
+            ],
+            [
+              -116.1041205,
+              43.7667277
+            ],
+            [
+              -116.1043117,
+              43.7666919
+            ],
+            [
+              -116.1046585,
+              43.7666868
+            ],
+            [
+              -116.1050761,
+              43.7667072
+            ],
+            [
+              -116.1054986,
+              43.7667601
+            ],
+            [
+              -116.1056384,
+              43.7667955
+            ],
+            [
+              -116.1057273,
+              43.766789
+            ],
+            [
+              -116.1059255,
+              43.7667226
+            ],
+            [
+              -116.1060343,
+              43.7666534
+            ],
+            [
+              -116.1060586,
+              43.7666054
+            ],
+            [
+              -116.1060203,
+              43.7665527
+            ],
+            [
+              -116.1059547,
+              43.7665213
+            ],
+            [
+              -116.1058689,
+              43.7665028
+            ],
+            [
+              -116.1057875,
+              43.7664747
+            ],
+            [
+              -116.1057026,
+              43.7663878
+            ],
+            [
+              -116.1056495,
+              43.7663239
+            ],
+            [
+              -116.1055822,
+              43.7662395
+            ],
+            [
+              -116.1054655,
+              43.7660841
+            ],
+            [
+              -116.1054399,
+              43.7659677
+            ],
+            [
+              -116.1054314,
+              43.7659086
+            ],
+            [
+              -116.1054244,
+              43.7658244
+            ],
+            [
+              -116.1053894,
+              43.7657688
+            ],
+            [
+              -116.1053307,
+              43.7657441
+            ],
+            [
+              -116.1050386,
+              43.7657293
+            ],
+            [
+              -116.1047643,
+              43.7657228
+            ],
+            [
+              -116.1045335,
+              43.7656899
+            ],
+            [
+              -116.1043579,
+              43.765679
+            ],
+            [
+              -116.1041424,
+              43.7656713
+            ],
+            [
+              -116.1039388,
+              43.7656726
+            ],
+            [
+              -116.1038749,
+              43.7656629
+            ],
+            [
+              -116.1038449,
+              43.7656323
+            ],
+            [
+              -116.1038426,
+              43.7655801
+            ],
+            [
+              -116.103878,
+              43.765522
+            ],
+            [
+              -116.1039513,
+              43.765411
+            ],
+            [
+              -116.1037529,
+              43.765423
+            ],
+            [
+              -116.1038723,
+              43.7653493
+            ],
+            [
+              -116.1039397,
+              43.7652989
+            ],
+            [
+              -116.1039783,
+              43.7652405
+            ],
+            [
+              -116.103967,
+              43.7648802
+            ],
+            [
+              -116.1038532,
+              43.7649679
+            ],
+            [
+              -116.103645,
+              43.7650952
+            ],
+            [
+              -116.1032245,
+              43.7652647
+            ],
+            [
+              -116.1031421,
+              43.7652727
+            ],
+            [
+              -116.1030399,
+              43.7652627
+            ],
+            [
+              -116.1028574,
+              43.7652046
+            ],
+            [
+              -116.102755,
+              43.7651272
+            ],
+            [
+              -116.1026553,
+              43.7649133
+            ],
+            [
+              -116.1026513,
+              43.7647622
+            ],
+            [
+              -116.102678,
+              43.7647034
+            ],
+            [
+              -116.1027327,
+              43.7646514
+            ],
+            [
+              -116.1027226,
+              43.7646032
+            ],
+            [
+              -116.1027552,
+              43.7645053
+            ],
+            [
+              -116.1027407,
+              43.764439
+            ],
+            [
+              -116.102652,
+              43.764361
+            ],
+            [
+              -116.102569,
+              43.764323
+            ],
+            [
+              -116.102414,
+              43.764298
+            ],
+            [
+              -116.102254,
+              43.764255
+            ],
+            [
+              -116.1023,
+              43.7643
+            ]
+          ],
+          "repeated_segment_ids": [
+            "1501"
+          ],
+          "current_route_leg_miles": 3.3349,
+          "alternate_distance_miles": 2.8036,
+          "graph_alternate_distance_miles": 2.5124,
+          "estimated_savings_miles": 0.5313,
+          "alternate_connector_miles": 2.39,
+          "alternate_official_repeat_miles": 0.12,
+          "alternate_connector_names": [
+            "#142 Sunshine",
+            "#98 Around the Mountain",
+            "Around the Mountain",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "North Bogus Creek Road",
+            "North Bogus Shop Road",
+            "OSM service connector 59357",
+            "OSM service connector 59358",
+            "OSM service connector 8611",
+            "OSM service connector 94685"
+          ],
+          "alternate_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "seq": 11,
+          "cue_type": "exit_access",
+          "repair_iteration": 1
+        }
+      ],
       "navigation_quality": {
         "start_access_gap_miles": 1.03,
-        "return_access_gap_miles": 3.263,
+        "return_access_gap_miles": 2.735,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
       },
@@ -74613,8 +77240,8 @@
         },
         {
           "kind": "navigate",
-          "title": "Continue onto Tempest Trail",
-          "detail": "At the signed junction with Tempest Trail, continue straight onto Tempest Trail. Use the named connector trail/road for 0.42 mi. Look for signs: #142 Sunshine; #96 Brewer's Byway. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~24 min moving, 629 ft climb. Next decision: look for signs to Brewers Byway."
+          "title": "Turn onto Tempest Trail",
+          "detail": "At the signed junction with Tempest Trail, turn onto Tempest Trail. Use the named connector trail/road for 0.42 mi. Look for signs: #142 Sunshine; #96 Brewer's Byway. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~24 min moving, 629 ft climb. Next decision: look for signs to Brewers Byway."
         },
         {
           "kind": "navigate",
@@ -74623,18 +77250,18 @@
         },
         {
           "kind": "navigate",
-          "title": "Turn onto The Face Trail",
-          "detail": "At the signed junction with The Face Trail, turn onto The Face Trail. Use the named connector trail/road for 1.25 mi. Look for signs: #144 Cabin Traverse; #93 The Face. This earns: The Face Trail segment 1. Section estimate: 1.15 official mi, ~24 min moving, 319 ft climb. Next decision: look for signs to Mores Mtn Interpretive."
+          "title": "Continue onto The Face Trail",
+          "detail": "At the signed junction with The Face Trail, continue straight onto The Face Trail. Use the named connector trail/road for 1.25 mi. Look for signs: #144 Cabin Traverse; #93 The Face. Official-repeat mileage: The Face Trail segment 1; do not count as new credit. Section estimate: 1.15 official mi, ~24 min moving, 319 ft climb. Next decision: look for signs to Mores Mtn Interpretive."
         },
         {
           "kind": "navigate",
-          "title": "Bear left onto Mores Mtn Interpretive",
-          "detail": "At the signed junction with Mores Mtn Interpretive, bear left onto Mores Mtn Interpretive. Use the named connector trail/road for 1.83 mi. Look for signs: #95 Tempest. This earns: Mores Mtn Interpretive segments 5, 4, 3, 2, and 1. Section estimate: 1.93 official mi, ~50 min moving, 818 ft climb."
+          "title": "Continue onto Mores Mtn Interpretive",
+          "detail": "At the signed junction with Mores Mtn Interpretive, continue straight onto Mores Mtn Interpretive. Use the named connector trail/road for 1.83 mi. Look for signs: #95 Tempest. This earns: Mores Mtn Interpretive segments 5, 4, 3, 2, and 1. Section estimate: 1.93 official mi, ~50 min moving, 818 ft climb."
         },
         {
           "kind": "return",
           "title": "Return via #142 Sunshine, #98 Around the Mountain, Around the Mountain, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, OSM service connector 94685, +4 more",
-          "detail": "After Mores Mtn Interpretive, you are not fully back at the car. Use #142 Sunshine, #98 Around the Mountain, Around the Mountain, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, OSM service connector 94685, +4 more back toward Bogus Basin Base Area. Expect about 3.26 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "detail": "After Mores Mtn Interpretive, you are not fully back at the car. Use #142 Sunshine, #98 Around the Mountain, Around the Mountain, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, OSM service connector 94685, +4 more back toward Bogus Basin Base Area. Expect about 2.73 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
         }
       ],
       "segment_direction_evidence": {
@@ -74659,10 +77286,6 @@
           "direction_cue": "Either direction allowed; follow map arrows."
         },
         "1501": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1680": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
         },
@@ -74695,7 +77318,6 @@
           "1553",
           "1655",
           "1713",
-          "1721",
           "1750"
         ],
         "unclaimed_completed_segment_ids": [],
@@ -74749,22 +77371,6 @@
             ]
           },
           {
-            "seg_id": "1721",
-            "seg_name": "Lodge Trail 1",
-            "trail_name": "Lodge Trail",
-            "direction": "both",
-            "official_miles": 0.54,
-            "owned_by_routes": [
-              {
-                "outing_id": "18-2",
-                "label": "18B",
-                "candidate_ids": [
-                  "combo-lodge-trail-shindig"
-                ]
-              }
-            ]
-          },
-          {
             "seg_id": "1750",
             "seg_name": "Around the Mountain Trail 7",
             "trail_name": "Around the Mountain Trail",
@@ -74802,7 +77408,7 @@
             "segment_id": "1493",
             "segment_name": "Around the Mountain Trail 6",
             "observed_directions": {
-              "forward": 0.918
+              "forward": 0.899
             },
             "allowed_directions": [
               "forward"
@@ -74813,7 +77419,7 @@
             "segment_id": "1750",
             "segment_name": "Around the Mountain Trail 7",
             "observed_directions": {
-              "forward": 0.353
+              "forward": 0.347
             },
             "allowed_directions": [
               "forward"
@@ -110932,7 +113538,7 @@
   },
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-06T05:32:21.968714+00:00",
+    "generated_at": "2026-06-10T01:10:33.632936+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -111228,7 +113834,7 @@
             "segment_id": "1493",
             "segment_name": "Around the Mountain Trail 6",
             "observed_directions": {
-              "forward": 0.918
+              "forward": 0.899
             },
             "allowed_directions": [
               "forward"
@@ -111239,7 +113845,7 @@
             "segment_id": "1750",
             "segment_name": "Around the Mountain Trail 7",
             "observed_directions": {
-              "forward": 0.353
+              "forward": 0.347
             },
             "allowed_directions": [
               "forward"

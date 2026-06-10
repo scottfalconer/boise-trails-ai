@@ -131,6 +131,58 @@ def test_fd14d_pack_flags_stale_full_sail_same_credit_dominance():
     assert review["dominance_assessment"]["estimated_minutes_saved"] == 19
 
 
+def test_route_already_at_alternative_anchor_is_not_dominated():
+    """A same-credit multi-start alternative is not a dominating re-anchor when
+    the route is already parked there (modulo generic words like 'Trailhead').
+    The optimistic standalone estimate must not flag the route against its own
+    anchor."""
+    payload = stale_fd14d_field_tool_payload()
+    payload["routes"][0]["label"] = "AT-ANCHOR"
+    # Route is already at the alternative's anchor (West Climb / West Climb Trailhead).
+    payload["routes"][0]["trailhead"] = "West Climb"
+    payload["routes"][0]["parking"]["name"] = "West Climb"
+    payload["routes"][0]["start_justification"] = "West Climb Trailhead is the parked start for this exact segment set."
+    audit = {
+        "alternatives": [
+            {
+                "alternative_id": "WC-MS-01",
+                "status": "promising",
+                "components": [
+                    {
+                        "segment_ids": [1482],
+                        "start_anchor": {
+                            "anchor_id": "west-climb-trailhead",
+                            "name": "West Climb Trailhead",
+                            "parking_confidence": "inferred_from_trailhead_layer",
+                            "field_ready": True,
+                            "distance_to_component_miles": 0.05,
+                        },
+                        "official_miles": 0.74,
+                        "on_foot_miles": 1.0,  # optimistic standalone estimate < route's 2.0
+                        "p75_total_minutes_if_standalone": 40,
+                        "parking_blockers": [],
+                    }
+                ],
+            }
+        ]
+    }
+    report = packer.build_report(
+        field_tool_payload=payload,
+        multi_start_audit=audit,
+        replacements_payload={"replacements": []},
+        route_labels={"AT-ANCHOR"},
+        generated_at="2026-06-09T00:00:00Z",
+    )
+    route = report["routes"][0]
+    same = next(
+        alt for alt in route["same_credit_alternatives"]
+        if alt["source"] == "multi_start_alternative_audit"
+    )
+    assert same["applied_to_current_route"] is True
+    assert same.get("same_as_current_anchor") is True
+    assert report["reviews"][0]["decision"] == "PASS_NON_DOMINATED"
+
+
 def test_public_safe_route_review_checkpoint_strips_private_coordinates_and_activity_ids():
     report = packer.build_report(
         field_tool_payload=stale_fd14d_field_tool_payload(),

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-09T21:25:53Z",
+  "generated_at": "2026-06-10T01:12:44Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
@@ -841,14 +841,14 @@
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 5.58,
-        "generated_miles": 15.3,
-        "lower_bound_miles": 8.83,
-        "efficiency_ratio": 1.732,
+        "required_miles": 4.43,
+        "generated_miles": 13.47,
+        "lower_bound_miles": 7.82,
+        "efficiency_ratio": 1.723,
         "required_component_count": 3,
-        "odd_required_node_count": 10,
-        "parity_add_on_miles": 0.92,
-        "depot_component_attachment_miles": 2.34
+        "odd_required_node_count": 8,
+        "parity_add_on_miles": 1.04,
+        "depot_component_attachment_miles": 2.36
       },
       "gpx_path": "docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
       "segment_ids": [
@@ -857,7 +857,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",

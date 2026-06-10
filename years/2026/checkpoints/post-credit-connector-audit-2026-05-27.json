@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-09T21:28:08Z",
+  "generated_at": "2026-06-10T01:13:24Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {
     "route_count": 31,
     "failed_route_count": 0,
     "finding_count": 0,
-    "warning_count": 7,
-    "post_credit_connector_proof_count": 96,
+    "warning_count": 6,
+    "post_credit_connector_proof_count": 97,
     "hidden_exit_finding_count": 0,
-    "hidden_exit_warning_count": 7,
+    "hidden_exit_warning_count": 6,
     "shorter_connector_finding_count": 0,
     "stale_connector_savings_finding_count": 0,
     "unproved_connector_finding_count": 0,
@@ -154,26 +154,6 @@
       "actual_route_leg_miles": 0.42,
       "hidden_exit_miles": 0.31,
       "hidden_exit_feet": 1637,
-      "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-    },
-    {
-      "code": "official_credit_cue_hides_post_credit_exit",
-      "status": "warning",
-      "route_key": "18-1",
-      "label": "18-1: 18A",
-      "outing_id": "18-1",
-      "candidate_ids": [
-        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-      ],
-      "seq": 9,
-      "cue_type": "junction_turn",
-      "official_segment_ids": [
-        "1732"
-      ],
-      "official_basis_miles": 0.08,
-      "actual_route_leg_miles": 1.83,
-      "hidden_exit_miles": 1.75,
-      "hidden_exit_feet": 9240,
       "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
     }
   ],
@@ -4343,7 +4323,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -4385,7 +4364,6 @@
           "avoided_unearned_route_segment_ids": [
             "1502",
             "1503",
-            "1680",
             "1732",
             "1733",
             "1734",
@@ -4429,7 +4407,7 @@
             "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
           ],
           "seq": 7,
-          "cue_type": "overlap_repeat",
+          "cue_type": "connector_road",
           "signed_as": [
             "#144 Cabin Traverse",
             "#93 The Face",
@@ -4448,7 +4426,6 @@
             "1703"
           ],
           "avoided_unearned_route_segment_ids": [
-            "1680",
             "1732",
             "1733",
             "1734",
@@ -4490,6 +4467,81 @@
           "candidate_ids": [
             "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
           ],
+          "seq": 9,
+          "cue_type": "connector_road",
+          "signed_as": [
+            "#95 Tempest",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 12046",
+            "OSM track connector 92827"
+          ],
+          "target": "Mores Mtn Interpretive",
+          "actual_miles": 1.66,
+          "credited_segment_ids_before_cue": [
+            "1501",
+            "1502",
+            "1503",
+            "1678",
+            "1679",
+            "1703",
+            "1732",
+            "1735",
+            "1736"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1733",
+            "1734"
+          ],
+          "shortest_miles": 1.6588,
+          "savings_miles": 0.0012,
+          "savings_feet": 7,
+          "shortest_connector_names": [
+            "#95 Tempest",
+            "Elk Meadows",
+            "Lodge",
+            "Lodge Cat Track",
+            "Mores Mountain Bike Trail",
+            "Mores Mountain Interpretive Trail",
+            "National Forest Development Road 374",
+            "OSM service connector 8611",
+            "OSM service connector 94685",
+            "OSM service connector 94686",
+            "OSM track connector 12046",
+            "OSM track connector 92827"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1492",
+            "1554",
+            "1679",
+            "1721",
+            "1732"
+          ],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "18-1",
+          "label": "18-1: 18A",
+          "outing_id": "18-1",
+          "candidate_ids": [
+            "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+          ],
           "seq": 11,
           "cue_type": "exit_access",
           "signed_as": [
@@ -4514,7 +4566,6 @@
             "1503",
             "1678",
             "1679",
-            "1680",
             "1703",
             "1732",
             "1733",
@@ -4578,26 +4629,6 @@
           "actual_route_leg_miles": 0.42,
           "hidden_exit_miles": 0.31,
           "hidden_exit_feet": 1637,
-          "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-        },
-        {
-          "code": "official_credit_cue_hides_post_credit_exit",
-          "status": "warning",
-          "route_key": "18-1",
-          "label": "18-1: 18A",
-          "outing_id": "18-1",
-          "candidate_ids": [
-            "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
-          ],
-          "seq": 9,
-          "cue_type": "junction_turn",
-          "official_segment_ids": [
-            "1732"
-          ],
-          "official_basis_miles": 0.08,
-          "actual_route_leg_miles": 1.83,
-          "hidden_exit_miles": 1.75,
-          "hidden_exit_feet": 9240,
           "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
         }
       ]
