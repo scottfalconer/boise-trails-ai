@@ -6,6 +6,50 @@ field-test logs.
 
 ## 2026-06-09
 
+### Ralph route-optimization loop - iteration 1 (converged)
+
+- Objective: one iteration of the guarded route-optimization loop
+  (`years/2026/prompts/ralph-route-optimization.md`): find the highest-value SAFE
+  route improvement, or confirm the menu is already gate-optimal.
+- Measured (all audits re-run this iteration, all exit 0):
+  - Dominance gate: PASSED (0 unwaived failures; 1A-1 waived to 2026-07-18).
+  - Efficiency: global optimizer beats nothing (0 dominant solutions); all 47
+    route proofs accepted_current; 0 manual holds; human_loop_plan ratio 1.69.
+  - Repeat optimization: 0 open warnings (58 proofed-closed), 0 avoidable
+    post-credit repeats, 0 hidden self-repeats, 0 unpriced repeats.
+  - Latent-credit: 0 dual claims. Edge-cover: 0 hard failures, 0 advisories.
+  - Full certification chain re-verified: 251/251 coverage, special-management
+    gate passed, completion 20/20, walkthrough 31/31, post-credit 0 findings.
+- Result: NO safe, auto-applicable route change exists this iteration. The plan
+  is already optimal at the deterministic-gate level (the phase-1/phase-2 work
+  closed the real findings). Every remaining improvement needs human judgment or
+  the blocked promotion infra (below). Loop converged; no source change made.
+
+### Human-judgment queue (route optimization — needs Scott or an infra fix)
+
+These are the remaining improvements the loop will NOT auto-apply (they need
+ground knowledge or a code change, not a route re-selection):
+
+1. **10A -> H1 Avimor** (largest win, ~12 mi / ~71 p75 min). Blocked: the H1
+   promotion path matches by `field_menu_label`, which manual routes no longer
+   carry. Needs the promotion infra reworked to match by candidate_id/segment
+   set. Also fixes 10A/10B missing pace-model p75 (efficiency
+   time_estimate_quality problem_count=2). Infra fix, then re-run the loop.
+2. **1A-1 -> FD14D shorter shape** (~1.7 mi). Same blocked infra; currently a
+   documented waiver. Drop the waiver once the FD14D shape can be applied.
+3. **8 areas flagged for manual map review** by the efficiency
+   `alternative_challenge` (no better EXACT/superset candidate auto-found, so a
+   human must judge whether a better real route exists): block-freestone_three_
+   bears_curlew, connector-highlands-trail-dry-creek-trail, block-cartwright_
+   peggy_interface, block-bogus_mores_lodge_tempest, block-polecat_core,
+   block-upper_8th_corrals_sidewinder, the Table Rock combo, block-cervidae_peak.
+4. **2 boundary recombinations** with a better single metric but that do NOT
+   dominate current (generated_combo_beats_current_count=0) - human call on
+   whether the recombination is worth it.
+5. **High non-credit-ratio / same-trailhead routes** (12 / 7 advisory): mostly
+   geography-locked necessary grinders; any re-anchor needs parking Scott can
+   confirm is real (the route-10A lesson). Not auto-applied.
+
 ### Certification blocker fixes - phase 1 (durable hardening)
 
 - Objective: fix the certification blockers from the independent review that do
