@@ -68,9 +68,10 @@ H1_TRAIL_NAMES = [
 ]
 
 
-def h1_expected_route_count(before_route_count: int) -> int:
-    """Expected active route-card count after replacing the old H1 split cards."""
-    return before_route_count - len(H1_REPLACE_ROUTE_LABELS) + 1
+def h1_expected_route_count(before_route_count: int, removed_count: int) -> int:
+    """Expected active route-card count after replacing the removed split card(s)
+    with the single H1 card."""
+    return before_route_count - removed_count + 1
 CONNECTOR_NAME_OVERRIDES = {
     "1687": ["McLeod Way Greenbelt", "Twisted Spring Trail - #8"],
     "1626": ["Ricochet - #2"],
@@ -134,6 +135,22 @@ def route_components_by_label(map_data: dict[str, Any]) -> dict[str, dict[str, A
         for component in package.get("components") or []
         if component.get("field_menu_label")
     }
+
+
+def components_covering_h1_segments(map_data: dict[str, Any]) -> list[dict[str, Any]]:
+    """The component(s) whose exact-credit segments are entirely within the H1
+    segment set — the route(s) H1 replaces. Matched by segment set, not by the
+    retired field_menu_label (manual/relabeled components no longer carry one)."""
+    h1_set = set(normalized_ids(H1_SEGMENT_IDS))
+    matched = []
+    for package in map_data.get("packages") or []:
+        if int(package.get("package_number") or 0) == H1_PACKAGE_NUMBER:
+            continue  # never match the H1 card itself (idempotency)
+        for component in package.get("components") or []:
+            comp_segments = set(normalized_ids(component.get("segment_ids") or []))
+            if comp_segments and comp_segments <= h1_set:
+                matched.append(component)
+    return matched
 
 
 def removed_components_from_field_day_layer(path: Path = DEFAULT_FIELD_DAY_LAYER_JSON) -> list[dict[str, Any]]:
@@ -447,11 +464,10 @@ def promote_map_data(
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     before = copy.deepcopy(base_map_data)
     before_summary = copy.deepcopy(before.get("summary") or {})
-    by_label = route_components_by_label(before)
-    missing_old = [label for label in H1_REPLACE_ROUTE_LABELS if label not in by_label]
-    already_promoted = missing_old and H1_FIELD_MENU_LABEL in set(route_labels(before))
-    if missing_old and not already_promoted:
-        raise ValueError(f"Cannot promote H1; old route labels missing from canonical source: {missing_old}")
+    h1_package_numbers = {int(p.get("package_number") or 0) for p in before.get("packages") or []}
+    already_promoted = (H1_PACKAGE_NUMBER in h1_package_numbers) or (
+        H1_FIELD_MENU_LABEL in set(route_labels(before))
+    )
 
     replacement_diff = h1_access.get("h1_replacement_segment_set_diff") or {}
     if normalized_ids(replacement_diff.get("missing_ids")) or normalized_ids(replacement_diff.get("extra_ids")):
@@ -460,13 +476,18 @@ def promote_map_data(
         raise ValueError("Cannot promote H1; access/cue gate is not clear")
 
     h1_segment_ids = normalized_ids(H1_SEGMENT_IDS)
+    # Match the route(s) H1 replaces by segment set (the menu relabeling retired
+    # the FD field_menu_labels this used to key on; the Harlow probe is now the
+    # single manual component covering the H1 segment set).
     removed_components = (
         removed_components_from_field_day_layer()
         if already_promoted
-        else [by_label[label] for label in H1_REPLACE_ROUTE_LABELS]
+        else components_covering_h1_segments(before)
     )
-    if len(removed_components) != len(H1_REPLACE_ROUTE_LABELS):
-        raise ValueError("Cannot promote H1; old route component details are missing from the field-day layer")
+    if not removed_components:
+        raise ValueError(
+            "Cannot promote H1; no component covers the H1 segment set in the canonical source"
+        )
     removed_candidate_ids = {str(component.get("candidate_id")) for component in removed_components}
     removed_loop_ids = [str(component.get("field_menu_group_id") or component.get("source_loop_id")) for component in removed_components]
     removed_segment_ids = normalized_ids(
@@ -490,14 +511,14 @@ def promote_map_data(
     if not already_promoted:
         packages = []
         for package in promoted.get("packages") or []:
+            # Drop any pre-existing H1 package; the H1 card is re-added fresh below.
+            if int(package.get("package_number") or 0) == H1_PACKAGE_NUMBER:
+                continue
             kept_components = [
                 component
                 for component in package.get("components") or []
-                if str(component.get("field_menu_label")) not in set(H1_REPLACE_ROUTE_LABELS)
+                if str(component.get("candidate_id")) not in removed_candidate_ids
             ]
-            if int(package.get("package_number") or 0) == H1_PACKAGE_NUMBER:
-                packages.append(h1_pkg)
-                continue
             if not kept_components:
                 continue
             if len(kept_components) != len(package.get("components") or []):
@@ -512,6 +533,7 @@ def promote_map_data(
                 packages.append(updated)
             else:
                 packages.append(package)
+        packages.append(h1_pkg)
         promoted["packages"] = packages
         route_feature, parking_feature = build_h1_features(h1_audit=h1_audit, coords=coords)
         collections = promoted.setdefault("feature_collections", {})
@@ -719,7 +741,9 @@ def promotion_payload(
         "summary": {
             "old_route_card_count": state["old_route_count"],
             "new_route_card_count": state["new_route_count"],
-            "expected_active_route_cards_after_export": h1_expected_route_count(state["old_route_count"]),
+            "expected_active_route_cards_after_export": h1_expected_route_count(
+                state["old_route_count"], len(state["removed_components"])
+            ),
             "old_harlow_avimor_on_foot_miles": diff.get("old_on_foot_miles"),
             "new_h1_on_foot_miles": diff.get("new_on_foot_miles"),
             "saved_on_foot_miles": round_miles(float(diff.get("old_on_foot_miles") or 0) - float(diff.get("new_on_foot_miles") or 0)),
@@ -767,7 +791,8 @@ def promotion_assertions(
         ("old_route_labels_removed_from_source", not (set(route_labels(promoted_map_data)) & set(H1_REPLACE_ROUTE_LABELS))),
         (
             "expected_source_route_count_after_h1_replacement",
-            state["new_route_count"] == h1_expected_route_count(state["old_route_count"]),
+            state["new_route_count"]
+            == h1_expected_route_count(state["old_route_count"], len(state["removed_components"])),
         ),
         ("h1_claimed_segment_set_equals_removed_union", state["removed_segment_ids"] == state["h1_segment_ids"]),
         ("h1_p90_recorded_for_assigned_date", component["time_estimates_minutes"]["door_to_door_p90"] > 0),

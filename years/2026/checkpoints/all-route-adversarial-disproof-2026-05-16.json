@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_all_route_adversarial_disproof_v1",
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-10T01:16:40Z",
+  "generated_at": "2026-06-10T03:14:25Z",
   "artifact_contract": "Public-safe current-route proof registry keyed to the deterministic route-review dominance gate. A route is accepted only when a current review covers its exact segment set and did not fail (or carries a valid waiver).",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
@@ -31,8 +31,8 @@
       "Military Reserve": 1,
       "Table Rock": 1,
       "Rocky Canyon": 2,
-      "Camels Back / Hulls Gulch": 1,
-      "Harlow's / Hidden Springs west access probe": 1
+      "Avimor / Harlow": 1,
+      "Camels Back / Hulls Gulch": 1
     },
     "deterministic_same_credit_failure_count": 0,
     "failed_route_labels": [],
@@ -49,7 +49,7 @@
         "scotts-trail"
       ],
       "route_source_hash": "d31d1e9d0ed6ceac356e9b06cf884f289671d4cc359c353a50417f11b2260412",
-      "review_route_source_hash": "9d280c9f387fa968621b9dbcf7070955c3e2688883a0b14bb1e41bea74ee0917",
+      "review_route_source_hash": "f651a5b5a17174c9de0957ac9aa46fac73557119800fed11908b0473ff45689c",
       "area": "Upper Hulls Gulch",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -85,7 +85,7 @@
         "block-westside_seaman_veterans"
       ],
       "route_source_hash": "95568298059a6a249adb471693c05ed7998ec545ecb37080b7b6a3c2c703bc67",
-      "review_route_source_hash": "5eeee9c1f169933ab15b72ba92e63940079bb6e5cdfad2a7667178309bd362d6",
+      "review_route_source_hash": "306c2385e1d8d8035338d255468f349ff6b83f7c6d2ac2d0c3b52959ad6d0832",
       "area": "Western Foothills",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -127,7 +127,7 @@
         "multi-start-5-5-ms-04-1-barn-owl"
       ],
       "route_source_hash": "c9c502c8be7efc9caf9b85e221c27549fde8a9c83c485ff7b51003d8582feff1",
-      "review_route_source_hash": "f7c7dd7365440cd640cdad170121e3595d479863f93eef84da584999eeebd94e",
+      "review_route_source_hash": "2abd6ba1ec0f693e7fb0ed1d693ac4177f0bead148d6da574c3aa1513188d1f7",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -164,7 +164,7 @@
         "peace-valley-overlook"
       ],
       "route_source_hash": "e73083bece52ab9aa4f0594a3376da1d9ade70ad0c415d2f2e19768af4ada7bd",
-      "review_route_source_hash": "cdf9c7978d9e3809e4e7a595bbb8129a8a79cf0e86a64ca5c51d56cd2cad585f",
+      "review_route_source_hash": "5c5d5fa3d7ef607d66dfdbd63ed22f7b092345c03dde679a2706a2284b302186",
       "area": "Boise River WMA",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -201,7 +201,7 @@
         "manual-16a-2"
       ],
       "route_source_hash": "03dfe61b80f0ff36f722c6a0fe161c8aebda4146ac607389db0d80ef5b42ea7f",
-      "review_route_source_hash": "51a7ab9051891a08dac4f18239ce23b98e485916482ff91985dd13ea6f3b45cf",
+      "review_route_source_hash": "33d21a845d77b964aceae05a8910cd3976988d04522af6c14d159b4c45b71167",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -237,7 +237,7 @@
         "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
       ],
       "route_source_hash": "5b3a57e70dd71a6953e9fe1259a95d042429f3f2ebda2e9760f73bebfb500ac0",
-      "review_route_source_hash": "602f9a1d85e6fc76ded4b25d735dfe9da051f429580a4851088c58dfb73b10d9",
+      "review_route_source_hash": "2ee064d1e224721a380293c293cbbb2e07574efb0486fa371faa325d790c98ea",
       "area": "Hillside to Hollow",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -266,7 +266,7 @@
         "p75_minutes": 107,
         "p90_minutes": 120,
         "non_credit_or_repeat_miles": 1.73,
-        "declared_repeat_miles": 2.33
+        "declared_repeat_miles": 2.12
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -283,7 +283,7 @@
         "bobs-trail-urban-connector"
       ],
       "route_source_hash": "24369748c1ac0b334aa8b3010d9a0242375f1940ba80be8f74989d82cfbb544a",
-      "review_route_source_hash": "c1158db8f9360c0a27d5d6db3ba047fda5c22167293d8e926e0e3291eb615361",
+      "review_route_source_hash": "dc98ac6e2c21ac9952c5b3e323a2be327126bd82c9b60d06a0d63357c36f571c",
       "area": "Upper Hulls Gulch",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -306,7 +306,7 @@
         "p75_minutes": 114,
         "p90_minutes": 128,
         "non_credit_or_repeat_miles": 1.74,
-        "declared_repeat_miles": 2.38
+        "declared_repeat_miles": 1.72
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -323,7 +323,7 @@
         "harris-ridge-trail"
       ],
       "route_source_hash": "9374e53435bf1c996d00b571d8e65e6482c6d4b7c1622c65cb39791677a2632b",
-      "review_route_source_hash": "b2f4111757ea7be6844d2053460f1c0895fed5aa698275d8fec8103dc5962005",
+      "review_route_source_hash": "57dff1e01f04c380f129a58f85e1f66bb05ab35c46bb75923f0b65e01953a8f7",
       "area": "Boise River WMA",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -342,7 +342,7 @@
         "p75_minutes": 118,
         "p90_minutes": 133,
         "non_credit_or_repeat_miles": 2.72,
-        "declared_repeat_miles": 1.72
+        "declared_repeat_miles": 1.7
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -359,7 +359,7 @@
         "multi-start-1a-1a-ms-04-1-36th-street-chute"
       ],
       "route_source_hash": "65b098ed2f52dfc48bdd0843149b622b73dd47307e2ddadce2609063eec64efc",
-      "review_route_source_hash": "9e2922443e2c874293fca34c3599df8fbd8270c91d3210860757c398beaedeb7",
+      "review_route_source_hash": "7a83d8ef06af77b77edadf6c92391b10bc612d79689bb8a4db8ed75dfb8dcb91",
       "area": "13",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "FAIL_DOMINATED",
@@ -395,7 +395,7 @@
         "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
       ],
       "route_source_hash": "22dda6e1fecbb89dd444ea441b33fb1d1d056ebe9e40756c490ed66ed55d9e02",
-      "review_route_source_hash": "e1083b0634a1bbeb9574c715e83029992d8335edb369ba6dd342dca5145354a1",
+      "review_route_source_hash": "efbf8f6df7cc2eb5c97dc8f74f31d5c8ab1cb072b82c59e4dd19959275eec617",
       "area": "Hillside to Hollow",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -429,7 +429,7 @@
         "p75_minutes": 141,
         "p90_minutes": 158,
         "non_credit_or_repeat_miles": 1.64,
-        "declared_repeat_miles": 2.22
+        "declared_repeat_miles": 1.11
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -446,7 +446,7 @@
         "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
       ],
       "route_source_hash": "b7bfbfcc138df3897e4e08268215f3c7a19e542f8d3b86e42395197964330a79",
-      "review_route_source_hash": "728f6a3d41b3bad561f27221cc8e5b25577a0dcabd48315ea6f006f36a4e8396",
+      "review_route_source_hash": "ce2f322b3758c338e15ceb1bc731ec874d4e3f93112aeee9f82d480ce035f4a5",
       "area": "Hidden Springs",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -490,7 +490,7 @@
         "block-hawkins"
       ],
       "route_source_hash": "1b60257975626afccffc740fce26defa8cd04be4e4a433758bdb717ba9a6dd18",
-      "review_route_source_hash": "b05c64a28d88516f1d1d7d6e1adefac849703518ae649d55ef704ee1ef9b0560",
+      "review_route_source_hash": "f28e99a6d51ef7da674191fb42ad817e583d5065aa64f98e8f612927b9a87506",
       "area": "Hawkins Range Reserve",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -511,7 +511,7 @@
         "p75_minutes": 149,
         "p90_minutes": 167,
         "non_credit_or_repeat_miles": 1.67,
-        "declared_repeat_miles": 4.94
+        "declared_repeat_miles": 1.1
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -528,7 +528,7 @@
         "manual-10b"
       ],
       "route_source_hash": "951e99f7824e20767f84e26c1555038e7e7b8bbd97f6ae249bbb133044a98f48",
-      "review_route_source_hash": "c4966afb1b11a107dc9d40f1b39231131a553bc2a2dae81d454bf82eeee4a5cd",
+      "review_route_source_hash": "6fd6c5af9ad87cf1065b38e91d656f55bedee21ee6ab0c187aee120eeeae0065",
       "area": "Hidden Springs",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -551,7 +551,7 @@
         "p75_minutes": 152,
         "p90_minutes": 171,
         "non_credit_or_repeat_miles": 1.83,
-        "declared_repeat_miles": 5.97
+        "declared_repeat_miles": 1.81
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -568,7 +568,7 @@
         "combo-lodge-trail-shindig"
       ],
       "route_source_hash": "cebd7fe395dad8a663498a68e100e57448d7564fa14a8d7ba5d907f41c06619c",
-      "review_route_source_hash": "24c241f5fc6bcb4313a501ddf23e187c43a2c55fc419efa1534d56e00d6a32ea",
+      "review_route_source_hash": "e3f609ff14ab175f1184187d0c8dc64a83d957ee7f1e986db02144f4e36ce461",
       "area": "Bogus Basin",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -606,7 +606,7 @@
         "multi-start-16c-16c-ms-02-1-stack-rock-connector"
       ],
       "route_source_hash": "7648779cb7f9d5f05a4f82a04cfdf211464158249282bb3730908bf5883aff8f",
-      "review_route_source_hash": "a4f78da5df4bde97b28a4990f3f6082bf898468570aeefdd7c271d9fe618ef9b",
+      "review_route_source_hash": "08e5b1350c01fa4152a93d2b9a186fcb457d516b7cc8459c521ff71aea27d6d9",
       "area": "Bogus Basin",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -626,7 +626,7 @@
         "p75_minutes": 170,
         "p90_minutes": 191,
         "non_credit_or_repeat_miles": 3.38,
-        "declared_repeat_miles": 3.49
+        "declared_repeat_miles": 3.34
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -643,7 +643,7 @@
         "block-eagle_bike_park_red_tail"
       ],
       "route_source_hash": "e1b441d6c2e163badf2e004954f8a0c189d8dc29c89325e0fff8e00227fb71f0",
-      "review_route_source_hash": "65053597570ff411c20e81dce9c97171c610c933c263160c3609e217d172de87",
+      "review_route_source_hash": "61d5ec599b877b329493775826bb8692211b58d2513325e086707f6f5872ebd1",
       "area": "Western Foothills",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -678,7 +678,7 @@
         "p75_minutes": 178,
         "p90_minutes": 200,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.72
+        "declared_repeat_miles": 1.63
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -695,7 +695,7 @@
         "block-cervidae_peak"
       ],
       "route_source_hash": "f4b13cd3b202deaff12c2c962c33c7c989863d7d5bb64b8de1d33993ca1d08e9",
-      "review_route_source_hash": "fdb84d23269ce9e7a7d02e666c2f6aecd457216752bdce32986f2134be454ae3",
+      "review_route_source_hash": "f84e99a62fe94246e6c9363fd137bc0c382354c3a26d73d2416e001015928358",
       "area": "Cervidae / Arrow Rock",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -731,7 +731,7 @@
         "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
       ],
       "route_source_hash": "4599e3cf0421ccc4fab7d8514383cf0a0da97a57ca4348f4e8d457fe10210df5",
-      "review_route_source_hash": "84aeb8ffb310fc6725df302c15a93037999ef89c51e13302805c7a25c8f7aba3",
+      "review_route_source_hash": "6c98acfb4ef6ae318902809698e9c2b2fcff9f58acdb5b29174c4d5110b7c2a3",
       "area": "Polecat Gulch",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -760,7 +760,7 @@
         "p75_minutes": 211,
         "p90_minutes": 237,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.81
+        "declared_repeat_miles": 1.46
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -777,7 +777,7 @@
         "block-military_core"
       ],
       "route_source_hash": "f1cf243630cbb256d23a8ec8c13fd4b3e8252ef95b4595edcbf96c66d5fd4413",
-      "review_route_source_hash": "fdc1a3506d79a13097c0a503e797e1d4a62cc139b0a20132d4a1f02456d66358",
+      "review_route_source_hash": "caa09177bd3f6edd37a8ed2828810e33f58dc53069535a108588745e62568b25",
       "area": "Military Reserve",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -832,7 +832,7 @@
         "p75_minutes": 236,
         "p90_minutes": 265,
         "non_credit_or_repeat_miles": 5.74,
-        "declared_repeat_miles": 4.16
+        "declared_repeat_miles": 3.66
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -849,7 +849,7 @@
         "block-upper_8th_corrals_sidewinder"
       ],
       "route_source_hash": "947d09cb99b51aa40ce2cd5c4530ccec4faebd5682297ff1fa20e39b9f0b8216",
-      "review_route_source_hash": "95c83a260ac7adda4037cd1ae14b59ab75997d7f3118a11fef2834315fb36ee7",
+      "review_route_source_hash": "a9fc3ae92b73cb980938a1e0edc47d76d8ec17d0d865597dd320ba17380dae46",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -896,7 +896,7 @@
         "manual-16a-1"
       ],
       "route_source_hash": "c612c2d578fc5ea5f324fa39870c69fdba6b8b8f3b0e22d0e019284b813a7a8d",
-      "review_route_source_hash": "5bf8c4070d46998c64f35ebe45711883535eac54d47c6c195d6663b3bc1e0bb5",
+      "review_route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -934,7 +934,7 @@
         "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute"
       ],
       "route_source_hash": "764ff3692fbadc98cd37ee1f8af08072679a6b8a65b934233c4ae0e027b95d7e",
-      "review_route_source_hash": "4267e27c5c5a08ea1ee48520452d4bedf58be9068782ec699402253e0f259728",
+      "review_route_source_hash": "03ca332051f4ca842024b5a679e347c6c90ffbda12b5f0c3b25b2baf95278748",
       "area": "Table Rock",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -987,7 +987,7 @@
         "p75_minutes": 253,
         "p90_minutes": 284,
         "non_credit_or_repeat_miles": 5.95,
-        "declared_repeat_miles": 2.97
+        "declared_repeat_miles": 1.98
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1004,7 +1004,7 @@
         "block-watchman_five_mile_rocky"
       ],
       "route_source_hash": "740d3b7d27f5a4c553ce1019d499f3c77665a0df846ef2988f97b80947235808",
-      "review_route_source_hash": "052f06bb8be3968e9cb37fe9d93ac02c7c5ef922a1b4bad2febf34c578937f46",
+      "review_route_source_hash": "5d2dcb280f429c1ddcc95c2854e9ee6bbe2d1491a0dfb639d1acffbdafc2d829",
       "area": "Rocky Canyon",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1030,7 +1030,7 @@
         "p75_minutes": 259,
         "p90_minutes": 291,
         "non_credit_or_repeat_miles": 4.81,
-        "declared_repeat_miles": 5.72
+        "declared_repeat_miles": 4.66
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1047,7 +1047,7 @@
         "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
       ],
       "route_source_hash": "2c252479d410798d888965cb99e2877405e297dcc6e3c026088cb18ea07c6a7d",
-      "review_route_source_hash": "0fb8cf861a56521cf03d12c42a7d33aebe9eec57a6c48a2c7e845871f755dd0e",
+      "review_route_source_hash": "cfbd4ab833e5234696ea7b9ec735f748cf1f6ac57e631144671138702c2c294f",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1077,13 +1077,67 @@
       "field_readiness_status": "field_ready"
     },
     {
+      "route_label": "H1",
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "route_source_hash": "86267ed037169b8606b3ebb1f01443db21a4cb64b6cb30ca88c6d2d01caffe42",
+      "review_route_source_hash": "c2e11a3278c2af2a4d9dd5a40e7d8179c6f51adca61ac237d31b1a75740e384a",
+      "area": "Avimor / Harlow",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
+      "current_start": "Avimor Spring Valley Creek parking",
+      "official_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "trail_names": [
+        "Twisted Spring",
+        "Ricochet",
+        "Shooting Range",
+        "Whistling Pig",
+        "Spring Creek",
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector"
+      ],
+      "metrics": {
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "on_foot_to_official_ratio": 1.32,
+        "p75_minutes": 289,
+        "p90_minutes": 324,
+        "non_credit_or_repeat_miles": 2.34,
+        "declared_repeat_miles": 1.14
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
+      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
+      "requires_field_walkthrough": false,
+      "field_readiness_status": "field_ready"
+    },
+    {
       "route_label": "2",
       "candidate_id": "block-camels_lower_hulls_even_day",
       "candidate_ids": [
         "block-camels_lower_hulls_even_day"
       ],
       "route_source_hash": "76eabdc00dc5401eb93ca50e2c6c3c319cedb2b9f29f6209bc0a562a794a866f",
-      "review_route_source_hash": "dad4c10625d1ebd1f4c1ee50b58244bb0f3876f9c4fc69cbc76179ef18158db5",
+      "review_route_source_hash": "a742129e95a46111357eb903184654a2bdc768f51c8bd4e9df107405f6b61325",
       "area": "Camels Back / Hulls Gulch",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1134,7 +1188,7 @@
         "p75_minutes": 332,
         "p90_minutes": 372,
         "non_credit_or_repeat_miles": 5.69,
-        "declared_repeat_miles": 5.35
+        "declared_repeat_miles": 3.99
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1151,7 +1205,7 @@
         "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
       ],
       "route_source_hash": "a1e9827aac2f469c1678ea8b7b011309baef76c4b07a8a13aa19d80237200bce",
-      "review_route_source_hash": "c07b65a34faa9bbddf3e1c39e89382c788dc6acf04f7eb3d21a07e1ef6c0a009",
+      "review_route_source_hash": "f99afd9f9fc8d70b27f2215517ed24675fa956ad92ef768ab7f101e07247b654",
       "area": "Bogus Basin",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1184,7 +1238,7 @@
         "p75_minutes": 357,
         "p90_minutes": 400,
         "non_credit_or_repeat_miles": 9.04,
-        "declared_repeat_miles": 3.98
+        "declared_repeat_miles": 3.78
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1201,7 +1255,7 @@
         "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
       ],
       "route_source_hash": "a644e2f432dd5fdc317e9a103a9dbe0dd39db783c23fb179f8927e20e0699b85",
-      "review_route_source_hash": "66c458db7658257bc0ac36a351ed201a542d9120982407709b2723448072fc64",
+      "review_route_source_hash": "14111448f849b842079fa8098fcc1a00181de48f6f46a0edbc13bcfa5cb17f1f",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1229,61 +1283,7 @@
         "p75_minutes": 358,
         "p90_minutes": 401,
         "non_credit_or_repeat_miles": 16.06,
-        "declared_repeat_miles": 3.91
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "10A",
-      "candidate_id": "manual-10a",
-      "candidate_ids": [
-        "manual-10a"
-      ],
-      "route_source_hash": "23abad2da93faf5a5567b82921f1057f14dd46bd89b122a4a262df622f719418",
-      "review_route_source_hash": "8e8c70cbe173dc52d7f75cda435c67ae22c071a4ec41e2d3df01173b18064fe6",
-      "area": "Harlow's / Hidden Springs west access probe",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Harlow's / Hidden Springs west access probe",
-      "official_segment_ids": [
-        "1704",
-        "1705",
-        "1707",
-        "1706",
-        "1708",
-        "1626",
-        "1657",
-        "1696",
-        "1687",
-        "1688",
-        "1689",
-        "1661",
-        "1662"
-      ],
-      "trail_names": [
-        "Harlow's Hollows",
-        "Harlow's Hollows Connector",
-        "Ricochet",
-        "Shooting Range",
-        "Spring Creek",
-        "Twisted Spring",
-        "Whistling Pig"
-      ],
-      "metrics": {
-        "official_miles": 7.3,
-        "on_foot_miles": 21.84,
-        "on_foot_to_official_ratio": 2.99,
-        "p75_minutes": 360,
-        "p90_minutes": 404,
-        "non_credit_or_repeat_miles": 14.54,
-        "declared_repeat_miles": 9.66
+        "declared_repeat_miles": 3.8
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1300,7 +1300,7 @@
         "block-bogus_atm_deer_elk_sunshine"
       ],
       "route_source_hash": "380acf7f993767696a0cc93e7100022fdd4b527169ba67a4e96bba60a1405b55",
-      "review_route_source_hash": "af058b17aaf4a1c276cd1e14b7707d02c58837524a8e5bed7020f0d5b184fb6d",
+      "review_route_source_hash": "3d39582f8a8da8f3fb99cbfa3415b2a7b528798fb75d00c01f1cad30392878bf",
       "area": "Bogus Basin",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1334,7 +1334,7 @@
         "p75_minutes": 386,
         "p90_minutes": 433,
         "non_credit_or_repeat_miles": 4.73,
-        "declared_repeat_miles": 1.25
+        "declared_repeat_miles": 1.11
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1351,7 +1351,7 @@
         "block-cartwright_peggy_interface"
       ],
       "route_source_hash": "4944236e9754f8f5538d4d9af5fc74388450b1cb8632d7530fdfd21546358716",
-      "review_route_source_hash": "75b7460b9cb47ba4d45e2a525b341135ed5007d6cbdb9c78a6bd3cfaa11a49c2",
+      "review_route_source_hash": "6e23ce2721e362b7768b65af9e343a997ee3acb28c84abfabc201af0d0860b4f",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1381,7 +1381,7 @@
         "p75_minutes": 409,
         "p90_minutes": 459,
         "non_credit_or_repeat_miles": 8.74,
-        "declared_repeat_miles": 7.13
+        "declared_repeat_miles": 3.28
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1398,7 +1398,7 @@
         "block-freestone_three_bears_curlew"
       ],
       "route_source_hash": "d5eab1c479b0a8aed26ec450d48b2294eb05da5f7a4ceaf0e9e7ce5cc5571624",
-      "review_route_source_hash": "068bc08e263576229a2db7476514ae2df7937701d9800cbc3e75fb4388c394e5",
+      "review_route_source_hash": "6ffdfa3fc2fe92be4cee7fc518e7967dca61369c3149f78a9597b4a55210bfb4",
       "area": "Rocky Canyon",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -1439,7 +1439,7 @@
         "p75_minutes": 497,
         "p90_minutes": 557,
         "non_credit_or_repeat_miles": 18.12,
-        "declared_repeat_miles": 12.09
+        "declared_repeat_miles": 12.08
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1660,7 +1660,7 @@
         "p75_minutes": 107,
         "p90_minutes": 120,
         "non_credit_or_repeat_miles": 1.73,
-        "declared_repeat_miles": 2.33
+        "declared_repeat_miles": 2.12
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1698,7 +1698,7 @@
         "p75_minutes": 114,
         "p90_minutes": 128,
         "non_credit_or_repeat_miles": 1.74,
-        "declared_repeat_miles": 2.38
+        "declared_repeat_miles": 1.72
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1736,7 +1736,7 @@
         "p75_minutes": 118,
         "p90_minutes": 133,
         "non_credit_or_repeat_miles": 2.72,
-        "declared_repeat_miles": 1.72
+        "declared_repeat_miles": 1.7
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1812,7 +1812,7 @@
         "p75_minutes": 141,
         "p90_minutes": 158,
         "non_credit_or_repeat_miles": 1.64,
-        "declared_repeat_miles": 2.22
+        "declared_repeat_miles": 1.11
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1888,7 +1888,7 @@
         "p75_minutes": 149,
         "p90_minutes": 167,
         "non_credit_or_repeat_miles": 1.67,
-        "declared_repeat_miles": 4.94
+        "declared_repeat_miles": 1.1
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1926,7 +1926,7 @@
         "p75_minutes": 152,
         "p90_minutes": 171,
         "non_credit_or_repeat_miles": 1.83,
-        "declared_repeat_miles": 5.97
+        "declared_repeat_miles": 1.81
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2002,7 +2002,7 @@
         "p75_minutes": 170,
         "p90_minutes": 191,
         "non_credit_or_repeat_miles": 3.38,
-        "declared_repeat_miles": 3.49
+        "declared_repeat_miles": 3.34
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2040,7 +2040,7 @@
         "p75_minutes": 178,
         "p90_minutes": 200,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.72
+        "declared_repeat_miles": 1.63
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2116,7 +2116,7 @@
         "p75_minutes": 211,
         "p90_minutes": 237,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.81
+        "declared_repeat_miles": 1.46
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2154,7 +2154,7 @@
         "p75_minutes": 236,
         "p90_minutes": 265,
         "non_credit_or_repeat_miles": 5.74,
-        "declared_repeat_miles": 4.16
+        "declared_repeat_miles": 3.66
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2268,7 +2268,7 @@
         "p75_minutes": 253,
         "p90_minutes": 284,
         "non_credit_or_repeat_miles": 5.95,
-        "declared_repeat_miles": 2.97
+        "declared_repeat_miles": 1.98
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2306,7 +2306,7 @@
         "p75_minutes": 259,
         "p90_minutes": 291,
         "non_credit_or_repeat_miles": 4.81,
-        "declared_repeat_miles": 5.72
+        "declared_repeat_miles": 4.66
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2364,6 +2364,44 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "labels": [
+        "H1"
+      ],
+      "area": "Avimor / Harlow",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "metrics": {
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "on_foot_to_official_ratio": 1.32,
+        "p75_minutes": 289,
+        "p90_minutes": 324,
+        "non_credit_or_repeat_miles": 2.34,
+        "declared_repeat_miles": 1.14
+      },
+      "evidence": [
+        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
+        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
+        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "field_tool_completion_passed": true,
+        "special_management_passed": true
+      },
+      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
+    },
+    {
       "candidate_id": "block-camels_lower_hulls_even_day",
       "candidate_ids": [
         "block-camels_lower_hulls_even_day"
@@ -2382,7 +2420,7 @@
         "p75_minutes": 332,
         "p90_minutes": 372,
         "non_credit_or_repeat_miles": 5.69,
-        "declared_repeat_miles": 5.35
+        "declared_repeat_miles": 3.99
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2420,7 +2458,7 @@
         "p75_minutes": 357,
         "p90_minutes": 400,
         "non_credit_or_repeat_miles": 9.04,
-        "declared_repeat_miles": 3.98
+        "declared_repeat_miles": 3.78
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2458,45 +2496,7 @@
         "p75_minutes": 358,
         "p90_minutes": 401,
         "non_credit_or_repeat_miles": 16.06,
-        "declared_repeat_miles": 3.91
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "manual-10a",
-      "candidate_ids": [
-        "manual-10a"
-      ],
-      "labels": [
-        "10A"
-      ],
-      "area": "Harlow's / Hidden Springs west access probe",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 7.3,
-        "on_foot_miles": 21.84,
-        "on_foot_to_official_ratio": 2.99,
-        "p75_minutes": 360,
-        "p90_minutes": 404,
-        "non_credit_or_repeat_miles": 14.54,
-        "declared_repeat_miles": 9.66
+        "declared_repeat_miles": 3.8
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2534,7 +2534,7 @@
         "p75_minutes": 386,
         "p90_minutes": 433,
         "non_credit_or_repeat_miles": 4.73,
-        "declared_repeat_miles": 1.25
+        "declared_repeat_miles": 1.11
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2572,7 +2572,7 @@
         "p75_minutes": 409,
         "p90_minutes": 459,
         "non_credit_or_repeat_miles": 8.74,
-        "declared_repeat_miles": 7.13
+        "declared_repeat_miles": 3.28
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2610,7 +2610,7 @@
         "p75_minutes": 497,
         "p90_minutes": 557,
         "non_credit_or_repeat_miles": 18.12,
-        "declared_repeat_miles": 12.09
+        "declared_repeat_miles": 12.08
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-10T01:12:50.034819+00:00",
+  "generated_at": "2026-06-10T03:26:28.122004+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -25,7 +25,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 9af1bb9574a3e9260dce0cceeb14435114c40b763499ade10d036f783979ac43; canonical map hash 9af1bb9574a3e9260dce0cceeb14435114c40b763499ade10d036f783979ac43"
+      "evidence": "field source hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3; canonical map hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -151,7 +151,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-10T01:12:48.239576+00:00",
+    "generated_at": "2026-06-10T03:26:26.358293+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -264,7 +264,7 @@
       },
       {
         "label": "10B",
-        "outing_id": "10-2",
+        "outing_id": "10-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -428,6 +428,14 @@
         "failures": []
       },
       {
+        "label": "H1",
+        "outing_id": "127-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "2",
         "outing_id": "2-1",
         "passed": true,
@@ -471,14 +479,6 @@
       {
         "label": "15B",
         "outing_id": "15-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "10A",
-        "outing_id": "10-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],

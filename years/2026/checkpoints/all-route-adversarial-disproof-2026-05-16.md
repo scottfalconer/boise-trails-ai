@@ -203,6 +203,14 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
+### H1 - Avimor / Harlow
+
+- Candidate id: `H1-avimor-native-harlow-spring-loop`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 7.3 official mi / 9.64 on-foot mi / p75 289 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
 ### 2 - Camels Back / Hulls Gulch
 
 - Candidate id: `block-camels_lower_hulls_even_day`
@@ -224,14 +232,6 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Candidate id: `multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 9.33 official mi / 25.39 on-foot mi / p75 358 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 10A - Harlow's / Hidden Springs west access probe
-
-- Candidate id: `manual-10a`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 7.3 official mi / 21.84 on-foot mi / p75 360 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 

@@ -1,6 +1,6 @@
 # Post-Credit Connector Audit
 
-Generated: 2026-06-10T01:13:24Z
+Generated: 2026-06-10T03:17:10Z
 Status: `passed`
 
 ## Summary
@@ -9,7 +9,7 @@ Status: `passed`
 - Failed routes: 0
 - Findings: 0
 - Warnings: 6
-- Explicit post-credit connector proofs: 97
+- Explicit post-credit connector proofs: 93
 - Hidden official-cue exit findings: 0
 - Hidden official-cue exit warnings: 6
 - Shorter connector findings: 0

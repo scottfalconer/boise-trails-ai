@@ -43,7 +43,7 @@
 - Segment details:
   - 1755 Buena Vista Trail; claimed by 1-2: 1A-2
 
-### 10-2: 10B
+### 10-1: 10B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx`
 - Declared owned by other active routes: 1520, 1619, 1622, 1623, 1624
 - Segment details:

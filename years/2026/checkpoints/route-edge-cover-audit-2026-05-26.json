@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-10T01:12:44Z",
+  "generated_at": "2026-06-10T03:16:31Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
@@ -372,8 +372,8 @@
       ]
     },
     {
-      "label": "10-2: 10B",
-      "outing_id": "10-2",
+      "label": "10-1: 10B",
+      "outing_id": "10-1",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -780,6 +780,44 @@
       ]
     },
     {
+      "label": "127-1: H1",
+      "outing_id": "127-1",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 7.3,
+        "generated_miles": 9.64,
+        "lower_bound_miles": 8.28,
+        "efficiency_ratio": 1.164,
+        "required_component_count": 2,
+        "odd_required_node_count": 8,
+        "parity_add_on_miles": 0.78,
+        "depot_component_attachment_miles": 0.2
+      },
+      "gpx_path": "docs/field-packet/gpx/official/avimor-harlow-twisted-spring-h1.gpx",
+      "segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ]
+    },
+    {
       "label": "2-1: 2",
       "outing_id": "2-1",
       "candidate_ids": [
@@ -896,44 +934,6 @@
         "1546",
         "1576",
         "1577"
-      ]
-    },
-    {
-      "label": "10-1: 10A",
-      "outing_id": "10-1",
-      "candidate_ids": [
-        "manual-10a"
-      ],
-      "trailhead": "Harlow's / Hidden Springs west access probe",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 7.3,
-        "generated_miles": 21.84,
-        "lower_bound_miles": 8.18,
-        "efficiency_ratio": 2.669,
-        "required_component_count": 2,
-        "odd_required_node_count": 8,
-        "parity_add_on_miles": 0.78,
-        "depot_component_attachment_miles": 0.1
-      },
-      "gpx_path": "docs/field-packet/gpx/official/harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-10a.gpx",
-      "segment_ids": [
-        "1626",
-        "1657",
-        "1661",
-        "1662",
-        "1687",
-        "1688",
-        "1689",
-        "1696",
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
       ]
     },
     {

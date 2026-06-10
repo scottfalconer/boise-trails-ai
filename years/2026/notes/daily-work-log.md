@@ -6,6 +6,45 @@ field-test logs.
 
 ## 2026-06-09
 
+### Phase 3 - apply the human-judgment queue wins + exporter quality
+
+- Objective: "do all" remaining - restore 10A->H1 (the ~12 mi win), exporter
+  quality fixes, experiment-file privacy scrub, full re-baseline + verify.
+- Result:
+  - 10A -> H1 Avimor RESTORED. Reworked the stale promotion infra
+    (promote_harlow_h1_route_card.py) to match the replaced route by SEGMENT SET
+    instead of the retired field_menu_label, always append the H1 package, and
+    parameterize the route-count assertion by the actual removed count. Route
+    10A (Harlow's west-access probe, 21.84 mi / manual_required parking) is now
+    H1 "Avimor / Harlow: Twisted Spring" at 9.64 mi - ~12 on-foot mi and ~702
+    p75 min saved on that route, full 251/251 coverage preserved.
+  - 1A-1 FD14D: NOT applied - the accepted FD14D replacement is a policy
+    declaration with no captured route geometry (unlike H1's repaired GPX), so
+    the shorter shape can't be promoted without regenerating the connector path.
+    The 1A-1 waiver stands (reason updated; hash refreshed after re-baseline).
+  - Exporter quality: repeat-official cue mileage now capped to the displayed
+    leg (the 54 impossible "0.21-mi leg includes 4.56 mi repeat" notes);
+    live-map overlap-leg chevrons + Start-GPS distance-to-route readout +
+    malformed off-map SVG triangle + stuck "Loading GPX..." fetch guard; honest
+    water / heat-exposure / bailout annotations on every card; start_justification
+    fallback now emits a machine-detectable placeholder flag (real per-route
+    justification TEXT remains a content follow-up).
+  - Privacy follow-up: scrubbed real Strava activity ids/names from the 3
+    committed experiment sim files (47 ids + 12 names -> surrogates).
+  - Re-baselined the full chain (human_loop_plan -> promote_harlow_h1 -> export
+    -> reconcile -> export -> export_example).
+- Validation:
+  - Full 8-command certification chain passes on the H1-promoted packet:
+    completion 20/20 + special-management gate passed, walkthrough 31/31,
+    latent-credit 0 dual claims, post-credit 0 findings, 251/251 coverage.
+  - Dominance gate passes (1A-1 waived); registry 0 unwaived failures, 31 routes.
+  - Full pytest suite: see commit.
+- Current blocker:
+  - 1A-1 FD14D shorter shape needs connector-path geometry generation (waiver
+    stands meanwhile). Real per-route start_justification text is a content
+    follow-up (placeholders are now flagged). The 8 manual-map-review areas and
+    parking-judgment re-anchors remain in the Human-judgment queue.
+
 ### Ralph route-optimization loop - iteration 1 (converged)
 
 - Objective: one iteration of the guarded route-optimization loop

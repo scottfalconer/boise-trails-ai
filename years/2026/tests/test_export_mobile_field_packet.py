@@ -934,6 +934,101 @@ def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
     assert "repeat official" in cue["display_detail"]
 
 
+def test_repeat_miles_never_exceed_leg_miles():
+    module = load_exporter()
+    # A long official segment (4.5 mi) is credited once, then a short exit/access cue
+    # (~0.2 mi) re-touches it. The repeat accounting must never attribute the whole
+    # segment's mileage to the short leg the user actually walks.
+    official_feature = {
+        "type": "Feature",
+        "properties": {
+            "seg_id": 101,
+            "segment_name": "Long Repeated Segment",
+            "trail_name": "Long Repeat Trail",
+            "official_miles": 4.5,
+            "direction_rule": "both",
+        },
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [[-116.0, 43.0], [-116.06, 43.0]],
+        },
+    }
+    short_exit = (-116.002, 43.0)
+    credit_cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=4.5,
+        cue_type="follow_official_segment",
+        action="FOLLOW",
+        official_segment_ids=["101"],
+    )
+    credit_cue["route_miles"] = 0
+    credit_cue["route_leg_miles"] = 4.5
+    # The short connector/exit cue carries a repeat declaration that, due to upstream
+    # whole-segment attribution, exceeds the ~0.2-mi leg it covers.
+    exit_cue = module.make_wayfinding_cue(
+        seq=2,
+        cum_miles=4.5,
+        leg_miles=0.21,
+        cue_type="exit_access",
+        action="FOLLOW",
+        official_repeat_segment_ids=["101"],
+        official_repeat_miles=4.5,
+        source_path_coordinates=[(-116.0, 43.0), short_exit],
+    )
+    exit_cue["route_miles"] = 4.5
+    exit_cue["route_leg_miles"] = 0.21
+    # Model the buggy note that attributes the whole 4.5-mi segment to this short leg.
+    exit_cue["note"] = module.non_credit_repeat_note(
+        module.non_credit_repeat_prefix_for_cue(exit_cue),
+        4.5,
+        ["101"],
+    )
+    module.refresh_wayfinding_text(exit_cue)
+    assert "4.5 mi repeat official" in exit_cue["display_detail"]
+    route = {
+        "segment_ids": ["101"],
+        "wayfinding_cues": [credit_cue, exit_cue],
+        "_track_segments": [[(-116.0, 43.0), (-116.06, 43.0), (-116.0, 43.0)]],
+        "_official_segment_index": {"101": official_feature},
+    }
+
+    module.cap_route_cue_repeat_miles(route)
+
+    for cue in route["wayfinding_cues"]:
+        leg_cap = max(
+            float(cue.get("leg_miles") or 0),
+            module.cue_field_leg_miles(cue),
+            module.path_length_miles(
+                cue.get("source_path_coordinates") or cue.get("source_path") or []
+            ),
+        )
+        assert float(cue.get("official_repeat_miles") or 0) <= leg_cap + 1e-6
+
+    # The short exit cue keeps a real (non-zero) repeat note, just capped to its leg.
+    assert exit_cue["official_repeat_miles"] > 0
+    assert exit_cue["official_repeat_miles"] <= float(exit_cue["leg_miles"]) + 1e-6
+    assert "repeat official" in exit_cue["display_detail"]
+
+
+def test_refresh_wayfinding_measurements_caps_repeat_to_leg():
+    module = load_exporter()
+    cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.2,
+        cue_type="exit_access",
+        action="FOLLOW",
+        note="Return leg does not count as new official challenge credit.",
+        official_repeat_segment_ids=["101"],
+        official_repeat_miles=4.5,
+    )
+    route = {"outing": {}, "wayfinding_cues": [cue]}
+    module.refresh_wayfinding_measurements(route, declare_non_credit_repeats=False)
+    assert cue["official_repeat_miles"] <= float(cue["leg_miles"]) + 1e-6
+    assert cue["official_repeat_miles"] > 0
+
+
 def test_non_credit_repeat_declaration_uses_source_path_geometry():
     module = load_exporter()
     a = (-116.0, 43.0)
@@ -2729,7 +2824,10 @@ def test_field_packet_omits_unknown_water_from_phone_card(tmp_path):
 
     assert "Known water" not in html
     assert "No verified water in planner data" not in html
-    assert "Field logistics" not in html
+    # Honest water disclosure is always rendered now: no fabricated source, but a
+    # clear "carry all water" advisory instead of silently omitting the section.
+    assert "Field logistics" in html
+    assert "No verified on-trail or trailhead water" in html
 
 
 def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
@@ -3163,6 +3261,91 @@ def test_render_card_marks_special_management_failure_not_runnable():
 
     with pytest.raises(module.FieldPacketCertificationError, match="Cannot render non-field-ready route card"):
         module.render_card(route)
+
+
+def test_render_card_long_route_water_and_heat_annotations():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["on_foot_miles"] = 14.5
+    route["outing"]["total_minutes"] = 245
+    route["outing"]["official_miles"] = 12.0
+    route["logistics"] = {"car_passes": [], "known_water": []}
+
+    html = module.render_card(route)
+
+    # Honest water line is always present, never fabricated.
+    assert "No verified on-trail or trailhead water" in html
+    assert "Carry all water" in html
+    # Derived heat/exposure note for a long exposed outing.
+    assert "Long exposed outing" in html
+    assert "R2R 6" in html
+    # Honest bailout line that claims no confirmed mid-route node.
+    assert "no verified mid-route bailout node" in html
+    assert "parked car" in html
+
+
+def test_render_card_short_route_omits_heat_note_but_keeps_bailout():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["on_foot_miles"] = 2.4
+    route["outing"]["total_minutes"] = 42
+    route["logistics"] = {"car_passes": [], "known_water": []}
+
+    html = module.render_card(route)
+
+    assert "Long exposed outing" not in html
+    # Bailout line is honest and always present.
+    assert "no verified mid-route bailout node" in html
+    # Water disclosure still present.
+    assert "No verified on-trail or trailhead water" in html
+
+
+def test_start_justification_fallback_is_flagged_placeholder():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"].pop("start_justification", None)
+
+    record = module.route_field_tool_record(route)
+
+    assert record["start_justification_is_placeholder"] is True
+    assert record["start_justification"].startswith("PLACEHOLDER_START_JUSTIFICATION_REQUIRED: ")
+    # Human-readable text is preserved after the prefix so the card still shows something.
+    assert "parking/start anchor" in record["start_justification"]
+
+
+def test_start_justification_present_is_not_flagged():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["start_justification"] = "Chosen because the field reviewer verified this anchor."
+
+    record = module.route_field_tool_record(route)
+
+    assert record["start_justification_is_placeholder"] is False
+    assert "PLACEHOLDER_START_JUSTIFICATION_REQUIRED" not in record["start_justification"]
+
+
+def test_field_visible_link_names_prefers_real_name_over_osm_id():
+    module = load_exporter()
+    # Only a generic OSM id in signposts, but a real road name in connectors.
+    link = {
+        "signpost_labels": ["OSM footway connector 72484"],
+        "connector_names": ["8th Street", "OSM footway 72484"],
+    }
+    assert module.field_visible_link_names(link) == ["8th Street"]
+
+    # Genuinely only an OSM id is usable -> fall back to it rather than nothing.
+    osm_only = {"signpost_labels": [], "connector_names": ["OSM footway connector 72484"]}
+    assert module.field_visible_link_names(osm_only) == ["OSM footway connector 72484"]
+
+
+def test_primary_field_visible_names_skips_osm_connector_pattern():
+    module = load_exporter()
+    assert module.primary_field_visible_names(
+        ["OSM path connector 113689", "Camel's Back Trail"]
+    ) == ["Camel's Back Trail"]
+    assert module.primary_field_visible_names(["OSM path connector 113689"]) == [
+        "OSM path connector 113689"
+    ]
 
 
 def test_special_management_failure_propagates_to_field_day_layer_summary():
