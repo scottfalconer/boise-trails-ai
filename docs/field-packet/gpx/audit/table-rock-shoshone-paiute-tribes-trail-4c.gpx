@@ -84,7 +84,7 @@
     <name>SEG 18 Tram Trail 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.5 mi. est. 8 min; p75 13 min; 306 ft climb.</desc>
   </wpt>
-  <wpt lat="43.591328" lon="-116.154920">
+  <wpt lat="43.591302" lon="-116.154819">
     <name>SEG 19 Rock Garden 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.09 mi. est. 2 min; p75 3 min; 10 ft climb.</desc>
   </wpt>
@@ -92,7 +92,7 @@
     <name>SEG 20 Rock Garden 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.03 mi. est. 1 min; p75 2 min.</desc>
   </wpt>
-  <wpt lat="43.593255" lon="-116.158169">
+  <wpt lat="43.593188" lon="-116.158169">
     <name>SEG 21 Rock Garden 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.57 mi. est. 9 min; p75 12 min; 117 ft climb.</desc>
   </wpt>
@@ -100,7 +100,7 @@
     <name>SEG 22 Rock Island 8</name>
     <desc>Either direction allowed; follow map arrows. Official 0.27 mi. est. 4 min; p75 5 min; 21 ft climb.</desc>
   </wpt>
-  <wpt lat="43.591728" lon="-116.153498">
+  <wpt lat="43.591641" lon="-116.153582">
     <name>SEG 23 Rock Island 7</name>
     <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min; 45 ft climb.</desc>
   </wpt>
@@ -116,7 +116,7 @@
     <name>SEG 26 Rock Island 4</name>
     <desc>Either direction allowed; follow map arrows. Official 0.21 mi. est. 3 min; p75 4 min; 3 ft climb.</desc>
   </wpt>
-  <wpt lat="43.593651" lon="-116.156281">
+  <wpt lat="43.593708" lon="-116.156357">
     <name>SEG 27 Rock Island 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 5 min; p75 7 min; 70 ft climb.</desc>
   </wpt>

@@ -85,9 +85,10 @@ The current planning year is 2026 unless the user explicitly asks for another ye
 
 Authoritative current files:
 
-- 2026 official foot segments: `years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson`
-- 2026 official foot trails: `years/2026/inputs/official/api-pull-2026-05-04/official_foot_master_trails.json`
-- 2026 official summary: `years/2026/inputs/official/api-pull-2026-05-04/official_foot_summary.json`
+- 2026 official foot segments: `years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson`
+- 2026 official foot trails: `years/2026/inputs/official/api-pull-2026-06-13/official_foot_master_trails.json`
+- 2026 official summary: `years/2026/inputs/official/api-pull-2026-06-13/official_foot_summary.json`
+- 2026 official drift report: `years/2026/inputs/official/api-pull-2026-06-13/official_foot_drift_report.md`
 - 2026 API surface notes: `years/2026/inputs/official/site-discovery-2026-05-04/api-surface.md`
 - 2026 data readiness: `years/2026/checkpoints/data-readiness.md`
 - Prior-year public history rollup: `archive/years/public-history-summary-2026-05-04.md`
@@ -97,10 +98,16 @@ Current 2026 on-foot challenge metrics from the official site pull:
 
 - Challenge window: 2026-06-18 00:00:01 through 2026-07-18 23:59:59, America/Boise.
 - Official on-foot trails: 101.
-- Official on-foot segments: 251.
-- Official on-foot distance: 164.43 miles.
-- Direction rules in the official segment data: 228 `both`, 23 `ascent`.
+- Official on-foot segments: 250.
+- Official on-foot distance: 159.0 miles.
+- Direction rules in the latest official segment data: 227 `both`, 23 `ascent`.
 - Current account progress at initial pull: 0.00%.
+
+The May 4 pull is preserved as the pre-June planning baseline. The June 13 pull
+reflects official site data last changed at 2026-06-11 01:45:43 UTC and creates
+a route-list recertification event: Stack Rock Connector ids `1663` and `1664`
+were removed, `1762` was added, and existing Polecat/Sweet Connie/Around the
+Mountain segment metadata changed.
 
 Do not use `data/traildata/GETChallengeTrailData_v2.json` as current truth. It is preserved as a 2025 planner-era artifact under `archive/years/2025/inputs/official/local-legacy-2025/`.
 

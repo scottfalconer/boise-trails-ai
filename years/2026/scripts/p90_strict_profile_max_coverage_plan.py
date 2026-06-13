@@ -15,7 +15,7 @@ YEAR_DIR = SCRIPT_DIR.parent
 REPO_ROOT = YEAR_DIR.parent.parent
 
 DEFAULT_OPTIMIZER_JSON = YEAR_DIR / "checkpoints" / "p90-joint-field-day-optimizer-wide-2026-05-06.json"
-DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "checkpoints"
 DEFAULT_BASENAME = "p90-strict-profile-max-coverage-plan-2026-05-06"
 

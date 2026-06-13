@@ -25,7 +25,7 @@ DEFAULT_STATE_JSON = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.priv
 DEFAULT_LEDGER_JSON = YEAR_DIR / "inputs" / "personal" / "private" / "progress-ledger.json"
 DEFAULT_VERSION_ROOT = YEAR_DIR / "outputs" / "private" / "progress" / "versions"
 DEFAULT_FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
-DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 DEFAULT_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
 SNAPSHOT_PACKET_FILES = ["index.html", "live-map.html", "manifest.json", "field-tool-data.json", "service-worker.js"]
 

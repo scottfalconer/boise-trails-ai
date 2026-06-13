@@ -15,7 +15,7 @@ REPO_ROOT = YEAR_DIR.parent.parent
 
 DEFAULT_MAP_DATA_JSON = REPO_ROOT / "outing-menu-map-data.json"
 DEFAULT_OFFICIAL_SEGMENTS_GEOJSON = (
-    YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+    YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 )
 DEFAULT_ROUTE_BLOCKS_DIR = YEAR_DIR / "outputs" / "private" / "route-blocks"
 DEFAULT_CANDIDATE_SOURCES = [

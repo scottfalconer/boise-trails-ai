@@ -17,7 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 FIELD_TOOL_DATA = REPO_ROOT / "docs/field-packet/field-tool-data.json"
 R2R_GEOJSON = REPO_ROOT / "years/2026/inputs/open-data/r2r-trails-2026-05-04/boise_parks_trails_open_data.geojson"
 CONNECTORS_GEOJSON = REPO_ROOT / "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
-OFFICIAL_SEGMENTS = REPO_ROOT / "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson"
+OFFICIAL_SEGMENTS = REPO_ROOT / "years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson"
 OUTPUT_DIR = REPO_ROOT / "years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10"
 FRAME_LOG = Path.home() / ".codex/debug/frame-shift/frames.jsonl"
 
@@ -580,7 +580,7 @@ def render_index(audits: list[dict[str, Any]]) -> str:
         "- `docs/field-packet/gpx/official/*.gpx`",
         "- `years/2026/inputs/open-data/r2r-trails-2026-05-04/boise_parks_trails_open_data.geojson`",
         "- `years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson`",
-        "- `years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson`",
+        "- `years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson`",
         "",
         "## Method",
         "",

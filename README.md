@@ -51,13 +51,19 @@ The 2025 artifacts are still useful as a failure baseline:
 
 ## How 2026 Is Going
 
-The 2026 official pull from 2026-05-04 is the current source of truth:
+The 2026 official pull from 2026-06-13 is the current source of truth:
 
 - challenge window: 2026-06-18 through 2026-07-18, America/Boise
 - official on-foot trails: **101**
-- official on-foot segments: **251**
-- official on-foot distance: **164.43 mi**
-- direction rules: **228 bidirectional**, **23 ascent-only**
+- official on-foot segments: **250**
+- official on-foot distance: **159.0 mi**
+- direction rules: **227 bidirectional**, **23 ascent-only**
+- latest official trail data change: **2026-06-11 01:45:43 UTC**
+
+The June 13 refresh found a route-list change against the May 4 baseline:
+Stack Rock Connector `1663` / `1664` were removed, `1762` was added, and the
+active field packet needs recertification before it should be treated as current
+route truth.
 
 The 2026 planner moved from "can we cover the official graph?" into a much more
 practical field-tool loop this week:

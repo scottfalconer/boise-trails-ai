@@ -16,7 +16,7 @@ REPO_ROOT = YEAR_DIR.parent.parent
 
 DEFAULT_PROFILE_JSON = YEAR_DIR / "inputs" / "personal" / "2026-responsible-relaxed-certificate-profile.private.json"
 DEFAULT_PRIVATE_STATE_JSON = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.private.json"
-DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 DEFAULT_TRAILHEAD_CANDIDATES_GEOJSON = (
     YEAR_DIR / "inputs" / "open-data" / "city-parks-facilities-2026-05-04" / "trailhead_candidates.geojson"
 )

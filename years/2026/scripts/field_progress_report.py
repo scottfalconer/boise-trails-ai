@@ -15,7 +15,7 @@ YEAR_DIR = SCRIPT_DIR.parent
 REPO_ROOT = YEAR_DIR.parent.parent
 
 DEFAULT_FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
-DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "outputs" / "private" / "progress" / "field-progress-latest.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "outputs" / "private" / "progress" / "field-progress-latest.md"
 

@@ -24,7 +24,7 @@
     <name>CUE 04 Shane's Trail</name>
     <desc>Follow Shane's Trail. First official segment here: Shane's Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.623024" lon="-116.140114">
+  <wpt lat="43.622925" lon="-116.140137">
     <name>CUE 05 Shane's Connector</name>
     <desc>Follow Shane's Connector. First official segment here: Shane's Connector 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
@@ -32,13 +32,13 @@
     <name>CUE 06 Two Point</name>
     <desc>Follow Two Point. First official segment here: Two Point 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.644152" lon="-116.134569">
+  <wpt lat="43.644017" lon="-116.134622">
     <name>CUE 07 Fat Tire Traverse</name>
     <desc>Follow Fat Tire Traverse. First official segment here: Fat Tire Traverse 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.640089" lon="-116.132762">
     <name>CUE 08 Curlew Connection</name>
-    <desc>Follow Curlew Connection. First official segment here: Curlew Connection 1. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Curlew Connection. First official segment here: Curlew Connection 1. ASCENT REQUIRED. Ascent-only segment; verify signed uphill direction. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.624459" lon="-116.175884">
     <name>RETURN TO CAR</name>

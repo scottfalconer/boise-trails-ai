@@ -34,7 +34,7 @@ from personal_route_planner import (  # noqa: E402
 )
 
 DEFAULT_OFFICIAL_SEGMENTS_GEOJSON = (
-    YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+    YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 )
 DEFAULT_CURRENT_PLAN_JSON = YEAR_DIR / "checkpoints" / "route-efficiency-audit-2026-05-06.json"
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "checkpoints"

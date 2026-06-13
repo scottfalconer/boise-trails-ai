@@ -10,7 +10,7 @@
   </wpt>
   <wpt lat="43.711377" lon="-116.107605">
     <name>CUE 01 Shingle Creek Trail</name>
-    <desc>Follow Shingle Creek Trail. First official segment here: Shingle Creek Trail. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Shingle Creek Trail. First official segment here: Shingle Creek Trail. ASCENT REQUIRED. Ascent-only segment; verify signed uphill direction. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.691763" lon="-116.182245">
     <name>RETURN TO CAR</name>

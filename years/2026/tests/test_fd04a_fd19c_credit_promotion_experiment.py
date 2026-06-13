@@ -81,7 +81,7 @@ def test_real_fd04a_fd19c_experiment_is_ready_for_controlled_source_promotion():
                 / "2026"
                 / "inputs"
                 / "official"
-                / "api-pull-2026-05-04"
+                / "api-pull-2026-06-13"
                 / "official_foot_segments.geojson"
             ).read_text()
         ),

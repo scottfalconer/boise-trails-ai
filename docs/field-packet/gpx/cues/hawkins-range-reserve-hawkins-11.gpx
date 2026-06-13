@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Hawkins Range Reserve: Hawkins (11) cues</name>
-    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 7.3 mi; Door-to-door p75 2h 29m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 7.81 mi; Door-to-door p75 2h 29m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.705117" lon="-116.168966">
     <name>PARK/START Hawkins Range Reserve Trailhead</name>
@@ -12,9 +12,9 @@
     <name>CAR PASS 1</name>
     <desc>Pass by the parked car again near mile 1.12.</desc>
   </wpt>
-  <wpt lat="43.707721" lon="-116.169130">
+  <wpt lat="43.707722" lon="-116.169148">
     <name>CUE 01 Hawkins</name>
-    <desc>Follow Hawkins. First official segment here: Hawkins 1. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Hawkins. First official segment here: Hawkins 1. ASCENT REQUIRED. Ascent-only segment; verify signed uphill direction. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.705317" lon="-116.169734">
     <name>RETURN TO CAR</name>

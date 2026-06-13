@@ -23,7 +23,7 @@ DEFAULT_FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool
 DEFAULT_CLUSTER_AUDIT_JSON = YEAR_DIR / "checkpoints" / "cluster-route-optimization-audit-2026-05-12.json"
 DEFAULT_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json"
 DEFAULT_OFFICIAL_SEGMENTS_GEOJSON = (
-    YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+    YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 )
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "same-car-corridor-fusion-experiment-2026-05-12.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "same-car-corridor-fusion-experiment-2026-05-12.md"

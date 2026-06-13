@@ -6,13 +6,13 @@
 - Field-ready route cards: 31
 - Held route cards: 0
 - Total route cards: 31
-- Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
+- Official segment accounting: 250 / 250 (250 active field-menu ids, 0 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3; canonical map hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 09b101db7876b5aebad636907d9a77d44d761e850fef36e14f6e68abfa4fef4a; canonical map hash 09b101db7876b5aebad636907d9a77d44d761e850fef36e14f6e68abfa4fef4a |
 | Field packet route records match canonical outing menu metrics | Pass | field packet route miles, p75 minutes, and segment ids match canonical menu components |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
@@ -20,7 +20,7 @@
 | Live map default cue starts at the first field cue | Pass | no route has a clustered start cue sequence that would make live map open on cue 2+ |
 | Source routes have no hidden unstitched gaps | Pass | canonical map source has no source_gap_warning routes |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
-| Active field packet accounts for every official segment geometry id | Pass | field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids |
+| Active field packet accounts for every official segment geometry id | Pass | field menu 250 ids; completed 0 ids; blocked 0 ids; accounted 250 ids; official target 250 ids |
 | GPX validation passed for every exported route card | Pass | {"failed": 0, "navigation": 31, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |

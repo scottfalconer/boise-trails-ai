@@ -1,0 +1,1012 @@
+[
+  {
+    "masterTrailId": 699,
+    "masterTrailName": "15th St. Trail",
+    "bturl": "https://boisetrails.com/trail/15th-street-trail/",
+    "minX": -116.20562,
+    "minY": 43.639034,
+    "maxX": -116.198265,
+    "maxY": 43.640774,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 700,
+    "masterTrailName": "36th Street Chute",
+    "bturl": "https://boisetrails.com/trail/36th-street-chute/",
+    "minX": -116.22943999,
+    "minY": 43.661892,
+    "maxX": -116.226599,
+    "maxY": 43.671859,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 701,
+    "masterTrailName": "8th Street Motorcycle Trail",
+    "bturl": "https://boisetrails.com/trail/trail-4-8th-st-motorcycle-trail/",
+    "minX": -116.15022657,
+    "minY": 43.64402,
+    "maxX": -116.12664365,
+    "maxY": 43.65043509,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 702,
+    "masterTrailName": "Around the Mountain Trail",
+    "bturl": "https://boisetrails.com/trail/around-the-mountain/",
+    "minX": -116.112055,
+    "minY": 43.7493,
+    "maxX": -116.07482203,
+    "maxY": 43.77898814,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 703,
+    "masterTrailName": "Barn Owl",
+    "bturl": "https://boisetrails.com/?s=hidden+springs",
+    "minX": -116.25157063,
+    "minY": 43.70342434,
+    "maxX": -116.24238587,
+    "maxY": 43.71496469,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 704,
+    "masterTrailName": "Big Springs",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.30373474,
+    "minY": 43.69980505,
+    "maxX": -116.29940434,
+    "maxY": 43.70175951,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 705,
+    "masterTrailName": "Bitterbrush Trail",
+    "bturl": "https://boisetrails.com/trail/bitterbrush/",
+    "minX": -116.24264056,
+    "minY": 43.721304,
+    "maxX": -116.234729,
+    "maxY": 43.72586359,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 706,
+    "masterTrailName": "Bob Smylie",
+    "bturl": "https://boisetrails.com/trail/robert-smylie/",
+    "minX": -116.22406787,
+    "minY": 43.64975489,
+    "maxX": -116.21907636,
+    "maxY": 43.65317531,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 707,
+    "masterTrailName": "Bob's Trail",
+    "bturl": "https://boisetrails.com/trail/bobs-trail/",
+    "minX": -116.17424,
+    "minY": 43.65493,
+    "maxX": -116.14879258,
+    "maxY": 43.65889,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 708,
+    "masterTrailName": "Brewer's Byway Extension",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.09804547,
+    "minY": 43.76662551,
+    "maxX": -116.09423394,
+    "maxY": 43.77150903,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 709,
+    "masterTrailName": "Brewers Byway",
+    "bturl": "https://boisetrails.com/trail/brewers-byway/",
+    "minX": -116.09999519,
+    "minY": 43.76162198,
+    "maxX": -116.08833469,
+    "maxY": 43.77207705,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 711,
+    "masterTrailName": "Buena Vista Trail",
+    "bturl": "https://boisetrails.com/trail/buena-vista/",
+    "minX": -116.22598117,
+    "minY": 43.651264,
+    "maxX": -116.21415261,
+    "maxY": 43.654989,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 712,
+    "masterTrailName": "Cartwright Connector",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.23677284,
+    "minY": 43.694836,
+    "maxX": -116.232767,
+    "maxY": 43.708754,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 713,
+    "masterTrailName": "Cartwright Ridge",
+    "bturl": "https://boisetrails.com/?s=cartwright",
+    "minX": -116.2515458,
+    "minY": 43.694033,
+    "maxX": -116.233907,
+    "maxY": 43.70342434,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 714,
+    "masterTrailName": "Central Ridge Spur",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.17245259,
+    "minY": 43.62289728,
+    "maxX": -116.16852636,
+    "maxY": 43.6263995,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 715,
+    "masterTrailName": "Central Ridge Trail",
+    "bturl": "https://boisetrails.com/trail/central-ridge/",
+    "minX": -116.18195212,
+    "minY": 43.61989419,
+    "maxX": -116.153206,
+    "maxY": 43.626877,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 716,
+    "masterTrailName": "Cervidae Peak",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -115.97418765,
+    "minY": 43.5920757,
+    "maxX": -115.95704033,
+    "maxY": 43.61417679,
+    "activity_type": "foot"
+  },
+  {
+    "masterTrailId": 717,
+    "masterTrailName": "CHBH Connector",
+    "bturl": "https://boisetrails.com/trail/chbh-connector/",
+    "minX": -116.229307,
+    "minY": 43.671859,
+    "maxX": -116.2189126,
+    "maxY": 43.6787512,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 718,
+    "masterTrailName": "Chickadee Ridge Trail",
+    "bturl": "https://boisetrails.com/trail/chickadee-ridge/",
+    "minX": -116.196434,
+    "minY": 43.640591,
+    "maxX": -116.186676,
+    "maxY": 43.643024,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 719,
+    "masterTrailName": "Chukar Butte Trail",
+    "bturl": "https://boisetrails.com/trail/chukar-butte-trail/",
+    "minX": -116.245282,
+    "minY": 43.70462,
+    "maxX": -116.193284,
+    "maxY": 43.724617,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 720,
+    "masterTrailName": "Connection (Eagle Ridge)",
+    "bturl": "https://boisetrails.com/trail/eagle-ridge/",
+    "minX": -116.1831005,
+    "minY": 43.617573,
+    "maxX": -116.173012,
+    "maxY": 43.61883481,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 721,
+    "masterTrailName": "Connector",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.1798906,
+    "minY": 43.67316063,
+    "maxX": -116.172226,
+    "maxY": 43.67554501,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 722,
+    "masterTrailName": "Corrals Trail",
+    "bturl": "https://boisetrails.com/trail/corrals/",
+    "minX": -116.17698847,
+    "minY": 43.65101457,
+    "maxX": -116.137245,
+    "maxY": 43.676304,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 723,
+    "masterTrailName": "Cottonwood Creek Trail",
+    "bturl": "https://boisetrails.com/trail/cottonwood-creek/",
+    "minX": -116.183441,
+    "minY": 43.618912,
+    "maxX": -116.16996,
+    "maxY": 43.620018,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 724,
+    "masterTrailName": "Crestline Trail",
+    "bturl": "https://boisetrails.com/trail/crestline/",
+    "minX": -116.17144,
+    "minY": 43.635353,
+    "maxX": -116.15022657,
+    "maxY": 43.64674,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 725,
+    "masterTrailName": "Curlew Connection",
+    "bturl": "https://boisetrails.com/?s=curlew",
+    "minX": -116.135822,
+    "minY": 43.63939196,
+    "maxX": -116.109892,
+    "maxY": 43.648116,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 726,
+    "masterTrailName": "Currant Creek",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.24637436,
+    "minY": 43.71953244,
+    "maxX": -116.2290794,
+    "maxY": 43.73168515,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 727,
+    "masterTrailName": "D's Chaos",
+    "bturl": "https://boisetrails.com/trail/ds-chaos/",
+    "minX": -116.31131346,
+    "minY": 43.70655314,
+    "maxX": -116.3046934,
+    "maxY": 43.71392877,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 728,
+    "masterTrailName": "Deer Point Trail",
+    "bturl": "https://boisetrails.com/trail/deer-point/",
+    "minX": -116.104134,
+    "minY": 43.756439,
+    "maxX": -116.08814,
+    "maxY": 43.76033,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 729,
+    "masterTrailName": "Doe Ridge",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.22338204,
+    "minY": 43.6832394,
+    "maxX": -116.2203815,
+    "maxY": 43.68677697,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 730,
+    "masterTrailName": "Dry Creek Trail",
+    "bturl": "https://boisetrails.com/trail/dry-creek/",
+    "minX": -116.182094,
+    "minY": 43.688607,
+    "maxX": -116.096724,
+    "maxY": 43.72422,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 731,
+    "masterTrailName": "Eagle Ridge Trail",
+    "bturl": "https://boisetrails.com/trail/eagle-ridge/",
+    "minX": -116.1831005,
+    "minY": 43.61722673,
+    "maxX": -116.170769,
+    "maxY": 43.619339,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 732,
+    "masterTrailName": "Elephant Rock Loop",
+    "bturl": "https://boisetrails.com/trail/elephant-rock/",
+    "minX": -116.185074,
+    "minY": 43.621258,
+    "maxX": -116.181488,
+    "maxY": 43.623249,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 733,
+    "masterTrailName": "Elk Meadows Trail",
+    "bturl": "https://boisetrails.com/trail/elk-meadows/",
+    "minX": -116.08814,
+    "minY": 43.76018,
+    "maxX": -116.08321925,
+    "maxY": 43.77563979,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 734,
+    "masterTrailName": "Fat Tire Traverse",
+    "bturl": "https://boisetrails.com/trail/fat-tire-traverse/",
+    "minX": -116.140564,
+    "minY": 43.6408241,
+    "maxX": -116.1318628,
+    "maxY": 43.6458979,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 735,
+    "masterTrailName": "Femrite's Patrol",
+    "bturl": "https://boisetrails.com/trail/femrites-patrol/",
+    "minX": -116.12992785,
+    "minY": 43.638378,
+    "maxX": -116.110016,
+    "maxY": 43.6475594,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 736,
+    "masterTrailName": "Five Mile Gulch Trail",
+    "bturl": "https://boisetrails.com/trail/five-mile-gulch/",
+    "minX": -116.106178,
+    "minY": 43.630692,
+    "maxX": -116.08543083,
+    "maxY": 43.6651983,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 737,
+    "masterTrailName": "Freestone Ridge",
+    "bturl": "https://boisetrails.com/trail/freestone-ridge/",
+    "minX": -116.160103,
+    "minY": 43.62962,
+    "maxX": -116.12941527,
+    "maxY": 43.641129,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 738,
+    "masterTrailName": "Full Sail Trail",
+    "bturl": "https://boisetrails.com/trail/full-sail/",
+    "minX": -116.228277,
+    "minY": 43.6510179,
+    "maxX": -116.22406059,
+    "maxY": 43.65793345,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 740,
+    "masterTrailName": "Gold Finch",
+    "bturl": "https://boisetrails.com/trail/gold-finch/",
+    "minX": -116.199394,
+    "minY": 43.636017,
+    "maxX": -116.194366,
+    "maxY": 43.638901,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 742,
+    "masterTrailName": "Harlow's Hollows",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.25021606,
+    "minY": 43.763737,
+    "maxX": -116.22040977,
+    "maxY": 43.775908,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 743,
+    "masterTrailName": "Harlow's Hollows Connector",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.24851303,
+    "minY": 43.76670211,
+    "maxX": -116.23852227,
+    "maxY": 43.773106,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 744,
+    "masterTrailName": "Harris Ridge Trail",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.1103729,
+    "minY": 43.56561498,
+    "maxX": -116.10420478,
+    "maxY": 43.57734815,
+    "activity_type": "foot"
+  },
+  {
+    "masterTrailId": 745,
+    "masterTrailName": "Harrison Hollow",
+    "bturl": "https://boisetrails.com/trail/harrison-hollow-trail/",
+    "minX": -116.21167882,
+    "minY": 43.64481,
+    "maxX": -116.20625695,
+    "maxY": 43.65514596,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 746,
+    "masterTrailName": "Harrison Ridge",
+    "bturl": "https://boisetrails.com/trail/harrison-ridge/",
+    "minX": -116.21170714,
+    "minY": 43.64445412,
+    "maxX": -116.20499319,
+    "maxY": 43.65547769,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 747,
+    "masterTrailName": "Hawkins",
+    "bturl": "https://boisetrails.com/?s=hawkins",
+    "minX": -116.1822601,
+    "minY": 43.70058654,
+    "maxX": -116.1674193,
+    "maxY": 43.71541406,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 748,
+    "masterTrailName": "Heroes Trail",
+    "bturl": "https://boisetrails.com/?s=hero",
+    "minX": -116.1909128,
+    "minY": 43.62186342,
+    "maxX": -116.1850079,
+    "maxY": 43.62459188,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 749,
+    "masterTrailName": "Highlands Trail",
+    "bturl": "https://boisetrails.com/trail/highlands/",
+    "minX": -116.17698847,
+    "minY": 43.6585895,
+    "maxX": -116.1712389,
+    "maxY": 43.67091791,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 750,
+    "masterTrailName": "Hippie Shake Trail",
+    "bturl": "https://boisetrails.com/trail/hippie-shake/",
+    "minX": -116.210895,
+    "minY": 43.647047,
+    "maxX": -116.208013,
+    "maxY": 43.648784,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 751,
+    "masterTrailName": "Hull's Gulch Interpretive",
+    "bturl": "https://boisetrails.com/trail/hulls-gulch-upper/",
+    "minX": -116.1462113,
+    "minY": 43.64674802,
+    "maxX": -116.11234942,
+    "maxY": 43.67092936,
+    "activity_type": "foot"
+  },
+  {
+    "masterTrailId": 753,
+    "masterTrailName": "Kemper's Ridge Trail",
+    "bturl": "https://boisetrails.com/trail/kempers-ridge/",
+    "minX": -116.21795027,
+    "minY": 43.647191,
+    "maxX": -116.207939,
+    "maxY": 43.65471108,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 754,
+    "masterTrailName": "Kestral Trail",
+    "bturl": "https://boisetrails.com/trail/kestral/",
+    "minX": -116.18322185,
+    "minY": 43.635475,
+    "maxX": -116.173149,
+    "maxY": 43.64114273,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 755,
+    "masterTrailName": "Landslide",
+    "bturl": "https://boisetrails.com/?s=Landslide",
+    "minX": -116.250593,
+    "minY": 43.73168515,
+    "maxX": -116.23909,
+    "maxY": 43.740645,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 756,
+    "masterTrailName": "Lodge Trail",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.09746643,
+    "minY": 43.77473723,
+    "maxX": -116.08753681,
+    "maxY": 43.77630649,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 757,
+    "masterTrailName": "Lower Hull's Gulch Trail",
+    "bturl": "https://boisetrails.com/trail/hulls-gulch-lower/",
+    "minX": -116.184097,
+    "minY": 43.642502,
+    "maxX": -116.14611514,
+    "maxY": 43.647408,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 758,
+    "masterTrailName": "Military Reserve Connection",
+    "bturl": "https://boisetrails.com/trail/military-reserve-connector/",
+    "minX": -116.175163,
+    "minY": 43.62702146,
+    "maxX": -116.17279826,
+    "maxY": 43.634445,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 760,
+    "masterTrailName": "Mores Mtn Interpretive",
+    "bturl": "https://boisetrails.com/trail/mores-mountain/",
+    "minX": -116.09422936,
+    "minY": 43.784287,
+    "maxX": -116.08582,
+    "maxY": 43.79161306,
+    "activity_type": "foot"
+  },
+  {
+    "masterTrailId": 761,
+    "masterTrailName": "Mountain Cove",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.18268767,
+    "minY": 43.62001488,
+    "maxX": -116.170532,
+    "maxY": 43.62886,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 762,
+    "masterTrailName": "Orchard Gulch Trail",
+    "bturl": "https://boisetrails.com/trail/orchard-gulch/",
+    "minX": -116.08580272,
+    "minY": 43.63386835,
+    "maxX": -116.07942407,
+    "maxY": 43.64927935,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 763,
+    "masterTrailName": "Owl's Roost",
+    "bturl": "https://boisetrails.com/trail/owls-roost/",
+    "minX": -116.194351,
+    "minY": 43.638901,
+    "maxX": -116.183182,
+    "maxY": 43.641129,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 764,
+    "masterTrailName": "Peace Valley Overlook",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.10637076,
+    "minY": 43.56346584,
+    "maxX": -116.10422091,
+    "maxY": 43.56683706,
+    "activity_type": "foot"
+  },
+  {
+    "masterTrailId": 765,
+    "masterTrailName": "Peggy's Trail",
+    "bturl": "https://boisetrails.com/trail/peggys-trail/",
+    "minX": -116.218689,
+    "minY": 43.68803972,
+    "maxX": -116.189366,
+    "maxY": 43.7024,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 766,
+    "masterTrailName": "Polecat Loop",
+    "bturl": "https://boisetrails.com/trail/polecat-loop/",
+    "minX": -116.2331716,
+    "minY": 43.6771724,
+    "maxX": -116.212908,
+    "maxY": 43.68973057,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 767,
+    "masterTrailName": "Quarry Trail - Castle Rock",
+    "bturl": "https://boisetrails.com/trail/quarry-trail-castle-rock/",
+    "minX": -116.166748,
+    "minY": 43.60391628,
+    "maxX": -116.15827576,
+    "maxY": 43.607151,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 768,
+    "masterTrailName": "Quick Draw",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.22325331,
+    "minY": 43.6798488,
+    "maxX": -116.21949262,
+    "maxY": 43.68357811,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 769,
+    "masterTrailName": "Rabbit Run",
+    "bturl": "https://boisetrails.com/trail/rabbit-run/",
+    "minX": -116.31355904,
+    "minY": 43.70226184,
+    "maxX": -116.3013742,
+    "maxY": 43.71477179,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 770,
+    "masterTrailName": "Red Cliffs",
+    "bturl": "https://boisetrails.com/trail/red-cliffs/",
+    "minX": -116.18142,
+    "minY": 43.63982,
+    "maxX": -116.16545,
+    "maxY": 43.64355,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 771,
+    "masterTrailName": "Red Tail Trail",
+    "bturl": "https://boisetrails.com/trail/red-tail/",
+    "minX": -116.24704021,
+    "minY": 43.7246448,
+    "maxX": -116.22608,
+    "maxY": 43.73962,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 772,
+    "masterTrailName": "REI Connection",
+    "bturl": "https://boisetrails.com/trail/rei-connection/",
+    "minX": -116.30463754,
+    "minY": 43.70225233,
+    "maxX": -116.30244495,
+    "maxY": 43.70763221,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 773,
+    "masterTrailName": "Ricochet",
+    "bturl": "https://boisetrails.com/trail/ricochet/",
+    "minX": -116.25270363,
+    "minY": 43.77672319,
+    "maxX": -116.24928565,
+    "maxY": 43.78179438,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 774,
+    "masterTrailName": "Ridge Crest",
+    "bturl": "https://boisetrails.com/trail/ridgecrest/",
+    "minX": -116.170532,
+    "minY": 43.620022,
+    "maxX": -116.16423,
+    "maxY": 43.62886,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 775,
+    "masterTrailName": "Rock Garden",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.15826801,
+    "minY": 43.59123505,
+    "maxX": -116.15403304,
+    "maxY": 43.59476816,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 776,
+    "masterTrailName": "Rock Island",
+    "bturl": "https://boisetrails.com/trail/rock-island/",
+    "minX": -116.157082,
+    "minY": 43.589302,
+    "maxX": -116.149635,
+    "maxY": 43.5960543,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 779,
+    "masterTrailName": "Scott's Trail",
+    "bturl": "https://boisetrails.com/trail/scotts/",
+    "minX": -116.139389,
+    "minY": 43.670937,
+    "maxX": -116.121254,
+    "maxY": 43.673275,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 780,
+    "masterTrailName": "Seaman Gulch Trail",
+    "bturl": "https://boisetrails.com/trail/seamans-gulch-loop/",
+    "minX": -116.28493789,
+    "minY": 43.686966,
+    "maxX": -116.27813,
+    "maxY": 43.693115,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 781,
+    "masterTrailName": "Shane's Connector",
+    "bturl": "https://boisetrails.com/trail/shanes/",
+    "minX": -116.141327,
+    "minY": 43.622154,
+    "maxX": -116.136902,
+    "maxY": 43.624577,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 782,
+    "masterTrailName": "Shane's Trail",
+    "bturl": "https://boisetrails.com/trail/shanes/",
+    "minX": -116.153267,
+    "minY": 43.623287,
+    "maxX": -116.141327,
+    "maxY": 43.63023135,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 783,
+    "masterTrailName": "Sheep Camp Trail",
+    "bturl": "https://boisetrails.com/trail/sheep-camp/",
+    "minX": -116.169221,
+    "minY": 43.687281,
+    "maxX": -116.162666,
+    "maxY": 43.691999,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 784,
+    "masterTrailName": "Shindig",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.09317909,
+    "minY": 43.76018,
+    "maxX": -116.08814,
+    "maxY": 43.76557563,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 785,
+    "masterTrailName": "Shingle Creek Trail",
+    "bturl": "https://boisetrails.com/trail/shingle-creek/",
+    "minX": -116.153952,
+    "minY": 43.702616,
+    "maxX": -116.101758,
+    "maxY": 43.719014,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 786,
+    "masterTrailName": "Shooting Range",
+    "bturl": "https://boisetrails.com/trail/shooting-range/",
+    "minX": -116.256498,
+    "minY": 43.7824006,
+    "maxX": -116.2542635,
+    "maxY": 43.78463062,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 787,
+    "masterTrailName": "Shoshone-Paiute",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.17124845,
+    "minY": 43.60691388,
+    "maxX": -116.166748,
+    "maxY": 43.60949757,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 788,
+    "masterTrailName": "Sidewinder Trail",
+    "bturl": "https://boisetrails.com/trail/sidewinder/",
+    "minX": -116.158897,
+    "minY": 43.640697,
+    "maxX": -116.14045944,
+    "maxY": 43.64601511,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 789,
+    "masterTrailName": "Spring Creek",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.25066995,
+    "minY": 43.76674789,
+    "maxX": -116.213808,
+    "maxY": 43.77693934,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 791,
+    "masterTrailName": "Sunshine XC",
+    "bturl": "https://boisetrails.com/?s=Sunshine",
+    "minX": -116.09877,
+    "minY": 43.76487,
+    "maxX": -116.094574,
+    "maxY": 43.76706046,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 792,
+    "masterTrailName": "Sweet Connie Trail",
+    "bturl": "https://boisetrails.com/trail/sweet-connie-trail/",
+    "minX": -116.193531,
+    "minY": 43.691625,
+    "maxX": -116.180063,
+    "maxY": 43.724819,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 793,
+    "masterTrailName": "Table Rock Quarry Trail",
+    "bturl": "https://boisetrails.com/trail/quarry-trail-table-rock/",
+    "minX": -116.15054098,
+    "minY": 43.592884,
+    "maxX": -116.14015918,
+    "maxY": 43.59725551,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 794,
+    "masterTrailName": "Table Rock Trail",
+    "bturl": "https://boisetrails.com/trail/table-rock-trail/",
+    "minX": -116.16250264,
+    "minY": 43.59691125,
+    "maxX": -116.14687,
+    "maxY": 43.60458639,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 795,
+    "masterTrailName": "Tempest Trail",
+    "bturl": "https://boisetrails.com/trail/tempest/",
+    "minX": -116.09819278,
+    "minY": 43.77241,
+    "maxX": -116.09144316,
+    "maxY": 43.77598,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 796,
+    "masterTrailName": "The Face Trail",
+    "bturl": "https://boisetrails.com/trail/face/",
+    "minX": -116.096209,
+    "minY": 43.762137,
+    "maxX": -116.085148,
+    "maxY": 43.77400717,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 797,
+    "masterTrailName": "Three Bears Trail",
+    "bturl": "https://boisetrails.com/trail/three-bears/",
+    "minX": -116.167503,
+    "minY": 43.627777,
+    "maxX": -116.108597,
+    "maxY": 43.635899,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 798,
+    "masterTrailName": "Tram Trail",
+    "bturl": "https://boisetrails.com/trail/tram-trail/",
+    "minX": -116.163651,
+    "minY": 43.589409,
+    "maxX": -116.155937,
+    "maxY": 43.592083,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 799,
+    "masterTrailName": "Twisted Spring",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.26142983,
+    "minY": 43.77660691,
+    "maxX": -116.2507134,
+    "maxY": 43.77923868,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 800,
+    "masterTrailName": "Two Point",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.16695258,
+    "minY": 43.62392973,
+    "maxX": -116.153206,
+    "maxY": 43.6276815,
+    "activity_type": "foot"
+  },
+  {
+    "masterTrailId": 801,
+    "masterTrailName": "Urban Connector",
+    "bturl": "https://boisetrails.com/trail/urban-connection/",
+    "minX": -116.1721466,
+    "minY": 43.6576,
+    "maxX": -116.16192811,
+    "maxY": 43.66274879,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 802,
+    "masterTrailName": "Veterans",
+    "bturl": "https://boisetrails.com/boise-trail-map/",
+    "minX": -116.30355868,
+    "minY": 43.69177161,
+    "maxX": -116.29932298,
+    "maxY": 43.70194126,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 803,
+    "masterTrailName": "Watchman Trail",
+    "bturl": "https://boisetrails.com/trail/watchman/",
+    "minX": -116.11442143,
+    "minY": 43.63587654,
+    "maxX": -116.09053,
+    "maxY": 43.652829,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 804,
+    "masterTrailName": "Whistling Pig",
+    "bturl": "https://boisetrails.com/?s=whistling+pig",
+    "minX": -116.26022627,
+    "minY": 43.77858762,
+    "maxX": -116.25649545,
+    "maxY": 43.784717,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 805,
+    "masterTrailName": "Who Now Loop Trail",
+    "bturl": "https://boisetrails.com/trail/who-now-loop/",
+    "minX": -116.214543,
+    "minY": 43.64874864,
+    "maxX": -116.208477,
+    "maxY": 43.65418362,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 806,
+    "masterTrailName": "Wild Phlox Trail",
+    "bturl": "https://boisetrails.com/trail/wild-phlox/",
+    "minX": -116.27816,
+    "minY": 43.68949,
+    "maxX": -116.27455,
+    "maxY": 43.69456,
+    "activity_type": "both"
+  },
+  {
+    "masterTrailId": 812,
+    "masterTrailName": "Stack Rock Connector",
+    "bturl": "",
+    "minX": -116.12826,
+    "minY": 43.73381,
+    "maxX": -116.12396,
+    "maxY": 43.73847,
+    "activity_type": "both"
+  }
+]

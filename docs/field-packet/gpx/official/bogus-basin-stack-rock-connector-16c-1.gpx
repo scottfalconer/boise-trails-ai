@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Bogus Basin: Stack Rock Connector (16C-1)</name>
-    <desc>16C-1. Freddy's Stack Rock | Official 3.5 mi; On-foot 6.88 mi; Door-to-door p75 2h 50m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16C-1. Freddy's Stack Rock | Official 1.0 mi; On-foot 7.1 mi; Door-to-door p75 2h 50m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.737509" lon="-116.126922">
     <name>PARK/START Freddy's Stack Rock Trailhead</name>
@@ -12,14 +12,27 @@
     <name>CUE 01 Stack Rock Connector</name>
     <desc>Follow Stack Rock Connector. First official segment here: Stack Rock Connector. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.737994" lon="-116.127817">
+  <wpt lat="43.737262" lon="-116.126445">
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
   <trk>
     <name>Bogus Basin: Stack Rock Connector (16C-1)</name>
-    <desc>16C-1. Freddy's Stack Rock | Official 3.5 mi; On-foot 6.88 mi; Door-to-door p75 2h 50m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16C-1. Freddy's Stack Rock | Official 1.0 mi; On-foot 7.1 mi; Door-to-door p75 2h 50m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
+      <trkpt lat="43.737262" lon="-116.126445" />
+      <trkpt lat="43.737439" lon="-116.126804" />
+      <trkpt lat="43.737615" lon="-116.127163" />
+      <trkpt lat="43.737792" lon="-116.127521" />
+      <trkpt lat="43.737828" lon="-116.127497" />
+      <trkpt lat="43.737869" lon="-116.127500" />
+      <trkpt lat="43.737910" lon="-116.127514" />
+      <trkpt lat="43.737956" lon="-116.127545" />
+      <trkpt lat="43.737983" lon="-116.127601" />
+      <trkpt lat="43.737988" lon="-116.127659" />
+      <trkpt lat="43.737975" lon="-116.127717" />
+      <trkpt lat="43.737946" lon="-116.127768" />
+      <trkpt lat="43.737974" lon="-116.127797" />
       <trkpt lat="43.738009" lon="-116.127819" />
       <trkpt lat="43.738160" lon="-116.127860" />
       <trkpt lat="43.738280" lon="-116.127940" />
@@ -137,6 +150,13 @@
       <trkpt lat="43.734330" lon="-116.127390" />
       <trkpt lat="43.734190" lon="-116.127440" />
       <trkpt lat="43.734172" lon="-116.127443" />
+      <trkpt lat="43.734190" lon="-116.127440" />
+      <trkpt lat="43.734330" lon="-116.127390" />
+      <trkpt lat="43.734272" lon="-116.127411" />
+      <trkpt lat="43.734130" lon="-116.127455" />
+      <trkpt lat="43.734038" lon="-116.127535" />
+      <trkpt lat="43.733934" lon="-116.127790" />
+      <trkpt lat="43.733910" lon="-116.128010" />
       <trkpt lat="43.733941" lon="-116.127983" />
       <trkpt lat="43.733910" lon="-116.128120" />
       <trkpt lat="43.733820" lon="-116.128610" />
@@ -353,6 +373,7 @@
       <trkpt lat="43.742030" lon="-116.149270" />
       <trkpt lat="43.742210" lon="-116.149460" />
       <trkpt lat="43.742467" lon="-116.149452" />
+      <trkpt lat="43.742502" lon="-116.149469" />
       <trkpt lat="43.742547" lon="-116.149439" />
       <trkpt lat="43.742500" lon="-116.149411" />
       <trkpt lat="43.742361" lon="-116.149378" />
@@ -885,6 +906,19 @@
       <trkpt lat="43.738068" lon="-116.127890" />
       <trkpt lat="43.738020" lon="-116.127854" />
       <trkpt lat="43.737994" lon="-116.127817" />
+      <trkpt lat="43.737974" lon="-116.127797" />
+      <trkpt lat="43.737946" lon="-116.127768" />
+      <trkpt lat="43.737975" lon="-116.127717" />
+      <trkpt lat="43.737988" lon="-116.127659" />
+      <trkpt lat="43.737983" lon="-116.127601" />
+      <trkpt lat="43.737956" lon="-116.127545" />
+      <trkpt lat="43.737910" lon="-116.127514" />
+      <trkpt lat="43.737869" lon="-116.127500" />
+      <trkpt lat="43.737828" lon="-116.127497" />
+      <trkpt lat="43.737792" lon="-116.127521" />
+      <trkpt lat="43.737615" lon="-116.127163" />
+      <trkpt lat="43.737439" lon="-116.126804" />
+      <trkpt lat="43.737262" lon="-116.126445" />
     </trkseg>
   </trk>
 </gpx>

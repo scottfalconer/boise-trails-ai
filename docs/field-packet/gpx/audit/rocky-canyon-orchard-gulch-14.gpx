@@ -18,7 +18,7 @@
   </wpt>
   <wpt lat="43.655307" lon="-116.087400">
     <name>ASCENT 2 Five Mile Gulch Trail 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.46 mi. est. 17 min; p75 33 min; 1194 ft climb.</desc>
+    <desc>Ascent-only segment; verify signed uphill direction. Official 1.46 mi. est. 17 min; p75 33 min; 1194 ft climb.</desc>
   </wpt>
   <wpt lat="43.647133" lon="-116.088905">
     <name>SEG 3 Five Mile Gulch Trail 2</name>
@@ -28,7 +28,7 @@
     <name>SEG 4 Five Mile Gulch Trail 3</name>
     <desc>Either direction allowed; follow map arrows. Official 1.41 mi. est. 17 min; p75 20 min; 83 ft climb.</desc>
   </wpt>
-  <wpt lat="43.640070" lon="-116.110818">
+  <wpt lat="43.639709" lon="-116.110794">
     <name>SEG 5 Watchman Trail 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.76 mi. est. 9 min; p75 15 min; 417 ft climb.</desc>
   </wpt>

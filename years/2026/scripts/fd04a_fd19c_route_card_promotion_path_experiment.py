@@ -32,7 +32,7 @@ DEFAULT_SEGMENT_PROMOTIONS_JSON = YEAR_DIR / "inputs" / "personal" / "2026-cross
 DEFAULT_CALENDAR_JSON = YEAR_DIR / "checkpoints" / "p90-relaxed-drive-calendar-assignment-2026-05-06.json"
 DEFAULT_PROOF_JSON = YEAR_DIR / "checkpoints" / "fd04a-fd19c-credit-promotion-experiment-2026-05-12.json"
 DEFAULT_CALENDAR_REORDER_JSON = YEAR_DIR / "checkpoints" / "calendar-reorder-latent-credit-experiment-2026-05-12.json"
-DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 DEFAULT_BASE_MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
 DEFAULT_BASE_PROMOTION_REPORT_JSON = YEAR_DIR / "checkpoints" / "harlow-h1-route-card-promotion-2026-05-12.json"
 

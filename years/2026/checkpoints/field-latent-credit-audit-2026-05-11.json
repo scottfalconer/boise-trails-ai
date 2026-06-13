@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-10T03:15:29.082678+00:00",
+  "audited_at": "2026-06-13T17:48:26.430996+00:00",
   "status": "passed",
   "summary": {
     "route_count": 31,
@@ -19,8 +19,8 @@
   "source_files": {
     "field_tool_data_json": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
     "packet_dir": "/Users/scott/dev/boise-trails-ai/docs/field-packet",
-    "official_geojson": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
-    "official_last_updated_utc": "2026-05-01T19:14:44",
+    "official_geojson": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson",
+    "official_last_updated_utc": "2026-06-11T01:45:43",
     "dem_tif": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/dem-2026-05-04/usgs_13arcsec_boise_planning_bbox.tif",
     "dem_summary_json": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/dem-2026-05-04/dem_summary.json"
   },
@@ -45,8 +45,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 525,
-      "review_point_count": 525,
+      "activity_point_count": 822,
+      "review_point_count": 822,
       "candidate_segment_count": 5,
       "latent_completed_segment_ids": [
         "1542",
@@ -637,8 +637,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-12.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1855,
-      "review_point_count": 928,
+      "activity_point_count": 1995,
+      "review_point_count": 998,
       "candidate_segment_count": 31,
       "latent_completed_segment_ids": [
         "1498",
@@ -1209,8 +1209,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-highlands-15b.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 3096,
-      "review_point_count": 1033,
+      "activity_point_count": 3260,
+      "review_point_count": 1088,
       "candidate_segment_count": 26,
       "latent_completed_segment_ids": [
         "1527",
@@ -1788,8 +1788,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-barn-owl-5a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 631,
-      "review_point_count": 631,
+      "activity_point_count": 640,
+      "review_point_count": 640,
       "candidate_segment_count": 3,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -1841,8 +1841,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 525,
-      "review_point_count": 525,
+      "activity_point_count": 822,
+      "review_point_count": 822,
       "candidate_segment_count": 5,
       "latent_completed_segment_ids": [
         "1542",
@@ -2184,8 +2184,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hawkins-range-reserve-hawkins-11.gpx",
       "audit_status": "passed",
-      "activity_point_count": 6113,
-      "review_point_count": 1020,
+      "activity_point_count": 6291,
+      "review_point_count": 1050,
       "candidate_segment_count": 4,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -2194,7 +2194,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1572"
+        "1571"
       ],
       "segments": []
     },
@@ -2467,23 +2467,20 @@
         "multi-start-16c-16c-ms-02-1-stack-rock-connector"
       ],
       "planned_segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-stack-rock-connector-16c-1.gpx",
       "audit_status": "passed",
-      "activity_point_count": 865,
-      "review_point_count": 865,
-      "candidate_segment_count": 3,
+      "activity_point_count": 899,
+      "review_point_count": 899,
+      "candidate_segment_count": 1,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1667"
-      ],
+      "partial_segment_ids": [],
       "segments": []
     },
     {
@@ -2683,8 +2680,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-12.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1855,
-      "review_point_count": 928,
+      "activity_point_count": 1995,
+      "review_point_count": 998,
       "candidate_segment_count": 31,
       "latent_completed_segment_ids": [
         "1498",
@@ -2848,9 +2845,9 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sweet-connie-16a-1.gpx",
       "audit_status": "passed",
-      "activity_point_count": 3181,
-      "review_point_count": 1061,
-      "candidate_segment_count": 15,
+      "activity_point_count": 1563,
+      "review_point_count": 782,
+      "candidate_segment_count": 7,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
@@ -2861,7 +2858,8 @@
         "1519",
         "1542",
         "1597",
-        "1663"
+        "1665",
+        "1667"
       ],
       "segments": []
     },
@@ -3374,8 +3372,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-highlands-15b.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 3096,
-      "review_point_count": 1033,
+      "activity_point_count": 3260,
+      "review_point_count": 1088,
       "candidate_segment_count": 26,
       "latent_completed_segment_ids": [
         "1527",

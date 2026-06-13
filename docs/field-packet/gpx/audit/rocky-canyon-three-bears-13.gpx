@@ -60,7 +60,7 @@
     <name>SEG 7 Freestone Ridge 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.35 mi. est. 4 min; p75 5 min; 8 ft climb.</desc>
   </wpt>
-  <wpt lat="43.635063" lon="-116.152130">
+  <wpt lat="43.635098" lon="-116.151726">
     <name>SEG 8 Freestone Ridge 1</name>
     <desc>Either direction allowed; follow map arrows. Official 1.66 mi. est. 18 min; p75 21 min; 9 ft climb.</desc>
   </wpt>
@@ -68,7 +68,7 @@
     <name>SEG 9 Shane's Trail 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.45 mi. est. 5 min; p75 7 min; 83 ft climb.</desc>
   </wpt>
-  <wpt lat="43.623817" lon="-116.147034">
+  <wpt lat="43.623669" lon="-116.147072">
     <name>SEG 10 Shane's Trail 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.98 mi. est. 11 min; p75 15 min; 231 ft climb.</desc>
   </wpt>
@@ -76,7 +76,7 @@
     <name>SEG 11 Shane's Trail 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 5 min; p75 9 min; 215 ft climb.</desc>
   </wpt>
-  <wpt lat="43.623024" lon="-116.140114">
+  <wpt lat="43.622925" lon="-116.140137">
     <name>SEG 12 Shane's Connector 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.44 mi. est. 5 min; p75 7 min; 119 ft climb.</desc>
   </wpt>
@@ -84,17 +84,17 @@
     <name>SEG 13 Two Point 1</name>
     <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 19 min; p75 23 min; 95 ft climb.</desc>
   </wpt>
-  <wpt lat="43.644152" lon="-116.134569">
+  <wpt lat="43.644017" lon="-116.134622">
     <name>SEG 14 Fat Tire Traverse 1</name>
     <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 14 min; p75 19 min; 262 ft climb.</desc>
   </wpt>
   <wpt lat="43.640089" lon="-116.132762">
     <name>ASCENT 15 Curlew Connection 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.47 mi. est. 8 min; p75 12 min; 245 ft climb.</desc>
+    <desc>Ascent-only segment; verify signed uphill direction. Official 0.47 mi. est. 8 min; p75 12 min; 245 ft climb.</desc>
   </wpt>
   <wpt lat="43.645227" lon="-116.120986">
     <name>ASCENT 16 Curlew Connection 2</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 2.43 mi. est. 38 min; p75 1h 8m; 2241 ft climb.</desc>
+    <desc>Ascent-only segment; verify signed uphill direction. Official 2.43 mi. est. 38 min; p75 1h 8m; 2241 ft climb.</desc>
   </wpt>
   <trk>
     <name>Rocky Canyon: Three Bears (13) audit</name>

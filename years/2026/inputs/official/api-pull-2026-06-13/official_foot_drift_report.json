@@ -1,0 +1,221 @@
+{
+  "schema": "boise_trails_official_data_drift_v1",
+  "generated_at_utc": "2026-06-13T15:52:15Z",
+  "old_pull_dir": "years/2026/inputs/official/api-pull-2026-05-04",
+  "new_pull_dir": "years/2026/inputs/official/api-pull-2026-06-13",
+  "old_trails_last_updated_utc": "2026-05-01T19:14:44",
+  "new_trails_last_updated_utc": "2026-06-11T01:45:43",
+  "summary": {
+    "old_foot_segments": 251,
+    "new_foot_segments": 250,
+    "delta_foot_segments": -1,
+    "old_foot_miles": 164.43,
+    "new_foot_miles": 159.0,
+    "delta_foot_miles": -5.43,
+    "added_segment_count": 1,
+    "removed_segment_count": 2,
+    "changed_common_segment_count": 4
+  },
+  "removed_foot_segments": [
+    {
+      "segId": 1663,
+      "segName": "Stack Rock Connector 1",
+      "LengthFt": 13159.4,
+      "direction": "both",
+      "specInst": "",
+      "activity_type": "both"
+    },
+    {
+      "segId": 1664,
+      "segName": "Stack Rock Connector 2",
+      "LengthFt": 5304.95,
+      "direction": "both",
+      "specInst": "",
+      "activity_type": "both"
+    }
+  ],
+  "added_foot_segments": [
+    {
+      "segId": 1762,
+      "segName": "Stack Rock Connector 2",
+      "LengthFt": 5304.95,
+      "direction": "both",
+      "specInst": "",
+      "activity_type": "both"
+    }
+  ],
+  "changed_foot_segments": [
+    {
+      "segId": 1601,
+      "old": {
+        "segId": 1601,
+        "segName": "Polecat Loop 5",
+        "LengthFt": 7496.54,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "new": {
+        "segId": 1601,
+        "segName": "Polecat Loop 5",
+        "LengthFt": 7496.54,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "property_changes": {},
+      "geometry_changed": true,
+      "old_geometry_sha256": "35455f8fe9d33f23fca26fba8ef2b7d8c7e2780bf27fe144d8052bd17c8fe501",
+      "new_geometry_sha256": "731e414397b00de1b3ae4c5ae2cd15cf839da26ff440a32ef789c7c33ba0e2ff"
+    },
+    {
+      "segId": 1603,
+      "old": {
+        "segId": 1603,
+        "segName": "Polecat Loop 6",
+        "LengthFt": 881.68,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "new": {
+        "segId": 1603,
+        "segName": "Polecat Loop 6",
+        "LengthFt": 881.68,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "property_changes": {},
+      "geometry_changed": true,
+      "old_geometry_sha256": "eb4b5c3bbe55ed8a50ca67c7efc2ad9c1763073efaecaa7acf202e51c23fa375",
+      "new_geometry_sha256": "280760665ab0e99c7003906449da09d39ed25a396abc979c2f8d3b976855f262"
+    },
+    {
+      "segId": 1667,
+      "old": {
+        "segId": 1667,
+        "segName": "Sweet Connie Trail 3",
+        "LengthFt": 23921.3,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "new": {
+        "segId": 1667,
+        "segName": "Sweet Connie Trail 3",
+        "LengthFt": 8386.01,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "property_changes": {
+        "LengthFt": {
+          "old": 23921.3,
+          "new": 8386.01
+        }
+      },
+      "geometry_changed": true,
+      "old_geometry_sha256": "aaee7d29b6d353ef4ac24a5cddba997e10e2ebd844c0b1d0441b26050f62cf87",
+      "new_geometry_sha256": "6bb47067842076b60cca68e435c10d6130570c59a3429de195215c324ba8dbd5"
+    },
+    {
+      "segId": 1750,
+      "old": {
+        "segId": 1750,
+        "segName": "Around the Mountain Trail 7",
+        "LengthFt": 1796.82,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "both"
+      },
+      "new": {
+        "segId": 1750,
+        "segName": "Around the Mountain Trail 7",
+        "LengthFt": 1796.82,
+        "direction": "ascent",
+        "specInst": "",
+        "activity_type": "foot"
+      },
+      "property_changes": {
+        "activity_type": {
+          "old": "both",
+          "new": "foot"
+        }
+      },
+      "geometry_changed": false,
+      "old_geometry_sha256": "7f5be4513e9bab1033bd70718cc7002aa09c826f3ca6b3166012d77a8080768e",
+      "new_geometry_sha256": "7f5be4513e9bab1033bd70718cc7002aa09c826f3ca6b3166012d77a8080768e"
+    }
+  ],
+  "active_field_packet_impacts": {
+    "field_tool_data_path": "docs/field-packet/field-tool-data.json",
+    "unique_claimed_segment_count": 251,
+    "routes_claiming_removed_segments": {
+      "1663": [
+        {
+          "label": "16C-1",
+          "route_name": "Bogus Basin: Stack Rock Connector",
+          "field_readiness_status": "field_ready",
+          "official_miles": 3.5,
+          "on_foot_miles": 6.88
+        }
+      ],
+      "1664": [
+        {
+          "label": "16C-1",
+          "route_name": "Bogus Basin: Stack Rock Connector",
+          "field_readiness_status": "field_ready",
+          "official_miles": 3.5,
+          "on_foot_miles": 6.88
+        }
+      ]
+    },
+    "routes_claiming_changed_segments": {
+      "1601": [
+        {
+          "label": "5B",
+          "route_name": "Polecat Gulch: Polecat Loop",
+          "field_readiness_status": "field_ready",
+          "official_miles": 6.56,
+          "on_foot_miles": 8.38
+        }
+      ],
+      "1603": [
+        {
+          "label": "5B",
+          "route_name": "Polecat Gulch: Polecat Loop",
+          "field_readiness_status": "field_ready",
+          "official_miles": 6.56,
+          "on_foot_miles": 8.38
+        }
+      ],
+      "1667": [
+        {
+          "label": "16A-1",
+          "route_name": "Dry Creek: Sweet Connie",
+          "field_readiness_status": "field_ready",
+          "official_miles": 6.09,
+          "on_foot_miles": 14.2
+        }
+      ],
+      "1750": [
+        {
+          "label": "17",
+          "route_name": "Bogus Basin: Sunshine XC",
+          "field_readiness_status": "field_ready",
+          "official_miles": 11.29,
+          "on_foot_miles": 16.02
+        }
+      ]
+    },
+    "new_official_segments_not_claimed_by_active_packet": [
+      "1762"
+    ],
+    "old_claimed_segments_no_longer_official": [
+      "1663",
+      "1664"
+    ]
+  },
+  "recommended_next_step": "Treat this as a route-list change event: update the canonical official input path, repair affected route cards, regenerate the field packet, and run the field-packet certification chain before using the active menu."
+}

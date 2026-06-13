@@ -4,6 +4,49 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-13 - Official map refresh and packet recertification
+
+- Objective: refresh against the latest public Boise Trails Challenge trail API
+  before the challenge window and recertify the active field packet after route
+  list/geometry drift.
+- Result:
+  - Added a reusable official puller and captured the June 13 public pull under
+    `years/2026/inputs/official/api-pull-2026-06-13/`.
+  - Official on-foot challenge data is now 250 segments / 159.0 mi. The May 4
+    list had 251 segments / 164.43 mi.
+  - Repaired official drift: removed old Stack Rock Connector 1 (`1663`),
+    remapped old Stack Rock Connector 2 (`1664`) to current `1762`, synchronized
+    Sweet Connie `1667`, and flipped Polecat special-management direction
+    overrides for exact official-geometry reversals (`1601`, `1603`).
+  - Regenerated public map/menu artifacts and the mobile field packet. Route
+    `16C-1` now claims only official segment `1762` and includes an explicit
+    Freddy's Stack Rock service-connector checkpoint for the walkthrough gate.
+- Validation:
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    93 GPX files plus regenerated packet HTML/manifest.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 250
+    remaining available official segments.
+  - `python3 years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python3 years/2026/scripts/route_edge_cover_audit.py` passed 31 / 31
+    routes.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 20 / 20
+    requirements, 31 field-ready routes, 250 / 250 accounted official segments,
+    and special-management passed.
+  - `python3 years/2026/scripts/field_route_walkthrough_audit.py` passed 31 /
+    31 routes.
+  - `python3 years/2026/scripts/post_credit_connector_audit.py` passed with 0
+    findings and 0 source-gap proof blockers.
+  - `pytest -q years/2026/tests/test_pull_official_challenge_data.py years/2026/tests/test_repair_official_data_drift.py years/2026/tests/test_reconcile_field_packet_menu_metrics.py years/2026/tests/test_field_route_walkthrough_audit.py years/2026/tests/test_special_management_rule_audit.py years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_route_edge_cover_audit.py years/2026/tests/test_field_progress_report.py years/2026/tests/test_field_recertification_report.py`
+    passed 72 tests.
+  - `git diff --check` passed; changed JSON/GeoJSON artifacts validated with
+    `python3 -m json.tool`.
+- Current blocker:
+  - No known packet/source certification blocker remains after the June 13
+    official-data refresh. Standard day-of condition, closure, heat, and signage
+    checks still apply before running any route.
+
 ## 2026-06-09
 
 ### Phase 3 - apply the human-judgment queue wins + exporter quality
@@ -5192,6 +5235,37 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     before the packet can return to field-ready. This pass intentionally did
     not apply private activity progress, repair FD12A, or mass-edit generated
     route sources.
+
+## 2026-06-13 - Official segment data refresh
+
+- Objective: refresh current official Boise Trails Challenge segment data before
+  challenge start and make future route-list drift checks repeatable.
+- Result:
+  - Added `years/2026/scripts/pull_official_challenge_data.py` to pull public
+    read-only `/api/trails` data, derive foot-only official files, save challenge
+    metadata without raw leaderboard rows, and compare against the prior official
+    pull.
+  - Saved the latest public official pull under
+    `years/2026/inputs/official/api-pull-2026-06-13/`.
+  - The live trail payload reports `lastUpdatedUTC=2026-06-11T01:45:43`.
+  - On-foot official data changed from 251 segments / 164.43 mi to 250 segments
+    / 159.0 mi. Removed: Stack Rock Connector `1663` and `1664`. Added: Stack
+    Rock Connector `1762`. Changed common segments: Polecat `1601` / `1603`
+    geometry, Sweet Connie `1667` length/geometry, Around the Mountain `1750`
+    activity type.
+  - The active field packet is now stale against the latest official route list:
+    route `16C-1` claims removed segments `1663` / `1664`, new official segment
+    `1762` is unclaimed, and routes `5B`, `16A-1`, and `17` touch changed
+    common segments.
+- Validation:
+  - `pytest -q years/2026/tests/test_pull_official_challenge_data.py` passed 2
+    tests.
+  - `python3 years/2026/scripts/pull_official_challenge_data.py --pull-date 2026-06-13 --trails-json /tmp/btc_trails_latest.json --leaderboard-json /tmp/btc_leaderboard_latest.json --compare-to years/2026/inputs/official/api-pull-2026-05-04 --field-tool-data docs/field-packet/field-tool-data.json` passed and wrote the new pull plus drift report.
+- Current blocker:
+  - This is a route-list change event. The canonical field packet should not be
+    treated as current until affected route cards are repaired/regenerated and
+    the field-packet certification chain is run against the June 13 official
+    data.
 
 ## 2026-05-24 - Route-card-first phone packet
 

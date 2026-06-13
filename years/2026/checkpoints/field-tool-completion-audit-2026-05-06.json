@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-10T03:26:28.122004+00:00",
+  "generated_at": "2026-06-13T20:48:30.798422+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -9,11 +9,11 @@
     "route_count": 31,
     "field_ready_route_count": 31,
     "held_route_count": 0,
-    "official_segment_count": 251,
-    "field_menu_segment_count": 251,
+    "official_segment_count": 250,
+    "field_menu_segment_count": 250,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
-    "accounted_segment_count": 251,
+    "accounted_segment_count": 250,
     "canonical_route_metric_failure_count": 0,
     "live_map_default_cue_failure_count": 0,
     "advisory_check_count": 4,
@@ -25,7 +25,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3; canonical map hash 21c654285254603d80d609f17f6a01bccbe3e3181308ba2545cf5b74c77457c3"
+      "evidence": "field source hash 09b101db7876b5aebad636907d9a77d44d761e850fef36e14f6e68abfa4fef4a; canonical map hash 09b101db7876b5aebad636907d9a77d44d761e850fef36e14f6e68abfa4fef4a"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -65,7 +65,7 @@
     {
       "requirement": "Active field packet accounts for every official segment geometry id",
       "passed": true,
-      "evidence": "field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids"
+      "evidence": "field menu 250 ids; completed 0 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
     },
     {
       "requirement": "GPX validation passed for every exported route card",
@@ -151,7 +151,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-10T03:26:26.358293+00:00",
+    "generated_at": "2026-06-13T20:48:28.748492+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -345,10 +345,10 @@
             "segment_id": "1601",
             "segment_name": "Polecat Loop 5",
             "observed_directions": {
-              "reverse": 1.419
+              "forward": 1.419
             },
             "allowed_directions": [
-              "reverse"
+              "forward"
             ]
           },
           {
@@ -356,10 +356,10 @@
             "segment_id": "1603",
             "segment_name": "Polecat Loop 6",
             "observed_directions": {
-              "reverse": 0.167
+              "forward": 0.167
             },
             "allowed_directions": [
-              "reverse"
+              "forward"
             ]
           },
           {

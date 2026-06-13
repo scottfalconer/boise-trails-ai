@@ -52,8 +52,8 @@
             "Dry Creek Trail"
           ],
           "notes": [
-        "SWIMBA describes parking at the Dry Creek Trailhead on Bogus Basin Road across from Sweet Connie.",
-        "Local route writeups describe this as roadside parking / gravel pull-off parking, not an official full-service trailhead; verify signage day-of.",
+            "SWIMBA describes parking at the Dry Creek Trailhead on Bogus Basin Road across from Sweet Connie.",
+            "Local route writeups describe this as roadside parking / gravel pull-off parking, not an official full-service trailhead; verify signage day-of.",
             "This is not a private home/work origin."
           ]
         },
@@ -114,7 +114,7 @@
             1666,
             1667
           ],
-          "target_official_miles": 6.09,
+          "target_official_miles": 3.14,
           "target_on_foot_miles_range": [
             10.5,
             14.5
@@ -158,8 +158,7 @@
             1667,
             1656,
             1653,
-            1663,
-            1664
+            1762
           ],
           "required_ascent_segment_ids": [
             1665,
@@ -167,7 +166,7 @@
             1667,
             1656
           ],
-          "target_official_miles": 15.12,
+          "target_official_miles": 9.67,
           "target_on_foot_miles_range": [
             24.0,
             32.0

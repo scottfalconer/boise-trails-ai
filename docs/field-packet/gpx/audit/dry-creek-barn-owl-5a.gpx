@@ -2,13 +2,13 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Dry Creek: Barn Owl (5A) audit</name>
-    <desc>5A. West Hidden Springs Drive road-parking anchor | Official 1.44 mi; On-foot 2.88 mi; Door-to-door p75 1h 34m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5A. West Hidden Springs Drive road-parking anchor | Official 1.44 mi; On-foot 2.96 mi; Door-to-door p75 1h 34m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.714671" lon="-116.241924">
     <name>PARK/START West Hidden Springs Drive road-parking anchor</name>
     <desc>Park here and start this outing.</desc>
   </wpt>
-  <wpt lat="43.714965" lon="-116.242386">
+  <wpt lat="43.714671" lon="-116.241924">
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
@@ -22,8 +22,12 @@
   </wpt>
   <trk>
     <name>Dry Creek: Barn Owl (5A) audit</name>
-    <desc>5A. West Hidden Springs Drive road-parking anchor | Official 1.44 mi; On-foot 2.88 mi; Door-to-door p75 1h 34m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5A. West Hidden Springs Drive road-parking anchor | Official 1.44 mi; On-foot 2.96 mi; Door-to-door p75 1h 34m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
+      <trkpt lat="43.714671" lon="-116.241924" />
+      <trkpt lat="43.714858" lon="-116.242102" />
+      <trkpt lat="43.715045" lon="-116.242280" />
+      <trkpt lat="43.714986" lon="-116.242379" />
       <trkpt lat="43.714965" lon="-116.242386" />
       <trkpt lat="43.714942" lon="-116.242420" />
       <trkpt lat="43.714831" lon="-116.242537" />
@@ -322,6 +326,7 @@
       <trkpt lat="43.703484" lon="-116.251559" />
       <trkpt lat="43.703449" lon="-116.251571" />
       <trkpt lat="43.703424" lon="-116.251546" />
+      <trkpt lat="43.703418" lon="-116.251501" />
       <trkpt lat="43.703452" lon="-116.251556" />
       <trkpt lat="43.703474" lon="-116.251569" />
       <trkpt lat="43.703494" lon="-116.251549" />
@@ -655,6 +660,10 @@
       <trkpt lat="43.714831" lon="-116.242537" />
       <trkpt lat="43.714942" lon="-116.242420" />
       <trkpt lat="43.714965" lon="-116.242386" />
+      <trkpt lat="43.714986" lon="-116.242379" />
+      <trkpt lat="43.715045" lon="-116.242280" />
+      <trkpt lat="43.714858" lon="-116.242102" />
+      <trkpt lat="43.714671" lon="-116.241924" />
     </trkseg>
   </trk>
 </gpx>

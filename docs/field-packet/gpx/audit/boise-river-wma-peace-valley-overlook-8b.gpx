@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Boise River WMA: Peace Valley Overlook (8B) audit</name>
-    <desc>8B. Homestead | Official 0.54 mi; On-foot 2.7 mi; Door-to-door p75 1h 41m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>8B. Homestead | Official 0.53 mi; On-foot 2.7 mi; Door-to-door p75 1h 41m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.572108" lon="-116.113852">
     <name>PARK/START Homestead Trail Access Point</name>
@@ -16,17 +16,17 @@
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
-  <wpt lat="43.564883" lon="-116.105639">
+  <wpt lat="43.565023" lon="-116.105735">
     <name>SEG 1 Peace Valley Overlook 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.24 mi. est. 4 min; p75 7 min; 188 ft climb.</desc>
   </wpt>
-  <wpt lat="43.566345" lon="-116.105146">
+  <wpt lat="43.566296" lon="-116.105078">
     <name>SEG 2 Peace Valley Overlook 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.3 mi. est. 5 min; p75 7 min; 77 ft climb.</desc>
   </wpt>
   <trk>
     <name>Boise River WMA: Peace Valley Overlook (8B) audit</name>
-    <desc>8B. Homestead | Official 0.54 mi; On-foot 2.7 mi; Door-to-door p75 1h 41m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>8B. Homestead | Official 0.53 mi; On-foot 2.7 mi; Door-to-door p75 1h 41m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.572100" lon="-116.114000" />
       <trkpt lat="43.572000" lon="-116.114000" />

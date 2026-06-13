@@ -13,13 +13,29 @@
       "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/",
       "blocking": true,
       "segment_direction_overrides": {
-        "1599": ["forward", "reverse"],
-        "1602": ["forward"],
-        "1600": ["forward"],
-        "1598": ["reverse"],
-        "1601": ["reverse"],
-        "1603": ["reverse"],
-        "1604": ["forward", "reverse"]
+        "1599": [
+          "forward",
+          "reverse"
+        ],
+        "1602": [
+          "forward"
+        ],
+        "1600": [
+          "forward"
+        ],
+        "1598": [
+          "reverse"
+        ],
+        "1601": [
+          "forward"
+        ],
+        "1603": [
+          "forward"
+        ],
+        "1604": [
+          "forward",
+          "reverse"
+        ]
       },
       "exceptions": [
         {
@@ -29,7 +45,10 @@
         {
           "name": "Cartwright to lower Doe Ridge junction",
           "description": "Published multi-directional section for shorter north-side loops.",
-          "segment_ids": ["1599", "1604"]
+          "segment_ids": [
+            "1599",
+            "1604"
+          ]
         }
       ]
     },
@@ -43,13 +62,27 @@
       "source_url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
       "blocking": true,
       "segment_direction_overrides": {
-        "1488": ["forward"],
-        "1489": ["forward"],
-        "1490": ["forward"],
-        "1491": ["forward"],
-        "1492": ["forward"],
-        "1493": ["forward"],
-        "1750": ["forward"]
+        "1488": [
+          "forward"
+        ],
+        "1489": [
+          "forward"
+        ],
+        "1490": [
+          "forward"
+        ],
+        "1491": [
+          "forward"
+        ],
+        "1492": [
+          "forward"
+        ],
+        "1493": [
+          "forward"
+        ],
+        "1750": [
+          "forward"
+        ]
       }
     },
     {
@@ -59,10 +92,20 @@
       "trail_number": "29",
       "source_name": "Ridge to Rivers special management strategies",
       "source_url": "https://www.ridgetorivers.org/trails/trail-areas/camels-back-and-hulls-gulch-reserves/",
-      "trail_ids": ["29"],
-      "segment_ids": ["1585", "1586", "1587", "1588", "1589"],
+      "trail_ids": [
+        "29"
+      ],
+      "segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589"
+      ],
       "blocking_when_scheduled": true,
-      "prohibited_activity_types_on_odd_days": ["on_foot"],
+      "prohibited_activity_types_on_odd_days": [
+        "on_foot"
+      ],
       "foot_rule": "odd-numbered days closed to foot traffic; even-numbered days open to foot traffic both directions"
     },
     {
@@ -72,10 +115,16 @@
       "trail_number": "20A",
       "source_name": "Ridge to Rivers special management strategies",
       "source_url": "https://www.ridgetorivers.org/trails/trail-areas/military-reserve/",
-      "trail_ids": ["20A"],
-      "disambiguation_trail_ids": ["44"],
+      "trail_ids": [
+        "20A"
+      ],
+      "disambiguation_trail_ids": [
+        "44"
+      ],
       "blocking": true,
-      "prohibited_activity_types": ["on_foot"],
+      "prohibited_activity_types": [
+        "on_foot"
+      ],
       "foot_rule": "use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed"
     }
   ]

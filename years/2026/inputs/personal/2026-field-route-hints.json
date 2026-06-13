@@ -20,6 +20,15 @@
         "After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment.",
         "Late overlap: cue 7 doubles back on #51 Who Now before cue 8 exits onto #58 Harrison Ridge. Read the active cue leg and arrows, not the full overlapping GPS line."
       ]
+    },
+    {
+      "match": {
+        "label": "16C-1",
+        "trailhead": "Freddy's Stack Rock"
+      },
+      "notes": [
+        "At the first service-road split near Freddy's Stack Rock Trailhead, take OSM service connector 40457 toward #125 Freddys Stack Rock Trail / Stack Rock Connector."
+      ]
     }
   ],
   "access_hints": [

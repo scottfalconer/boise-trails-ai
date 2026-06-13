@@ -10,7 +10,7 @@ BTC is edge coverage under human constraints, not waypoint visitation.
 
 ## Procedure
 
-1. Load the current-year official segment source, defaulting to `years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson` unless the user requested another year.
+1. Load the current-year official segment source, defaulting to `years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson` unless the user requested another year.
 2. Identify the required official segment edges and their direction rules. Treat trailheads and trail names as access or grouping hints, not completion objects.
 3. Compare the proposed route or activity geometry against each required official segment endpoint-to-endpoint within the project tolerance.
 4. For `ascent` segments, verify the segment is climbed in the required direction.

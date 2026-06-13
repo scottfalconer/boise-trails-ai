@@ -34,7 +34,7 @@ DEFAULT_OFFICIAL_GEOJSON = (
     YEAR_DIR
     / "inputs"
     / "official"
-    / "api-pull-2026-05-04"
+    / "api-pull-2026-06-13"
     / "official_foot_segments.geojson"
 )
 DEFAULT_STATE_PATH = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.example.json"

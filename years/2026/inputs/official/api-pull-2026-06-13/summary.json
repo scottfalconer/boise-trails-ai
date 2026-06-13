@@ -1,0 +1,46 @@
+{
+  "fetched_at_utc": "2026-06-13T15:52:15Z",
+  "trails_url": "https://boisetrailschallenge.com/api/trails",
+  "leaderboard_url": "https://boisetrailschallenge.com/api/leaderboard",
+  "trails_last_updated_utc": "2026-06-11T01:45:43",
+  "master_trails_count": 113,
+  "trail_segments_count": 279,
+  "official_foot_summary": {
+    "official_foot_trails_count": 101,
+    "official_foot_segments_count": 250,
+    "official_foot_distance_miles": 159.0,
+    "official_foot_direction_counts": {
+      "ascent": 23,
+      "both": 227
+    },
+    "all_trails_count": 113,
+    "all_segments_count": 279,
+    "all_distance_miles": 182.52,
+    "bike_only_trails_count": 12,
+    "bike_only_segments_count": 29,
+    "bike_only_distance_miles": 23.52,
+    "trail_activity_counts": {
+      "bike": 12,
+      "both": 95,
+      "foot": 6
+    },
+    "segment_activity_counts": {
+      "bike": 29,
+      "both": 230,
+      "foot": 20
+    },
+    "trails_last_updated_utc": "2026-06-11T01:45:43"
+  },
+  "challenge_metadata": {
+    "challenge_name": "BTC 2026",
+    "challenge_desc": "BTC 2026",
+    "num_competitors": 485,
+    "num_trail_segs_bike": 259,
+    "num_trail_segs_foot": 250,
+    "tot_trail_length_bike": 892036.33,
+    "tot_trail_length_foot": 839519.58,
+    "num_master_trails_bike": 107,
+    "num_master_trails_foot": 101,
+    "last_trail_data_change": "2026-06-11T01:45:43"
+  }
+}

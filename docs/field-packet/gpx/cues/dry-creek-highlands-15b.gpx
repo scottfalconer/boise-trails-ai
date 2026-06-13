@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Dry Creek: Highlands (15B) cues</name>
-    <desc>15B. Bob's | Official 9.33 mi; On-foot 25.39 mi; Door-to-door p75 5h 58m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15B. Bob's | Official 9.33 mi; On-foot 25.97 mi; Door-to-door p75 5h 58m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.658556" lon="-116.174261">
     <name>PARK/START Bob's Trailhead</name>
@@ -16,7 +16,7 @@
     <name>CUE 02 Dry Creek Trail</name>
     <desc>Follow Dry Creek Trail. First official segment here: Dry Creek Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.674906" lon="-116.179640">
+  <wpt lat="43.674880" lon="-116.179633">
     <name>CUE 03 Connector</name>
     <desc>Follow Connector. First official segment here: Connector. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>

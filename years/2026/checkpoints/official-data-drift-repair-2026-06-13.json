@@ -1,0 +1,47 @@
+{
+  "schema": "boise_trails_official_data_drift_repair_v1",
+  "official_geojson": "years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson",
+  "compare_official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+  "segment_id_remap": {
+    "1664": "1762"
+  },
+  "removed_segment_ids": [
+    "1663"
+  ],
+  "reversed_official_segment_ids": [
+    "1601",
+    "1603"
+  ],
+  "files": [
+    {
+      "path": "years/2026/inputs/open-data/special-management-rules-2026.json",
+      "changed": true,
+      "missing": false
+    },
+    {
+      "path": "years/2026/inputs/personal/private/2026-field-menu-replacements-v2-multi-start.private.json",
+      "changed": false,
+      "missing": false
+    },
+    {
+      "path": "years/2026/inputs/personal/2026-manual-route-designs-v1.json",
+      "changed": false,
+      "missing": false
+    },
+    {
+      "path": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+      "changed": true,
+      "missing": false
+    },
+    {
+      "path": "years/2026/outputs/private/2026-outing-menu-map.html",
+      "changed": true,
+      "missing": false
+    },
+    {
+      "path": "years/2026/outputs/private/2026-outing-menu.md",
+      "changed": true,
+      "missing": false
+    }
+  ]
+}

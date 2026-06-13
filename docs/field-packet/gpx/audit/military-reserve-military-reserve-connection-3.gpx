@@ -36,7 +36,7 @@
     <name>SEG 3 Mountain Cove 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 3 min; p75 4 min; 1 ft climb.</desc>
   </wpt>
-  <wpt lat="43.623019" lon="-116.178230">
+  <wpt lat="43.623063" lon="-116.178012">
     <name>SEG 4 Mountain Cove 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min; p75 5 min; 4 ft climb.</desc>
   </wpt>
@@ -48,7 +48,7 @@
     <name>SEG 6 Central Ridge Trail 6</name>
     <desc>Either direction allowed; follow map arrows. Official 0.16 mi. est. 2 min; p75 4 min; 80 ft climb.</desc>
   </wpt>
-  <wpt lat="43.620888" lon="-116.178857">
+  <wpt lat="43.620861" lon="-116.178949">
     <name>SEG 7 Central Ridge Trail 5</name>
     <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 5 min; p75 7 min; 119 ft climb.</desc>
   </wpt>
@@ -64,7 +64,7 @@
     <name>SEG 10 Central Ridge Trail 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min; p75 2 min.</desc>
   </wpt>
-  <wpt lat="43.623959" lon="-116.160164">
+  <wpt lat="43.623966" lon="-116.160301">
     <name>SEG 11 Central Ridge Trail 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.78 mi. est. 9 min; p75 12 min; 149 ft climb.</desc>
   </wpt>
@@ -84,7 +84,7 @@
     <name>SEG 15 Ridge Crest 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.09 mi. est. 1 min; p75 2 min; 29 ft climb.</desc>
   </wpt>
-  <wpt lat="43.624705" lon="-116.166385">
+  <wpt lat="43.624865" lon="-116.166462">
     <name>SEG 16 Ridge Crest 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.15 mi. est. 2 min; p75 4 min; 80 ft climb.</desc>
   </wpt>
@@ -100,7 +100,7 @@
     <name>SEG 19 Cottonwood Creek Trail 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.32 mi. est. 4 min; p75 5 min.</desc>
   </wpt>
-  <wpt lat="43.619186" lon="-116.179794">
+  <wpt lat="43.619225" lon="-116.179695">
     <name>SEG 20 Cottonwood Creek Trail 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min; p75 5 min; 45 ft climb.</desc>
   </wpt>

@@ -36,7 +36,7 @@ from personal_route_planner import (  # noqa: E402
 DEFAULT_FIELD_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_FIELD_TOOL_DATA_JSON = DEFAULT_FIELD_PACKET_DIR / "field-tool-data.json"
 DEFAULT_OFFICIAL_GEOJSON = (
-    YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+    YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 )
 DEFAULT_CONNECTOR_GEOJSON = (
     YEAR_DIR

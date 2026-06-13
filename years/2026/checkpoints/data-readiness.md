@@ -18,15 +18,23 @@ Before generating a 2026 plan, confirm:
 
 ## Current Official 2026 Pull
 
-Source: `years/2026/inputs/official/api-pull-2026-05-04/`
+Source: `years/2026/inputs/official/api-pull-2026-06-13/`
 
 - Challenge window: June 18, 2026 at 12:00:01 a.m. through July 18, 2026 at 11:59:59 p.m.
 - Official on-foot trails: 101
-- Official on-foot segments: 251
-- Official on-foot distance: 164.43 miles
-- Direction rules: 228 bidirectional foot segments, 23 ascent-only foot segments
-- Trail data last changed: 2026-05-01 19:14:44
+- Official on-foot segments: 250
+- Official on-foot distance: 159.0 miles
+- Direction rules: 227 bidirectional foot segments, 23 ascent-only foot segments
+- Trail data last changed: 2026-06-11 01:45:43
 - Current account progress from dashboard API: 0.00%, 0 miles, 0 completed segment ids
+
+The June 13 refresh is a route-list change event against the May 4 baseline:
+Stack Rock Connector `1663` and `1664` were removed, Stack Rock Connector
+`1762` was added, Polecat `1601` / `1603` geometry changed, Sweet Connie `1667`
+was shortened, and Around the Mountain `1750` changed from `both` to `foot`.
+See `years/2026/inputs/official/api-pull-2026-06-13/official_foot_drift_report.md`.
+The active field packet has not yet been repaired or recertified against this
+new official segment set.
 
 Elevation totals are still not present in the official site API pull, so the count/distance/elevation checklist item remains open until we derive elevation from GPX/DEM or find an official elevation source.
 

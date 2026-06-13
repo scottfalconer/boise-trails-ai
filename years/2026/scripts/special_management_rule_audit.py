@@ -19,7 +19,7 @@ REPO_ROOT = YEAR_DIR.parent.parent
 DEFAULT_FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
 DEFAULT_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_OFFICIAL_GEOJSON = (
-    YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
+    YEAR_DIR / "inputs" / "official" / "api-pull-2026-06-13" / "official_foot_segments.geojson"
 )
 DEFAULT_R2R_TRAILS_GEOJSON = (
     YEAR_DIR / "inputs" / "open-data" / "r2r-trails-2026-05-04" / "boise_parks_trails_open_data.geojson"

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-10T03:17:10Z",
+  "generated_at": "2026-06-13T20:50:09Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {
@@ -25,8 +25,8 @@
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
     "packet_dir": "docs/field-packet",
-    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
-    "official_last_updated_utc": "2026-05-01T19:14:44",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson",
+    "official_last_updated_utc": "2026-06-11T01:45:43",
     "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
   },
   "connector_graph": {
@@ -471,9 +471,9 @@
             "1653"
           ],
           "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 1.5671,
-          "savings_miles": 0.0029,
-          "savings_feet": 15,
+          "shortest_miles": 1.5724,
+          "savings_miles": -0.0024,
+          "savings_feet": -13,
           "shortest_connector_names": [
             "#78 Dry Creek",
             "#80 Sheep Camp",
@@ -492,8 +492,8 @@
             "1653",
             "1665"
           ],
-          "snap_start_miles": 0.001,
-          "snap_end_miles": 0.0,
+          "snap_start_miles": 0.0007,
+          "snap_end_miles": 0.0056,
           "status": "passed"
         }
       ],
@@ -902,8 +902,8 @@
           "seq": 3,
           "cue_type": "exit_access",
           "signed_as": [
-            "#108 Harris Ridge Trail",
             "Harris Ridge Trail",
+            "#108 Harris Ridge Trail",
             "OSM service connector 42418"
           ],
           "target": "Homestead Trail Access Point",
@@ -1634,8 +1634,7 @@
       "audit_status": "passed",
       "gpx_path": "docs/field-packet/gpx/official/bogus-basin-stack-rock-connector-16c-1.gpx",
       "segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
       "post_credit_connector_proofs": [
         {
@@ -1653,15 +1652,14 @@
             "Freddys Stack Rock Trail"
           ],
           "target": "Freddy's Stack Rock Trailhead",
-          "actual_miles": 2.81,
+          "actual_miles": 2.89,
           "credited_segment_ids_before_cue": [
-            "1663",
-            "1664"
+            "1762"
           ],
           "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 2.8075,
-          "savings_miles": 0.0025,
-          "savings_feet": 13,
+          "shortest_miles": 2.8852,
+          "savings_miles": 0.0048,
+          "savings_feet": 25,
           "shortest_connector_names": [
             "#125 Freddys Stack Rock Trail",
             "Freddys Stack Rock Trail"
@@ -1672,8 +1670,7 @@
             "r2r_trail"
           ],
           "shortest_official_repeat_segment_ids": [
-            "1663",
-            "1664"
+            "1762"
           ],
           "snap_start_miles": 0.0016,
           "snap_end_miles": 0.001,
@@ -1741,8 +1738,12 @@
             "1754"
           ],
           "status": "passed",
-          "source_geometry_without_graph_alternative": true,
-          "message": "Explicit source geometry is present and no shorter legal connector graph path was found."
+          "credited_official_repeat_return_proven": true,
+          "official_repeat_segment_ids": [
+            "1692",
+            "1693"
+          ],
+          "official_repeat_miles": 0.25
         },
         {
           "code": "post_credit_exit_shortest_connector",
@@ -2983,16 +2984,16 @@
             "Sweet Connie"
           ],
           "target": "Dry Creek / Sweet Connie roadside parking",
-          "actual_miles": 4.09,
+          "actual_miles": 1.68,
           "credited_segment_ids_before_cue": [
             "1665",
             "1666",
             "1667"
           ],
           "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 4.0932,
-          "savings_miles": -0.0032,
-          "savings_feet": -17,
+          "shortest_miles": 1.6783,
+          "savings_miles": 0.0017,
+          "savings_feet": 9,
           "shortest_connector_names": [
             "#74 Chukar Butte",
             "#77 Sweet Connie",
@@ -3011,8 +3012,8 @@
             "1666",
             "1667"
           ],
-          "snap_start_miles": 0.0032,
-          "snap_end_miles": 0.0,
+          "snap_start_miles": 0.0004,
+          "snap_end_miles": 0.0056,
           "status": "passed"
         }
       ],
