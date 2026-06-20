@@ -32,7 +32,7 @@
     <name>SEG 3 Lower Hull's Gulch Trail 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.31 mi. est. 4 min; p75 6 min; 81 ft climb.</desc>
   </wpt>
-  <wpt lat="43.643856" lon="-116.173027">
+  <wpt lat="43.643967" lon="-116.172966">
     <name>SEG 4 Lower Hull's Gulch Trail 4</name>
     <desc>Either direction allowed; follow map arrows. Official 0.18 mi. est. 2 min; p75 4 min; 77 ft climb.</desc>
   </wpt>
@@ -44,7 +44,7 @@
     <name>SEG 6 Hull's Gulch Interpretive 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.66 mi. est. 7 min; p75 15 min; 563 ft climb.</desc>
   </wpt>
-  <wpt lat="43.658845" lon="-116.126360">
+  <wpt lat="43.658909" lon="-116.126149">
     <name>SEG 7 Hull's Gulch Interpretive 2</name>
     <desc>Either direction allowed; follow map arrows. Official 1.51 mi. est. 16 min; p75 27 min; 772 ft climb.</desc>
   </wpt>
@@ -56,7 +56,7 @@
     <name>SEG 9 Hull's Gulch Interpretive 4</name>
     <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 2 min; p75 3 min; 20 ft climb.</desc>
   </wpt>
-  <wpt lat="43.666552" lon="-116.118247">
+  <wpt lat="43.666545" lon="-116.118215">
     <name>SEG 10 Hull's Gulch Interpretive 5</name>
     <desc>Either direction allowed; follow map arrows. Official 0.61 mi. est. 7 min; p75 10 min; 184 ft climb.</desc>
   </wpt>
@@ -72,11 +72,11 @@
     <name>SEG 13 Crestline Trail 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.77 mi. est. 9 min; p75 12 min; 141 ft climb.</desc>
   </wpt>
-  <wpt lat="43.643356" lon="-116.160759">
+  <wpt lat="43.643372" lon="-116.160881">
     <name>SEG 14 Crestline Trail 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 6 min; p75 7 min; 19 ft climb.</desc>
   </wpt>
-  <wpt lat="43.639278" lon="-116.164581">
+  <wpt lat="43.639030" lon="-116.164658">
     <name>SEG 15 Crestline Trail 3</name>
     <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 3 min; 6 ft climb.</desc>
   </wpt>
@@ -84,15 +84,15 @@
     <name>SEG 16 Crestline Trail 4</name>
     <desc>Either direction allowed; follow map arrows. Official 0.47 mi. est. 6 min; p75 7 min; 13 ft climb.</desc>
   </wpt>
-  <wpt lat="43.640392" lon="-116.176598">
+  <wpt lat="43.640453" lon="-116.176727">
     <name>SEG 17 Kestral Trail 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.75 mi. est. 10 min; p75 12 min; 2 ft climb.</desc>
   </wpt>
-  <wpt lat="43.640564" lon="-116.187485">
+  <wpt lat="43.640480" lon="-116.187538">
     <name>SEG 18 Owl's Roost 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.64 mi. est. 8 min; p75 10 min; 8 ft climb.</desc>
   </wpt>
-  <wpt lat="43.638401" lon="-116.195396">
+  <wpt lat="43.638336" lon="-116.195641">
     <name>SEG 19 Gold Finch 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min; p75 4 min; 5 ft climb.</desc>
   </wpt>
@@ -112,11 +112,11 @@
     <name>SEG 23 Chickadee Ridge Trail 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.46 mi. est. 5 min; p75 7 min; 113 ft climb.</desc>
   </wpt>
-  <wpt lat="43.641810" lon="-116.181410">
+  <wpt lat="43.641730" lon="-116.181250">
     <name>SEG 24 Red Cliffs 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 5 min; p75 8 min; 128 ft climb.</desc>
   </wpt>
-  <wpt lat="43.640830" lon="-116.172380">
+  <wpt lat="43.640910" lon="-116.172530">
     <name>SEG 25 Red Cliffs 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.89 mi. est. 11 min; p75 16 min; 326 ft climb.</desc>
   </wpt>

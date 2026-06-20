@@ -79,16 +79,21 @@ def segment_brief(segment_index: dict[str, dict[str, Any]], segment_id: str) -> 
     }
 
 
-def build_segment_claim_index(routes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+def build_segment_claim_index(
+    routes: list[dict[str, Any]],
+    ownership_cards: list[dict[str, Any]] | None = None,
+) -> dict[str, list[dict[str, Any]]]:
     claims: dict[str, list[dict[str, Any]]] = {}
-    for route in routes:
+    for route in [*routes, *(ownership_cards or [])]:
+        is_manual_hold = bool(route.get("manual_design_hold"))
         claim = {
             "route_key": route_key(route),
             "outing_id": route.get("outing_id"),
             "label": route_label(route),
             "candidate_ids": route.get("candidate_ids") or [],
+            "ownership_status": "manual_hold" if is_manual_hold else "active_route",
         }
-        for segment_id in normalized_ids(route.get("segment_ids") or []):
+        for segment_id in normalized_ids(route.get("remaining_segment_ids") or route.get("segment_ids") or []):
             claims.setdefault(segment_id, []).append(claim)
     return claims
 
@@ -252,10 +257,12 @@ def build_latent_credit_audit(
     source_files: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     routes = field_tool_data.get("routes") or []
+    manual_holds = field_tool_data.get("manual_holds") or []
     progress = field_tool_data.get("progress") or {}
     completed_at_export = set(normalized_ids(progress.get("completed_segment_ids_at_export") or []))
     segment_index = build_segment_index(official_segments)
-    segment_claim_index = build_segment_claim_index(routes)
+    segment_claim_index = build_segment_claim_index(routes, ownership_cards=manual_holds)
+    active_segment_claim_index = build_segment_claim_index(routes)
     route_reviews = [
         audit_route(
             route,
@@ -285,7 +292,7 @@ def build_latent_credit_audit(
     # is double-counted official credit. This is what let segment 1680 be claimed
     # by both routes 17 and 18A and inflate plan-wide official miles.
     dual_claimed_segments = []
-    for seg_id, claims in sorted(segment_claim_index.items()):
+    for seg_id, claims in sorted(active_segment_claim_index.items()):
         if seg_id in completed_at_export or len(claims) <= 1:
             continue
         brief = segment_index.get(seg_id) or {}

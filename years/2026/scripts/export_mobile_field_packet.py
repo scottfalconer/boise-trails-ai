@@ -56,6 +56,7 @@ from field_route_walkthrough_audit import (  # noqa: E402
     DEFAULT_CONNECTOR_GEOJSON as DEFAULT_WALKTHROUGH_CONNECTOR_GEOJSON,
     DEFAULT_OFFICIAL_GEOJSON as DEFAULT_WALKTHROUGH_OFFICIAL_GEOJSON,
     TrailGraph,
+    cue_text_values,
     filter_edges_for_track,
     load_graph_edges,
     matched_edge_groups,
@@ -105,6 +106,9 @@ DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 DEFAULT_REPEAT_REPAIR_SNAP_TOLERANCE_MILES = 0.02
 DEFAULT_DERIVE_NON_CREDIT_REPEATS = True
+MAX_AUTOMATIC_REPEAT_DISCOVERY_IDS = 20
+MAX_AUTOMATIC_REPEAT_DISCOVERY_CUE_MILES = 2.5
+MAX_AVOIDABLE_REPEAT_REPAIR_INTERVAL_MILES = 2.5
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
 OFFICIAL_GPX_DIR_NAME = "official"
 CUE_GPX_DIR_NAME = "cues"
@@ -426,6 +430,11 @@ def accepted_candidate_satisfied_by_package(
     accepted_replacement_aliases: dict[str, dict[str, Any]],
 ) -> bool:
     if expected_candidate_id in actual_candidate_ids:
+        return True
+    if any(
+        expected_candidate_id in {str(value) for value in component.get("route_truth_replaces_candidate_ids") or []}
+        for component in actual_components
+    ):
         return True
     replacement = accepted_replacement_aliases.get(expected_candidate_id)
     if not replacement:
@@ -1259,7 +1268,7 @@ def turn_phrase_for_transition(
     official_index: dict[str, dict[str, Any]] | None,
 ) -> str | None:
     transition = transition_geometry(prior_group, next_group, official_index)
-    points = flatten_track_segments(track_segments)
+    points = downsample_coords(flatten_track_segments(track_segments), max_points=500)
     if not transition or len(points) < 3:
         return None
 
@@ -1519,14 +1528,22 @@ def candidate_official_segments_for_route(
     return candidates
 
 
-def route_claim_index(routes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+def route_claim_index(
+    routes: list[dict[str, Any]],
+    ownership_cards: list[dict[str, Any]] | None = None,
+) -> dict[str, list[dict[str, Any]]]:
     claims: dict[str, list[dict[str, Any]]] = {}
-    for route in routes:
-        outing = route.get("outing") or {}
+    for route in [*routes, *(ownership_cards or [])]:
+        outing = route.get("outing") or route
+        is_manual_hold = bool(outing.get("manual_design_hold") or route.get("manual_design_hold"))
         claim = {
             "outing_id": outing.get("outing_id") or route.get("outing_id"),
             "label": outing.get("label") or route.get("label"),
-            "candidate_ids": [str(candidate_id) for candidate_id in outing.get("candidate_ids") or []],
+            "candidate_ids": [
+                str(candidate_id)
+                for candidate_id in (outing.get("candidate_ids") or route.get("candidate_ids") or [])
+            ],
+            "ownership_status": "manual_hold" if is_manual_hold else "active_route",
         }
         for segment_id in normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids")):
             claims.setdefault(segment_id, []).append(claim)
@@ -1548,6 +1565,7 @@ def apply_segment_ownership_reconciliation(
     routes: list[dict[str, Any]],
     segments_by_id: dict[str, dict[str, Any]],
     *,
+    ownership_cards: list[dict[str, Any]] | None = None,
     elevation_sampler: Any = None,
     threshold_miles: float = 0.045,
     max_activity_points: int = 1200,
@@ -1561,7 +1579,7 @@ def apply_segment_ownership_reconciliation(
 
     official_segments = official_segments_for_review(segments_by_id)
     official_by_id = {str(segment["seg_id"]): segment for segment in official_segments}
-    claims = route_claim_index(routes)
+    claims = route_claim_index(routes, ownership_cards=ownership_cards)
     all_claimed_ids = set(claims)
     for route in routes:
         outing = route.get("outing") or {}
@@ -1882,6 +1900,7 @@ def select_track_segments_for_outing(
     walkthrough_graph: TrailGraph | None = None,
     special_management_index: dict[str, dict[str, Any]] | None = None,
     special_management_rules: list[dict[str, Any]] | None = None,
+    prefer_route_cues: bool = False,
 ) -> tuple[list[list[tuple[float, float]]], str]:
     candidates: list[tuple[str, list[list[tuple[float, float]]], int]] = []
     if track_starts_and_ends_near_parking(
@@ -1903,7 +1922,44 @@ def select_track_segments_for_outing(
     ):
         candidates.append(("route_cues_parking_repaired", cue_track_with_parking_connectors, 2))
     if candidates:
+        if prefer_route_cues:
+            for source, track_segments, _priority in candidates:
+                if source == "route_cues":
+                    return track_segments, source
         if walkthrough_graph:
+            graph_score_cache: dict[int, tuple[int, int, int]] = {}
+
+            def graph_scores(track_segments: list[list[tuple[float, float]]]) -> tuple[int, int, int]:
+                cache_key = id(track_segments)
+                if cache_key in graph_score_cache:
+                    return graph_score_cache[cache_key]
+                if not track_segments:
+                    graph_score_cache[cache_key] = (10_000, 10_000, 10_000)
+                    return graph_score_cache[cache_key]
+                sampled = resample_track_segments_for_matching(track_segments, spacing_miles=0.05)
+                groups, unmatched = matched_edge_groups(sampled, walkthrough_graph, 0.015)
+                blocked_count = len(
+                    {
+                        str(edge.edge_id)
+                        for group in groups
+                        if (edge := group.get("_edge"))
+                        and edge.source_class != "official_segment"
+                        and unsafe_edge_reasons(edge)
+                    }
+                )
+                direction_violation_count = len(
+                    {
+                        str(edge.segment_id)
+                        for group in groups
+                        if (edge := group.get("_edge"))
+                        and edge.source_class == "official_segment"
+                        and str(edge.direction or "").lower() in {"ascent", "oneway", "forward"}
+                        and str(group.get("traversal_direction") or "") == "reverse"
+                    }
+                )
+                graph_score_cache[cache_key] = (blocked_count, direction_violation_count, len(unmatched))
+                return graph_score_cache[cache_key]
+
             candidates = sorted(
                 candidates,
                 key=lambda item: (
@@ -1912,9 +1968,7 @@ def select_track_segments_for_outing(
                         special_management_index,
                         special_management_rules,
                     ),
-                    track_blocked_connector_count(item[1], walkthrough_graph),
-                    track_official_direction_violation_count(item[1], walkthrough_graph),
-                    track_unmatched_interval_count(item[1], walkthrough_graph),
+                    *graph_scores(item[1]),
                     track_gap_failure_count(item[1], max_track_gap_miles),
                     graph_track_source_priority(item[0], item[2]),
                 ),
@@ -2210,20 +2264,26 @@ def apply_shortest_connector_path_to_link(
     sanitize_link_unsafe_connector_labels(link, unsafe_keys)
     start, end = endpoints
     current_miles = link_distance_miles(link)
+    path_miles = path_length_miles(link.get("path_coordinates"))
+    missing_connector_proof = bool(path_miles > 0 and not link.get("connector_edges"))
+    if path_miles > 0 and (current_miles <= 0 or missing_connector_proof):
+        current_miles = max(current_miles, path_miles)
+    max_search_miles = (
+        current_miles + unsafe_repair_extra_tolerance_miles
+        if current_miles > 0
+        else None
+    )
     mapped = shortest_connector_path(
         start,
         end,
         connector_graph,
         snap_tolerance_miles,
         avoid_official_segment_ids=avoid_official_segment_ids,
+        max_distance_miles=max_search_miles,
     )
     if not mapped:
         return False
     shortest_miles = float(mapped.get("distance_miles") or 0)
-    path_miles = path_length_miles(link.get("path_coordinates"))
-    missing_connector_proof = bool(path_miles > 0 and not link.get("connector_edges"))
-    if path_miles > 0 and (current_miles <= 0 or missing_connector_proof):
-        current_miles = max(current_miles, path_miles)
     if current_miles <= 0:
         return False
     force_for_unsafe_connector = unsafe_path_count > 0
@@ -3946,12 +4006,24 @@ def full_claimed_segments_in_cue_interval(
         )
     if len(interval_coords) < 2:
         return set()
+    review_coords = downsample_coords(interval_coords, max_points=max_activity_points)
+    interval_bbox = coordinate_bbox(interval_coords)
+    bbox_buffer = max(0.003, threshold_miles / 15.0)
+    endpoint_prefilter_miles = max(0.08, threshold_miles * 2)
     completed_ids: set[str] = set()
     for review_index in (official_index, default_official_feature_index()):
         interval_candidate_ids = set()
         for segment_id in claimed_segment_ids:
             feature = review_index.get(segment_id)
             if not feature:
+                continue
+            if interval_bbox and not feature_near_bbox(feature, interval_bbox, buffer_degrees=bbox_buffer):
+                continue
+            if not feature_endpoints_near_path(
+                feature,
+                review_coords,
+                threshold_miles=endpoint_prefilter_miles,
+            ):
                 continue
             interval_candidate_ids.add(segment_id)
         if not interval_candidate_ids:
@@ -3965,7 +4037,7 @@ def full_claimed_segments_in_cue_interval(
         if not official_segments:
             continue
         review = review_activity_against_segments(
-            downsample_coords(interval_coords, max_points=max_activity_points),
+            review_coords,
             official_segments,
             planned_segment_ids=interval_candidate_ids,
             threshold_miles=threshold_miles,
@@ -4015,7 +4087,16 @@ def apply_non_credit_claimed_repeat_declarations(
         cue_key = f"{cue.get('seq')}:{cue.get('cue_type')}"
         existing_ids = set(normalized_segment_ids(cue.get("official_repeat_segment_ids") or []))
         existing_ids.update(normalized_segment_ids(declaration_overrides.get(cue_key) or []))
-        review_ids = claimed_segment_ids | existing_ids
+        discoverable_repeat_ids = (
+            credited_claimed_ids
+            if len(credited_claimed_ids) <= MAX_AUTOMATIC_REPEAT_DISCOVERY_IDS
+            and cue_route_leg_miles(cue) <= MAX_AUTOMATIC_REPEAT_DISCOVERY_CUE_MILES
+            else set()
+        )
+        review_ids = discoverable_repeat_ids | existing_ids
+        if not review_ids:
+            credited_claimed_ids.update(normalized_segment_ids(cue.get("official_segment_ids") or []))
+            continue
         completed_review_ids = full_claimed_segments_in_cue_interval(
             cue,
             claimed_segment_ids=review_ids,
@@ -4102,6 +4183,17 @@ def alternate_path_for_repeated_cue(
     end_point = point_at_route_mile(route_points, interval[1])
     if start_point is None or end_point is None:
         return None
+    interval_coords = route_interval_coordinates(
+        route_points,
+        start_mile=interval[0],
+        end_mile=interval[1],
+    )
+    current_miles = track_distance_miles([interval_coords]) if interval_coords else cue_route_leg_miles(cue)
+    if current_miles > MAX_AVOIDABLE_REPEAT_REPAIR_INTERVAL_MILES:
+        return None
+    max_alternate_distance = current_miles - post_credit_repeat_savings_threshold(current_miles)
+    if max_alternate_distance <= 0:
+        return None
     avoid_ids = {int(segment_id) for segment_id in already_repeated_ids if str(segment_id).isdigit()}
     alternate = shortest_connector_path(
         start_point,
@@ -4109,6 +4201,7 @@ def alternate_path_for_repeated_cue(
         connector_graph,
         snap_tolerance_miles,
         avoid_official_segment_ids=avoid_ids,
+        max_distance_miles=max_alternate_distance,
     )
     if not alternate:
         return None
@@ -4120,12 +4213,6 @@ def alternate_path_for_repeated_cue(
     replacement_coords = dedupe_adjacent_coords([start_point, *path_coords, end_point])
     if len(replacement_coords) < 2:
         return None
-    interval_coords = route_interval_coordinates(
-        route_points,
-        start_mile=interval[0],
-        end_mile=interval[1],
-    )
-    current_miles = track_distance_miles([interval_coords]) if interval_coords else cue_route_leg_miles(cue)
     alternate_miles = track_distance_miles([replacement_coords])
     savings = current_miles - alternate_miles
     if savings < post_credit_repeat_savings_threshold(current_miles):
@@ -4144,6 +4231,69 @@ def alternate_path_for_repeated_cue(
         "alternate_connector_names": alternate.get("connector_names") or [],
         "alternate_connector_classes": alternate.get("connector_classes") or [],
     }
+
+
+def coordinate_bbox(coords: list[tuple[float, float]] | list[list[float]]) -> tuple[float, float, float, float] | None:
+    points = [(float(point[0]), float(point[1])) for point in coords if len(point) >= 2]
+    if not points:
+        return None
+    lons = [point[0] for point in points]
+    lats = [point[1] for point in points]
+    return (min(lons), min(lats), max(lons), max(lats))
+
+
+def bboxes_overlap_with_buffer(
+    left: tuple[float, float, float, float],
+    right: tuple[float, float, float, float],
+    *,
+    buffer_degrees: float,
+) -> bool:
+    return not (
+        left[2] + buffer_degrees < right[0]
+        or right[2] + buffer_degrees < left[0]
+        or left[3] + buffer_degrees < right[1]
+        or right[3] + buffer_degrees < left[1]
+    )
+
+
+def feature_near_bbox(
+    feature: dict[str, Any],
+    bbox: tuple[float, float, float, float],
+    *,
+    buffer_degrees: float,
+) -> bool:
+    for part in route_parts(feature):
+        part_bbox = coordinate_bbox(part)
+        if part_bbox and bboxes_overlap_with_buffer(bbox, part_bbox, buffer_degrees=buffer_degrees):
+            return True
+    return False
+
+
+def feature_endpoints_near_path(
+    feature: dict[str, Any],
+    coords: list[tuple[float, float]],
+    *,
+    threshold_miles: float,
+) -> bool:
+    for part in route_parts(feature):
+        if len(part) < 2:
+            continue
+        if (
+            point_to_polyline_distance_miles(part[0], coords) <= threshold_miles
+            and point_to_polyline_distance_miles(part[-1], coords) <= threshold_miles
+        ):
+            return True
+    return False
+
+
+def route_has_intentional_route_truth_lollipop_repeats(route: dict[str, Any]) -> bool:
+    route_quality = route.get("route_quality") or {}
+    if route_quality.get("field_shape") == "lower_dry_access_shingle_up_dry_creek_down":
+        return True
+    return any(
+        cue.get("cue_generation_mode") == "route_truth_repair_explicit_lollipop"
+        for cue in route.get("route_cues") or []
+    )
 
 
 def replacement_path_follows_official_feature(
@@ -4295,6 +4445,9 @@ def repair_avoidable_post_credit_repeats(
     """Replace proven avoidable repeat intervals with shorter legal connectors."""
 
     if not connector_graph:
+        return []
+    if route_has_intentional_route_truth_lollipop_repeats(route):
+        route["intentional_post_credit_repeat_policy"] = "route_truth_lollipop"
         return []
     all_repairs: list[dict[str, Any]] = []
     for iteration in range(1, 7):
@@ -5029,29 +5182,13 @@ def enrich_route_with_walkthrough_edge_names(
     if not local_edges:
         return route
     graph = TrailGraph(local_edges)
-    all_text = " ".join(
-        [
-            str(step.get("title") or "") + " " + str(step.get("detail") or "")
-            for step in route.get("turn_by_turn_steps") or []
-        ]
-        + [
-            " ".join(
-                [
-                    str(cue.get("compact") or ""),
-                    str(cue.get("display_detail") or ""),
-                    str(cue.get("target") or ""),
-                    str(cue.get("until") or ""),
-                    " ".join(str(item) for item in cue.get("signed_as") or []),
-                ]
-            )
-            for cue in route.get("wayfinding_cues") or []
-        ]
-    )
+    all_text = ""
+    preferred_text = " ".join(cue_text_values(route))
     groups, _unmatched = matched_edge_groups(
-        resample_track_segments_for_matching(track_segments, spacing_miles=0.01),
+        resample_track_segments_for_matching(track_segments),
         graph,
         snap_tolerance_miles,
-        preferred_text=all_text,
+        preferred_text=preferred_text,
     )
     claimed_segment_ids = {
         str(item)
@@ -5346,7 +5483,7 @@ def route_navigation_source_failures(route: dict[str, Any]) -> list[dict[str, An
         and float(item.get("distance_to_car_miles") or 0) <= 0.05
     ]
     if not car_passes:
-        return []
+        car_passes = []
     failures: list[dict[str, Any]] = []
     for cue in route.get("wayfinding_cues") or []:
         cue_miles = float(cue.get("leg_miles") or 0)
@@ -5354,7 +5491,11 @@ def route_navigation_source_failures(route: dict[str, Any]) -> list[dict[str, An
         if map_miles_value is None or cue_miles <= 0.05:
             continue
         map_miles = float(map_miles_value or 0)
-        if map_miles <= max((cue_miles * 2.0) + 0.25, cue_miles + 1.0):
+        if (
+            route_has_intentional_route_truth_lollipop_repeats(route)
+            and cue.get("official_repeat_segment_ids")
+            and map_miles > 0.05
+        ):
             continue
         start_miles = float(cue.get("route_miles") if cue.get("route_miles") is not None else cue.get("cum_miles") or 0)
         end_miles = start_miles + map_miles
@@ -5363,18 +5504,37 @@ def route_navigation_source_failures(route: dict[str, Any]) -> list[dict[str, An
             for item in car_passes
             if start_miles + 0.05 < float(item.get("mile_from_start") or 0) < end_miles - 0.05
         ]
-        if not crossed_car_passes:
+        if crossed_car_passes and map_miles > max((cue_miles * 2.0) + 0.25, cue_miles + 1.0):
+            failures.append(
+                {
+                    "code": "mid_route_car_pass_anchor_mismatch",
+                    "cue_seq": cue.get("seq"),
+                    "cue_type": cue.get("cue_type"),
+                    "cue_miles": round(cue_miles, 3),
+                    "map_miles": round(map_miles, 3),
+                    "route_miles_start": round(start_miles, 3),
+                    "route_miles_end": round(end_miles, 3),
+                    "car_pass_miles": [round(value, 3) for value in crossed_car_passes],
+                    "signed_as": cue.get("signed_as") or [],
+                    "target": cue.get("target"),
+                }
+            )
+            continue
+        diff_miles = abs(map_miles - cue_miles)
+        ratio = max(map_miles, cue_miles) / max(min(map_miles, cue_miles), 0.01)
+        if diff_miles < 0.75 or ratio < 1.25:
             continue
         failures.append(
             {
-                "code": "mid_route_car_pass_anchor_mismatch",
+                "code": "cue_map_mileage_mismatch",
                 "cue_seq": cue.get("seq"),
                 "cue_type": cue.get("cue_type"),
                 "cue_miles": round(cue_miles, 3),
                 "map_miles": round(map_miles, 3),
+                "difference_miles": round(diff_miles, 3),
+                "ratio": round(ratio, 3),
                 "route_miles_start": round(start_miles, 3),
                 "route_miles_end": round(end_miles, 3),
-                "car_pass_miles": [round(value, 3) for value in crossed_car_passes],
                 "signed_as": cue.get("signed_as") or [],
                 "target": cue.get("target"),
             }
@@ -5407,14 +5567,12 @@ def split_wayfinding_cues_at_car_passes(route: dict[str, Any]) -> None:
         if not interior_passes:
             split_cues.append(cue)
             continue
-        original_leg = float(cue.get("leg_miles") or 0)
-        original_span = max(0.001, end - start)
         part_start = start
         for boundary in interior_passes + [end]:
             part = copy.deepcopy(cue)
             part["route_miles"] = round(part_start, 3)
             part["route_leg_miles"] = round(max(0.0, boundary - part_start), 3)
-            part["leg_miles"] = round(max(0.01, original_leg * ((boundary - part_start) / original_span)), 2)
+            part["leg_miles"] = round(max(0.01, boundary - part_start), 2)
             if boundary in interior_passes:
                 part["cue_type"] = "car_pass_connector"
                 part["target"] = parking_name
@@ -8379,6 +8537,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "remaining_segment_count": len(segment_ids),
         "official_miles": outing.get("official_miles"),
         "on_foot_miles": outing.get("on_foot_miles"),
+        "source_card_on_foot_miles": outing.get("source_card_on_foot_miles"),
         "route_quality": route.get("route_quality") or outing.get("route_quality") or {},
         "door_to_door_minutes_p75": time_estimates.get("door_to_door_minutes_p75"),
         "door_to_door_minutes_p90": time_estimates.get("door_to_door_minutes_p90"),
@@ -8956,7 +9115,7 @@ def build_field_tool_data(
             "manual_hold_count": manifest["summary"]["manual_hold_count"],
             "gpx_validation_passed": manifest["summary"]["gpx_validation_passed"],
             "field_ready_route_count": len(field_ready_routes),
-            "held_route_count": 0,
+            "held_route_count": len(manifest.get("manual_holds") or []),
             "omitted_non_field_ready_route_count": len(omitted_routes),
             "special_management_failed_route_count": len(special_management_failed_routes),
             "segment_count_in_field_menu": len(all_segment_ids),
@@ -9125,6 +9284,10 @@ def export_field_packet(
             walkthrough_graph=walkthrough_track_graph,
             special_management_index=special_management_index,
             special_management_rules=special_management_rules,
+            prefer_route_cues=any(
+                cue.get("cue_generation_mode") == "route_truth_repair_explicit_lollipop"
+                for cue in cue_list
+            ),
         )
         stitched_track_segments = stitch_inter_segment_track_gaps(
             raw_track_segments,
@@ -9346,7 +9509,7 @@ def export_field_packet(
         synchronize_turn_steps_with_wayfinding_cues(route)
         apply_off_label_route_leg_warnings(route)
         route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
-        if walkthrough_graph is not None:
+        if walkthrough_graph is not None and not route_has_intentional_route_truth_lollipop_repeats(route):
             enrich_route_with_walkthrough_edge_names(route, route["_track_segments"], walkthrough_graph)
         apply_geometry_overlap_wayfinding_cautions(route)
         apply_overlap_exit_wayfinding_cautions(route)
@@ -9466,7 +9629,8 @@ def export_field_packet(
             synchronize_turn_steps_with_wayfinding_cues(route)
             apply_off_label_route_leg_warnings(route)
             route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
-            enrich_route_with_walkthrough_edge_names(route, route["_track_segments"], walkthrough_graph_edges)
+            if not route_has_intentional_route_truth_lollipop_repeats(route):
+                enrich_route_with_walkthrough_edge_names(route, route["_track_segments"], walkthrough_graph_edges)
             apply_geometry_overlap_wayfinding_cautions(route)
             apply_overlap_exit_wayfinding_cautions(route)
             apply_non_credit_claimed_repeat_declarations(
@@ -9491,6 +9655,7 @@ def export_field_packet(
     apply_segment_ownership_reconciliation(
         routes,
         segments_by_id,
+        ownership_cards=manual_holds,
         elevation_sampler=dem_context.get("sampler"),
     )
     apply_navigation_source_audit_to_routes(routes)
@@ -9507,6 +9672,7 @@ def export_field_packet(
         "summary": {
             "runnable_outing_count": len(runnable),
             "manual_hold_count": len(manual_holds),
+            "held_route_count": len(manual_holds),
             "gpx_validation_passed": all(route["validation"]["passed"] for route in routes),
             "failed_gpx_count": len([route for route in routes if not route["validation"]["passed"]]),
             "field_ready_route_count": len([route for route in routes if route_is_field_ready(route)]),

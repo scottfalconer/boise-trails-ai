@@ -50,6 +50,30 @@ def route_index(field_tool_data: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {str(route.get("outing_id")): route for route in field_tool_data.get("routes") or []}
 
 
+def route_is_field_ready(route: dict[str, Any]) -> bool:
+    return (
+        (route.get("validation") or {}).get("passed") is True
+        and route.get("field_ready") is not False
+        and route.get("manual_design_hold") is not True
+        and str(route.get("field_readiness_status") or "") != "blocked_special_management"
+    )
+
+
+def held_segment_ids(field_tool_data: dict[str, Any]) -> set[str]:
+    held_ids: set[str] = set()
+    held_cards = list(field_tool_data.get("manual_holds") or [])
+    held_cards.extend(
+        route
+        for route in field_tool_data.get("routes") or []
+        if route.get("field_ready") is False
+        or route.get("manual_design_hold") is True
+        or str(route.get("field_readiness_status") or "") == "blocked_special_management"
+    )
+    for card in held_cards:
+        held_ids.update(normalized_ids(card.get("remaining_segment_ids") or card.get("segment_ids")))
+    return held_ids
+
+
 def completed_segments_from_progress(
     routes_by_id: dict[str, dict[str, Any]],
     progress: dict[str, Any],
@@ -132,7 +156,7 @@ def available_routes(
     for route in field_tool_data.get("routes") or []:
         if str(route.get("outing_id")) in inactive_outing_ids:
             continue
-        if (route.get("validation") or {}).get("passed") is not True:
+        if not route_is_field_ready(route):
             continue
         route_segment_ids = set(normalized_ids(route.get("segment_ids")))
         if route_segment_ids & blocked_segment_ids:
@@ -206,6 +230,7 @@ def build_progress_report(
         if status["status"] in {"completed_by_segments", "inactive_no_remaining_new_credit"}
     }
     remaining_ids = target_ids - completed_ids - blocked_ids
+    held_ids = held_segment_ids(field_tool_data) & remaining_ids
     routes_for_coverage = available_routes(
         field_tool_data,
         set(),
@@ -221,7 +246,8 @@ def build_progress_report(
     available_remaining_ids = set()
     for route in routes_for_coverage:
         available_remaining_ids.update(set(normalized_ids(route.get("segment_ids"))) & remaining_ids)
-    missing_remaining_ids = remaining_ids - available_remaining_ids
+    accounted_remaining_ids = available_remaining_ids | held_ids
+    missing_remaining_ids = remaining_ids - accounted_remaining_ids
     time_filters = [int(value) for value in field_tool_data.get("time_filters_minutes") or [60, 90, 120, 180, 240, 360]]
     baseline = field_tool_data.get("certified_baseline") or {}
     report = {
@@ -239,8 +265,11 @@ def build_progress_report(
             "blocked_segment_count": len(blocked_ids),
             "remaining_segment_count": len(remaining_ids),
             "available_remaining_segment_count": len(available_remaining_ids),
+            "held_remaining_segment_count": len(held_ids),
+            "accounted_remaining_segment_count": len(accounted_remaining_ids),
             "missing_remaining_segment_count": len(missing_remaining_ids),
             "remaining_coverage_preserved": len(missing_remaining_ids) == 0,
+            "field_ready_remaining_coverage_preserved": len(remaining_ids - available_remaining_ids) == 0,
             "certified_baseline_status": baseline.get("status"),
             "original_target_still_possible_from_menu": len(missing_remaining_ids) == 0 and baseline.get("status") == "passed",
         },
@@ -255,6 +284,7 @@ def build_progress_report(
         "missed_segment_ids": normalized_ids(missed_ids),
         "blocked_segment_ids": normalized_ids(blocked_ids),
         "remaining_segment_ids": normalized_ids(remaining_ids),
+        "held_remaining_segment_ids": normalized_ids(held_ids),
         "missing_remaining_segment_ids": normalized_ids(missing_remaining_ids),
         "time_budget_mode": progress.get("time_budget_mode") or "normal",
         "today_options_by_minutes": today_options(
@@ -270,6 +300,7 @@ def build_progress_report(
         },
         "caveats": [
             "This report verifies remaining coverage against the current field menu; it does not regenerate the full MILP calendar certificate.",
+            "Manual holds preserve segment accounting but are not field-runnable route cards or today recommendations.",
             "Completed outings are derived from validated completed_segment_ids; phone completed_outing_ids remain provisional UX state.",
             "Missed segment ids are intentionally subtracted from both validated and provisional outing credit.",
             "Apply the private_state_patch only after confirming the Strava/GPS activity really completed each segment end-to-end.",

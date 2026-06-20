@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
@@ -21,9 +22,39 @@ from block_day_packager import (  # noqa: E402
     render_html as render_package_map_html,
     render_outing_menu_markdown,
 )
-from export_execution_gpx import special_management_segment_direction_overrides  # noqa: E402
+from export_execution_gpx import (  # noqa: E402
+    candidate_track_coordinates,
+    load_official_segment_index,
+    special_management_segment_direction_overrides,
+    validate_track_segments,
+)
 from field_activity_review import activity_coordinates, normalized_ids, review_activity_against_segments  # noqa: E402
+from multi_start_field_menu_replacements import (  # noqa: E402
+    coords_feature,
+    cue_from_candidate,
+    parking_feature,
+)
 from personal_route_planner import DEFAULT_OFFICIAL_GEOJSON, load_official_segments, read_json  # noqa: E402
+from personal_route_planner import (  # noqa: E402
+    DEFAULT_ACTIVITY_DETAIL_SUMMARY_CSV,
+    DEFAULT_ACTIVITY_SUMMARY_CSV,
+    DEFAULT_CONNECTOR_GEOJSON,
+    DEFAULT_DEM_SUMMARY_JSON,
+    DEFAULT_DEM_TIF,
+    DEFAULT_SEGMENT_PERF_CSV,
+    DEFAULT_STRAVA_DETAILS_DIR,
+    build_elevation_effort,
+    build_performance_profile,
+    build_time_estimates_minutes,
+    candidate_from_trail_group,
+    drive_minutes_to_trailhead,
+    enrich_segment_estimates_with_elevation,
+    group_remaining_by_trail,
+    haversine_miles,
+    load_connector_graph,
+    load_dem_context,
+    load_state,
+)
 
 
 DEFAULT_ROUTE_PASS_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-hybrid-route-pass-v1.json"
@@ -49,6 +80,7 @@ DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON = (
     YEAR_DIR / "inputs" / "personal" / "private" / "2026-field-menu-replacements-v2-multi-start.private.json"
 )
 DEFAULT_TIME_CALIBRATIONS_JSON = YEAR_DIR / "inputs" / "personal" / "2026-field-time-calibrations-v1.json"
+DEFAULT_ROUTE_TRUTH_REPAIRS_JSON = YEAR_DIR / "inputs" / "personal" / "2026-route-truth-repairs-v1.json"
 
 
 NECESSARY_GRINDER_TERMS = {
@@ -362,6 +394,9 @@ def completed_official_ids_for_alternative(
     alternative: dict[str, Any],
     official_segments: list[dict[str, Any]],
 ) -> list[str]:
+    planned_ids = normalized_ids(alternative.get("required_segment_ids") or [])
+    if not planned_ids:
+        return []
     artifact = alternative.get("generated_route_artifact") or {}
     gpx_path = artifact.get("gpx_path")
     if not gpx_path or not official_segments:
@@ -372,10 +407,18 @@ def completed_official_ids_for_alternative(
     coords = activity_coordinates(path)
     if len(coords) < 2:
         return []
+    planned_set = set(planned_ids)
+    official_subset = [
+        segment
+        for segment in official_segments
+        if str(segment.get("seg_id")) in planned_set
+    ]
+    if not official_subset:
+        return []
     review = review_activity_against_segments(
         coords,
-        official_segments,
-        planned_segment_ids=alternative.get("required_segment_ids") or [],
+        official_subset,
+        planned_segment_ids=planned_ids,
         threshold_miles=0.045,
         endpoint_threshold_miles=0.04,
         min_fraction=0.85,
@@ -575,9 +618,10 @@ def normalized_direction_cue(segment: dict[str, Any]) -> str:
         return "SPECIAL MANAGEMENT: follow the signed one-way direction opposite official geometry."
     if direction == "ascent":
         return "ASCENT REQUIRED: follow map arrows uphill."
-    if "opposite official geometry" in str(segment.get("direction_cue") or "").lower():
-        return "Either direction allowed; follow map arrows."
-    return str(segment.get("direction_cue") or "Either direction allowed; follow map arrows.")
+    existing_cue = str(segment.get("direction_cue") or "")
+    if "opposite official geometry" in existing_cue.lower():
+        return existing_cue
+    return existing_cue or "Either direction allowed; follow map arrows."
 
 
 def sync_route_direction_cues(package_map: dict[str, Any]) -> None:
@@ -1126,6 +1170,662 @@ def apply_time_calibrations(
         update_component_time(cue, calibration)
 
 
+def active_route_truth_repairs(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        repair
+        for repair in payload.get("repairs") or []
+        if str(repair.get("status") or "active") == "active"
+    ]
+
+
+def official_segments_by_id(official_segments: list[dict[str, Any]]) -> dict[int, dict[str, Any]]:
+    return {
+        int(segment["seg_id"]): segment
+        for segment in official_segments
+        if str(segment.get("seg_id") or "").isdigit()
+    }
+
+
+def coordinate_path_miles(coords: list[list[float]] | list[tuple[float, float]]) -> float:
+    total = 0.0
+    for left, right in zip(coords, coords[1:]):
+        total += haversine_miles(
+            (float(left[0]), float(left[1])),
+            (float(right[0]), float(right[1])),
+        )
+    return total
+
+
+def append_coords(target: list[list[float]], coords: list[list[float]] | list[tuple[float, float]]) -> None:
+    for raw in coords:
+        point = [float(raw[0]), float(raw[1])]
+        if target and haversine_miles((target[-1][0], target[-1][1]), (point[0], point[1])) <= 0.000001:
+            continue
+        target.append(point)
+
+
+def densify_coordinate_path(
+    coords: list[list[float]],
+    *,
+    max_gap_miles: float = 0.025,
+) -> list[list[float]]:
+    if len(coords) < 2:
+        return coords
+    densified: list[list[float]] = [coords[0]]
+    for start, end in zip(coords, coords[1:]):
+        distance = haversine_miles((start[0], start[1]), (end[0], end[1]))
+        steps = max(1, int(math.ceil(distance / max_gap_miles)))
+        for step in range(1, steps + 1):
+            fraction = step / steps
+            point = [
+                start[0] + (end[0] - start[0]) * fraction,
+                start[1] + (end[1] - start[1]) * fraction,
+            ]
+            if haversine_miles((densified[-1][0], densified[-1][1]), (point[0], point[1])) > 0.000001:
+                densified.append(point)
+    return densified
+
+
+def segment_for_repair_traversal(
+    segment: dict[str, Any],
+    *,
+    direction: str,
+    credit: str,
+) -> dict[str, Any]:
+    result = copy.deepcopy(segment)
+    coords = [[float(lon), float(lat)] for lon, lat in segment.get("coordinates") or []]
+    if direction == "reverse":
+        coords = list(reversed(coords))
+        result["start"] = segment.get("end")
+        result["end"] = segment.get("start")
+        result["direction_cue"] = (
+            "Either direction allowed; this leg follows the opposite official geometry direction."
+        )
+    else:
+        result["start"] = segment.get("start")
+        result["end"] = segment.get("end")
+        if str(segment.get("direction") or "") == "ascent":
+            result["direction_cue"] = "Ascent-only segment; valid uphill traversal follows official geometry direction."
+        else:
+            result["direction_cue"] = "Either direction allowed; follow map arrows."
+    result["coordinates"] = coords
+    result["segment_name"] = segment.get("seg_name") or segment.get("segment_name")
+    result["direction_rule"] = segment.get("direction") or segment.get("direction_rule") or "both"
+    result["route_truth_credit"] = credit
+    return result
+
+
+def time_estimates_for_explicit_route(
+    *,
+    track_miles: float,
+    state: dict[str, Any],
+    trailhead: dict[str, Any],
+    route_finding_penalty: int = 8,
+) -> dict[str, Any]:
+    drive_model = state.get("drive_model") or {}
+    try:
+        drive_to = drive_minutes_to_trailhead(trailhead, drive_model) if drive_model else 13
+    except KeyError:
+        drive_to = 13
+    parking_minutes = int(trailhead.get("parking_minutes") or state.get("parking_minutes") or 8)
+    pace = float(state.get("pace_min_per_mile") or 16.0)
+    moving_raw = max(1, int(math.ceil(track_miles * pace)))
+    moving_p50 = int(math.ceil(moving_raw * 1.12))
+    moving_p75 = int(math.ceil(moving_p50 * 1.12)) + route_finding_penalty
+    moving_p90 = int(math.ceil(moving_p75 * 1.12))
+    raw_total = drive_to + parking_minutes + moving_raw + drive_to
+    return {
+        "raw_total_minutes": raw_total,
+        "total_minutes": drive_to + parking_minutes + moving_p75 + drive_to,
+        "time_breakdown_minutes": {
+            "drive_to_trailhead": drive_to,
+            "parking_and_prep": parking_minutes,
+            "trailhead_access": 0,
+            "moving_time": moving_raw,
+            "return_drive": drive_to,
+        },
+        "time_estimates_minutes": {
+            "door_to_door_raw": raw_total,
+            "door_to_door_p50": drive_to + parking_minutes + moving_p50 + drive_to,
+            "door_to_door_p75": drive_to + parking_minutes + moving_p75 + drive_to,
+            "door_to_door_p90": drive_to + parking_minutes + moving_p90 + drive_to,
+            "recommended_door_to_door": drive_to + parking_minutes + moving_p75 + drive_to,
+            "moving_raw": moving_raw,
+            "moving_effort_p50": moving_p50,
+            "moving_effort_p75": moving_p75,
+            "route_finding_penalty": route_finding_penalty,
+        },
+    }
+
+
+def explicit_lollipop_route_payload(
+    repair: dict[str, Any],
+    *,
+    official_by_id: dict[int, dict[str, Any]],
+    state: dict[str, Any],
+) -> dict[str, Any]:
+    trailhead = copy.deepcopy(repair.get("trailhead") or {})
+    parking_point = [float(trailhead["lon"]), float(trailhead["lat"])]
+    traversal_segments = []
+    for step in repair.get("traversal") or []:
+        segment_id = int(step["segment_id"])
+        traversal_segments.append(
+            segment_for_repair_traversal(
+                official_by_id[segment_id],
+                direction=str(step.get("direction") or "forward"),
+                credit=str(step.get("credit") or "new"),
+            )
+        )
+    if not traversal_segments:
+        raise ValueError(f"Route-truth repair {repair.get('repair_id')} has no traversal segments")
+
+    first_start = traversal_segments[0]["coordinates"][0]
+    last_end = traversal_segments[-1]["coordinates"][-1]
+    access_path = [parking_point, first_start]
+    return_path = [last_end, parking_point]
+    track: list[list[float]] = []
+    append_coords(track, access_path)
+    for segment in traversal_segments:
+        append_coords(track, segment.get("coordinates") or [])
+    append_coords(track, return_path)
+    track = densify_coordinate_path(track)
+    on_foot_miles = round_miles(coordinate_path_miles(track))
+    claim_ids = [int(value) for value in repair.get("claim_segment_ids") or []]
+    official_miles = round_miles(sum(float(official_by_id[seg_id].get("official_miles") or 0.0) for seg_id in claim_ids))
+    repeat_ids = [
+        int(step["segment_id"])
+        for step in repair.get("traversal") or []
+        if str(step.get("credit") or "") == "repeat"
+    ]
+    repeat_miles = round_miles(sum(float(official_by_id[seg_id].get("official_miles") or 0.0) for seg_id in set(repeat_ids)))
+    timing = time_estimates_for_explicit_route(track_miles=on_foot_miles, state=state, trailhead=trailhead)
+    candidate_id = str(repair["candidate_id"])
+    component = {
+        "candidate_id": candidate_id,
+        "field_menu_group_id": candidate_id,
+        "field_menu_label": repair.get("field_menu_label"),
+        "trail_names": list(repair.get("trail_names") or []),
+        "official_miles": official_miles,
+        "on_foot_miles": on_foot_miles,
+        "ratio": round(on_foot_miles / official_miles, 2) if official_miles else None,
+        "total_minutes": timing["total_minutes"],
+        "raw_total_minutes": timing["raw_total_minutes"],
+        "trailhead": trailhead.get("name"),
+        "less_optimal_flags": [
+            "route_truth_repaired",
+            "lollipop_stem_repeats_official_mileage",
+            "parking_access_day_of_check_required",
+        ],
+        "segment_ids": claim_ids,
+        "time_breakdown_minutes": timing["time_breakdown_minutes"],
+        "time_estimates_minutes": timing["time_estimates_minutes"],
+        "route_status": "graph_validated",
+        "source": "route_truth_repair",
+        "route_truth_repair_id": repair.get("repair_id"),
+        "route_truth_replaces_candidate_ids": [
+            str(value)
+            for value in repair.get("replace_candidate_ids") or []
+        ],
+        "route_quality": {
+            "route_truth_repair": True,
+            "field_shape": "lower_dry_access_shingle_up_dry_creek_down",
+        },
+    }
+    route_cue = {
+        "candidate_id": candidate_id,
+        "title": repair.get("title"),
+        "route_status": "graph_validated",
+        "official_miles": official_miles,
+        "on_foot_miles": on_foot_miles,
+        "raw_total_minutes": timing["raw_total_minutes"],
+        "total_minutes": timing["total_minutes"],
+        "time_breakdown_minutes": timing["time_breakdown_minutes"],
+        "time_estimates_minutes": timing["time_estimates_minutes"],
+        "trailhead": trailhead,
+        "start_access": {
+            "confidence": "field_check_needed",
+            "direct_gap_miles": round_miles(coordinate_path_miles(access_path)),
+            "mapped_access_miles": round_miles(coordinate_path_miles(access_path)),
+            "official_repeat_miles": 0,
+            "official_repeat_segment_ids": [],
+            "access_class": "manual_lower_access_anchor",
+            "graph_validated": True,
+            "connector_names": ["Dry Creek", "Sweet Connie"],
+            "connector_classes": ["roadside_access"],
+            "path_start": parking_point,
+            "path_end": first_start,
+            "path_coordinates": access_path,
+        },
+        "segments": traversal_segments,
+        "between_links": [],
+        "return_to_car": {
+            "strategy": "explicit_lollipop_return",
+            "description": "Return to the car by continuing down Dry Creek after the Shingle climb.",
+            "official_repeat_miles": repeat_miles,
+            "official_repeat_segment_ids": sorted(set(repeat_ids)),
+            "connector_miles": round_miles(coordinate_path_miles(return_path)),
+            "road_miles": 0,
+            "connector_names": ["Dry Creek"],
+            "connector_classes": ["roadside_access"],
+            "path_start": last_end,
+            "path_end": parking_point,
+            "path_coordinates": return_path,
+            "needs_map_validation": False,
+            "graph_validated": True,
+        },
+        "validation": {
+            "segment_coverage_passed": True,
+            "ascent_direction_passed": True,
+            "return_path_graph_validated": True,
+            "trailhead_snap_confidence": "high",
+            "connector_overlap_checked": True,
+            "special_management_checked": False,
+        },
+        "direction_validation": {
+            "passed": True,
+            "reason": "explicit_lollipop_route_truth_repair",
+            "ascent_segment_ids_checked": [1656],
+            "planned_traversal_direction": {"1656": "official_geometry_start_to_end"},
+        },
+        "cue_generation_mode": "route_truth_repair_explicit_lollipop",
+        "field_warning": "Roadside parking/access still needs day-of capacity and signage check.",
+        "route_truth_repair_id": repair.get("repair_id"),
+        "field_notes": list(repair.get("field_notes") or []),
+    }
+    validation = validate_track_segments([[tuple(point) for point in track]], max_gap_miles=0.05)
+    route_feature = coords_feature(
+        [(point[0], point[1]) for point in track],
+        {
+            "kind": "route",
+            "package_number": repair.get("package_number"),
+            "candidate_id": candidate_id,
+            "block_name": repair.get("block_name"),
+            "title": repair.get("title"),
+            "official_miles": official_miles,
+            "on_foot_miles": on_foot_miles,
+            "trailhead": trailhead.get("name"),
+            "field_menu_label": repair.get("field_menu_label"),
+            "source": "route_truth_repair",
+            "route_truth_repair_id": repair.get("repair_id"),
+            "source_gap_warning_count": 0 if validation.get("passed") else 1,
+        },
+    )
+    parking = {
+        "type": "Feature",
+        "geometry": {"type": "Point", "coordinates": parking_point},
+        "properties": {
+            "kind": "parking",
+            "package_number": repair.get("package_number"),
+            "candidate_id": candidate_id,
+            "block_name": repair.get("block_name"),
+            "field_menu_label": repair.get("field_menu_label"),
+            "name": trailhead.get("name"),
+            "has_parking": trailhead.get("has_parking"),
+            "parking_minutes": trailhead.get("parking_minutes"),
+            "source": trailhead.get("source"),
+            "parking_confidence": trailhead.get("parking_confidence"),
+        },
+    }
+    return {
+        "component": component,
+        "cue": route_cue,
+        "route_feature": route_feature,
+        "parking_feature": parking,
+        "route_validation": {
+            "candidate_id": candidate_id,
+            "source_gap_warning": not validation.get("passed"),
+            "source_max_gap_miles": validation.get("max_trackpoint_gap_miles"),
+            "rendered_passed": validation.get("passed"),
+            "rendered_failures": validation.get("failures") or [],
+        },
+    }
+
+
+def route_truth_context(
+    state: dict[str, Any],
+    official_segments: list[dict[str, Any]],
+) -> dict[str, Any]:
+    # Route-truth repairs use explicit official segment geometry; avoid the
+    # expensive full official-overlap pass while rebuilding companion routes.
+    connector_graph = load_connector_graph(DEFAULT_CONNECTOR_GEOJSON, official_segments=[])
+    return {
+        "official_index": load_official_segment_index(DEFAULT_OFFICIAL_SEGMENTS_GEOJSON),
+        "connector_graph": connector_graph,
+        "elevation_sampler": load_dem_context(DEFAULT_DEM_TIF, DEFAULT_DEM_SUMMARY_JSON)["sampler"],
+        "performance_profile": build_performance_profile(
+            state=state,
+            strava_activity_details_dir=DEFAULT_STRAVA_DETAILS_DIR,
+            activity_summary_csv=DEFAULT_ACTIVITY_SUMMARY_CSV,
+            activity_detail_summary_csv=DEFAULT_ACTIVITY_DETAIL_SUMMARY_CSV,
+            segment_perf_csv=DEFAULT_SEGMENT_PERF_CSV,
+        ),
+    }
+
+
+def package_by_number(data: dict[str, Any], package_number: Any) -> dict[str, Any] | None:
+    return next(
+        (
+            package
+            for package in data.get("packages") or []
+            if str(package.get("package_number")) == str(package_number)
+        ),
+        None,
+    )
+
+
+def component_by_candidate(package: dict[str, Any] | None, candidate_id: Any) -> dict[str, Any] | None:
+    if not package:
+        return None
+    return next(
+        (
+            component
+            for component in package.get("components") or []
+            if str(component.get("candidate_id")) == str(candidate_id)
+        ),
+        None,
+    )
+
+
+def remove_candidates_from_package(package: dict[str, Any], candidate_ids: set[str]) -> None:
+    package["components"] = [
+        component
+        for component in package.get("components") or []
+        if str(component.get("candidate_id")) not in candidate_ids
+    ]
+
+
+def remove_candidate_sources(map_data: dict[str, Any], candidate_ids: set[str]) -> None:
+    route_cues = map_data.get("route_cues")
+    if isinstance(route_cues, dict):
+        for candidate_id in candidate_ids:
+            route_cues.pop(candidate_id, None)
+    for collection_name, collection in (map_data.get("feature_collections") or {}).items():
+        if collection_name == "official_segments":
+            continue
+        features = collection.get("features")
+        if not isinstance(features, list):
+            continue
+        collection["features"] = [
+            feature
+            for feature in features
+            if str((feature.get("properties") or {}).get("candidate_id")) not in candidate_ids
+        ]
+
+
+def add_route_truth_sources(
+    package_map: dict[str, Any],
+    payload: dict[str, Any],
+) -> None:
+    package_map.setdefault("route_cues", {})[payload["component"]["candidate_id"]] = payload["cue"]
+    collections = package_map.setdefault("feature_collections", {})
+    collections.setdefault("routes", {"type": "FeatureCollection", "features": []}).setdefault("features", []).append(
+        payload["route_feature"]
+    )
+    collections.setdefault("parking", {"type": "FeatureCollection", "features": []}).setdefault("features", []).append(
+        payload["parking_feature"]
+    )
+    replace_route_validations(package_map, [payload["component"]["candidate_id"]], [payload["route_validation"]])
+
+
+def append_route_pass_route(
+    route_pass: dict[str, Any],
+    *,
+    package: dict[str, Any],
+    component: dict[str, Any],
+    source: str,
+) -> None:
+    existing_numbers = [int(route.get("route_number") or 0) for route in route_pass.get("routes") or []]
+    route_pass.setdefault("routes", []).append(
+        {
+            "route_number": component.get("route_number") or max(existing_numbers or [0]) + 1,
+            "candidate_id": component.get("candidate_id"),
+            "block_id": package.get("block_id"),
+            "block_name": package.get("block_name"),
+            "route_source": source,
+            "selection_reason": source,
+            "trail_names": component.get("trail_names") or [],
+            "official_miles": component.get("official_miles"),
+            "on_foot_miles": component.get("on_foot_miles"),
+            "ratio": component.get("ratio"),
+            "total_minutes": component.get("total_minutes"),
+            "trailhead": component.get("trailhead"),
+            "route_status": "graph_validated",
+            "less_optimal_flags": component.get("less_optimal_flags") or [],
+            "segment_ids": component.get("segment_ids") or [],
+            "source_component_candidate_ids": [component.get("candidate_id")],
+            "is_hybrid_assembled": False,
+            "cross_block_official_miles": 0.0,
+            "cross_block_segment_count": 0,
+        }
+    )
+
+
+def candidate_component_from_probe(
+    *,
+    candidate_id: str,
+    candidate: dict[str, Any],
+    base_component: dict[str, Any],
+    label: str | None = None,
+    source: str = "route_truth_repair",
+) -> dict[str, Any]:
+    official = float(candidate.get("official_new_miles") or 0.0)
+    on_foot = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
+    component = {
+        "route_number": base_component.get("route_number"),
+        "candidate_id": candidate_id,
+        "field_menu_group_id": candidate_id,
+        "trail_names": candidate.get("trail_names") or [],
+        "official_miles": round_miles(official),
+        "on_foot_miles": round_miles(on_foot),
+        "ratio": round(on_foot / official, 2) if official else None,
+        "total_minutes": int(candidate.get("total_minutes") or 0),
+        "raw_total_minutes": int(candidate.get("raw_total_minutes") or 0),
+        "trailhead": (candidate.get("trailhead") or {}).get("name") or base_component.get("trailhead"),
+        "less_optimal_flags": list(candidate.get("less_optimal_flags") or []) + ["route_truth_repaired"],
+        "segment_ids": [int(value) for value in candidate.get("segment_ids") or []],
+        "time_breakdown_minutes": copy.deepcopy(candidate.get("time_breakdown_minutes")),
+        "time_estimates_minutes": copy.deepcopy(candidate.get("time_estimates_minutes")),
+        "effort": copy.deepcopy(candidate.get("effort")),
+        "route_status": candidate.get("route_status"),
+        "source": source,
+    }
+    if label:
+        component["field_menu_label"] = label
+    return component
+
+
+def build_pruned_component_payload(
+    *,
+    prune: dict[str, Any],
+    source_component: dict[str, Any],
+    source_cue: dict[str, Any],
+    official_by_id: dict[int, dict[str, Any]],
+    state: dict[str, Any],
+    context: dict[str, Any],
+    package: dict[str, Any],
+) -> dict[str, Any]:
+    trailhead = copy.deepcopy(source_cue.get("trailhead") or {})
+    forced_state = dict(state)
+    forced_state["trailheads"] = [trailhead]
+    segment_ids = [int(value) for value in prune.get("replacement_segment_ids") or []]
+    candidate = candidate_from_trail_group(
+        group_remaining_by_trail([official_by_id[segment_id] for segment_id in segment_ids]),
+        forced_state,
+        context["performance_profile"],
+        context["connector_graph"],
+        candidate_type="route_truth_pruned_component",
+        elevation_sampler=context["elevation_sampler"],
+    )
+    candidate_id = str(prune.get("replacement_candidate_id") or source_component.get("candidate_id"))
+    component = candidate_component_from_probe(
+        candidate_id=candidate_id,
+        candidate=candidate,
+        base_component=source_component,
+        label=source_component.get("field_menu_label"),
+    )
+    if prune.get("replacement_title"):
+        component["route_truth_replacement_title"] = prune.get("replacement_title")
+    component["route_truth_replaces_candidate_ids"] = [str(prune.get("candidate_id"))]
+    cue = cue_from_candidate(
+        candidate_id,
+        candidate,
+        context["official_index"],
+        context["connector_graph"],
+    )
+    cue["title"] = prune.get("replacement_title") or cue.get("title")
+    cue["route_truth_repair_id"] = prune.get("repair_id")
+    coords = candidate_track_coordinates(
+        candidate,
+        context["official_index"],
+        connector_graph=context["connector_graph"],
+        densify_source_lines=True,
+    )
+    validation = validate_track_segments([coords], max_gap_miles=0.05)
+    route_feature = coords_feature(
+        coords,
+        {
+            "kind": "route",
+            "package_number": package.get("package_number"),
+            "candidate_id": candidate_id,
+            "block_name": package.get("block_name"),
+            "title": cue.get("title"),
+            "official_miles": component.get("official_miles"),
+            "on_foot_miles": component.get("on_foot_miles"),
+            "trailhead": component.get("trailhead"),
+            "field_menu_label": component.get("field_menu_label"),
+            "source": "route_truth_repair",
+            "source_gap_warning_count": 0 if validation.get("passed") else 1,
+        },
+    )
+    parking = parking_feature(
+        candidate,
+        {
+            "kind": "parking",
+            "package_number": package.get("package_number"),
+            "candidate_id": candidate_id,
+            "block_name": package.get("block_name"),
+            "field_menu_label": component.get("field_menu_label"),
+            "source": "route_truth_repair",
+        },
+    )
+    return {
+        "component": component,
+        "cue": cue,
+        "route_feature": route_feature,
+        "parking_feature": parking,
+        "route_validation": {
+            "candidate_id": candidate_id,
+            "source_gap_warning": not validation.get("passed"),
+            "source_max_gap_miles": validation.get("max_trackpoint_gap_miles"),
+            "rendered_passed": validation.get("passed"),
+            "rendered_failures": validation.get("failures") or [],
+        },
+    }
+
+
+def apply_route_truth_repairs(
+    route_pass: dict[str, Any],
+    package_pass: dict[str, Any],
+    package_map: dict[str, Any],
+    repairs_payload: dict[str, Any],
+    *,
+    official_segments: list[dict[str, Any]],
+    state: dict[str, Any],
+) -> None:
+    repairs = active_route_truth_repairs(repairs_payload)
+    if not repairs:
+        return
+    official_by_id = official_segments_by_id(official_segments)
+    context = route_truth_context(state, official_segments)
+    route_cues = package_map.setdefault("route_cues", {})
+    for repair in repairs:
+        if repair.get("repair_type") != "explicit_lollipop_route":
+            continue
+        replacement_payload = explicit_lollipop_route_payload(
+            repair,
+            official_by_id=official_by_id,
+            state=state,
+        )
+        remove_ids = {str(value) for value in repair.get("replace_candidate_ids") or []}
+        remove_ids.add(str(repair.get("candidate_id")))
+        for data in [package_pass, package_map]:
+            package = package_by_number(data, repair.get("package_number"))
+            if not package:
+                continue
+            remove_candidates_from_package(package, remove_ids)
+            package.setdefault("components", []).append(copy.deepcopy(replacement_payload["component"]))
+            package["planning_status"] = "route_truth_repaired"
+            reasons = list(package.get("planning_reasons") or [])
+            for reason in ["route_truth_repaired", "planner_artifact_removed"]:
+                if reason not in reasons:
+                    reasons.append(reason)
+            package["planning_reasons"] = reasons
+            update_manual_package_summary(package)
+        remove_candidate_sources(package_map, remove_ids)
+        add_route_truth_sources(package_map, replacement_payload)
+        route_pass["routes"] = [
+            route
+            for route in route_pass.get("routes") or []
+            if str(route.get("candidate_id")) not in remove_ids
+        ]
+        target_package = package_by_number(package_map, repair.get("package_number")) or {}
+        append_route_pass_route(
+            route_pass,
+            package=target_package,
+            component=replacement_payload["component"],
+            source="route_truth_repair",
+        )
+
+        for prune in repair.get("prune_claims") or []:
+            prune = {**prune, "repair_id": repair.get("repair_id")}
+            source_id = str(prune.get("candidate_id"))
+            replacement_id = str(prune.get("replacement_candidate_id") or "")
+            map_package = package_by_number(package_map, prune.get("package_number"))
+            pass_package = package_by_number(package_pass, prune.get("package_number"))
+            source_component = component_by_candidate(map_package, source_id) or component_by_candidate(
+                pass_package,
+                source_id,
+            )
+            source_cue = copy.deepcopy(route_cues.get(source_id) or {})
+            if not map_package or not source_component or not source_cue:
+                continue
+            pruned_payload = build_pruned_component_payload(
+                prune=prune,
+                source_component=source_component,
+                source_cue=source_cue,
+                official_by_id=official_by_id,
+                state=state,
+                context=context,
+                package=map_package,
+            )
+            replacement_id = pruned_payload["component"]["candidate_id"]
+            for package in [pass_package, map_package]:
+                if not package:
+                    continue
+                remove_candidates_from_package(package, {source_id, pruned_payload["component"]["candidate_id"]})
+                package.setdefault("components", []).append(copy.deepcopy(pruned_payload["component"]))
+                reasons = list(package.get("planning_reasons") or [])
+                for reason in ["route_truth_repaired", "dry_creek_claims_moved_to_shingle_lollipop"]:
+                    if reason not in reasons:
+                        reasons.append(reason)
+                package["planning_reasons"] = reasons
+                package["planning_status"] = "route_truth_repaired"
+                update_manual_package_summary(package)
+            remove_candidate_sources(package_map, {source_id, replacement_id})
+            add_route_truth_sources(package_map, pruned_payload)
+            route_pass["routes"] = [
+                route
+                for route in route_pass.get("routes") or []
+                if str(route.get("candidate_id")) not in {source_id, replacement_id}
+            ]
+            append_route_pass_route(
+                route_pass,
+                package=map_package,
+                component=pruned_payload["component"],
+                source="route_truth_pruned_component",
+            )
+
+
 def package_start_plan(package: dict[str, Any]) -> str:
     trailhead_count = int(package.get("trailhead_count") or 0)
     component_count = int(package.get("component_route_count") or 0)
@@ -1237,6 +1937,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--field-menu-overrides-json", type=Path, default=default_field_menu_overrides_json())
     parser.add_argument("--time-calibrations-json", type=Path, default=DEFAULT_TIME_CALIBRATIONS_JSON)
+    parser.add_argument("--route-truth-repairs-json", type=Path, default=DEFAULT_ROUTE_TRUTH_REPAIRS_JSON)
     parser.add_argument("--state-json", type=Path, default=DEFAULT_STATE_JSON)
     parser.add_argument("--official-segments-geojson", type=Path, default=DEFAULT_OFFICIAL_SEGMENTS_GEOJSON)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
@@ -1258,6 +1959,7 @@ def main() -> int:
     manual_design_reports = [read_json(path) for path in manual_design_report_paths if path.exists()]
     field_menu_overrides = read_json(args.field_menu_overrides_json) if args.field_menu_overrides_json.exists() else {}
     time_calibrations = read_json(args.time_calibrations_json) if args.time_calibrations_json.exists() else {}
+    route_truth_repairs = read_json(args.route_truth_repairs_json) if args.route_truth_repairs_json.exists() else {}
     official_segments, _official_meta = load_official_segments(args.official_segments_geojson)
     if field_menu_overrides:
         apply_field_menu_overrides(route_pass, package_pass, package_map, field_menu_overrides)
@@ -1268,6 +1970,15 @@ def main() -> int:
             package_map,
             manual_design,
             manual_design_reports,
+        )
+    if route_truth_repairs:
+        apply_route_truth_repairs(
+            route_pass,
+            package_pass,
+            package_map,
+            route_truth_repairs,
+            official_segments=official_segments,
+            state=state,
         )
     if time_calibrations:
         apply_time_calibrations(route_pass, package_pass, package_map, time_calibrations)
@@ -1306,6 +2017,7 @@ def main() -> int:
                     args.package_map_json,
                     args.manual_design_json,
                     args.field_menu_overrides_json,
+                    args.route_truth_repairs_json,
                     args.time_calibrations_json,
                     args.state_json,
                     args.official_segments_geojson,

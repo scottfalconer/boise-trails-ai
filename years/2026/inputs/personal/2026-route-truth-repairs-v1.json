@@ -1,0 +1,76 @@
+{
+  "version": "2026-route-truth-repairs-v1",
+  "description": "Data-backed route-shape repairs where the generated planner split a human-recognizable field route into artificial segment-ownership buckets.",
+  "repairs": [
+    {
+      "repair_id": "dry-creek-shingle-lollipop-2026-06-19",
+      "status": "active",
+      "repair_type": "explicit_lollipop_route",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "candidate_id": "manual-16a-d1",
+      "field_menu_label": "16A-D1",
+      "title": "Dry Creek / Shingle natural loop",
+      "trail_names": [
+        "Dry Creek Trail",
+        "Shingle Creek Trail"
+      ],
+      "trailhead": {
+        "name": "Dry Creek / Sweet Connie roadside parking",
+        "lat": 43.69179144501686,
+        "lon": -116.18208699859679,
+        "has_parking": true,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "source": "historical_strava_anchor_plus_swimba_and_local_parking_sources",
+        "parking_minutes": 8
+      },
+      "replace_candidate_ids": [
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+      ],
+      "claim_segment_ids": [
+        1542,
+        1543,
+        1544,
+        1545,
+        1546,
+        1656
+      ],
+      "traversal": [
+        {"segment_id": 1542, "direction": "reverse", "credit": "new"},
+        {"segment_id": 1543, "direction": "reverse", "credit": "new"},
+        {"segment_id": 1544, "direction": "reverse", "credit": "new"},
+        {"segment_id": 1656, "direction": "forward", "credit": "new"},
+        {"segment_id": 1546, "direction": "forward", "credit": "new"},
+        {"segment_id": 1545, "direction": "forward", "credit": "new"},
+        {"segment_id": 1544, "direction": "forward", "credit": "repeat"},
+        {"segment_id": 1543, "direction": "forward", "credit": "repeat"},
+        {"segment_id": 1542, "direction": "forward", "credit": "repeat"}
+      ],
+      "prune_claims": [
+        {
+          "package_number": 15,
+          "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
+          "remove_segment_ids": [
+            1542,
+            1543,
+            1544,
+            1545,
+            1546
+          ],
+          "replacement_segment_ids": [
+            1577,
+            1576,
+            1523
+          ],
+          "replacement_candidate_id": "route-truth-15b-highlands-connector",
+          "replacement_title": "Highlands / Connector from Bob's Trailhead"
+        }
+      ],
+      "field_notes": [
+        "Field route is lower Dry Creek access, Dry Creek lower stem to the Shingle junction, Shingle Creek uphill for ascent credit, then Dry Creek down to the car.",
+        "This intentionally repeats lower Dry Creek as lollipop-stem mileage; it must not be represented as a Shingle out-and-back.",
+        "Dry Creek segment ownership moves out of 15B so the phone packet no longer splits one field route into two artificial packages."
+      ]
+    }
+  ]
+}

@@ -16,35 +16,35 @@
     <name>SEG 1 Polecat Loop</name>
     <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 1 min; p75 2 min; 23 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
-  <wpt lat="43.687246" lon="-116.220061">
+  <wpt lat="43.687278" lon="-116.220066">
     <name>SEG 2 Polecat Loop</name>
     <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min; p75 4 min; 33 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.686459" lon="-116.219857">
     <name>ASCENT 3 Polecat Loop</name>
-    <desc>Ascent-only segment; verify signed uphill direction. Official 0.17 mi. est. 2 min; p75 3 min; 45 ft climb. Signpost: #81 Polecat Loop.</desc>
+    <desc>SPECIAL MANAGEMENT: follow the signed one-way direction. Official 0.17 mi. est. 2 min; p75 3 min; 45 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.681170" lon="-116.215433">
     <name>ASCENT 4 Polecat Loop</name>
-    <desc>Ascent-only segment; verify signed uphill direction. Official 1.42 mi. est. 16 min; p75 23 min; 377 ft climb. Signpost: #81 Polecat Loop.</desc>
+    <desc>SPECIAL MANAGEMENT: follow the signed one-way direction. Official 1.42 mi. est. 16 min; p75 23 min; 377 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.678042" lon="-116.225980">
     <name>SEG 5 Polecat Loop</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.5 mi. est. 6 min; p75 9 min; 165 ft climb. Signpost: #81 Polecat Loop.</desc>
+    <desc>SPECIAL MANAGEMENT: follow the signed one-way direction opposite official geometry. Official 0.5 mi. est. 6 min; p75 9 min; 165 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.680698" lon="-116.231478">
     <name>ASCENT 6 Polecat Loop</name>
-    <desc>Ascent-only segment; verify signed uphill direction. Official 1.22 mi. est. 14 min; p75 23 min; 609 ft climb. Signpost: #81 Polecat Loop.</desc>
+    <desc>SPECIAL MANAGEMENT: follow the signed one-way direction. Official 1.22 mi. est. 14 min; p75 23 min; 609 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.685682" lon="-116.223886">
     <name>ASCENT 7 Polecat Loop</name>
-    <desc>Ascent-only segment; verify signed uphill direction. Official 2.02 mi. est. 23 min; p75 30 min; 360 ft climb. Signpost: #81 Polecat Loop.</desc>
+    <desc>SPECIAL MANAGEMENT: follow the signed one-way direction. Official 2.02 mi. est. 23 min; p75 30 min; 360 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.686343" lon="-116.221621">
     <name>SEG 8 Doe Ridge</name>
     <desc>Either direction allowed; follow map arrows. Official 0.46 mi. est. 8 min; p75 11 min; 122 ft climb.</desc>
   </wpt>
-  <wpt lat="43.681991" lon="-116.220487">
+  <wpt lat="43.681930" lon="-116.220503">
     <name>SEG 9 Quick Draw</name>
     <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 6 min; p75 8 min; 77 ft climb.</desc>
   </wpt>

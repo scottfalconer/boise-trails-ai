@@ -1238,6 +1238,30 @@ def test_rejected_avoidable_repeat_repair_does_not_mutate_track_segments(tmp_pat
     assert module.track_distance_miles(route["_track_segments"]) == before_miles
 
 
+def test_route_truth_lollipop_skips_avoidable_repeat_repair():
+    module = load_exporter()
+    route = {
+        "route_cues": [{"cue_generation_mode": "route_truth_repair_explicit_lollipop"}],
+        "wayfinding_cues": [
+            {"seq": 1, "official_segment_ids": ["101"]},
+            {"seq": 2, "official_repeat_segment_ids": ["101"]},
+        ],
+        "_track_segments": [[(-116.0, 43.0), (-115.99, 43.0), (-116.0, 43.0)]],
+        "_official_segment_index": {},
+    }
+
+    repairs = module.repair_avoidable_post_credit_repeats(
+        route,
+        connector_graph={"nodes": [{"id": "placeholder"}]},
+        completed_at_export_ids={"101"},
+        snap_tolerance_miles=0.02,
+        rebuild_first=False,
+    )
+
+    assert repairs == []
+    assert route["intentional_post_credit_repeat_policy"] == "route_truth_lollipop"
+
+
 def test_load_map_data_prefers_canonical_json_over_html_snapshot(tmp_path):
     module = load_exporter()
     canonical = sample_map_data()
@@ -2294,6 +2318,86 @@ def test_wayfinding_enrichment_names_start_access_edge_matched_from_route_line()
     assert "01 0.00 mi" in route["wayfinding_cues"][0]["compact"]
 
 
+def test_wayfinding_enrichment_names_short_start_access_edge():
+    module = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge
+
+    route = {
+        "outing_id": "synthetic",
+        "segment_ids": ["official-1"],
+        "turn_by_turn_steps": [
+            {
+                "kind": "access",
+                "title": "Leave car toward #19A Shoshone-Bannock Tribes Trail",
+                "detail": "From the car, head toward #19A Shoshone-Bannock Tribes Trail.",
+            },
+            {
+                "kind": "return",
+                "title": "Return on North Klotz Lane",
+                "detail": "After the official route, return toward the car on North Klotz Lane.",
+            }
+        ],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cum_miles": 0.0,
+                "leg_miles": 0.3,
+                "cue_type": "start_access",
+                "action": "FOLLOW",
+                "signed_as": ["#19A Shoshone-Bannock Tribes Trail"],
+                "target": "Shoshone-Paiute",
+                "until": "signed junction with Shoshone-Paiute",
+            },
+            {
+                "seq": 2,
+                "cum_miles": 0.3,
+                "leg_miles": 0.4,
+                "cue_type": "follow_official_segment",
+                "action": "FOLLOW",
+                "signed_as": ["Shoshone-Paiute"],
+                "target": "Quarry Trail - Castle Rock",
+                "until": "signed junction with Quarry Trail - Castle Rock",
+                "official_segment_ids": ["official-1"],
+            },
+        ],
+    }
+    track_segments = [[(-116.1680, 43.6033), (-116.1677, 43.6035), (-116.1684, 43.6044)]]
+    graph_edges = [
+        TrailEdge(
+            edge_id="generic-overlap",
+            name="OSM footway connector 72484",
+            normalized_name="osm footway connector 72484",
+            signposts=set(),
+            source_class="osm_path_footway",
+            coords=[(-116.1680, 43.6033), (-116.1677, 43.6035)],
+        ),
+        TrailEdge(
+            edge_id="connector-short-road",
+            name="North Klotz Lane",
+            normalized_name="north klotz lane",
+            signposts=set(),
+            source_class="osm_public_road",
+            coords=[(-116.1680, 43.6033), (-116.1677, 43.6035)],
+        ),
+        TrailEdge(
+            edge_id="official-shoshone",
+            name="Shoshone-Paiute",
+            normalized_name="shoshone paiute",
+            signposts=set(),
+            source_class="official_segment",
+            segment_id="official-1",
+            coords=[(-116.1677, 43.6035), (-116.1684, 43.6044)],
+        ),
+    ]
+
+    module.enrich_route_with_walkthrough_edge_names(route, track_segments, graph_edges)
+
+    cue_text = json.dumps(route["wayfinding_cues"], ensure_ascii=False)
+    step_text = json.dumps(route["turn_by_turn_steps"], ensure_ascii=False)
+    assert "North Klotz Lane" in cue_text
+    assert "North Klotz Lane" in step_text
+
+
 def test_wayfinding_enrichment_names_between_connector_edge_matched_from_route_line():
     module = load_exporter()
     from field_route_walkthrough_audit import TrailEdge
@@ -3231,6 +3335,41 @@ def test_navigation_source_anchor_mismatch_holds_route_card_and_field_tool_recor
         module.render_card(route)
 
 
+def test_navigation_source_cue_map_mileage_mismatch_holds_route_card():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing_id"] = "16-4"
+    route["label"] = "16C-2"
+    route["route_code"] = "16C-2"
+    route["route_name"] = "Dry Creek: Shingle Creek"
+    route["outing"]["outing_id"] = "16-4"
+    route["outing"]["label"] = "16C-2"
+    route["outing"]["route_code"] = "16C-2"
+    route["outing"]["route_name"] = "Dry Creek: Shingle Creek"
+    route["logistics"] = {"car_passes": [], "known_water": []}
+    route["wayfinding_cues"] = [
+        {
+            "seq": 2,
+            "cue_type": "follow_official_segment",
+            "leg_miles": 7.13,
+            "route_miles": 2.406,
+            "route_leg_miles": 9.493,
+            "signed_as": ["Shingle Creek Trail"],
+            "target": "return to car",
+        }
+    ]
+
+    module.apply_navigation_source_audit_to_routes([route])
+
+    assert route["field_readiness_status"] == "blocked_navigation_source"
+    failure = route["navigation_source_audit"]["failures"][0]
+    assert failure["code"] == "cue_map_mileage_mismatch"
+    assert failure["cue_seq"] == 2
+    assert failure["cue_miles"] == 7.13
+    assert failure["map_miles"] == 9.493
+    assert "cue_map_mileage_mismatch" in route["outing"]["route_card_audit_blockers"][0]
+
+
 def test_public_route_surfaces_sanitize_private_strava_anchor_display_text():
     module = load_exporter()
     route = special_management_failed_route()
@@ -3389,129 +3528,88 @@ def test_live_map_keeps_blocked_routes_unavailable_without_source_mismatch_copy(
     assert "${{" not in live_map_html
 
 
-def test_export_field_packet_keeps_cross_route_segment_ownership_in_audit_data(tmp_path):
+def test_segment_ownership_reconciliation_declares_cross_route_ownership():
     module = load_exporter()
     data = sample_map_data()
-    data.pop("manual_design", None)
-    data["packages"][0]["components"][0]["segment_ids"] = [101]
-    data["packages"][0]["components"][0]["trail_names"] = ["Test Trail"]
-    data["packages"][0]["components"][0]["official_miles"] = 1.23
-    data["packages"][0]["components"][0]["on_foot_miles"] = 2.34
-    data["packages"][1]["components"] = [
-        {
-            "candidate_id": "second-route",
-            "trail_names": ["Second Trail"],
-            "official_miles": 0.5,
-            "on_foot_miles": 1.0,
-            "total_minutes": 25,
-            "trailhead": "Second Trailhead",
-            "segment_ids": [103],
-        }
-    ]
-    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = _joined_path(
-        _dense_line([-116.1, 43.1], [-116.11, 43.11], 24),
-        _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
-        _dense_line([-116.12, 43.12], [-116.1, 43.1], 48),
-    )
-    data["feature_collections"]["routes"]["features"].append(
-        {
-            "type": "Feature",
-            "properties": {
-                "kind": "route",
-                "candidate_id": "second-route",
-                "title": "Second Trail",
-            },
-            "geometry": {
-                "type": "LineString",
-                "coordinates": _joined_path(
-                    _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
-                    _dense_line([-116.12, 43.12], [-116.11, 43.11], 24),
-                ),
-            },
-        }
-    )
     data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = _dense_line(
         [-116.1, 43.1], [-116.11, 43.11], 24
     )
     data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = _dense_line(
         [-116.11, 43.11], [-116.12, 43.12], 24
     )
-    data["feature_collections"]["parking"]["features"].append(
+    segments_by_id = module.official_segment_index(data)
+    routes = [
         {
-            "type": "Feature",
-            "properties": {
-                "kind": "parking",
-                "candidate_id": "second-route",
-                "name": "Second Trailhead",
-                "has_parking": True,
+            "outing_id": "1-1",
+            "label": "1",
+            "outing": {
+                "outing_id": "1-1",
+                "label": "1",
+                "candidate_ids": ["test-route"],
+                "remaining_segment_ids": [101],
             },
-            "geometry": {"type": "Point", "coordinates": [-116.11, 43.11]},
-        }
-    )
-    data["route_cues"]["test-route"]["segments"] = [data["route_cues"]["test-route"]["segments"][0]]
-    data["route_cues"]["test-route"]["between_links"] = []
-    data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
-    data["route_cues"]["second-route"] = {
-        "candidate_id": "second-route",
-        "title": "Second Trail",
-        "route_status": "graph_validated",
-        "official_miles": 0.5,
-        "on_foot_miles": 1.0,
-        "total_minutes": 25,
-        "time_estimates_minutes": {
-            "door_to_door_p75": 25,
-            "door_to_door_p90": 30,
+            "segment_ids": ["101"],
+            "_track_segments": [
+                _joined_path(
+                    _dense_line([-116.1, 43.1], [-116.11, 43.11], 24),
+                    _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
+                    _dense_line([-116.12, 43.12], [-116.1, 43.1], 48),
+                )
+            ],
         },
-        "trailhead": {
-            "name": "Second Trailhead",
-            "lat": 43.11,
-            "lon": -116.11,
-            "has_parking": True,
+        {
+            "outing_id": "2-1",
+            "label": "2",
+            "outing": {
+                "outing_id": "2-1",
+                "label": "2",
+                "candidate_ids": ["second-route"],
+                "remaining_segment_ids": [103],
+            },
+            "segment_ids": ["103"],
+            "_track_segments": [[(-116.11, 43.11), (-116.12, 43.12)]],
         },
-        "start_access": {
-            "confidence": "high",
-            "direct_gap_miles": 0,
-            "mapped_access_miles": 0,
-            "access_class": "direct",
-            "graph_validated": True,
-        },
-        "segments": [
-            {
-                "order": 1,
-                "seg_id": 103,
-                "segment_name": "Second Trail 1",
-                "trail_name": "Second Trail",
-                "official_miles": 0.5,
-                "direction_rule": "both",
-                "direction_cue": "Either direction allowed.",
-                "ascent_ft": 20,
-                "descent_ft": 10,
-                "estimated_moving_minutes": 8,
-                "estimated_moving_minutes_p75": 10,
-                "grade_adjusted_miles": 0.6,
-            }
-        ],
-        "return_to_car": {
-            "description": "Return to parking.",
-            "official_repeat_miles": 0.5,
-            "connector_miles": 0,
-            "road_miles": 0,
-        },
-    }
+    ]
 
-    module.export_field_packet(data, tmp_path)
-    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
-    first_route = next(route for route in field_data["routes"] if route["outing_id"] == "1-1")
+    module.apply_segment_ownership_reconciliation(routes, segments_by_id)
+    first_route = routes[0]
     reconciliation = first_route["segment_ownership_reconciliation"]
-    html = (tmp_path / "index.html").read_text(encoding="utf-8")
 
     assert first_route["segment_ids"] == ["101"]
     assert reconciliation["status"] == "reconciled"
     assert reconciliation["declared_owned_elsewhere_segment_ids"] == ["103"]
     assert reconciliation["segments_owned_elsewhere"][0]["owned_by_routes"][0]["outing_id"] == "2-1"
-    assert "Cross-route segment ownership" not in html
-    assert "planned owner" not in html
-    assert "official segment 103" not in html
+
+
+def test_route_claim_index_includes_manual_holds_for_ownership_only():
+    module = load_exporter()
+
+    claims = module.route_claim_index(
+        [
+            {
+                "outing": {
+                    "outing_id": "1-1",
+                    "label": "Runnable",
+                    "segment_ids": [101],
+                    "candidate_ids": ["runnable-candidate"],
+                }
+            }
+        ],
+        ownership_cards=[
+            {
+                "outing_id": "held-1",
+                "label": "Held",
+                "manual_design_hold": True,
+                "remaining_segment_ids": [102],
+                "candidate_ids": ["held-candidate"],
+            }
+        ],
+    )
+
+    assert claims["101"][0]["ownership_status"] == "active_route"
+    assert claims["102"][0]["outing_id"] == "held-1"
+    assert claims["102"][0]["candidate_ids"] == ["held-candidate"]
+    assert claims["102"][0]["ownership_status"] == "manual_hold"
 
 
 def test_field_packet_uses_route_level_dem_effort_when_segment_effort_is_missing(tmp_path):

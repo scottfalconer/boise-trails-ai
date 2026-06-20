@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Hidden Springs: Red Tail (15A) cues</name>
-    <desc>15A. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 5.07 mi; Door-to-door p75 2h 27m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 5.04 mi; Door-to-door p75 2h 27m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.725462" lon="-116.248180">
     <name>PARK/START Dry Creek Parking Area/Trailhead</name>
@@ -16,7 +16,7 @@
     <name>CUE 02 Landslide</name>
     <desc>Follow Landslide. First official segment here: Landslide. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.725391" lon="-116.247995">
+  <wpt lat="43.725268" lon="-116.247026">
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>

@@ -655,7 +655,11 @@ def canonical_route_metric_failures(
         comparison_label = "+".join(candidate_ids)
         for field_name in ("official_miles", "on_foot_miles"):
             canonical_value = numeric_sum_or_none([component.get(field_name) for component in components])
-            field_value = route.get(field_name)
+            field_value = (
+                route.get("source_card_on_foot_miles")
+                if field_name == "on_foot_miles" and route.get("source_card_on_foot_miles") is not None
+                else route.get(field_name)
+            )
             if canonical_value is None or field_value is None:
                 failures.append(
                     f"{comparison_label}: {field_name} missing from "
@@ -693,6 +697,40 @@ def canonical_route_metric_failures(
             failures.append(
                 f"{comparison_label}: segment_ids field packet {field_segment_ids} "
                 f"!= canonical {canonical_segment_ids}"
+            )
+    return failures
+
+
+def cue_map_mileage_mismatch_failures(
+    routes: list[dict[str, Any]],
+    *,
+    min_difference_miles: float = 0.75,
+    min_ratio: float = 1.25,
+) -> list[str]:
+    failures = []
+    for route in routes:
+        label = f"{route.get('label') or route.get('outing_id')} {route.get('trailhead') or ''}".strip()
+        route_quality = route.get("route_quality") or {}
+        route_truth_lollipop = route_quality.get("field_shape") == "lower_dry_access_shingle_up_dry_creek_down"
+        for fallback_index, cue in enumerate(route.get("wayfinding_cues") or [], start=1):
+            cue_miles = float(cue.get("leg_miles") or 0)
+            map_miles_value = cue.get("route_leg_miles")
+            if map_miles_value is None or cue_miles <= 0.05:
+                continue
+            map_miles = float(map_miles_value or 0)
+            if map_miles <= 0.05:
+                continue
+            if route_truth_lollipop and cue.get("official_repeat_segment_ids"):
+                continue
+            difference = abs(map_miles - cue_miles)
+            ratio = max(cue_miles, map_miles) / max(min(cue_miles, map_miles), 0.01)
+            if difference < min_difference_miles or ratio < min_ratio:
+                continue
+            seq = cue.get("seq") or fallback_index
+            failures.append(
+                f"{label}: wayfinding cue {seq} {cue.get('cue_type') or 'movement'} "
+                f"shows {cue_miles:.2f} cue mi but spans {map_miles:.2f} live-map mi "
+                f"(diff {difference:.2f}, ratio {ratio:.2f})"
             )
     return failures
 
@@ -904,6 +942,7 @@ def build_completion_audit(
 ) -> dict[str, Any]:
     official_ids = set(official_segment_ids(official_geojson))
     routes = field_tool_data.get("routes") or []
+    manual_holds = field_tool_data.get("manual_holds") or []
 
     def is_held_route(route: dict[str, Any]) -> bool:
         return (
@@ -912,16 +951,22 @@ def build_completion_audit(
         )
 
     held_routes = [route for route in routes if is_held_route(route)]
+    held_route_cards = [*held_routes, *manual_holds]
     field_ready_routes = [route for route in routes if not is_held_route(route)]
     route_segment_ids = {
         segment_id
         for route in routes
         for segment_id in normalized_ids(route.get("segment_ids"))
     }
+    held_segment_ids = {
+        segment_id
+        for route in held_route_cards
+        for segment_id in normalized_ids(route.get("remaining_segment_ids") or route.get("segment_ids"))
+    }
     progress = field_tool_data.get("progress") or {}
     completed_segment_ids = set(normalized_ids(progress.get("completed_segment_ids_at_export")))
     blocked_segment_ids = set(normalized_ids(progress.get("blocked_segment_ids_at_export")))
-    accounted_segment_ids = route_segment_ids | completed_segment_ids | blocked_segment_ids
+    accounted_segment_ids = route_segment_ids | held_segment_ids | completed_segment_ids | blocked_segment_ids
     source = field_tool_data.get("source") or {}
     source_hash = source.get("map_data_sha256")
     canonical_hash = stable_json_sha256(canonical_map_data) if canonical_map_data is not None else None
@@ -939,6 +984,7 @@ def build_completion_audit(
             open_trails_geojson=open_trails_geojson or read_json(DEFAULT_R2R_TRAILS_GEOJSON),
         )
     route_failures = route_field_failures(routes, packet_dir, official_ids)
+    cue_map_mismatch_failures = cue_map_mileage_mismatch_failures(routes)
     route_metric_failures = canonical_route_metric_failures(canonical_map_data, routes)
     live_map_cue_failures = live_map_default_cue_failures(routes)
     source_gap_status = source_gap_analysis(canonical_map_data, routes)
@@ -1010,13 +1056,22 @@ def build_completion_audit(
             "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
             not route_failures and bool(routes),
             (
-                f"{len(route_failures)} route field failure(s); first 12: "
-                + "; ".join(route_failures[:12])
-                if route_failures
+                    f"{len(route_failures)} route field failure(s); first 12: "
+                    + "; ".join(route_failures[:12])
+                    if route_failures
                 else (
                     f"{len(routes)} route cards passed field-structure checks; "
-                    f"{len(held_routes)} held by legality/certification gates"
+                    f"{len(held_route_cards)} held by legality/certification gates"
                 )
+            ),
+        ),
+        requirement(
+            "Field cues and live-map cue spans agree per movement leg",
+            not cue_map_mismatch_failures,
+            (
+                "; ".join(cue_map_mismatch_failures[:12])
+                if cue_map_mismatch_failures
+                else "all movement cues have matching written mileage and live-map route spans"
             ),
         ),
         requirement(
@@ -1044,6 +1099,7 @@ def build_completion_audit(
             and int(summary.get("segment_count_in_field_menu") or 0) == len(route_segment_ids),
             (
                 f"field menu {len(route_segment_ids)} ids; "
+                f"held {len(held_segment_ids)} ids; "
                 f"completed {len(completed_segment_ids)} ids; "
                 f"blocked {len(blocked_segment_ids)} ids; "
                 f"accounted {len(accounted_segment_ids)} ids; "
@@ -1132,13 +1188,15 @@ def build_completion_audit(
             "requirement_count": len(checks),
             "route_count": len(routes),
             "field_ready_route_count": len(field_ready_routes),
-            "held_route_count": len(held_routes),
+            "held_route_count": len(held_route_cards),
             "official_segment_count": len(official_ids),
             "field_menu_segment_count": len(route_segment_ids),
+            "held_segment_count": len(held_segment_ids),
             "completed_segment_count_at_export": len(completed_segment_ids),
             "blocked_segment_count_at_export": len(blocked_segment_ids),
             "accounted_segment_count": len(accounted_segment_ids),
             "canonical_route_metric_failure_count": len(route_metric_failures),
+            "cue_map_mismatch_failure_count": len(cue_map_mismatch_failures),
             "live_map_default_cue_failure_count": len(live_map_cue_failures),
             "advisory_check_count": len(advisory_checks),
             "advisory_action_count": sum(int(check.get("action_count") or 0) for check in advisory_checks),

@@ -228,6 +228,35 @@ def test_default_recertification_can_pass_after_validated_progress_matches_activ
     assert report["optimizer"]["field_day_count"] == 1
 
 
+def test_default_recertification_passes_with_manual_holds_accounted_but_not_runnable():
+    module = load_module()
+    active_field_tool = field_tool_data()
+    active_field_tool["routes"] = [active_field_tool["routes"][0]]
+    active_field_tool["manual_holds"] = [
+        {
+            "outing_id": "held-route",
+            "label": "HELD",
+            "manual_design_hold": True,
+            "remaining_segment_ids": ["103"],
+        }
+    ]
+
+    report = module.build_recertification_report(
+        active_field_tool,
+        official_geojson(),
+        calendar=calendar_assignment(),
+    )
+
+    assert report["status"] == "passed"
+    assert report["summary"]["remaining_coverage_preserved"] is True
+    assert report["summary"]["field_ready_remaining_coverage_preserved"] is False
+    assert report["summary"]["held_remaining_segment_count"] == 1
+    assert report["progress"]["held_remaining_segment_ids"] == ["103"]
+    assert report["optimizer"]["held_segment_count"] == 1
+    assert report["optimizer"]["held_segment_ids"] == [103]
+    assert "not field-runnable" in " ".join(report["optimizer"]["caveats"])
+
+
 def test_cli_default_uses_exported_validated_progress_from_active_packet(tmp_path):
     module = load_module()
     active_field_tool = field_tool_data()

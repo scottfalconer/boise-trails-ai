@@ -16,11 +16,11 @@
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
-  <wpt lat="43.565023" lon="-116.105735">
+  <wpt lat="43.564883" lon="-116.105639">
     <name>SEG 1 Peace Valley Overlook 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.24 mi. est. 4 min; p75 7 min; 188 ft climb.</desc>
   </wpt>
-  <wpt lat="43.566296" lon="-116.105078">
+  <wpt lat="43.566345" lon="-116.105146">
     <name>SEG 2 Peace Valley Overlook 2</name>
     <desc>Either direction allowed; follow map arrows. Official 0.3 mi. est. 5 min; p75 7 min; 77 ft climb.</desc>
   </wpt>

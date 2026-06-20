@@ -1447,6 +1447,7 @@ def shortest_connector_path(
     connector_graph: dict[str, Any] | None,
     snap_tolerance_miles: float,
     avoid_official_segment_ids: set[int] | None = None,
+    max_distance_miles: float | None = None,
 ) -> dict[str, Any] | None:
     if not connector_graph:
         return None
@@ -1456,6 +1457,7 @@ def shortest_connector_path(
         round_node(end),
         round(snap_tolerance_miles, 3),
         tuple(sorted(avoided_ids)),
+        round(float(max_distance_miles), 3) if max_distance_miles is not None else None,
     )
     cache = connector_graph.setdefault("_shortest_path_cache", {})
     if cache_key in cache:
@@ -1474,6 +1476,8 @@ def shortest_connector_path(
     while queue:
         distance, _, node = heapq.heappop(queue)
         if distance > distances.get(node, math.inf):
+            continue
+        if max_distance_miles is not None and distance > max_distance_miles:
             continue
         if node == end_node[0]:
             path_nodes = [node]
@@ -1560,6 +1564,8 @@ def shortest_connector_path(
             ):
                 continue
             next_distance = distance + edge["distance"]
+            if max_distance_miles is not None and next_distance > max_distance_miles:
+                continue
             next_node = edge["to"]
             if next_distance >= distances.get(next_node, math.inf):
                 continue

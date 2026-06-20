@@ -126,12 +126,24 @@ def fast_remaining_certificate_check(
     progress_report: dict[str, Any],
 ) -> dict[str, Any]:
     missing_ids = [int(seg_id) for seg_id in progress_report["missing_remaining_segment_ids"]]
+    held_ids = [int(seg_id) for seg_id in progress_report.get("held_remaining_segment_ids") or []]
     success = baseline.get("status") == "passed" and progress_report["summary"]["remaining_coverage_preserved"] is True
+    caveats = [
+        "Fast recertification does not recompute the MILP calendar; it verifies that the certified baseline is still present and the remaining field menu accounts for all remaining segment ids.",
+        "Use --run-heavy-optimizer for a deeper generated-candidate set-cover rerun.",
+    ]
+    if held_ids:
+        caveats.append(
+            "Manual holds preserve remaining segment ownership for recertification, but those held segments are not field-runnable until their route cards are repaired and regenerated."
+        )
     return {
         "success": success,
         "method": "certified_baseline_plus_remaining_menu_coverage",
         "target_segment_ids": remaining_segment_ids,
         "covered_segment_count": len(remaining_segment_ids) - len(missing_ids),
+        "field_ready_segment_count": int(progress_report["summary"].get("available_remaining_segment_count") or 0),
+        "held_segment_count": len(held_ids),
+        "held_segment_ids": held_ids,
         "missing_segment_ids": missing_ids,
         "field_day_count": baseline.get("field_day_count"),
         "total_p75_minutes": baseline.get("total_p75_minutes"),
@@ -139,10 +151,7 @@ def fast_remaining_certificate_check(
         "reason": "baseline_passed_and_remaining_menu_covers_all_remaining_segments"
         if success
         else "baseline_or_remaining_menu_coverage_failed",
-        "caveats": [
-            "Fast recertification does not recompute the MILP calendar; it verifies that the certified baseline is still present and the remaining field menu covers all remaining segment ids.",
-            "Use --run-heavy-optimizer for a deeper generated-candidate set-cover rerun.",
-        ],
+        "caveats": caveats,
     }
 
 
@@ -191,10 +200,11 @@ def active_field_menu_certificate_check(
     field_tool_data: dict[str, Any],
 ) -> dict[str, Any]:
     missing_ids = [int(seg_id) for seg_id in progress_report["missing_remaining_segment_ids"]]
+    held_ids = [int(seg_id) for seg_id in progress_report.get("held_remaining_segment_ids") or []]
     routes = [
         route
         for route in field_tool_data.get("routes") or []
-        if (route.get("validation") or {}).get("passed") is True
+        if field_progress_report.route_is_field_ready(route)
     ]
     success = baseline.get("status") == "passed" and progress_report["summary"]["remaining_coverage_preserved"] is True
     return {
@@ -202,6 +212,9 @@ def active_field_menu_certificate_check(
         "method": "active_progress_field_menu_certificate",
         "target_segment_ids": remaining_segment_ids,
         "covered_segment_count": len(remaining_segment_ids) - len(missing_ids),
+        "field_ready_segment_count": int(progress_report["summary"].get("available_remaining_segment_count") or 0),
+        "held_segment_count": len(held_ids),
+        "held_segment_ids": held_ids,
         "missing_segment_ids": missing_ids,
         "field_day_count": len(routes),
         "total_p75_minutes": int(sum(int(route.get("door_to_door_minutes_p75") or 0) for route in routes)),
@@ -212,6 +225,7 @@ def active_field_menu_certificate_check(
         "caveats": [
             "This recertifies the current active field-packet menu after validated segment progress was applied.",
             "It does not rerun the global generated-candidate MILP calendar.",
+            "Manual holds preserve segment accounting but still need repaired field-ready route cards before use.",
             "Phone completed_outing_ids alone remain provisional and cannot trigger this certificate.",
         ],
     }
@@ -286,7 +300,10 @@ def recertification_gates(
         {
             "gate": "remaining_menu_coverage",
             "passed": progress_report["summary"]["remaining_coverage_preserved"] is True,
-            "detail": f"missing remaining segments {progress_report['summary']['missing_remaining_segment_count']}",
+            "detail": (
+                f"missing remaining segments {progress_report['summary']['missing_remaining_segment_count']}; "
+                f"held remaining segments {progress_report['summary'].get('held_remaining_segment_count', 0)}"
+            ),
         },
         {
             "gate": "remaining_optimizer_solution",
@@ -396,6 +413,7 @@ def build_recertification_report(
             "completed_segment_ids": progress_report["completed_segment_ids"],
             "missed_segment_ids": progress_report["missed_segment_ids"],
             "remaining_segment_ids": progress_report["remaining_segment_ids"],
+            "held_remaining_segment_ids": progress_report.get("held_remaining_segment_ids") or [],
             "missing_remaining_segment_ids": progress_report["missing_remaining_segment_ids"],
         },
         "optimizer": optimizer_result,
@@ -417,7 +435,9 @@ def render_md(report: dict[str, Any]) -> str:
         f"- Profile: `{report['selected_profile'].get('profile_id')}`",
         f"- Completed segments: {summary['completed_segment_count']}",
         f"- Remaining segments: {summary['remaining_segment_count']}",
+        f"- Held remaining segments: {summary.get('held_remaining_segment_count', 0)}",
         f"- Remaining menu coverage preserved: {summary['remaining_coverage_preserved']}",
+        f"- Field-ready remaining coverage preserved: {summary.get('field_ready_remaining_coverage_preserved')}",
         f"- Remaining full completion feasible: {summary['remaining_full_completion_feasible']}",
         f"- Remaining scheduled days: {report.get('calendar_reassignment', {}).get('remaining_scheduled_day_count')}",
         f"- Future available dates: {report.get('calendar_reassignment', {}).get('remaining_available_date_count')}",
@@ -437,6 +457,7 @@ def render_md(report: dict[str, Any]) -> str:
             "",
             f"- Success: {optimizer.get('success')}",
             f"- Field days: {optimizer.get('field_day_count')}",
+            f"- Held segment count: {optimizer.get('held_segment_count')}",
             f"- Missing segment ids: {', '.join(str(seg_id) for seg_id in optimizer.get('missing_segment_ids') or [])}",
             "",
             "## Caveats",

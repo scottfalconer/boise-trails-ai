@@ -4975,6 +4975,80 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     packet. Standard same-day condition and closure checks still apply before
     running any route.
 
+## 2026-06-20 - Challenge epoch progress reset
+
+- Objective: reset any pre-challenge or provisional completion state now that
+  the 2026 challenge window has started.
+- Result:
+  - Ran the segment-first epoch reset for `challenge-2026`, clearing
+    `completed_segment_ids`, `blocked_segment_ids`, and `blocked_trail_names`
+    from the private planner state and removing any challenge-epoch ledger
+    events.
+  - Locked the clean `challenge-2026` original baseline under
+    `years/2026/outputs/private/progress/versions/challenge-2026/original/`.
+  - Confirmed the private ledger has 0 events and 0 `challenge-2026` events.
+- Validation:
+  - `python years/2026/scripts/field_progress_versions.py reset-epoch --epoch challenge-2026 --clear-blocks`
+    passed.
+  - `python years/2026/scripts/field_progress_report.py` passed and reported 0
+    completed, provisional, missed, and blocked segments.
+  - `python years/2026/scripts/field_recertification_report.py --skip-heavy-optimizer`
+    passed and reported 0 completed/provisional/blocked segments.
+- Current blocker:
+  - Progress is clean, but the current field-ready packet still only exposes
+    143 of 250 official segments because 11 route cards remain held for
+    route-truth repair.
+
+## 2026-06-19 - Shingle / Dry Creek route-truth repair
+
+- Objective: explain and repair the field-packet confusion where `16C-2`
+  repeats Shingle Creek while Dry Creek credit is assigned to `15B`.
+- Result:
+  - Confirmed the active route is a planner artifact, not a field insight:
+    the natural field shape is lower Dry Creek access, Shingle Creek ascent,
+    then Dry Creek descent back to the car.
+  - Added a hard completion-audit gate for per-cue mismatch between written cue
+    mileage and live-map cue span. The current packet fails this gate with 21
+    mismatched movement legs across 11 route cards, including `16C-2`.
+  - Extended the exporter `blocked_navigation_source` guard so large cue/map
+    mileage drift holds a route card before publication.
+  - Retracted the tracked Shingle `1656` ownership assumption that referred to
+    stale `15A-1` evidence, and added an explicit Dry Creek / Shingle natural
+    loop design target.
+  - Added `years/2026/inputs/personal/2026-route-truth-repairs-v1.json` and
+    wired `human_loop_plan.py` to apply route-truth repairs after manual route
+    promotion. The active private map source now assigns Dry Creek `1542-1546`
+    and Shingle `1656` to `16A-D1`, with lower Dry repeated as the intentional
+    lollipop stem; `15B` is pruned to Highlands / Connector only.
+  - Added an explicit route-truth mismatch hold area for the 11 other active
+    cards whose cue mileage and live-map/GPX spans materially disagreed:
+    `1B`, `15B`, `18B`, `16C-1`, `3`, `12`, `16A-1`, `18A`, `10A`, `6`,
+    and `13`. These cards are now manual holds instead of runnable field
+    artifacts.
+- Validation:
+  - `python3 -m json.tool years/2026/inputs/personal/2026-manual-route-designs-v1.json`
+    passed.
+  - `python3 -m json.tool years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json`
+    passed.
+  - `python3 -m json.tool years/2026/inputs/personal/2026-route-truth-repairs-v1.json`
+    passed.
+  - `pytest -q years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_export_mobile_field_packet.py::test_navigation_source_anchor_mismatch_holds_route_card_and_field_tool_record years/2026/tests/test_export_mobile_field_packet.py::test_navigation_source_cue_map_mileage_mismatch_holds_route_card`
+    passed 29 tests.
+  - `python3 years/2026/scripts/human_loop_plan.py` regenerated the active
+    private outing menu/map source with `16A-D1`.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and
+    regenerated `docs/field-packet/` with 20 field-ready routes and 11 manual
+    holds.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 21/21
+    hard requirements: 250/250 official segments accounted, 0 cue/map mismatch
+    failures, 0 canonical route metric failures, and 0 special-management
+    failures.
+- Current blocker:
+  - The packet is publishable as a smaller field-ready set with explicit holds:
+    the held cards still need future route-truth repair before they can return
+    as runnable route cards, but they are no longer planner artifacts in the
+    field-facing packet.
+
 ## 2026-05-27 - Post-credit connector savings audit and repair pass
 
 - Objective: treat the missed West Climb / Kemper connector saving as a class

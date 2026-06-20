@@ -13,12 +13,10 @@
         "sweet-connie-trail",
         "shingle-creek-trail-sheep-camp-trail"
       ],
-      "covered_elsewhere_segment_ids": [
-        1656
-      ],
+      "covered_elsewhere_segment_ids": [],
       "covered_elsewhere_notes": [
-        "Shingle Creek segment 1656 is promoted to 15A-1 after the 2026-05-11 latent-credit review proved 15A-1 already covers it end-to-end in the required ascent direction.",
-        "16A-2 should carry only Sheep Camp segment 1653 after the cross-package promotion is applied."
+        "2026-06-19 repair: the prior 15A-1 Shingle ownership assumption is retracted because the active menu no longer has 15A-1 and the Shingle/Dry Creek field route must be repaired as a natural loop instead of a package ownership split.",
+        "Do not drop Shingle Creek 1656 from this design area unless a current regenerated route card owns it with human-valid Shingle-up / Dry-Creek-down field cues."
       ],
       "keep_candidate_ids": [
         "stack-rock-connector"
@@ -126,7 +124,7 @@
         },
         {
           "alternative_id": "16A-2",
-          "title": "Sheep Camp lower loop after Shingle is claimed by 15A-1",
+          "title": "Sheep Camp lower loop",
           "status": "manual_gpx_required",
           "priority": 2,
           "default_mode": "single_car_loop",
@@ -141,8 +139,37 @@
             4.0
           ],
           "design_notes": [
-            "Use the Sheep Camp-only lower loop once Shingle Creek 1656 is claimed by 15A-1.",
-            "Do not re-add Shingle Creek to this card unless the 15A-1 latent-credit promotion is rejected or the official segment list changes."
+            "Use the Sheep Camp-only lower loop only after Shingle Creek 1656 is owned by a current field-valid route card.",
+            "Do not rely on the retracted 15A-1 latent-credit promotion for Shingle ownership."
+          ]
+        },
+        {
+          "alternative_id": "16A-D1",
+          "title": "Dry Creek / Shingle natural loop",
+          "status": "manual_gpx_required",
+          "priority": 2,
+          "default_mode": "single_car_loop",
+          "start_anchor_id": "lower_sweet_connie_dry_creek_access",
+          "required_segment_ids": [
+            1542,
+            1543,
+            1544,
+            1545,
+            1546,
+            1656
+          ],
+          "required_ascent_segment_ids": [
+            1656
+          ],
+          "target_official_miles": 12.09,
+          "target_on_foot_miles_range": [
+            14.5,
+            17.5
+          ],
+          "design_notes": [
+            "Field shape is lower Dry Creek access to the Shingle junction, Shingle Creek uphill for official ascent credit, then Dry Creek back down to the car.",
+            "This route replaces the planner artifact where 16C-2 climbed and descended Shingle while Dry Creek credit lived in 15B.",
+            "Lower Dry Creek repeat is expected from this parking anchor; Shingle repeat is not the normal field loop."
           ]
         },
         {
@@ -207,7 +234,8 @@
         "No GPX point gap over 0.05 miles; prefer 0.03 miles or less.",
         "No private/no-foot connector edges.",
         "No unexplained road connector.",
-        "Shingle Creek official segment 1656 is covered by 15A-1 before package 16 drops it from 16A-2.",
+        "Shingle Creek official segment 1656 is owned by a current field-valid route card before package 16 drops it from any selected alternative.",
+        "Dry Creek / Shingle natural-loop candidates climb Shingle and return down Dry Creek; package ownership must not force a Shingle out-and-back.",
         "Replacement beats the current 36.48-mile Hawkins placeholder by at least 8 on-foot miles.",
         "Parking/access stays manual_required until verified.",
         "All-section route is rejected as default if over 30 on-foot miles or over 7 hours moving."
@@ -398,6 +426,64 @@
       ],
       "preflight_notes": [
         "Verify Harlow's / Hidden Springs west access and parking before using 10A in the field."
+      ]
+    },
+    {
+      "area_id": "route_truth_mismatch_holds_2026_06_19",
+      "title": "Route-truth mismatch holds",
+      "status": "manual_design_area",
+      "decision": "Hold active route cards whose cue mileage and live-map/GPX span materially disagree. These are planner artifacts until repaired, not field insights.",
+      "demote_candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+        "route-truth-15b-highlands-connector",
+        "combo-lodge-trail-shindig",
+        "multi-start-16c-16c-ms-02-1-stack-rock-connector",
+        "block-military_core",
+        "block-upper_8th_corrals_sidewinder",
+        "manual-16a-1",
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+        "manual-10a",
+        "block-cartwright_peggy_interface",
+        "block-freestone_three_bears_curlew"
+      ],
+      "current_placeholder": {
+        "label": "11 route-source holds",
+        "trailhead": "various starts",
+        "official_miles": 75.07,
+        "on_foot_miles": null,
+        "door_to_door_minutes": null,
+        "candidate_ids": [
+          "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+          "route-truth-15b-highlands-connector",
+          "combo-lodge-trail-shindig",
+          "multi-start-16c-16c-ms-02-1-stack-rock-connector",
+          "block-military_core",
+          "block-upper_8th_corrals_sidewinder",
+          "manual-16a-1",
+          "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+          "manual-10a",
+          "block-cartwright_peggy_interface",
+          "block-freestone_three_bears_curlew"
+        ],
+        "reason": "Certification found cue/map mileage drift large enough to make the route source untrustworthy."
+      },
+      "affected_routes": [
+        {"label": "1B", "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail", "failure": "cue 7 spans 1.32 GPX mi for 0.09 cue mi"},
+        {"label": "15B", "candidate_id": "route-truth-15b-highlands-connector", "failure": "cue 3 spans 2.19 GPX mi for 1.42 cue mi"},
+        {"label": "18B", "candidate_id": "combo-lodge-trail-shindig", "failure": "multiple Shindig connector/cue spans disagree"},
+        {"label": "16C-1", "candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector", "failure": "Stack Rock Connector cue span disagrees with GPX"},
+        {"label": "3", "candidate_id": "block-military_core", "failure": "multiple Military Reserve cue spans disagree"},
+        {"label": "12", "candidate_id": "block-upper_8th_corrals_sidewinder", "failure": "Corrals connector cue span disagrees with GPX"},
+        {"label": "16A-1", "candidate_id": "manual-16a-1", "failure": "Sweet Connie cue span disagrees with GPX"},
+        {"label": "18A", "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive", "failure": "multiple Brewers / Mores cue spans disagree"},
+        {"label": "10A", "candidate_id": "manual-10a", "failure": "multiple Harlow's / Spring cue spans disagree"},
+        {"label": "6", "candidate_id": "block-cartwright_peggy_interface", "failure": "Peggy's / Cartwright cue spans disagree"},
+        {"label": "13", "candidate_id": "block-freestone_three_bears_curlew", "failure": "multiple Three Bears / Freestone cue spans disagree"}
+      ],
+      "acceptance_gates": [
+        "Do not publish these candidates as runnable field cards until cue mileage, live-map/GPX route spans, and canonical route topology reconcile.",
+        "Each repaired route must regenerate from canonical source and pass the field-packet certification gate without a blocked_navigation_source audit.",
+        "If a route cannot be repaired, keep its official segments in a manual design hold instead of exporting a planner artifact."
       ]
     }
   ]

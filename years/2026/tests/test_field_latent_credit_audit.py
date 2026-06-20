@@ -208,6 +208,63 @@ def test_latent_credit_audit_accepts_declared_cross_route_ownership(tmp_path):
     assert "does not prove lower total on-foot miles" in rendered
 
 
+def test_latent_credit_audit_accepts_declared_manual_hold_ownership(tmp_path):
+    module = load_module()
+    packet_dir = tmp_path / "packet"
+    gpx_dir = packet_dir / "gpx"
+    gpx_dir.mkdir(parents=True)
+    write_gpx(
+        gpx_dir / "route-a.gpx",
+        [
+            (-116.0, 43.0),
+            (-115.99, 43.0),
+            (-116.0, 43.02),
+            (-115.99, 43.02),
+        ],
+    )
+    official_segments = [
+        segment(101, [(-116.0, 43.0), (-115.99, 43.0)]),
+        segment(102, [(-116.0, 43.02), (-115.99, 43.02)]),
+    ]
+    field_tool_data = {
+        "progress": {"completed_segment_ids_at_export": []},
+        "routes": [
+            {
+                "outing_id": "route-a",
+                "label": "Route A",
+                "segment_ids": [101],
+                "gpx_href": "gpx/route-a.gpx",
+                "segment_ownership_reconciliation": {
+                    "declared_owned_elsewhere_segment_ids": ["102"],
+                },
+            }
+        ],
+        "manual_holds": [
+            {
+                "outing_id": "held-route",
+                "label": "Held Route",
+                "manual_design_hold": True,
+                "remaining_segment_ids": [102],
+            }
+        ],
+    }
+
+    audit = module.build_latent_credit_audit(
+        field_tool_data,
+        official_segments=official_segments,
+        packet_dir=packet_dir,
+        threshold_miles=0.015,
+        min_fraction=0.8,
+    )
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["routes_reconciled"] == 1
+    route = audit["reconciled_routes"][0]
+    assert route["reconciled_claimed_elsewhere_segment_ids"] == ["102"]
+    assert route["segments"][0]["claimed_by_other_routes"][0]["outing_id"] == "held-route"
+    assert route["segments"][0]["claimed_by_other_routes"][0]["ownership_status"] == "manual_hold"
+
+
 def test_latent_credit_audit_allows_repeat_of_already_completed_segment(tmp_path):
     module = load_module()
     packet_dir = tmp_path / "packet"

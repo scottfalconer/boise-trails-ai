@@ -124,6 +124,45 @@ def test_default_progress_uses_exported_validated_segment_state():
     assert report["remaining_segment_ids"] == ["103"]
 
 
+def test_manual_holds_preserve_accounting_without_today_recommendations():
+    module = load_module()
+    data = field_tool_data()
+    data["routes"] = [data["routes"][0]]
+    data["manual_holds"] = [
+        {
+            "outing_id": "held-route",
+            "label": "HELD",
+            "manual_design_hold": True,
+            "remaining_segment_ids": ["103"],
+        }
+    ]
+
+    report = module.build_progress_report(data, official_geojson())
+
+    assert report["summary"]["available_remaining_segment_count"] == 2
+    assert report["summary"]["held_remaining_segment_count"] == 1
+    assert report["summary"]["accounted_remaining_segment_count"] == 3
+    assert report["summary"]["missing_remaining_segment_count"] == 0
+    assert report["summary"]["remaining_coverage_preserved"] is True
+    assert report["summary"]["field_ready_remaining_coverage_preserved"] is False
+    assert report["held_remaining_segment_ids"] == ["103"]
+    assert all(row["outing_id"] != "held-route" for row in report["today_options_by_minutes"]["120"])
+
+
+def test_held_route_records_are_not_field_ready_options():
+    module = load_module()
+    data = field_tool_data()
+    held_route = data["routes"][1]
+    held_route["field_ready"] = False
+    held_route["field_readiness_status"] = "blocked_special_management"
+
+    report = module.build_progress_report(data, official_geojson())
+
+    assert report["summary"]["held_remaining_segment_count"] == 1
+    assert report["held_remaining_segment_ids"] == ["103"]
+    assert all(row["outing_id"] != "route-b" for row in report["today_options_by_minutes"]["120"])
+
+
 def test_blocked_only_empty_outing_is_inactive_not_completed():
     module = load_module()
 

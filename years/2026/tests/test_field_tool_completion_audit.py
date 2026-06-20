@@ -660,6 +660,63 @@ def test_completion_audit_fails_when_route_anchor_mileage_drift_is_hidden_by_sca
     assert "wayfinding cue mileage" not in evidence
 
 
+def test_completion_audit_fails_when_cue_map_mismatch_balances_at_route_total(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    route = inputs["field_tool_data"]["routes"][0]
+    route["label"] = "16C-2"
+    route["on_foot_miles"] = 3.0
+    inputs["canonical_map_data"]["packages"][0]["components"][0]["on_foot_miles"] = 3.0
+    inputs["field_tool_data"]["source"]["map_data_sha256"] = module.stable_json_sha256(inputs["canonical_map_data"])
+    route["wayfinding_cues"] = [
+        {
+            "seq": 1,
+            "cum_miles": 0.0,
+            "leg_miles": 1.5,
+            "route_miles": 0.0,
+            "route_leg_miles": 0.5,
+            "cue_type": "start_access",
+            "action": "FOLLOW",
+            "signed_as": ["Access Trail"],
+            "target": "Official Trail",
+            "until": "signed junction with Official Trail",
+        },
+        {
+            "seq": 2,
+            "cum_miles": 1.5,
+            "leg_miles": 1.0,
+            "route_miles": 0.5,
+            "route_leg_miles": 2.0,
+            "cue_type": "follow_official_segment",
+            "action": "FOLLOW",
+            "signed_as": ["Official Trail"],
+            "target": "Return trail",
+            "until": "signed return junction",
+        },
+        {
+            "seq": 3,
+            "cum_miles": 2.5,
+            "leg_miles": 0.5,
+            "route_miles": 2.5,
+            "route_leg_miles": 0.5,
+            "cue_type": "return_to_car",
+            "action": "FOLLOW",
+            "signed_as": ["Access Trail"],
+            "target": "Trailhead",
+            "until": "parked car / trailhead",
+        },
+    ]
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    check = checks["Field cues and live-map cue spans agree per movement leg"]
+    assert check["passed"] is False
+    assert "16C-2 Trailhead: wayfinding cue 1 start_access shows 1.50 cue mi but spans 0.50 live-map mi" in check["evidence"]
+    assert audit["summary"]["cue_map_mismatch_failure_count"] == 2
+
+
 def test_completion_audit_fails_when_named_start_access_cue_is_missing(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)

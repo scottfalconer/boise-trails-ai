@@ -4,8 +4,8 @@ Status: **passed**
 
 ## Summary
 
-- Routes: 31
-- Passed routes: 31
+- Routes: 20
+- Passed routes: 20
 - Failed routes: 0
 - Graph edges: 12311
 - Official segments: 250
