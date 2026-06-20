@@ -1,18 +1,18 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-20T06:14:22.367399+00:00",
+  "audited_at": "2026-06-20T22:19:23.501972+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 20,
+    "route_count": 19,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 7,
-    "repeat_only_routes": 0,
-    "unexpected_latent_segment_count": 16,
+    "routes_reconciled": 6,
+    "repeat_only_routes": 1,
+    "unexpected_latent_segment_count": 14,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 16,
+    "reconciled_claimed_elsewhere_segment_count": 14,
     "unclaimed_uncompleted_segment_count": 0,
-    "repeat_completed_segment_count": 0,
+    "repeat_completed_segment_count": 1,
     "dual_claimed_exact_credit_segment_count": 0
   },
   "dual_claimed_exact_credit_segments": [],
@@ -33,81 +33,6 @@
   },
   "routes_needing_repair": [],
   "reconciled_routes": [
-    {
-      "route_key": "16-2",
-      "outing_id": "16-2",
-      "label": "16-2: 16A-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "planned_segment_ids": [
-        "1653"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 525,
-      "review_point_count": 525,
-      "candidate_segment_count": 5,
-      "latent_completed_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1544",
-        "1665"
-      ],
-      "segments": [
-        {
-          "seg_id": "1542",
-          "seg_name": "Dry Creek Trail 1",
-          "trail_name": "Dry Creek Trail",
-          "direction": "both",
-          "official_miles": 0.58,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "16-4",
-              "outing_id": "16-4",
-              "label": "16-4: 16A-D1",
-              "candidate_ids": [
-                "manual-16a-d1"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1543",
-          "seg_name": "Dry Creek Trail 2",
-          "trail_name": "Dry Creek Trail",
-          "direction": "both",
-          "official_miles": 0.74,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "16-4",
-              "outing_id": "16-4",
-              "label": "16-4: 16A-D1",
-              "candidate_ids": [
-                "manual-16a-d1"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        }
-      ]
-    },
     {
       "route_key": "4-1",
       "outing_id": "4-1",
@@ -138,11 +63,7 @@
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1524",
-        "1525",
-        "1576"
-      ],
+      "partial_segment_ids": [],
       "segments": [
         {
           "seg_id": "1577",
@@ -192,9 +113,7 @@
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1723"
-      ],
+      "partial_segment_ids": [],
       "segments": [
         {
           "seg_id": "1722",
@@ -260,10 +179,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1519",
         "1521",
-        "1584",
-        "1618",
         "1620",
         "1621"
       ],
@@ -401,9 +317,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1560",
-        "1684",
-        "1710"
+        "1560"
       ],
       "segments": [
         {
@@ -501,9 +415,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1485",
-        "1524",
-        "1660"
+        "1485"
       ],
       "segments": [
         {
@@ -593,10 +505,7 @@
       "partial_segment_ids": [
         "1490",
         "1493",
-        "1501",
-        "1502",
-        "1678",
-        "1703"
+        "1501"
       ],
       "segments": [
         {
@@ -659,7 +568,53 @@
       ]
     }
   ],
-  "repeat_only_routes": [],
+  "repeat_only_routes": [
+    {
+      "route_key": "1-2",
+      "outing_id": "1-2",
+      "label": "1-2: 1A-2",
+      "candidate_ids": [
+        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
+      ],
+      "planned_segment_ids": [
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1565",
+        "1566",
+        "1718",
+        "1719"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
+      "audit_status": "repeat_only",
+      "activity_point_count": 1589,
+      "review_point_count": 795,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [
+        "1755"
+      ],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [
+        "1755"
+      ],
+      "partial_segment_ids": [],
+      "segments": [
+        {
+          "seg_id": "1755",
+          "seg_name": "Buena Vista Trail 5",
+          "trail_name": "Buena Vista Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        }
+      ]
+    }
+  ],
   "missing_gpx_routes": [],
   "route_reviews": [
     {
@@ -684,8 +639,6 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1525",
-        "1526",
         "1725"
       ],
       "segments": []
@@ -741,9 +694,7 @@
       "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1508"
-      ],
+      "partial_segment_ids": [],
       "segments": []
     },
     {
@@ -768,85 +719,8 @@
       "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1724"
-      ],
+      "partial_segment_ids": [],
       "segments": []
-    },
-    {
-      "route_key": "16-2",
-      "outing_id": "16-2",
-      "label": "16-2: 16A-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "planned_segment_ids": [
-        "1653"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 525,
-      "review_point_count": 525,
-      "candidate_segment_count": 5,
-      "latent_completed_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1544",
-        "1665"
-      ],
-      "segments": [
-        {
-          "seg_id": "1542",
-          "seg_name": "Dry Creek Trail 1",
-          "trail_name": "Dry Creek Trail",
-          "direction": "both",
-          "official_miles": 0.58,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "16-4",
-              "outing_id": "16-4",
-              "label": "16-4: 16A-D1",
-              "candidate_ids": [
-                "manual-16a-d1"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1543",
-          "seg_name": "Dry Creek Trail 2",
-          "trail_name": "Dry Creek Trail",
-          "direction": "both",
-          "official_miles": 0.74,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "16-4",
-              "outing_id": "16-4",
-              "label": "16-4: 16A-D1",
-              "candidate_ids": [
-                "manual-16a-d1"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        }
-      ]
     },
     {
       "route_key": "1-2",
@@ -863,27 +737,35 @@
         "1565",
         "1566",
         "1718",
-        "1719",
-        "1755"
+        "1719"
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
-      "audit_status": "passed",
+      "audit_status": "repeat_only",
       "activity_point_count": 1589,
       "review_point_count": 795,
       "candidate_segment_count": 13,
-      "latent_completed_segment_ids": [],
+      "latent_completed_segment_ids": [
+        "1755"
+      ],
       "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1579",
-        "1581",
-        "1698",
-        "1699"
+      "repeat_completed_segment_ids": [
+        "1755"
       ],
-      "segments": []
+      "partial_segment_ids": [],
+      "segments": [
+        {
+          "seg_id": "1755",
+          "seg_name": "Buena Vista Trail 5",
+          "trail_name": "Buena Vista Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        }
+      ]
     },
     {
       "route_key": "4-1",
@@ -915,11 +797,7 @@
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1524",
-        "1525",
-        "1576"
-      ],
+      "partial_segment_ids": [],
       "segments": [
         {
           "seg_id": "1577",
@@ -969,9 +847,7 @@
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1723"
-      ],
+      "partial_segment_ids": [],
       "segments": [
         {
           "seg_id": "1722",
@@ -1015,9 +891,7 @@
       "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1516"
-      ],
+      "partial_segment_ids": [],
       "segments": []
     },
     {
@@ -1049,10 +923,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1497",
-        "1521",
-        "1536",
-        "1537"
+        "1536"
       ],
       "segments": []
     },
@@ -1127,10 +998,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1519",
         "1521",
-        "1584",
-        "1618",
         "1620",
         "1621"
       ],
@@ -1322,7 +1190,6 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1516",
         "1601",
         "1603"
       ],
@@ -1416,9 +1283,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1560",
-        "1684",
-        "1710"
+        "1560"
       ],
       "segments": [
         {
@@ -1460,38 +1325,6 @@
           ]
         }
       ]
-    },
-    {
-      "route_key": "16-4",
-      "outing_id": "16-4",
-      "label": "16-4: 16A-D1",
-      "candidate_ids": [
-        "manual-16a-d1"
-      ],
-      "planned_segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1656"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 1399,
-      "review_point_count": 700,
-      "candidate_segment_count": 12,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1653",
-        "1665"
-      ],
-      "segments": []
     },
     {
       "route_key": "2-1",
@@ -1548,9 +1381,7 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1485",
-        "1524",
-        "1660"
+        "1485"
       ],
       "segments": [
         {
@@ -1592,6 +1423,36 @@
           ]
         }
       ]
+    },
+    {
+      "route_key": "16-3",
+      "outing_id": "16-3",
+      "label": "16-3: 16A-D1",
+      "candidate_ids": [
+        "manual-16a-d1"
+      ],
+      "planned_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 1515,
+      "review_point_count": 758,
+      "candidate_segment_count": 12,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [],
+      "segments": []
     },
     {
       "route_key": "17-1",
@@ -1640,10 +1501,7 @@
       "partial_segment_ids": [
         "1490",
         "1493",
-        "1501",
-        "1502",
-        "1678",
-        "1703"
+        "1501"
       ],
       "segments": [
         {

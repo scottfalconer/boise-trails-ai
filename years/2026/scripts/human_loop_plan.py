@@ -620,7 +620,7 @@ def normalized_direction_cue(segment: dict[str, Any]) -> str:
         return "ASCENT REQUIRED: follow map arrows uphill."
     existing_cue = str(segment.get("direction_cue") or "")
     if "opposite official geometry" in existing_cue.lower():
-        return existing_cue
+        return "Either direction allowed; follow map arrows."
     return existing_cue or "Either direction allowed; follow map arrows."
 
 
@@ -1306,8 +1306,9 @@ def explicit_lollipop_route_payload(
 ) -> dict[str, Any]:
     trailhead = copy.deepcopy(repair.get("trailhead") or {})
     parking_point = [float(trailhead["lon"]), float(trailhead["lat"])]
+    traversal_steps = list(repair.get("traversal") or [])
     traversal_segments = []
-    for step in repair.get("traversal") or []:
+    for step in traversal_steps:
         segment_id = int(step["segment_id"])
         traversal_segments.append(
             segment_for_repair_traversal(
@@ -1332,14 +1333,41 @@ def explicit_lollipop_route_payload(
     on_foot_miles = round_miles(coordinate_path_miles(track))
     claim_ids = [int(value) for value in repair.get("claim_segment_ids") or []]
     official_miles = round_miles(sum(float(official_by_id[seg_id].get("official_miles") or 0.0) for seg_id in claim_ids))
-    repeat_ids = [
+    all_repeat_ids = [
         int(step["segment_id"])
-        for step in repair.get("traversal") or []
+        for step in traversal_steps
         if str(step.get("credit") or "") == "repeat"
     ]
-    repeat_miles = round_miles(sum(float(official_by_id[seg_id].get("official_miles") or 0.0) for seg_id in set(repeat_ids)))
+    last_new_index = max(
+        (index for index, step in enumerate(traversal_steps) if str(step.get("credit") or "") == "new"),
+        default=-1,
+    )
+    return_repeat_ids = [
+        int(step["segment_id"])
+        for index, step in enumerate(traversal_steps)
+        if index > last_new_index and str(step.get("credit") or "") == "repeat"
+    ]
+    return_repeat_miles = round_miles(
+        sum(float(official_by_id[seg_id].get("official_miles") or 0.0) for seg_id in set(return_repeat_ids))
+    )
+    ascent_claim_ids = [
+        seg_id
+        for seg_id in claim_ids
+        if str(official_by_id[seg_id].get("direction") or "") == "ascent"
+    ]
+    planned_ascent_directions = {}
+    for step in traversal_steps:
+        segment_id = int(step["segment_id"])
+        if segment_id not in ascent_claim_ids or str(step.get("credit") or "") != "new":
+            continue
+        planned_ascent_directions[str(segment_id)] = (
+            "official_geometry_end_to_start"
+            if str(step.get("direction") or "forward") == "reverse"
+            else "official_geometry_start_to_end"
+        )
     timing = time_estimates_for_explicit_route(track_miles=on_foot_miles, state=state, trailhead=trailhead)
     candidate_id = str(repair["candidate_id"])
+    field_shape = str(repair.get("field_shape") or "lower_dry_access_shingle_up_dry_creek_down")
     component = {
         "candidate_id": candidate_id,
         "field_menu_group_id": candidate_id,
@@ -1368,7 +1396,8 @@ def explicit_lollipop_route_payload(
         ],
         "route_quality": {
             "route_truth_repair": True,
-            "field_shape": "lower_dry_access_shingle_up_dry_creek_down",
+            "route_truth_lollipop": True,
+            "field_shape": field_shape,
         },
     }
     route_cue = {
@@ -1400,9 +1429,10 @@ def explicit_lollipop_route_payload(
         "between_links": [],
         "return_to_car": {
             "strategy": "explicit_lollipop_return",
-            "description": "Return to the car by continuing down Dry Creek after the Shingle climb.",
-            "official_repeat_miles": repeat_miles,
-            "official_repeat_segment_ids": sorted(set(repeat_ids)),
+            "description": repair.get("return_description")
+            or "Return to the car by continuing down Dry Creek after the final new-credit leg.",
+            "official_repeat_miles": return_repeat_miles,
+            "official_repeat_segment_ids": sorted(set(return_repeat_ids)),
             "connector_miles": round_miles(coordinate_path_miles(return_path)),
             "road_miles": 0,
             "connector_names": ["Dry Creek"],
@@ -1424,8 +1454,8 @@ def explicit_lollipop_route_payload(
         "direction_validation": {
             "passed": True,
             "reason": "explicit_lollipop_route_truth_repair",
-            "ascent_segment_ids_checked": [1656],
-            "planned_traversal_direction": {"1656": "official_geometry_start_to_end"},
+            "ascent_segment_ids_checked": ascent_claim_ids,
+            "planned_traversal_direction": planned_ascent_directions,
         },
         "cue_generation_mode": "route_truth_repair_explicit_lollipop",
         "field_warning": "Roadside parking/access still needs day-of capacity and signage check.",

@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v20-9f0f8f4f6a4ae483e6";
+const CACHE_NAME = "boise-trails-field-packet-v19-d25a68bdaa1d897416";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -21,9 +21,6 @@ const PRECACHE_URLS = [
   "gpx/official/boise-river-wma-peace-valley-overlook-8b.gpx",
   "gpx/cues/boise-river-wma-peace-valley-overlook-8b.gpx",
   "gpx/audit/boise-river-wma-peace-valley-overlook-8b.gpx",
-  "gpx/official/dry-creek-sheep-camp-16a-2.gpx",
-  "gpx/cues/dry-creek-sheep-camp-16a-2.gpx",
-  "gpx/audit/dry-creek-sheep-camp-16a-2.gpx",
   "gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
   "gpx/cues/hillside-to-hollow-full-sail-1a-2.gpx",
   "gpx/audit/hillside-to-hollow-full-sail-1a-2.gpx",
@@ -60,12 +57,12 @@ const PRECACHE_URLS = [
   "gpx/official/rocky-canyon-orchard-gulch-14.gpx",
   "gpx/cues/rocky-canyon-orchard-gulch-14.gpx",
   "gpx/audit/rocky-canyon-orchard-gulch-14.gpx",
-  "gpx/official/dry-creek-16a-d1.gpx",
-  "gpx/cues/dry-creek-16a-d1.gpx",
-  "gpx/audit/dry-creek-16a-d1.gpx",
   "gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
   "gpx/cues/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
   "gpx/audit/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
+  "gpx/official/dry-creek-16a-d1.gpx",
+  "gpx/cues/dry-creek-16a-d1.gpx",
+  "gpx/audit/dry-creek-16a-d1.gpx",
   "gpx/official/bogus-basin-sunshine-xc-17.gpx",
   "gpx/cues/bogus-basin-sunshine-xc-17.gpx",
   "gpx/audit/bogus-basin-sunshine-xc-17.gpx"

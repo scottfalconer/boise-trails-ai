@@ -1,10 +1,10 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-20T06:15:13Z",
+  "generated_at": "2026-06-20T22:19:52Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
-    "route_count": 20,
+    "route_count": 19,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "phase_reset_failure_count": 0,
@@ -133,32 +133,6 @@
       ]
     },
     {
-      "label": "16-2: 16A-2",
-      "outing_id": "16-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.77,
-        "generated_miles": 4.41,
-        "lower_bound_miles": 2.03,
-        "efficiency_ratio": 2.172,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.35,
-        "depot_component_attachment_miles": 0.92
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
-      "segment_ids": [
-        "1653"
-      ]
-    },
-    {
       "label": "1-2: 1A-2",
       "outing_id": "1-2",
       "candidate_ids": [
@@ -170,13 +144,13 @@
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 3.13,
+        "required_miles": 2.99,
         "generated_miles": 4.86,
-        "lower_bound_miles": 3.91,
-        "efficiency_ratio": 1.242,
+        "lower_bound_miles": 3.86,
+        "efficiency_ratio": 1.259,
         "required_component_count": 1,
         "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.72,
+        "parity_add_on_miles": 0.81,
         "depot_component_attachment_miles": 0.06
       },
       "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
@@ -188,8 +162,7 @@
         "1565",
         "1566",
         "1718",
-        "1719",
-        "1755"
+        "1719"
       ]
     },
     {
@@ -547,37 +520,6 @@
       ]
     },
     {
-      "label": "16-4: 16A-D1",
-      "outing_id": "16-4",
-      "candidate_ids": [
-        "manual-16a-d1"
-      ],
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 11.73,
-        "generated_miles": 14.08,
-        "lower_bound_miles": 13.36,
-        "efficiency_ratio": 1.054,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 1.6,
-        "depot_component_attachment_miles": 0.02
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
-      "segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1656"
-      ]
-    },
-    {
       "label": "2-1: 2",
       "outing_id": "2-1",
       "candidate_ids": [
@@ -625,6 +567,38 @@
         "1729",
         "1730",
         "1751"
+      ]
+    },
+    {
+      "label": "16-3: 16A-D1",
+      "outing_id": "16-3",
+      "candidate_ids": [
+        "manual-16a-d1"
+      ],
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 12.5,
+        "generated_miles": 15.61,
+        "lower_bound_miles": 14.46,
+        "efficiency_ratio": 1.08,
+        "required_component_count": 1,
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 1.93,
+        "depot_component_attachment_miles": 0.02
+      },
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
+      "segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
       ]
     },
     {

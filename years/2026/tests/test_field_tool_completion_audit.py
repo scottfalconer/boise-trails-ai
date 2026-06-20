@@ -253,11 +253,16 @@ def test_completion_audit_counts_validated_progress_outside_active_field_menu(tm
     route = inputs["field_tool_data"]["routes"][0]
     route["segment_ids"] = ["102"]
     inputs["canonical_map_data"]["packages"][0]["components"][0]["segment_ids"] = [102]
-    inputs["field_tool_data"]["source"]["map_data_sha256"] = module.stable_json_sha256(inputs["canonical_map_data"])
     inputs["field_tool_data"]["progress"] = {
         "completed_segment_ids_at_export": ["101"],
         "blocked_segment_ids_at_export": [],
     }
+    progress_projected = module.canonical_map_data_with_export_progress(
+        inputs["canonical_map_data"],
+        completed_segment_ids={"101"},
+        blocked_segment_ids=set(),
+    )
+    inputs["field_tool_data"]["source"]["map_data_sha256"] = module.stable_json_sha256(progress_projected)
     inputs["official_geojson"]["features"].append(
         {
             "type": "Feature",
@@ -277,6 +282,41 @@ def test_completion_audit_counts_validated_progress_outside_active_field_menu(tm
     assert audit["summary"]["accounted_segment_count"] == 2
     checks = {check["requirement"]: check for check in audit["checks"]}
     assert checks["Active field packet accounts for every official segment geometry id"]["passed"] is True
+
+
+def test_completion_audit_compares_canonical_segments_after_completed_progress(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    route = inputs["field_tool_data"]["routes"][0]
+    route["segment_ids"] = ["102"]
+    inputs["canonical_map_data"]["packages"][0]["components"][0]["segment_ids"] = [101, 102]
+    inputs["field_tool_data"]["progress"] = {
+        "completed_segment_ids_at_export": ["101"],
+        "blocked_segment_ids_at_export": [],
+    }
+    progress_projected = module.canonical_map_data_with_export_progress(
+        inputs["canonical_map_data"],
+        completed_segment_ids={"101"},
+        blocked_segment_ids=set(),
+    )
+    inputs["field_tool_data"]["source"]["map_data_sha256"] = module.stable_json_sha256(progress_projected)
+    inputs["official_geojson"]["features"].append(
+        {
+            "type": "Feature",
+            "properties": {"segId": 102, "direction": "both"},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[-116.1, 43.1], [-116.11, 43.11]],
+            },
+        }
+    )
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "passed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    assert checks["Phone page and map share the canonical field-menu source"]["passed"] is True
+    assert checks["Field packet route records match canonical outing menu metrics"]["passed"] is True
 
 
 def test_completion_audit_fails_when_field_packet_route_metrics_drift_from_canonical_menu(tmp_path):

@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_all_route_adversarial_disproof_v1",
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-10T03:14:25Z",
+  "generated_at": "2026-06-20T22:42:29Z",
   "artifact_contract": "Public-safe current-route proof registry keyed to the deterministic route-review dominance gate. A route is accepted only when a current review covers its exact segment set and did not fail (or carries a valid waiver).",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
@@ -11,35 +11,33 @@
     "public_sanitized_map_data": "outing-menu-map-data.json"
   },
   "summary": {
-    "route_count": 31,
-    "proof_count": 31,
+    "route_count": 19,
+    "proof_count": 19,
     "decision_counts": {
-      "HOLD_CURRENT_RECERTIFIED": 31
+      "HOLD_CURRENT_RECERTIFIED": 19
     },
     "area_counts": {
       "Upper Hulls Gulch": 2,
       "Western Foothills": 2,
-      "Dry Creek": 7,
+      "Dry Creek": 2,
       "Boise River WMA": 2,
-      "Hillside to Hollow": 2,
+      "Hillside to Hollow": 1,
       "13": 1,
       "Hidden Springs": 2,
       "Hawkins Range Reserve": 1,
-      "Bogus Basin": 4,
       "Cervidae / Arrow Rock": 1,
       "Polecat Gulch": 1,
-      "Military Reserve": 1,
       "Table Rock": 1,
-      "Rocky Canyon": 2,
-      "Avimor / Harlow": 1,
-      "Camels Back / Hulls Gulch": 1
+      "Rocky Canyon": 1,
+      "Camels Back / Hulls Gulch": 1,
+      "Bogus Basin": 1
     },
     "deterministic_same_credit_failure_count": 0,
     "failed_route_labels": [],
     "route_efficiency_verdict": "current_routes_proofed",
     "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 31,
-    "review_today": "2026-06-09"
+    "accepted_active_candidate_target": 19,
+    "review_today": "2026-06-20"
   },
   "routes": [
     {
@@ -68,7 +66,7 @@
         "p75_minutes": 77,
         "p90_minutes": 87,
         "non_credit_or_repeat_miles": 1.22,
-        "declared_repeat_miles": 1.05
+        "declared_repeat_miles": 0.79
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -110,7 +108,7 @@
         "p75_minutes": 92,
         "p90_minutes": 104,
         "non_credit_or_repeat_miles": 0.23,
-        "declared_repeat_miles": 0.17
+        "declared_repeat_miles": 0.11
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -126,8 +124,8 @@
       "candidate_ids": [
         "multi-start-5-5-ms-04-1-barn-owl"
       ],
-      "route_source_hash": "c9c502c8be7efc9caf9b85e221c27549fde8a9c83c485ff7b51003d8582feff1",
-      "review_route_source_hash": "2abd6ba1ec0f693e7fb0ed1d693ac4177f0bead148d6da574c3aa1513188d1f7",
+      "route_source_hash": "284e186a537a13f9c457bca32acf97230759aa212a45bce9b94a422830ac5e57",
+      "review_route_source_hash": "83cd7259227c60022b600bc83e8aea8fbc2efecd97dc436ed7469f3893242260",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -142,12 +140,12 @@
       ],
       "metrics": {
         "official_miles": 1.44,
-        "on_foot_miles": 2.88,
-        "on_foot_to_official_ratio": 2.0,
+        "on_foot_miles": 2.96,
+        "on_foot_to_official_ratio": 2.06,
         "p75_minutes": 94,
         "p90_minutes": 106,
-        "non_credit_or_repeat_miles": 1.44,
-        "declared_repeat_miles": 1.43
+        "non_credit_or_repeat_miles": 1.52,
+        "declared_repeat_miles": 0.95
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -163,8 +161,8 @@
       "candidate_ids": [
         "peace-valley-overlook"
       ],
-      "route_source_hash": "e73083bece52ab9aa4f0594a3376da1d9ade70ad0c415d2f2e19768af4ada7bd",
-      "review_route_source_hash": "5c5d5fa3d7ef607d66dfdbd63ed22f7b092345c03dde679a2706a2284b302186",
+      "route_source_hash": "1625229b330596fdd99593f2a2bd107d793218e1398189f39c09e9696a6a359e",
+      "review_route_source_hash": "425ce8d490a07daeafd0dd11b3db39ebb13b173853555b70ae2e342f7bc1fdc6",
       "area": "Boise River WMA",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -178,49 +176,13 @@
         "Peace Valley Overlook"
       ],
       "metrics": {
-        "official_miles": 0.54,
+        "official_miles": 0.53,
         "on_foot_miles": 2.7,
-        "on_foot_to_official_ratio": 5.0,
+        "on_foot_to_official_ratio": 5.09,
         "p75_minutes": 101,
         "p90_minutes": 114,
-        "non_credit_or_repeat_miles": 2.16,
-        "declared_repeat_miles": 0.24
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "16A-2",
-      "candidate_id": "manual-16a-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "route_source_hash": "03dfe61b80f0ff36f722c6a0fe161c8aebda4146ac607389db0d80ef5b42ea7f",
-      "review_route_source_hash": "33d21a845d77b964aceae05a8910cd3976988d04522af6c14d159b4c45b71167",
-      "area": "Dry Creek",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Dry Creek / Sweet Connie roadside parking",
-      "official_segment_ids": [
-        "1653"
-      ],
-      "trail_names": [
-        "Sheep Camp Trail"
-      ],
-      "metrics": {
-        "official_miles": 0.77,
-        "on_foot_miles": 4.41,
-        "on_foot_to_official_ratio": 5.73,
-        "p75_minutes": 106,
-        "p90_minutes": 119,
-        "non_credit_or_repeat_miles": 3.64,
-        "declared_repeat_miles": 0.77
+        "non_credit_or_repeat_miles": 2.17,
+        "declared_repeat_miles": 0.18
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -236,8 +198,8 @@
       "candidate_ids": [
         "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
       ],
-      "route_source_hash": "5b3a57e70dd71a6953e9fe1259a95d042429f3f2ebda2e9760f73bebfb500ac0",
-      "review_route_source_hash": "2ee064d1e224721a380293c293cbbb2e07574efb0486fa371faa325d790c98ea",
+      "route_source_hash": "3ce99a5127f5ff9a5edf34b9de79fa6e596275423e4696b3cbc298151def2ccf",
+      "review_route_source_hash": "327f40c47b4dd600c2ef0be888c41a8f7c6534c47445c05dea915f2ee3c82d75",
       "area": "Hillside to Hollow",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -250,7 +212,6 @@
         "1505",
         "1506",
         "1507",
-        "1755",
         "1718",
         "1719"
       ],
@@ -266,7 +227,7 @@
         "p75_minutes": 107,
         "p90_minutes": 120,
         "non_credit_or_repeat_miles": 1.73,
-        "declared_repeat_miles": 2.12
+        "declared_repeat_miles": 1.09
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -306,7 +267,7 @@
         "p75_minutes": 114,
         "p90_minutes": 128,
         "non_credit_or_repeat_miles": 1.74,
-        "declared_repeat_miles": 1.72
+        "declared_repeat_miles": 1.26
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -342,7 +303,7 @@
         "p75_minutes": 118,
         "p90_minutes": 133,
         "non_credit_or_repeat_miles": 2.72,
-        "declared_repeat_miles": 1.7
+        "declared_repeat_miles": 0.72
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -378,62 +339,11 @@
         "p75_minutes": 119,
         "p90_minutes": 134,
         "non_credit_or_repeat_miles": 2.43,
-        "declared_repeat_miles": 1.55
+        "declared_repeat_miles": 1.41
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
       "required_action": "Regenerate 1A-1 from Full Sail Trailhead, N 36th St Parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "1B",
-      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "route_source_hash": "22dda6e1fecbb89dd444ea441b33fb1d1d056ebe9e40756c490ed66ed55d9e02",
-      "review_route_source_hash": "efbf8f6df7cc2eb5c97dc8f74f31d5c8ab1cb072b82c59e4dd19959275eec617",
-      "area": "Hillside to Hollow",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Harrison Hollow",
-      "official_segment_ids": [
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1717",
-        "1716",
-        "1714",
-        "1715",
-        "1579",
-        "1581",
-        "1582",
-        "1578"
-      ],
-      "trail_names": [
-        "Who Now Loop Trail",
-        "Harrison Ridge",
-        "Harrison Hollow",
-        "Kemper's Ridge Trail",
-        "Hippie Shake Trail"
-      ],
-      "metrics": {
-        "official_miles": 4.72,
-        "on_foot_miles": 6.36,
-        "on_foot_to_official_ratio": 1.35,
-        "p75_minutes": 141,
-        "p90_minutes": 158,
-        "non_credit_or_repeat_miles": 1.64,
-        "declared_repeat_miles": 1.11
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
       "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
@@ -445,8 +355,8 @@
       "candidate_ids": [
         "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
       ],
-      "route_source_hash": "b7bfbfcc138df3897e4e08268215f3c7a19e542f8d3b86e42395197964330a79",
-      "review_route_source_hash": "ce2f322b3758c338e15ceb1bc731ec874d4e3f93112aeee9f82d480ce035f4a5",
+      "route_source_hash": "ad16aee4649cfecb1d26cd779b138d1803c91e0a03abf9add910286e0ffe41f8",
+      "review_route_source_hash": "3ff7691aa9cff030bd43ee5efdf7b2b6e2013feb5a70449ff921caac8fb6dd66",
       "area": "Hidden Springs",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -468,11 +378,11 @@
       ],
       "metrics": {
         "official_miles": 4.02,
-        "on_foot_miles": 5.07,
-        "on_foot_to_official_ratio": 1.26,
+        "on_foot_miles": 5.04,
+        "on_foot_to_official_ratio": 1.25,
         "p75_minutes": 147,
         "p90_minutes": 165,
-        "non_credit_or_repeat_miles": 1.05,
+        "non_credit_or_repeat_miles": 1.02,
         "declared_repeat_miles": 0.37
       },
       "warning_codes_closed": [],
@@ -511,7 +421,7 @@
         "p75_minutes": 149,
         "p90_minutes": 167,
         "non_credit_or_repeat_miles": 1.67,
-        "declared_repeat_miles": 1.1
+        "declared_repeat_miles": 0.61
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -551,82 +461,7 @@
         "p75_minutes": 152,
         "p90_minutes": 171,
         "non_credit_or_repeat_miles": 1.83,
-        "declared_repeat_miles": 1.81
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "18B",
-      "candidate_id": "combo-lodge-trail-shindig",
-      "candidate_ids": [
-        "combo-lodge-trail-shindig"
-      ],
-      "route_source_hash": "cebd7fe395dad8a663498a68e100e57448d7564fa14a8d7ba5d907f41c06619c",
-      "review_route_source_hash": "e3f609ff14ab175f1184187d0c8dc64a83d957ee7f1e986db02144f4e36ce461",
-      "area": "Bogus Basin",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Simplot Lodge Parking Area",
-      "official_segment_ids": [
-        "1655",
-        "1721"
-      ],
-      "trail_names": [
-        "Shindig",
-        "Lodge Trail"
-      ],
-      "metrics": {
-        "official_miles": 0.66,
-        "on_foot_miles": 6.82,
-        "on_foot_to_official_ratio": 10.33,
-        "p75_minutes": 165,
-        "p90_minutes": 185,
-        "non_credit_or_repeat_miles": 6.16,
-        "declared_repeat_miles": 0.99
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "16C-1",
-      "candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
-      ],
-      "route_source_hash": "7648779cb7f9d5f05a4f82a04cfdf211464158249282bb3730908bf5883aff8f",
-      "review_route_source_hash": "08e5b1350c01fa4152a93d2b9a186fcb457d516b7cc8459c521ff71aea27d6d9",
-      "area": "Bogus Basin",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Freddy's Stack Rock",
-      "official_segment_ids": [
-        "1664",
-        "1663"
-      ],
-      "trail_names": [
-        "Stack Rock Connector"
-      ],
-      "metrics": {
-        "official_miles": 3.5,
-        "on_foot_miles": 6.88,
-        "on_foot_to_official_ratio": 1.97,
-        "p75_minutes": 170,
-        "p90_minutes": 191,
-        "non_credit_or_repeat_miles": 3.38,
-        "declared_repeat_miles": 3.34
+        "declared_repeat_miles": 1.23
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -678,7 +513,7 @@
         "p75_minutes": 178,
         "p90_minutes": 200,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.63
+        "declared_repeat_miles": 1.07
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -760,164 +595,7 @@
         "p75_minutes": 211,
         "p90_minutes": 237,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.46
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "3",
-      "candidate_id": "block-military_core",
-      "candidate_ids": [
-        "block-military_core"
-      ],
-      "route_source_hash": "f1cf243630cbb256d23a8ec8c13fd4b3e8252ef95b4595edcbf96c66d5fd4413",
-      "review_route_source_hash": "caa09177bd3f6edd37a8ed2828810e33f58dc53069535a108588745e62568b25",
-      "area": "Military Reserve",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Freestone Creek",
-      "official_segment_ids": [
-        "1590",
-        "1594",
-        "1593",
-        "1592",
-        "1591",
-        "1515",
-        "1514",
-        "1513",
-        "1512",
-        "1511",
-        "1510",
-        "1720",
-        "1629",
-        "1631",
-        "1630",
-        "1627",
-        "1628",
-        "1529",
-        "1530",
-        "1531",
-        "1522",
-        "1548",
-        "1549",
-        "1550",
-        "1551",
-        "1552",
-        "1574",
-        "1575"
-      ],
-      "trail_names": [
-        "Military Reserve Connection",
-        "Mountain Cove",
-        "Central Ridge Trail",
-        "Central Ridge Spur",
-        "Ridge Crest",
-        "Cottonwood Creek Trail",
-        "Connection (Eagle Ridge)",
-        "Eagle Ridge Trail",
-        "Elephant Rock Loop",
-        "Heroes Trail"
-      ],
-      "metrics": {
-        "official_miles": 8.31,
-        "on_foot_miles": 14.05,
-        "on_foot_to_official_ratio": 1.69,
-        "p75_minutes": 236,
-        "p90_minutes": 265,
-        "non_credit_or_repeat_miles": 5.74,
-        "declared_repeat_miles": 3.66
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "12",
-      "candidate_id": "block-upper_8th_corrals_sidewinder",
-      "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
-      ],
-      "route_source_hash": "947d09cb99b51aa40ce2cd5c4530ccec4faebd5682297ff1fa20e39b9f0b8216",
-      "review_route_source_hash": "a9fc3ae92b73cb980938a1e0edc47d76d8ec17d0d865597dd320ba17380dae46",
-      "area": "Dry Creek",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "8th Street ATV Parking Area",
-      "official_segment_ids": [
-        "1524",
-        "1525",
-        "1526",
-        "1527",
-        "1528",
-        "1483",
-        "1484",
-        "1485",
-        "1486",
-        "1660"
-      ],
-      "trail_names": [
-        "Corrals Trail",
-        "8th Street Motorcycle Trail",
-        "Sidewinder Trail"
-      ],
-      "metrics": {
-        "official_miles": 7.81,
-        "on_foot_miles": 13.44,
-        "on_foot_to_official_ratio": 1.72,
-        "p75_minutes": 243,
-        "p90_minutes": 273,
-        "non_credit_or_repeat_miles": 5.63,
-        "declared_repeat_miles": 1.49
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "16A-1",
-      "candidate_id": "manual-16a-1",
-      "candidate_ids": [
-        "manual-16a-1"
-      ],
-      "route_source_hash": "c612c2d578fc5ea5f324fa39870c69fdba6b8b8f3b0e22d0e019284b813a7a8d",
-      "review_route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
-      "area": "Dry Creek",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Dry Creek / Sweet Connie roadside parking",
-      "official_segment_ids": [
-        "1665",
-        "1666",
-        "1667"
-      ],
-      "trail_names": [
-        "Sweet Connie Trail"
-      ],
-      "metrics": {
-        "official_miles": 6.09,
-        "on_foot_miles": 14.2,
-        "on_foot_to_official_ratio": 2.33,
-        "p75_minutes": 249,
-        "p90_minutes": 279,
-        "non_credit_or_repeat_miles": 8.11,
-        "declared_repeat_miles": 6.08
+        "declared_repeat_miles": 0.82
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -987,7 +665,7 @@
         "p75_minutes": 253,
         "p90_minutes": 284,
         "non_credit_or_repeat_miles": 5.95,
-        "declared_repeat_miles": 1.98
+        "declared_repeat_miles": 1.75
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1030,97 +708,7 @@
         "p75_minutes": 259,
         "p90_minutes": 291,
         "non_credit_or_repeat_miles": 4.81,
-        "declared_repeat_miles": 4.66
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "16C-2",
-      "candidate_id": "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
-      ],
-      "route_source_hash": "2c252479d410798d888965cb99e2877405e297dcc6e3c026088cb18ea07c6a7d",
-      "review_route_source_hash": "cfbd4ab833e5234696ea7b9ec735f748cf1f6ac57e631144671138702c2c294f",
-      "area": "Dry Creek",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Dry Creek / Sweet Connie roadside parking",
-      "official_segment_ids": [
-        "1656"
-      ],
-      "trail_names": [
-        "Shingle Creek Trail"
-      ],
-      "metrics": {
-        "official_miles": 4.76,
-        "on_foot_miles": 14.31,
-        "on_foot_to_official_ratio": 3.01,
-        "p75_minutes": 259,
-        "p90_minutes": 291,
-        "non_credit_or_repeat_miles": 9.55,
-        "declared_repeat_miles": 7.91
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "H1",
-      "candidate_id": "H1-avimor-native-harlow-spring-loop",
-      "candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop"
-      ],
-      "route_source_hash": "86267ed037169b8606b3ebb1f01443db21a4cb64b6cb30ca88c6d2d01caffe42",
-      "review_route_source_hash": "c2e11a3278c2af2a4d9dd5a40e7d8179c6f51adca61ac237d31b1a75740e384a",
-      "area": "Avimor / Harlow",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Avimor Spring Valley Creek parking",
-      "official_segment_ids": [
-        "1626",
-        "1657",
-        "1661",
-        "1662",
-        "1687",
-        "1688",
-        "1689",
-        "1696",
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "trail_names": [
-        "Twisted Spring",
-        "Ricochet",
-        "Shooting Range",
-        "Whistling Pig",
-        "Spring Creek",
-        "Harlow's Hollows",
-        "Harlow's Hollows Connector"
-      ],
-      "metrics": {
-        "official_miles": 7.3,
-        "on_foot_miles": 9.64,
-        "on_foot_to_official_ratio": 1.32,
-        "p75_minutes": 289,
-        "p90_minutes": 324,
-        "non_credit_or_repeat_miles": 2.34,
-        "declared_repeat_miles": 1.14
+        "declared_repeat_miles": 3.38
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1188,7 +776,7 @@
         "p75_minutes": 332,
         "p90_minutes": 372,
         "non_credit_or_repeat_miles": 5.69,
-        "declared_repeat_miles": 3.99
+        "declared_repeat_miles": 2.73
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1199,91 +787,40 @@
       "field_readiness_status": "field_ready"
     },
     {
-      "route_label": "18A",
-      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "route_label": "16A-D1",
+      "candidate_id": "manual-16a-d1",
       "candidate_ids": [
-        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+        "manual-16a-d1"
       ],
-      "route_source_hash": "a1e9827aac2f469c1678ea8b7b011309baef76c4b07a8a13aa19d80237200bce",
-      "review_route_source_hash": "f99afd9f9fc8d70b27f2215517ed24675fa956ad92ef768ab7f101e07247b654",
-      "area": "Bogus Basin",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Bogus Basin Base Area",
-      "official_segment_ids": [
-        "1703",
-        "1679",
-        "1678",
-        "1502",
-        "1503",
-        "1501",
-        "1736",
-        "1735",
-        "1734",
-        "1733",
-        "1732"
-      ],
-      "trail_names": [
-        "Brewer's Byway Extension",
-        "Tempest Trail",
-        "Brewers Byway",
-        "The Face Trail",
-        "Mores Mtn Interpretive"
-      ],
-      "metrics": {
-        "official_miles": 4.43,
-        "on_foot_miles": 13.47,
-        "on_foot_to_official_ratio": 3.04,
-        "p75_minutes": 357,
-        "p90_minutes": 400,
-        "non_credit_or_repeat_miles": 9.04,
-        "declared_repeat_miles": 3.78
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "15B",
-      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "route_source_hash": "a644e2f432dd5fdc317e9a103a9dbe0dd39db783c23fb179f8927e20e0699b85",
-      "review_route_source_hash": "14111448f849b842079fa8098fcc1a00181de48f6f46a0edbc13bcfa5cb17f1f",
+      "route_source_hash": "5edc469be035b4da9040d8da33816d99482dbd71691d2ac3692bcbb3afb7ed11",
+      "review_route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "review_state": "accepted_current",
-      "current_start": "Bob's",
+      "current_start": "Dry Creek / Sweet Connie roadside parking",
       "official_segment_ids": [
-        "1577",
-        "1576",
-        "1546",
-        "1545",
-        "1544",
-        "1543",
         "1542",
-        "1523"
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
       ],
       "trail_names": [
-        "Highlands Trail",
         "Dry Creek Trail",
-        "Connector"
+        "Sheep Camp Trail",
+        "Shingle Creek Trail"
       ],
       "metrics": {
-        "official_miles": 9.33,
-        "on_foot_miles": 25.39,
-        "on_foot_to_official_ratio": 2.72,
-        "p75_minutes": 358,
-        "p90_minutes": 401,
-        "non_credit_or_repeat_miles": 16.06,
-        "declared_repeat_miles": 3.8
+        "official_miles": 12.5,
+        "on_foot_miles": 15.61,
+        "on_foot_to_official_ratio": 1.25,
+        "p75_minutes": 347,
+        "p90_minutes": 385,
+        "non_credit_or_repeat_miles": 3.11,
+        "declared_repeat_miles": 2.31
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1334,112 +871,7 @@
         "p75_minutes": 386,
         "p90_minutes": 433,
         "non_credit_or_repeat_miles": 4.73,
-        "declared_repeat_miles": 1.11
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "6",
-      "candidate_id": "block-cartwright_peggy_interface",
-      "candidate_ids": [
-        "block-cartwright_peggy_interface"
-      ],
-      "route_source_hash": "4944236e9754f8f5538d4d9af5fc74388450b1cb8632d7530fdfd21546358716",
-      "review_route_source_hash": "6e23ce2721e362b7768b65af9e343a997ee3acb28c84abfabc201af0d0860b4f",
-      "area": "Dry Creek",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Cartwright",
-      "official_segment_ids": [
-        "1597",
-        "1519",
-        "1520",
-        "1521",
-        "1709",
-        "1509",
-        "1508",
-        "1516"
-      ],
-      "trail_names": [
-        "Peggy's Trail",
-        "Chukar Butte Trail",
-        "Cartwright Connector",
-        "Cartwright Ridge",
-        "CHBH Connector"
-      ],
-      "metrics": {
-        "official_miles": 13.67,
-        "on_foot_miles": 22.41,
-        "on_foot_to_official_ratio": 1.64,
-        "p75_minutes": 409,
-        "p90_minutes": 459,
-        "non_credit_or_repeat_miles": 8.74,
-        "declared_repeat_miles": 3.28
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
-      "route_label": "13",
-      "candidate_id": "block-freestone_three_bears_curlew",
-      "candidate_ids": [
-        "block-freestone_three_bears_curlew"
-      ],
-      "route_source_hash": "d5eab1c479b0a8aed26ec450d48b2294eb05da5f7a4ceaf0e9e7ce5cc5571624",
-      "review_route_source_hash": "6ffdfa3fc2fe92be4cee7fc518e7967dca61369c3149f78a9597b4a55210bfb4",
-      "area": "Rocky Canyon",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Freestone Creek",
-      "official_segment_ids": [
-        "1681",
-        "1682",
-        "1683",
-        "1684",
-        "1685",
-        "1558",
-        "1564",
-        "1563",
-        "1649",
-        "1650",
-        "1651",
-        "1652",
-        "1748",
-        "1555",
-        "1711",
-        "1710"
-      ],
-      "trail_names": [
-        "Three Bears Trail",
-        "Femrite's Patrol",
-        "Freestone Ridge",
-        "Shane's Trail",
-        "Shane's Connector",
-        "Two Point",
-        "Fat Tire Traverse",
-        "Curlew Connection"
-      ],
-      "metrics": {
-        "official_miles": 14.35,
-        "on_foot_miles": 32.47,
-        "on_foot_to_official_ratio": 2.26,
-        "p75_minutes": 497,
-        "p90_minutes": 557,
-        "non_credit_or_repeat_miles": 18.12,
-        "declared_repeat_miles": 12.08
+        "declared_repeat_miles": 1.1
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -1470,7 +902,7 @@
         "p75_minutes": 77,
         "p90_minutes": 87,
         "non_credit_or_repeat_miles": 1.22,
-        "declared_repeat_miles": 1.05
+        "declared_repeat_miles": 0.79
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1508,7 +940,7 @@
         "p75_minutes": 92,
         "p90_minutes": 104,
         "non_credit_or_repeat_miles": 0.23,
-        "declared_repeat_miles": 0.17
+        "declared_repeat_miles": 0.11
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1541,12 +973,12 @@
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 1.44,
-        "on_foot_miles": 2.88,
-        "on_foot_to_official_ratio": 2.0,
+        "on_foot_miles": 2.96,
+        "on_foot_to_official_ratio": 2.06,
         "p75_minutes": 94,
         "p90_minutes": 106,
-        "non_credit_or_repeat_miles": 1.44,
-        "declared_repeat_miles": 1.43
+        "non_credit_or_repeat_miles": 1.52,
+        "declared_repeat_miles": 0.95
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1578,51 +1010,13 @@
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 0.54,
+        "official_miles": 0.53,
         "on_foot_miles": 2.7,
-        "on_foot_to_official_ratio": 5.0,
+        "on_foot_to_official_ratio": 5.09,
         "p75_minutes": 101,
         "p90_minutes": 114,
-        "non_credit_or_repeat_miles": 2.16,
-        "declared_repeat_miles": 0.24
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "manual-16a-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "labels": [
-        "16A-2"
-      ],
-      "area": "Dry Creek",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 0.77,
-        "on_foot_miles": 4.41,
-        "on_foot_to_official_ratio": 5.73,
-        "p75_minutes": 106,
-        "p90_minutes": 119,
-        "non_credit_or_repeat_miles": 3.64,
-        "declared_repeat_miles": 0.77
+        "non_credit_or_repeat_miles": 2.17,
+        "declared_repeat_miles": 0.18
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1660,7 +1054,7 @@
         "p75_minutes": 107,
         "p90_minutes": 120,
         "non_credit_or_repeat_miles": 1.73,
-        "declared_repeat_miles": 2.12
+        "declared_repeat_miles": 1.09
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1698,7 +1092,7 @@
         "p75_minutes": 114,
         "p90_minutes": 128,
         "non_credit_or_repeat_miles": 1.74,
-        "declared_repeat_miles": 1.72
+        "declared_repeat_miles": 1.26
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1736,7 +1130,7 @@
         "p75_minutes": 118,
         "p90_minutes": 133,
         "non_credit_or_repeat_miles": 2.72,
-        "declared_repeat_miles": 1.7
+        "declared_repeat_miles": 0.72
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1774,45 +1168,7 @@
         "p75_minutes": 119,
         "p90_minutes": 134,
         "non_credit_or_repeat_miles": 2.43,
-        "declared_repeat_miles": 1.55
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "labels": [
-        "1B"
-      ],
-      "area": "Hillside to Hollow",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 4.72,
-        "on_foot_miles": 6.36,
-        "on_foot_to_official_ratio": 1.35,
-        "p75_minutes": 141,
-        "p90_minutes": 158,
-        "non_credit_or_repeat_miles": 1.64,
-        "declared_repeat_miles": 1.11
+        "declared_repeat_miles": 1.41
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1845,11 +1201,11 @@
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
         "official_miles": 4.02,
-        "on_foot_miles": 5.07,
-        "on_foot_to_official_ratio": 1.26,
+        "on_foot_miles": 5.04,
+        "on_foot_to_official_ratio": 1.25,
         "p75_minutes": 147,
         "p90_minutes": 165,
-        "non_credit_or_repeat_miles": 1.05,
+        "non_credit_or_repeat_miles": 1.02,
         "declared_repeat_miles": 0.37
       },
       "evidence": [
@@ -1888,7 +1244,7 @@
         "p75_minutes": 149,
         "p90_minutes": 167,
         "non_credit_or_repeat_miles": 1.67,
-        "declared_repeat_miles": 1.1
+        "declared_repeat_miles": 0.61
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1926,83 +1282,7 @@
         "p75_minutes": 152,
         "p90_minutes": 171,
         "non_credit_or_repeat_miles": 1.83,
-        "declared_repeat_miles": 1.81
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "combo-lodge-trail-shindig",
-      "candidate_ids": [
-        "combo-lodge-trail-shindig"
-      ],
-      "labels": [
-        "18B"
-      ],
-      "area": "Bogus Basin",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 0.66,
-        "on_foot_miles": 6.82,
-        "on_foot_to_official_ratio": 10.33,
-        "p75_minutes": 165,
-        "p90_minutes": 185,
-        "non_credit_or_repeat_miles": 6.16,
-        "declared_repeat_miles": 0.99
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
-      ],
-      "labels": [
-        "16C-1"
-      ],
-      "area": "Bogus Basin",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 3.5,
-        "on_foot_miles": 6.88,
-        "on_foot_to_official_ratio": 1.97,
-        "p75_minutes": 170,
-        "p90_minutes": 191,
-        "non_credit_or_repeat_miles": 3.38,
-        "declared_repeat_miles": 3.34
+        "declared_repeat_miles": 1.23
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2040,7 +1320,7 @@
         "p75_minutes": 178,
         "p90_minutes": 200,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.63
+        "declared_repeat_miles": 1.07
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2116,121 +1396,7 @@
         "p75_minutes": 211,
         "p90_minutes": 237,
         "non_credit_or_repeat_miles": 1.82,
-        "declared_repeat_miles": 1.46
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "block-military_core",
-      "candidate_ids": [
-        "block-military_core"
-      ],
-      "labels": [
-        "3"
-      ],
-      "area": "Military Reserve",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 8.31,
-        "on_foot_miles": 14.05,
-        "on_foot_to_official_ratio": 1.69,
-        "p75_minutes": 236,
-        "p90_minutes": 265,
-        "non_credit_or_repeat_miles": 5.74,
-        "declared_repeat_miles": 3.66
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "block-upper_8th_corrals_sidewinder",
-      "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
-      ],
-      "labels": [
-        "12"
-      ],
-      "area": "Dry Creek",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 7.81,
-        "on_foot_miles": 13.44,
-        "on_foot_to_official_ratio": 1.72,
-        "p75_minutes": 243,
-        "p90_minutes": 273,
-        "non_credit_or_repeat_miles": 5.63,
-        "declared_repeat_miles": 1.49
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "manual-16a-1",
-      "candidate_ids": [
-        "manual-16a-1"
-      ],
-      "labels": [
-        "16A-1"
-      ],
-      "area": "Dry Creek",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 6.09,
-        "on_foot_miles": 14.2,
-        "on_foot_to_official_ratio": 2.33,
-        "p75_minutes": 249,
-        "p90_minutes": 279,
-        "non_credit_or_repeat_miles": 8.11,
-        "declared_repeat_miles": 6.08
+        "declared_repeat_miles": 0.82
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2268,7 +1434,7 @@
         "p75_minutes": 253,
         "p90_minutes": 284,
         "non_credit_or_repeat_miles": 5.95,
-        "declared_repeat_miles": 1.98
+        "declared_repeat_miles": 1.75
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2306,83 +1472,7 @@
         "p75_minutes": 259,
         "p90_minutes": 291,
         "non_credit_or_repeat_miles": 4.81,
-        "declared_repeat_miles": 4.66
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
-      ],
-      "labels": [
-        "16C-2"
-      ],
-      "area": "Dry Creek",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 4.76,
-        "on_foot_miles": 14.31,
-        "on_foot_to_official_ratio": 3.01,
-        "p75_minutes": 259,
-        "p90_minutes": 291,
-        "non_credit_or_repeat_miles": 9.55,
-        "declared_repeat_miles": 7.91
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "H1-avimor-native-harlow-spring-loop",
-      "candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop"
-      ],
-      "labels": [
-        "H1"
-      ],
-      "area": "Avimor / Harlow",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 7.3,
-        "on_foot_miles": 9.64,
-        "on_foot_to_official_ratio": 1.32,
-        "p75_minutes": 289,
-        "p90_minutes": 324,
-        "non_credit_or_repeat_miles": 2.34,
-        "declared_repeat_miles": 1.14
+        "declared_repeat_miles": 3.38
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2420,7 +1510,7 @@
         "p75_minutes": 332,
         "p90_minutes": 372,
         "non_credit_or_repeat_miles": 5.69,
-        "declared_repeat_miles": 3.99
+        "declared_repeat_miles": 2.73
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2440,63 +1530,25 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
-      "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "candidate_id": "manual-16a-d1",
       "candidate_ids": [
-        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+        "manual-16a-d1"
       ],
       "labels": [
-        "18A"
-      ],
-      "area": "Bogus Basin",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 4.43,
-        "on_foot_miles": 13.47,
-        "on_foot_to_official_ratio": 3.04,
-        "p75_minutes": 357,
-        "p90_minutes": 400,
-        "non_credit_or_repeat_miles": 9.04,
-        "declared_repeat_miles": 3.78
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "labels": [
-        "15B"
+        "16A-D1"
       ],
       "area": "Dry Creek",
       "status": "accepted_current",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 9.33,
-        "on_foot_miles": 25.39,
-        "on_foot_to_official_ratio": 2.72,
-        "p75_minutes": 358,
-        "p90_minutes": 401,
-        "non_credit_or_repeat_miles": 16.06,
-        "declared_repeat_miles": 3.8
+        "official_miles": 12.5,
+        "on_foot_miles": 15.61,
+        "on_foot_to_official_ratio": 1.25,
+        "p75_minutes": 347,
+        "p90_minutes": 385,
+        "non_credit_or_repeat_miles": 3.11,
+        "declared_repeat_miles": 2.31
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2534,83 +1586,7 @@
         "p75_minutes": 386,
         "p90_minutes": 433,
         "non_credit_or_repeat_miles": 4.73,
-        "declared_repeat_miles": 1.11
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "block-cartwright_peggy_interface",
-      "candidate_ids": [
-        "block-cartwright_peggy_interface"
-      ],
-      "labels": [
-        "6"
-      ],
-      "area": "Dry Creek",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 13.67,
-        "on_foot_miles": 22.41,
-        "on_foot_to_official_ratio": 1.64,
-        "p75_minutes": 409,
-        "p90_minutes": 459,
-        "non_credit_or_repeat_miles": 8.74,
-        "declared_repeat_miles": 3.28
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
-      "candidate_id": "block-freestone_three_bears_curlew",
-      "candidate_ids": [
-        "block-freestone_three_bears_curlew"
-      ],
-      "labels": [
-        "13"
-      ],
-      "area": "Rocky Canyon",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 14.35,
-        "on_foot_miles": 32.47,
-        "on_foot_to_official_ratio": 2.26,
-        "p75_minutes": 497,
-        "p90_minutes": 557,
-        "non_credit_or_repeat_miles": 18.12,
-        "declared_repeat_miles": 12.08
+        "declared_repeat_miles": 1.1
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",

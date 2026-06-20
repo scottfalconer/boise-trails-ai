@@ -53,6 +53,33 @@ def test_activity_review_records_missed_partial_and_extra_completed_segments():
     assert review["planned_outing_id"] == "route-a"
 
 
+def test_activity_review_records_one_endpoint_crossing_as_near_touch_not_partial():
+    module = load_module()
+    crossed_coords = [(-116.0 + index * 0.0005, 43.0) for index in range(101)]
+    crossed = segment(4, crossed_coords)
+    crossing_activity = [
+        (-116.0, 42.999),
+        (-116.0, 43.0),
+        (-116.0, 43.001),
+    ]
+
+    review = module.review_activity_against_segments(
+        crossing_activity,
+        [crossed],
+        planned_segment_ids=[],
+        threshold_miles=0.005,
+        endpoint_threshold_miles=0.005,
+        min_fraction=0.8,
+        partial_min_fraction=0.2,
+        endpoint_touch_max_fraction=0.35,
+    )
+
+    assert review["completed_segment_ids"] == []
+    assert review["partial_segment_ids"] == []
+    assert review["near_touch_segment_ids"] == ["4"]
+    assert review["segment_reviews"][0]["completion_status"] == "near_touch"
+
+
 def test_activity_review_rejects_ascent_segment_in_wrong_direction():
     module = load_module()
     ascent = segment(3, [(-116.0, 43.0), (-115.99, 43.0)], direction="ascent")

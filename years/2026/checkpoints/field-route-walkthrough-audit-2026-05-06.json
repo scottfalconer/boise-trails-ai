@@ -9,8 +9,8 @@
     "route_id": null
   },
   "summary": {
-    "route_count": 20,
-    "passed_route_count": 20,
+    "route_count": 19,
+    "passed_route_count": 19,
     "failed_route_count": 0,
     "graph_edge_count": 12311,
     "official_segment_count": 250,
@@ -1564,205 +1564,7 @@
       "failures": []
     },
     {
-      "outing_id": "16-2",
-      "label": "16A-2",
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "passed": true,
-      "traversed_edge_summary": [
-        {
-          "edge_id": "official:1665:171:0",
-          "name": "Sweet Connie Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1665",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.027,
-          "route_miles_start": 0.0,
-          "route_miles_end": 0.027,
-          "start_coordinate": [
-            -116.1822,
-            43.6918
-          ],
-          "end_coordinate": [
-            -116.1821,
-            43.6915
-          ]
-        },
-        {
-          "edge_id": "official:1542:60:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1542",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.567,
-          "route_miles_start": 0.027,
-          "route_miles_end": 0.594,
-          "start_coordinate": [
-            -116.1821,
-            43.6915
-          ],
-          "end_coordinate": [
-            -116.1774,
-            43.6888
-          ]
-        },
-        {
-          "edge_id": "official:1543:61:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1543",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.726,
-          "route_miles_start": 0.594,
-          "route_miles_end": 1.32,
-          "start_coordinate": [
-            -116.1774,
-            43.6888
-          ],
-          "end_coordinate": [
-            -116.1652,
-            43.692
-          ]
-        },
-        {
-          "edge_id": "official:1653:162:0",
-          "name": "Sheep Camp Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1653",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.762,
-          "route_miles_start": 1.32,
-          "route_miles_end": 2.082,
-          "start_coordinate": [
-            -116.1652,
-            43.692
-          ],
-          "end_coordinate": [
-            -116.162693,
-            43.687325
-          ]
-        },
-        {
-          "edge_id": "official:1653:162:0",
-          "name": "Sheep Camp Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1653",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.77,
-          "route_miles_start": 2.082,
-          "route_miles_end": 2.852,
-          "start_coordinate": [
-            -116.162693,
-            43.687325
-          ],
-          "end_coordinate": [
-            -116.1652,
-            43.692
-          ]
-        },
-        {
-          "edge_id": "official:1543:61:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1543",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.733,
-          "route_miles_start": 2.852,
-          "route_miles_end": 3.585,
-          "start_coordinate": [
-            -116.1652,
-            43.692
-          ],
-          "end_coordinate": [
-            -116.1776,
-            43.6888
-          ]
-        },
-        {
-          "edge_id": "official:1542:60:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1542",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.565,
-          "route_miles_start": 3.585,
-          "route_miles_end": 4.15,
-          "start_coordinate": [
-            -116.1776,
-            43.6888
-          ],
-          "end_coordinate": [
-            -116.1823,
-            43.6916
-          ]
-        },
-        {
-          "edge_id": "official:1665:171:0",
-          "name": "Sweet Connie Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1665",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.015,
-          "route_miles_start": 4.15,
-          "route_miles_end": 4.165,
-          "start_coordinate": [
-            -116.1823,
-            43.6916
-          ],
-          "end_coordinate": [
-            -116.1822,
-            43.6918
-          ]
-        }
-      ],
-      "cue_vocabulary_summary": {
-        "signposts": [
-          "#78",
-          "#80"
-        ],
-        "normalized_text_count": 23,
-        "sample_normalized_text": [
-          "01 0 00 mi 1 62 start access follow sheep camp until signed sheep camp route first official segment",
-          "02 1 62 mi 0 89 follow sheep camp until end of sheep camp for this route",
-          "03 2 52 mi 1 57 exit follow dry creek sheep camp dry creek sheep camp sweet connie until parked car trailhead",
-          "after sheep camp you are not fully back at car follow gpx connector access line back to dry creek sweet connie roadside parking expect about 1 63 mi after final official credit segment this return leg is part of route even though it is not official challenge credit return also follows dry creek",
-          "dry creek",
-          "dry creek sweet connie roadside parking",
-          "end of sheep camp for this route",
-          "follow",
-          "follow connector access back to car",
-          "follow dry creek sheep camp dry creek sheep camp sweet connie toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 77 mi repeat official no new credit",
-          "follow sheep camp this earns sheep camp segment 1 section estimate 0 77 official mi 41 ft climb 414 ft descent",
-          "follow sheep camp toward return to car until end of sheep camp for this route this earns sheep camp segment 1 section estimate 0 77 official mi 41 ft climb 414 ft descent",
-          "follow sheep camp toward sheep camp until signed sheep camp route first official segment",
-          "from car head toward sheep camp follow gpx access line for about 1 4 mi before official credit starts",
-          "leave car toward sheep camp",
-          "park start at dry creek sweet connie roadside parking",
-          "parked car trailhead",
-          "return to car",
-          "sheep camp",
-          "signed sheep camp route first official segment"
-        ]
-      },
-      "failures": []
-    },
-    {
-      "outing_id": "16-4",
+      "outing_id": "16-3",
       "label": "16A-D1",
       "trailhead": "Dry Creek / Sweet Connie roadside parking",
       "passed": true,
@@ -1828,6 +1630,46 @@
           ]
         },
         {
+          "edge_id": "official:1653:162:0",
+          "name": "Sheep Camp Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1653",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.761,
+          "route_miles_start": 1.306,
+          "route_miles_end": 2.067,
+          "start_coordinate": [
+            -116.165143,
+            43.691999
+          ],
+          "end_coordinate": [
+            -116.162693,
+            43.687325
+          ]
+        },
+        {
+          "edge_id": "official:1653:162:0",
+          "name": "Sheep Camp Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1653",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.76,
+          "route_miles_start": 2.067,
+          "route_miles_end": 2.827,
+          "start_coordinate": [
+            -116.162693,
+            43.687325
+          ],
+          "end_coordinate": [
+            -116.165143,
+            43.691999
+          ]
+        },
+        {
           "edge_id": "official:1544:62:0",
           "name": "Dry Creek Trail",
           "signposts": [],
@@ -1836,8 +1678,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.981,
-          "route_miles_start": 1.306,
-          "route_miles_end": 2.287,
+          "route_miles_start": 2.827,
+          "route_miles_end": 3.808,
           "start_coordinate": [
             -116.165143,
             43.691999
@@ -1856,8 +1698,8 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 3.297,
-          "route_miles_start": 2.287,
-          "route_miles_end": 5.584,
+          "route_miles_start": 3.808,
+          "route_miles_end": 7.105,
           "start_coordinate": [
             -116.153952,
             43.702616
@@ -1876,8 +1718,8 @@
           "direction": "ascent",
           "traversal_direction": "reverse",
           "distance_miles": 0.01,
-          "route_miles_start": 5.584,
-          "route_miles_end": 5.594,
+          "route_miles_start": 7.105,
+          "route_miles_end": 7.116,
           "start_coordinate": [
             -116.109545,
             43.712059
@@ -1896,8 +1738,8 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 1.383,
-          "route_miles_start": 5.594,
-          "route_miles_end": 6.977,
+          "route_miles_start": 7.116,
+          "route_miles_end": 8.499,
           "start_coordinate": [
             -116.10974,
             43.712113
@@ -1916,8 +1758,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 1.635,
-          "route_miles_start": 6.977,
-          "route_miles_end": 8.612,
+          "route_miles_start": 8.499,
+          "route_miles_end": 10.134,
           "start_coordinate": [
             -116.10186,
             43.718994
@@ -1936,8 +1778,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 3.012,
-          "route_miles_start": 8.612,
-          "route_miles_end": 11.624,
+          "route_miles_start": 10.134,
+          "route_miles_end": 13.145,
           "start_coordinate": [
             -116.115,
             43.72153
@@ -1956,8 +1798,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.976,
-          "route_miles_start": 11.624,
-          "route_miles_end": 12.599,
+          "route_miles_start": 13.145,
+          "route_miles_end": 14.121,
           "start_coordinate": [
             -116.153952,
             43.702616
@@ -1976,8 +1818,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.718,
-          "route_miles_start": 12.599,
-          "route_miles_end": 13.317,
+          "route_miles_start": 14.121,
+          "route_miles_end": 14.839,
           "start_coordinate": [
             -116.165143,
             43.691999
@@ -1996,8 +1838,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.581,
-          "route_miles_start": 13.317,
-          "route_miles_end": 13.898,
+          "route_miles_start": 14.839,
+          "route_miles_end": 15.42,
           "start_coordinate": [
             -116.177447,
             43.688765
@@ -2016,8 +1858,8 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 0.02,
-          "route_miles_start": 13.898,
-          "route_miles_end": 13.918,
+          "route_miles_start": 15.42,
+          "route_miles_end": 15.439,
           "start_coordinate": [
             -116.182275,
             43.691594
@@ -2030,28 +1872,28 @@
       ],
       "cue_vocabulary_summary": {
         "signposts": [],
-        "normalized_text_count": 35,
+        "normalized_text_count": 45,
         "sample_normalized_text": [
           "01 0 00 mi 0 02 official start follow dry creek until signed dry creek route first official segment",
-          "02 0 02 mi 2 30 follow dry creek until signed junction with shingle creek",
-          "03 2 32 mi 4 76 jct continue straight shingle creek until signed junction with dry creek",
-          "04 7 08 mi 6 97 jct bear left dry creek until end of dry creek for this route",
-          "05 14 05 mi 0 02 return follow dry creek sweet connie until parked car trailhead",
+          "02 0 02 mi 1 32 follow dry creek until signed junction with sheep camp",
+          "03 1 34 mi 1 54 jct take sheep camp until signed junction with dry creek",
+          "04 2 88 mi 0 99 jct bear right dry creek until signed junction with shingle creek",
+          "05 3 87 mi 4 76 jct bear right shingle creek until signed junction with dry creek",
+          "06 8 63 mi 6 97 jct take dry creek until end of dry creek for this route",
+          "07 15 60 mi 0 02 return follow dry creek sweet connie until parked car trailhead",
           "after dry creek you are not fully back at car use dry creek sweet connie back toward dry creek sweet connie roadside parking this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with dry creek bear left onto dry creek this earns dry creek segments 5 4 3 2 and 1 section estimate 6 97 official mi 1208 ft climb 3027 ft descent",
-          "at signed junction with shingle creek continue straight onto shingle creek this earns shingle creek segment 1 section estimate 4 76 official mi 2671 ft climb ascent required on shingle creek 1 next decision look for signs to dry creek",
-          "bear left",
-          "bear left dry creek toward return to car until end of dry creek for this route this earns dry creek segments 5 4 3 2 and 1 section estimate 6 97 official mi 1208 ft climb 3027 ft descent also includes repeat official mileage already credited earlier in this route includes 2 31 mi repeat official no new credit",
-          "bear left onto dry creek",
-          "continue onto shingle creek",
-          "continue straight",
-          "continue straight shingle creek toward dry creek until signed junction with dry creek this earns shingle creek segment 1 section estimate 4 76 official mi 2671 ft climb ascent required on shingle creek 1",
+          "at signed junction with dry creek bear right onto dry creek this earns dry creek segment 3 section estimate 0 99 official mi 132 ft climb 333 ft descent next decision look for signs to shingle creek",
+          "at signed junction with dry creek turn onto dry creek this earns dry creek segments 5 4 3 2 and 1 section estimate 6 97 official mi 1208 ft climb 3027 ft descent",
+          "at signed junction with sheep camp turn onto sheep camp this earns both sheep camp official segments section estimate 1 54 official mi 82 ft climb 828 ft descent next decision look for signs to dry creek",
+          "at signed junction with shingle creek bear right onto shingle creek this earns shingle creek segment 1 section estimate 4 76 official mi 2671 ft climb ascent required on shingle creek 1 next decision look for signs to dry creek",
+          "bear right",
+          "bear right dry creek toward shingle creek until signed junction with shingle creek this earns dry creek segment 3 section estimate 0 99 official mi 132 ft climb 333 ft descent",
+          "bear right onto dry creek",
+          "bear right onto shingle creek",
+          "bear right shingle creek toward dry creek until signed junction with dry creek this earns shingle creek segment 1 section estimate 4 76 official mi 2671 ft climb ascent required on shingle creek 1",
           "dry creek",
           "dry creek sweet connie roadside parking",
-          "end of dry creek for this route",
-          "follow",
-          "follow dry creek sweet connie toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking return leg does not count as new official challenge credit includes 0 01 mi repeat official no new credit",
-          "follow dry creek this earns dry creek segments 1 3 section estimate 2 3 official mi 831 ft climb next decision look for signs to shingle creek"
+          "end of dry creek for this route"
         ]
       },
       "failures": []
@@ -4053,7 +3895,7 @@
           "11 4 71 mi 0 08 exit follow west climb full sail west climb until parked car trailhead",
           "after bob smylie you are not fully back at car use west climb west climb full sail back toward west climb trailhead expect about 0 13 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with bob smylie turn right onto bob smylie use buena vista buena vista for 0 32 mi look for signs buena vista this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 19 min moving 197 ft climb 302 ft descent",
-          "at signed junction with buena vista continue straight onto buena vista short link 0 05 mi look for signs buena vista this earns buena vista official segments 1506 1507 and 1755 section estimate 0 95 official mi 22 min moving 720 ft climb next decision look for signs to bob smylie",
+          "at signed junction with buena vista continue straight onto buena vista short link 0 05 mi look for signs buena vista this earns buena vista official segments 1506 and 1507 official repeat mileage buena vista official segment 1755 do not count as new credit section estimate 0 95 official mi 22 min moving 720 ft climb next decision look for signs to bob smylie",
           "at signed junction with buena vista continue straight onto buena vista use buena vista for 0 2 mi look for signs buena vista this earns buena vista official segment 1505 section estimate 0 14 official mi 3 min moving 61 ft climb next decision look for signs to buena vista",
           "at signed junction with buena vista turn onto buena vista use full sail full sail for 0 43 mi look for signs full sail this earns buena vista official segment 1504 section estimate 0 28 official mi 5 min moving 141 ft climb next decision look for signs to buena vista",
           "bob smylie",

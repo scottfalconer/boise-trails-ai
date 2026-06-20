@@ -1,6 +1,6 @@
 {
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-10T03:14:25Z",
+  "generated_at": "2026-06-20T22:42:29Z",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
     "field_packet_manifest": "docs/field-packet/manifest.json",
@@ -13,34 +13,32 @@
     "canonical_md": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md"
   },
   "summary": {
-    "route_count": 31,
-    "proof_count": 31,
+    "route_count": 19,
+    "proof_count": 19,
     "decision_counts": {
-      "HOLD_CURRENT_RECERTIFIED": 31
+      "HOLD_CURRENT_RECERTIFIED": 19
     },
     "area_counts": {
       "Upper Hulls Gulch": 2,
       "Western Foothills": 2,
-      "Dry Creek": 7,
+      "Dry Creek": 2,
       "Boise River WMA": 2,
-      "Hillside to Hollow": 2,
+      "Hillside to Hollow": 1,
       "13": 1,
       "Hidden Springs": 2,
       "Hawkins Range Reserve": 1,
-      "Bogus Basin": 4,
       "Cervidae / Arrow Rock": 1,
       "Polecat Gulch": 1,
-      "Military Reserve": 1,
       "Table Rock": 1,
-      "Rocky Canyon": 2,
-      "Avimor / Harlow": 1,
-      "Camels Back / Hulls Gulch": 1
+      "Rocky Canyon": 1,
+      "Camels Back / Hulls Gulch": 1,
+      "Bogus Basin": 1
     },
     "deterministic_same_credit_failure_count": 0,
     "failed_route_labels": [],
     "route_efficiency_verdict": "current_routes_proofed",
     "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 31,
-    "review_today": "2026-06-09"
+    "accepted_active_candidate_target": 19,
+    "review_today": "2026-06-20"
   }
 }

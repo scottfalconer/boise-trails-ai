@@ -122,6 +122,7 @@ def review_event(epoch: str, day_id: str, review: dict[str, Any]) -> dict[str, A
         "extra_completed_segment_ids": normalized_ids(review.get("extra_completed_segment_ids")),
         "missed_segment_ids": normalized_ids(review.get("missed_segment_ids")),
         "partial_segment_ids": normalized_ids(review.get("partial_segment_ids")),
+        "near_touch_segment_ids": normalized_ids(review.get("near_touch_segment_ids")),
         "blocked_segment_ids": normalized_ids(review.get("blocked_segment_ids")),
         "blocked_trail_names": sorted(str(item) for item in review.get("blocked_trail_names") or []),
         "notes": review.get("notes") or "",

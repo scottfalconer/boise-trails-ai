@@ -118,6 +118,7 @@ def review_segment(
     endpoint_threshold_miles: float,
     min_fraction: float,
     partial_min_fraction: float,
+    endpoint_touch_max_fraction: float = 0.35,
     elevation_sampler: ElevationSampler | None = None,
 ) -> dict[str, Any]:
     samples = sample_line(segment["coordinates"])
@@ -129,6 +130,9 @@ def review_segment(
     end_distance = point_to_polyline_distance_miles(tuple(segment["end"]), activity_coords)
     endpoints_ok = start_distance <= endpoint_threshold_miles and end_distance <= endpoint_threshold_miles
     coverage_ok = match_fraction >= min_fraction and endpoints_ok
+    one_endpoint_touch = (
+        (start_distance <= endpoint_threshold_miles) != (end_distance <= endpoint_threshold_miles)
+    )
     direction_ok, direction_basis = ascent_direction_ok(segment, activity_coords, elevation_sampler)
     if coverage_ok and direction_ok is True:
         status = "completed"
@@ -136,8 +140,12 @@ def review_segment(
         status = "wrong_ascent_direction"
     elif coverage_ok:
         status = "direction_unverified"
-    elif match_fraction >= partial_min_fraction or start_distance <= threshold_miles or end_distance <= threshold_miles:
+    elif one_endpoint_touch and match_fraction < endpoint_touch_max_fraction:
+        status = "near_touch"
+    elif match_fraction >= partial_min_fraction:
         status = "partial"
+    elif start_distance <= threshold_miles or end_distance <= threshold_miles:
+        status = "near_touch"
     else:
         status = "not_matched"
     return {
@@ -165,6 +173,7 @@ def review_activity_against_segments(
     endpoint_threshold_miles: float | None = None,
     min_fraction: float = 0.85,
     partial_min_fraction: float = 0.2,
+    endpoint_touch_max_fraction: float = 0.35,
     elevation_sampler: ElevationSampler | None = None,
     evidence_refs: list[str] | None = None,
 ) -> dict[str, Any]:
@@ -178,6 +187,7 @@ def review_activity_against_segments(
             endpoint_threshold_miles=endpoint_threshold,
             min_fraction=min_fraction,
             partial_min_fraction=partial_min_fraction,
+            endpoint_touch_max_fraction=endpoint_touch_max_fraction,
             elevation_sampler=elevation_sampler,
         )
         for segment in official_segments
@@ -188,6 +198,11 @@ def review_activity_against_segments(
         for row in segment_reviews
         if row["completion_status"] in {"partial", "wrong_ascent_direction", "direction_unverified"}
         and row["seg_id"] not in completed
+    }
+    near_touch = {
+        row["seg_id"]
+        for row in segment_reviews
+        if row["completion_status"] == "near_touch" and row["seg_id"] not in completed
     }
     missed = planned_ids - completed
     extra = completed - planned_ids if planned_ids else set()
@@ -201,6 +216,7 @@ def review_activity_against_segments(
         "extra_completed_segment_ids": normalized_ids(extra),
         "missed_segment_ids": normalized_ids(missed),
         "partial_segment_ids": normalized_ids(partial),
+        "near_touch_segment_ids": normalized_ids(near_touch),
         "blocked_segment_ids": [],
         "evidence_refs": evidence_refs or [],
         "parameters": {
@@ -208,9 +224,12 @@ def review_activity_against_segments(
             "endpoint_threshold_miles": endpoint_threshold,
             "min_fraction": min_fraction,
             "partial_min_fraction": partial_min_fraction,
+            "endpoint_touch_max_fraction": endpoint_touch_max_fraction,
         },
         "segment_reviews": [
-            row for row in segment_reviews if row["completion_status"] != "not_matched" or row["seg_id"] in planned_ids
+            row
+            for row in segment_reviews
+            if row["completion_status"] != "not_matched" or row["seg_id"] in planned_ids
         ],
     }
 
@@ -225,6 +244,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--endpoint-threshold-miles", type=float)
     parser.add_argument("--min-fraction", type=float, default=0.85)
     parser.add_argument("--partial-min-fraction", type=float, default=0.2)
+    parser.add_argument("--endpoint-touch-max-fraction", type=float, default=0.35)
     parser.add_argument("--dem-tif", type=Path, default=DEFAULT_DEM_TIF)
     parser.add_argument("--dem-summary-json", type=Path, default=DEFAULT_DEM_SUMMARY_JSON)
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
@@ -245,6 +265,7 @@ def main(argv: list[str] | None = None) -> int:
         endpoint_threshold_miles=args.endpoint_threshold_miles,
         min_fraction=args.min_fraction,
         partial_min_fraction=args.partial_min_fraction,
+        endpoint_touch_max_fraction=args.endpoint_touch_max_fraction,
         elevation_sampler=dem_context.get("sampler"),
         evidence_refs=[str(args.activity)],
     )
@@ -257,6 +278,7 @@ def main(argv: list[str] | None = None) -> int:
                 "extra": len(review["extra_completed_segment_ids"]),
                 "missed": len(review["missed_segment_ids"]),
                 "partial": len(review["partial_segment_ids"]),
+                "near_touch": len(review["near_touch_segment_ids"]),
             },
             indent=2,
         )

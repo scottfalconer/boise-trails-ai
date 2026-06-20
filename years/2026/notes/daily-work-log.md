@@ -4,6 +4,86 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-20 - Repair Sheep Camp / Dry Creek route selection
+
+- Objective: answer whether Sheep Camp Trail 1 should stay as its own package
+  16 outing after the Dry Creek / Shingle route-truth repair.
+- Result:
+  - Confirmed the generated `16A-D1` GPX only touched Sheep Camp `1653` at the
+    Dry Creek junction before repair, so the map was showing the selected route
+    accurately but the route selection was stale.
+  - Repaired the package-16 route source so `16A-D1` clears Sheep Camp as a
+    mid-route spur from the Dry Creek junction, then continues to Shingle and
+    returns down Dry Creek.
+  - Superseded the standalone Sheep Camp `16A-2` manual card. The field packet
+    now exposes `16A-D1` as outing `16-3`, with segment ids `1542`, `1543`,
+    `1544`, `1545`, `1546`, `1653`, and `1656`.
+  - Hardened the route-truth lollipop generator so mid-route spur repeats are
+    not misclassified as final return-to-car repeats, and made lollipop handling
+    data-driven with `route_truth_lollipop`.
+- Validation:
+  - `python3 -m pytest -q years/2026/tests/test_human_loop_plan.py years/2026/tests/test_export_mobile_field_packet.py::test_route_truth_lollipop_skips_avoidable_repeat_repair years/2026/tests/test_field_tool_completion_audit.py`
+    passed 50 tests.
+  - `python3 years/2026/scripts/human_loop_plan.py` regenerated the canonical
+    outing menu.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` regenerated 57
+    GPX files and the phone packet.
+  - `python3 years/2026/scripts/field_activity_review.py --activity docs/field-packet/gpx/audit/dry-creek-16a-d1.gpx --planned-outing-id 16-3 --planned-segment-ids 1542,1543,1544,1545,1546,1653,1656 --output-json /tmp/16a-d1-sheep-repaired-check.json`
+    completed all 7 planned segments with 0 missed and 0 partial.
+  - Full field-packet chain passed: latent-credit audit, progress report,
+    recertification report, route-edge cover audit, field-tool completion
+    audit, field-route walkthrough audit, and post-credit connector audit.
+  - `python3 years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 19 routes; `python3 years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    passed with the existing waived `1A-1` dominance finding; refreshed
+    all-route adversarial disproof reports 19 / 19 current routes accepted.
+  - `python3 -m pytest -q years/2026/tests/test_all_route_adversarial_disproof.py years/2026/tests/test_route_review_pack.py years/2026/tests/test_gate_route_reviews.py`
+    passed 15 tests.
+  - Full `python3 -m pytest -q` was interrupted after 19:10 with 200 passed and
+    3 failures observed before interruption. The two stale disproof failures
+    were fixed by refreshing route review/disproof artifacts; the remaining
+    isolated failure is
+    `years/2026/tests/test_export_execution_gpx.py::test_candidate_segments_for_track_reorders_special_management_loop_to_legal_flow`,
+    an unrelated Polecat special-management loop-order test.
+- Current blocker:
+  - No route-selection blocker remains for Sheep Camp / Dry Creek / Shingle.
+    Standard day-of condition, heat, closure, and signage checks still apply.
+  - The unrelated Polecat special-management route-order unit test remains open
+    and needs a focused topology fix; it did not affect the regenerated 19-route
+    field packet certification.
+
+## 2026-06-20 - Apply 1B challenge progress
+
+- Objective: review the completed challenge-window `1B` activity and remove
+  those official segments from remaining 2026 route planning.
+- Result:
+  - Pulled a fresh ignored Strava API snapshot for 2026-06-18 through
+    2026-06-20 under
+    `years/2026/inputs/strava/api-pulls/2026-06-20-challenge-1b/`.
+  - Ran the activity matcher against the June 13 official foot segment data.
+    The 2026-06-19 evening run completed all 12 planned `1B` segments plus
+    extra segment `1755` (`Buena Vista Trail 5`). Segment `1507` was a
+    crossing/near-touch only and remains in planning.
+  - Applied `challenge-2026 / 2026-06-19-1b` through
+    `field_progress_versions.py apply-day`, preserving the locked challenge
+    original and updating the ignored private planner state/ledger.
+  - Added `years/2026/notes/challenge-progress.md` as the public-safe progress
+    tracking document and added a challenge field log at
+    `years/2026/field-tests/challenge/2026-06-19-1b/`.
+  - Regenerated the phone field packet with completed segments applied. `1B`
+    is no longer in manual holds, and `1A-2` no longer claims `1755` as new
+    credit.
+- Validation:
+  - `python3 years/2026/scripts/field_activity_review.py --activity years/2026/inputs/strava/api-pulls/2026-06-20-challenge-1b/activity_details/18991721205.json --planned-outing-id 1-3 --planned-segment-ids 1697,1698,1699,1700,1717,1716,1714,1715,1579,1581,1582,1578 --output-json years/2026/outputs/private/progress/activity-review-2026-06-19-1b.json`
+    wrote 13 completed, 1 extra, 0 missed, 0 partial, and 1 near-touch.
+  - `python3 years/2026/scripts/field_progress_versions.py apply-day --epoch challenge-2026 --day-id 2026-06-19-1b --review-json years/2026/outputs/private/progress/activity-review-2026-06-19-1b.json`
+    updated the versioned day snapshot and regenerated the field packet.
+- Current blocker:
+  - No fresh BTC dashboard snapshot is present in the repo for this event. The
+    local progress ledger is based on Strava geometry and local official-segment
+    matching; official BTC dashboard proof should be refreshed separately when
+    the dashboard handle or export is available.
+
 ## 2026-06-13 - Official map refresh and packet recertification
 
 - Objective: refresh against the latest public Boise Trails Challenge trail API

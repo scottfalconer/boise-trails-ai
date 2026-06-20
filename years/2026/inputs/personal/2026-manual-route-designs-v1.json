@@ -125,7 +125,7 @@
         {
           "alternative_id": "16A-2",
           "title": "Sheep Camp lower loop",
-          "status": "manual_gpx_required",
+          "status": "superseded_by_route_truth_repair",
           "priority": 2,
           "default_mode": "single_car_loop",
           "start_anchor_id": "lower_sweet_connie_dry_creek_access",
@@ -139,13 +139,13 @@
             4.0
           ],
           "design_notes": [
-            "Use the Sheep Camp-only lower loop only after Shingle Creek 1656 is owned by a current field-valid route card.",
-            "Do not rely on the retracted 15A-1 latent-credit promotion for Shingle ownership."
+            "Superseded 2026-06-20 by route-truth repair: Sheep Camp 1653 should be cleared as a spur inside 16A-D1 from the Dry Creek junction, not preserved as a separate car-to-car outing.",
+            "Do not resurrect this Sheep-only card unless the combined Dry Creek / Sheep Camp / Shingle route fails certification or day-of field constraints."
           ]
         },
         {
           "alternative_id": "16A-D1",
-          "title": "Dry Creek / Shingle natural loop",
+          "title": "Dry Creek / Sheep Camp / Shingle natural loop",
           "status": "manual_gpx_required",
           "priority": 2,
           "default_mode": "single_car_loop",
@@ -156,6 +156,7 @@
             1544,
             1545,
             1546,
+            1653,
             1656
           ],
           "required_ascent_segment_ids": [
@@ -167,8 +168,9 @@
             17.5
           ],
           "design_notes": [
-            "Field shape is lower Dry Creek access to the Shingle junction, Shingle Creek uphill for official ascent credit, then Dry Creek back down to the car.",
+            "Field shape is lower Dry Creek access to the Sheep Camp/Dry Creek junction, Sheep Camp out-and-back for 1653, Shingle Creek uphill for official ascent credit, then Dry Creek back down to the car.",
             "This route replaces the planner artifact where 16C-2 climbed and descended Shingle while Dry Creek credit lived in 15B.",
+            "This route also replaces the stale Sheep Camp-only 16A-2 card because the incremental Sheep spur is cheaper than a separate outing from the same parking anchor.",
             "Lower Dry Creek repeat is expected from this parking anchor; Shingle repeat is not the normal field loop."
           ]
         },

@@ -10,9 +10,11 @@
       "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
       "candidate_id": "manual-16a-d1",
       "field_menu_label": "16A-D1",
-      "title": "Dry Creek / Shingle natural loop",
+      "title": "Dry Creek / Sheep Camp / Shingle natural loop",
+      "field_shape": "lower_dry_access_sheep_spur_shingle_up_dry_creek_down",
       "trail_names": [
         "Dry Creek Trail",
+        "Sheep Camp Trail",
         "Shingle Creek Trail"
       ],
       "trailhead": {
@@ -25,7 +27,8 @@
         "parking_minutes": 8
       },
       "replace_candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+        "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
+        "manual-16a-2"
       ],
       "claim_segment_ids": [
         1542,
@@ -33,11 +36,14 @@
         1544,
         1545,
         1546,
+        1653,
         1656
       ],
       "traversal": [
         {"segment_id": 1542, "direction": "reverse", "credit": "new"},
         {"segment_id": 1543, "direction": "reverse", "credit": "new"},
+        {"segment_id": 1653, "direction": "reverse", "credit": "new"},
+        {"segment_id": 1653, "direction": "forward", "credit": "repeat"},
         {"segment_id": 1544, "direction": "reverse", "credit": "new"},
         {"segment_id": 1656, "direction": "forward", "credit": "new"},
         {"segment_id": 1546, "direction": "forward", "credit": "new"},
@@ -66,8 +72,10 @@
           "replacement_title": "Highlands / Connector from Bob's Trailhead"
         }
       ],
+      "return_description": "Return to the car by continuing down Dry Creek after the Shingle climb.",
       "field_notes": [
-        "Field route is lower Dry Creek access, Dry Creek lower stem to the Shingle junction, Shingle Creek uphill for ascent credit, then Dry Creek down to the car.",
+        "Field route is lower Dry Creek access, Dry Creek lower stem to the Sheep Camp/Dry Creek junction, Sheep Camp out-and-back for segment 1653, Shingle Creek uphill for ascent credit, then Dry Creek down to the car.",
+        "This absorbs the stale Sheep Camp-only 16A-2 card because the incremental cost from the same Dry Creek junction is lower than a separate car-to-car outing.",
         "This intentionally repeats lower Dry Creek as lollipop-stem mileage; it must not be represented as a Shingle out-and-back.",
         "Dry Creek segment ownership moves out of 15B so the phone packet no longer splits one field route into two artificial packages."
       ]

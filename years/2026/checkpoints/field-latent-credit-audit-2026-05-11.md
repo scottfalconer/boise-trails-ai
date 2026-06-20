@@ -1,14 +1,14 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 20
+- Routes audited: 19
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 7
-- Unexpected latent official segments: 16
+- Routes with reconciled latent credit: 6
+- Unexpected latent official segments: 14
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 16
+- Reconciled latent segments claimed by another active route: 14
 - Unclaimed uncompleted latent segments: 0
-- Repeat-only latent completed segments: 0
+- Repeat-only latent completed segments: 1
 
 ## Scope
 
@@ -17,13 +17,6 @@
 - Effort reduction still requires route-card replacement or field-day repricing after validated activity progress changes the remaining segment set.
 
 ## Reconciled latent credit
-
-### 16-2: 16A-2
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx`
-- Declared owned by other active routes: 1542, 1543
-- Segment details:
-  - 1542 Dry Creek Trail; claimed by 16-4: 16A-D1
-  - 1543 Dry Creek Trail; claimed by 16-4: 16A-D1
 
 ### 4-1: 4A
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-bob-s-4a.gpx`
@@ -68,3 +61,7 @@
   - 1655 Shindig; claimed by 18-2: 18B
   - 1679 Tempest Trail; claimed by 18-1: 18A
   - 1721 Lodge Trail; claimed by 18-2: 18B
+
+## Repeat-only latent credit
+
+- 1-2: 1A-2: 1755

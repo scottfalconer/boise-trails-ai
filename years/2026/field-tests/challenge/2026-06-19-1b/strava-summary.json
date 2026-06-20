@@ -1,0 +1,73 @@
+{
+  "schema": "boise_trails_field_test_strava_summary_v1",
+  "date": "2026-06-19",
+  "phase": "challenge",
+  "status": "reviewed_and_applied_to_progress_ledger",
+  "privacy": {
+    "raw_strava_json_committed": false,
+    "raw_gps_polyline_committed": false,
+    "private_source_folder": "years/2026/inputs/strava/api-pulls/2026-06-20-challenge-1b/"
+  },
+  "strava_activity": {
+    "name": "Evening Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-06-19 evening local",
+    "distance_miles": 6.1,
+    "moving_time": "1:48:58",
+    "elapsed_recording_time": "2:06:58",
+    "elevation_gain_ft": 1092,
+    "segment_effort_count": 11,
+    "has_map_polyline": true
+  },
+  "planned_outing": {
+    "label": "1B",
+    "name": "Harrison Hollow",
+    "planned_official_miles": 4.72,
+    "planned_on_foot_miles": 6.36,
+    "planned_official_segment_count": 12
+  },
+  "local_match_method": {
+    "description": "Local geometry match against the June 13 2026 official foot segments. This is planner evidence; official BTC dashboard proof remains a separate check.",
+    "threshold_miles": 0.045,
+    "minimum_segment_sample_fraction": 0.85,
+    "requires_endpoint_proximity": true
+  },
+  "local_match_summary": {
+    "planned_segments_matched": 12,
+    "planned_segments_total": 12,
+    "planned_official_miles_total": 4.72,
+    "extra_completion_candidate_segments": 1,
+    "all_completion_candidate_segments": 13,
+    "missed_planned_segments": 0,
+    "partial_only_segments": 0,
+    "near_touch_segments": 1
+  },
+  "planned_segment_results": [
+    {"segment_ids": [1714, 1715], "trail": "Harrison Hollow", "result": "completed"},
+    {"segment_ids": [1579, 1581, 1582], "trail": "Kemper's Ridge Trail", "result": "completed"},
+    {"segment_ids": [1578], "trail": "Hippie Shake Trail", "result": "completed"},
+    {"segment_ids": [1697, 1698, 1699, 1700], "trail": "Who Now Loop Trail", "result": "completed"},
+    {"segment_ids": [1717, 1716], "trail": "Harrison Ridge", "result": "completed"}
+  ],
+  "extra_segment_results": [
+    {
+      "segment_id": 1755,
+      "segment": "Buena Vista Trail 5",
+      "result": "completed_as_extra"
+    }
+  ],
+  "near_touch_segment_results": [
+    {
+      "segment_id": 1507,
+      "segment": "Buena Vista Trail 4",
+      "result": "crossing_or_near_touch_not_counted"
+    }
+  ],
+  "planner_update": {
+    "progress_epoch": "challenge-2026",
+    "day_id": "2026-06-19-1b",
+    "completed_segment_count": 13,
+    "completed_segment_ids": [1578, 1579, 1581, 1582, 1697, 1698, 1699, 1700, 1714, 1715, 1716, 1717, 1755],
+    "field_packet_effect": "1B removed from manual holds; 1A-2 no longer claims 1755 as new credit"
+  }
+}

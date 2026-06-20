@@ -44,6 +44,7 @@ Use the daily log to answer:
 
 | Date | Phase | Log | Status |
 | --- | --- | --- | --- |
+| 2026-06-19 | challenge | [Challenge day 1: Harrison Hollow 1B](challenge/2026-06-19-1b/) | reviewed and applied to progress ledger |
 | 2026-05-25 | pre-challenge | [Test day 5: FD12A Full Sail route-truth drift](pre-challenge/2026-05-25-fd12a-full-sail/) | field feedback captured; geometry validation pending |
 | 2026-05-21 | pre-challenge | [Test day 4: FD12A West Climb partial](pre-challenge/2026-05-21-west-climb/) | partial-run analysis complete |
 | 2026-05-08 | pre-challenge | [Test day 3: Harrison Hollow full rerun](pre-challenge/2026-05-08-test-03/) | analysis updated with field UX findings |

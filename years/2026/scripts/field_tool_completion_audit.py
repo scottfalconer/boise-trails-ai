@@ -607,6 +607,31 @@ def canonical_route_component_index(canonical_map_data: dict[str, Any] | None) -
     return index
 
 
+def canonical_map_data_with_export_progress(
+    canonical_map_data: dict[str, Any] | None,
+    *,
+    completed_segment_ids: set[str],
+    blocked_segment_ids: set[str],
+) -> dict[str, Any] | None:
+    if canonical_map_data is None:
+        return None
+    if not completed_segment_ids and not blocked_segment_ids and not canonical_map_data.get("progress"):
+        return canonical_map_data
+    projected = json.loads(json.dumps(canonical_map_data))
+    progress = dict(projected.get("progress") or {})
+
+    def numeric_progress_ids(values: set[str]) -> list[int | str]:
+        converted: list[int | str] = []
+        for value in values:
+            converted.append(int(value) if str(value).isdigit() else str(value))
+        return sorted(converted, key=lambda item: (isinstance(item, str), item))
+
+    progress["completed_segment_ids"] = numeric_progress_ids(completed_segment_ids)
+    progress["blocked_segment_ids"] = numeric_progress_ids(blocked_segment_ids)
+    projected["progress"] = progress
+    return projected
+
+
 def numeric_sum_or_none(values: list[Any]) -> float | None:
     if any(value is None for value in values):
         return None
@@ -625,6 +650,9 @@ def canonical_route_metric_failures(
     if canonical_map_data is None:
         return ["canonical field menu source unavailable"]
     canonical_components = canonical_route_component_index(canonical_map_data)
+    completed_segment_ids = set(
+        normalized_ids((canonical_map_data.get("progress") or {}).get("completed_segment_ids"))
+    )
     failures = []
     for route in routes:
         candidate_ids = [
@@ -691,6 +719,7 @@ def canonical_route_metric_failures(
             segment_id
             for component in components
             for segment_id in component.get("segment_ids") or []
+            if str(segment_id) not in completed_segment_ids
         )
         field_segment_ids = normalized_ids(route.get("segment_ids"))
         if canonical_segment_ids != field_segment_ids:
@@ -711,7 +740,9 @@ def cue_map_mileage_mismatch_failures(
     for route in routes:
         label = f"{route.get('label') or route.get('outing_id')} {route.get('trailhead') or ''}".strip()
         route_quality = route.get("route_quality") or {}
-        route_truth_lollipop = route_quality.get("field_shape") == "lower_dry_access_shingle_up_dry_creek_down"
+        route_truth_lollipop = bool(route_quality.get("route_truth_lollipop")) or (
+            route_quality.get("field_shape") == "lower_dry_access_shingle_up_dry_creek_down"
+        )
         for fallback_index, cue in enumerate(route.get("wayfinding_cues") or [], start=1):
             cue_miles = float(cue.get("leg_miles") or 0)
             map_miles_value = cue.get("route_leg_miles")
@@ -969,7 +1000,16 @@ def build_completion_audit(
     accounted_segment_ids = route_segment_ids | held_segment_ids | completed_segment_ids | blocked_segment_ids
     source = field_tool_data.get("source") or {}
     source_hash = source.get("map_data_sha256")
-    canonical_hash = stable_json_sha256(canonical_map_data) if canonical_map_data is not None else None
+    progress_projected_canonical_map_data = canonical_map_data_with_export_progress(
+        canonical_map_data,
+        completed_segment_ids=completed_segment_ids,
+        blocked_segment_ids=blocked_segment_ids,
+    )
+    canonical_hash = (
+        stable_json_sha256(progress_projected_canonical_map_data)
+        if progress_projected_canonical_map_data is not None
+        else None
+    )
     baseline = field_tool_data.get("certified_baseline") or {}
     summary = field_tool_data.get("summary") or {}
     manifest_summary = manifest.get("summary") or {}
@@ -985,7 +1025,7 @@ def build_completion_audit(
         )
     route_failures = route_field_failures(routes, packet_dir, official_ids)
     cue_map_mismatch_failures = cue_map_mileage_mismatch_failures(routes)
-    route_metric_failures = canonical_route_metric_failures(canonical_map_data, routes)
+    route_metric_failures = canonical_route_metric_failures(progress_projected_canonical_map_data, routes)
     live_map_cue_failures = live_map_default_cue_failures(routes)
     source_gap_status = source_gap_analysis(canonical_map_data, routes)
     source_failures = source_gap_status["failures"]

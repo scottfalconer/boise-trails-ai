@@ -4288,6 +4288,8 @@ def feature_endpoints_near_path(
 
 def route_has_intentional_route_truth_lollipop_repeats(route: dict[str, Any]) -> bool:
     route_quality = route.get("route_quality") or {}
+    if route_quality.get("route_truth_lollipop"):
+        return True
     if route_quality.get("field_shape") == "lower_dry_access_shingle_up_dry_creek_down":
         return True
     return any(

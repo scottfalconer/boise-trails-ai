@@ -4,9 +4,9 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 ## Summary
 
-- Routes: 31
-- Proofs: 31
-- Accepted (recertified): 31
+- Routes: 19
+- Proofs: 19
+- Accepted (recertified): 19
 - Deterministic same-credit failures: 0
 
 ## Routes
@@ -31,7 +31,7 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 - Candidate id: `multi-start-5-5-ms-04-1-barn-owl`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 1.44 official mi / 2.88 on-foot mi / p75 94 min
+- Metrics: 1.44 official mi / 2.96 on-foot mi / p75 94 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -39,15 +39,7 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 - Candidate id: `peace-valley-overlook`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 0.54 official mi / 2.7 on-foot mi / p75 101 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 16A-2 - Dry Creek
-
-- Candidate id: `manual-16a-2`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 0.77 official mi / 4.41 on-foot mi / p75 106 min
+- Metrics: 0.53 official mi / 2.7 on-foot mi / p75 101 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -83,19 +75,11 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 1B - Hillside to Hollow
-
-- Candidate id: `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 4.72 official mi / 6.36 on-foot mi / p75 141 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
 ### 15A - Hidden Springs
 
 - Candidate id: `multi-start-15-15-ms-15-1-red-tail-trail-landslide`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 4.02 official mi / 5.07 on-foot mi / p75 147 min
+- Metrics: 4.02 official mi / 5.04 on-foot mi / p75 147 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -112,22 +96,6 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Candidate id: `manual-10b`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 2.45 official mi / 4.28 on-foot mi / p75 152 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 18B - Bogus Basin
-
-- Candidate id: `combo-lodge-trail-shindig`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 0.66 official mi / 6.82 on-foot mi / p75 165 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 16C-1 - Bogus Basin
-
-- Candidate id: `multi-start-16c-16c-ms-02-1-stack-rock-connector`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 3.5 official mi / 6.88 on-foot mi / p75 170 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -155,30 +123,6 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 3 - Military Reserve
-
-- Candidate id: `block-military_core`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 8.31 official mi / 14.05 on-foot mi / p75 236 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 12 - Dry Creek
-
-- Candidate id: `block-upper_8th_corrals_sidewinder`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 7.81 official mi / 13.44 on-foot mi / p75 243 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 16A-1 - Dry Creek
-
-- Candidate id: `manual-16a-1`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 6.09 official mi / 14.2 on-foot mi / p75 249 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
 ### 4C - Table Rock
 
 - Candidate id: `combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute`
@@ -195,22 +139,6 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 16C-2 - Dry Creek
-
-- Candidate id: `multi-start-16c-16c-ms-02-2-shingle-creek-trail`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 4.76 official mi / 14.31 on-foot mi / p75 259 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### H1 - Avimor / Harlow
-
-- Candidate id: `H1-avimor-native-harlow-spring-loop`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 7.3 official mi / 9.64 on-foot mi / p75 289 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
 ### 2 - Camels Back / Hulls Gulch
 
 - Candidate id: `block-camels_lower_hulls_even_day`
@@ -219,19 +147,11 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 18A - Bogus Basin
+### 16A-D1 - Dry Creek
 
-- Candidate id: `brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive`
+- Candidate id: `manual-16a-d1`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 4.43 official mi / 13.47 on-foot mi / p75 357 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 15B - Dry Creek
-
-- Candidate id: `multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 9.33 official mi / 25.39 on-foot mi / p75 358 min
+- Metrics: 12.5 official mi / 15.61 on-foot mi / p75 347 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -240,21 +160,5 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Candidate id: `block-bogus_atm_deer_elk_sunshine`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 11.29 official mi / 16.02 on-foot mi / p75 386 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 6 - Dry Creek
-
-- Candidate id: `block-cartwright_peggy_interface`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 13.67 official mi / 22.41 on-foot mi / p75 409 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 13 - Rocky Canyon
-
-- Candidate id: `block-freestone_three_bears_curlew`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 14.35 official mi / 32.47 on-foot mi / p75 497 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.

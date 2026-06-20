@@ -10,31 +10,31 @@
   </wpt>
   <wpt lat="43.609121" lon="-116.170706">
     <name>CUE 01 Shoshone-Paiute</name>
-    <desc>Follow Shoshone-Paiute. First official segment here: Shoshone-Paiute 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Shoshone-Paiute. First official segment here: Shoshone-Paiute 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.607071" lon="-116.166428">
     <name>CUE 02 Quarry Trail - Castle Rock</name>
-    <desc>Follow Quarry Trail - Castle Rock. First official segment here: Quarry Trail - Castle Rock 5. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Quarry Trail - Castle Rock. First official segment here: Quarry Trail - Castle Rock 5. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.603882" lon="-116.160667">
     <name>CUE 03 Table Rock Trail</name>
-    <desc>Follow Table Rock Trail. First official segment here: Table Rock Trail 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Table Rock Trail. First official segment here: Table Rock Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.595132" lon="-116.142046">
     <name>CUE 04 Table Rock Quarry Trail</name>
-    <desc>Follow Table Rock Quarry Trail. First official segment here: Table Rock Quarry Trail 3. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Table Rock Quarry Trail. First official segment here: Table Rock Quarry Trail 3. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.591274" lon="-116.160934">
     <name>CUE 05 Tram Trail</name>
-    <desc>Follow Tram Trail. First official segment here: Tram Trail 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Tram Trail. First official segment here: Tram Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.591328" lon="-116.154920">
     <name>CUE 06 Rock Garden</name>
-    <desc>Follow Rock Garden. First official segment here: Rock Garden 3. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Rock Garden. First official segment here: Rock Garden 3. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.593532" lon="-116.152353">
     <name>CUE 07 Rock Island</name>
-    <desc>Follow Rock Island. First official segment here: Rock Island 8. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+    <desc>Follow Rock Island. First official segment here: Rock Island 8. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.603331" lon="-116.167956">
     <name>RETURN TO CAR</name>

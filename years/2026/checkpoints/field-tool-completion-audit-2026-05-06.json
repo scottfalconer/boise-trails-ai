@@ -1,18 +1,18 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-20T06:15:16.405410+00:00",
+  "generated_at": "2026-06-20T22:20:02.319272+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
     "passed_requirement_count": 21,
     "requirement_count": 21,
-    "route_count": 20,
-    "field_ready_route_count": 20,
-    "held_route_count": 11,
+    "route_count": 19,
+    "field_ready_route_count": 19,
+    "held_route_count": 10,
     "official_segment_count": 250,
-    "field_menu_segment_count": 143,
-    "held_segment_count": 107,
-    "completed_segment_count_at_export": 0,
+    "field_menu_segment_count": 142,
+    "held_segment_count": 95,
+    "completed_segment_count_at_export": 13,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 250,
     "canonical_route_metric_failure_count": 0,
@@ -27,7 +27,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash cb728de6b9b8aefc3bac1a300be33af4d0f0db769fbac34bbefecc7a1cf7ca95; canonical map hash cb728de6b9b8aefc3bac1a300be33af4d0f0db769fbac34bbefecc7a1cf7ca95"
+      "evidence": "field source hash 83f5d7c3f73d12218eecbb7985bd17c77771859bb34e11b03b1677959ab233a9; canonical map hash 83f5d7c3f73d12218eecbb7985bd17c77771859bb34e11b03b1677959ab233a9"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -47,7 +47,7 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "20 route cards passed field-structure checks; 11 held by legality/certification gates"
+      "evidence": "19 route cards passed field-structure checks; 10 held by legality/certification gates"
     },
     {
       "requirement": "Field cues and live-map cue spans agree per movement leg",
@@ -72,12 +72,12 @@
     {
       "requirement": "Active field packet accounts for every official segment geometry id",
       "passed": true,
-      "evidence": "field menu 143 ids; held 107 ids; completed 0 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
+      "evidence": "field menu 142 ids; held 95 ids; completed 13 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
     },
     {
       "requirement": "GPX validation passed for every exported route card",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 20, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 19, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
@@ -158,7 +158,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-20T06:15:15.371590+00:00",
+    "generated_at": "2026-06-20T22:20:01.275910+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -166,8 +166,8 @@
       "rule_count": 4
     },
     "summary": {
-      "route_count": 20,
-      "passed_route_count": 20,
+      "route_count": 19,
+      "passed_route_count": 19,
       "failed_route_count": 0,
       "failure_counts": {},
       "date_context_required_route_count": 1
@@ -200,14 +200,6 @@
       {
         "label": "8B",
         "outing_id": "8-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "16A-2",
-        "outing_id": "16-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -379,14 +371,6 @@
         "failures": []
       },
       {
-        "label": "16A-D1",
-        "outing_id": "16-4",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "2",
         "outing_id": "2-1",
         "passed": true,
@@ -394,6 +378,14 @@
         "date_context_required": [
           "r2r-lower-hulls-29-even-day-foot-access"
         ],
+        "failures": []
+      },
+      {
+        "label": "16A-D1",
+        "outing_id": "16-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
         "failures": []
       },
       {

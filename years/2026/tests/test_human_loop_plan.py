@@ -62,6 +62,76 @@ def test_package_status_marks_high_ratio_or_geography_locked_blocks_as_grinders(
     assert "necessary_grinder_or_geography_locked" in reasons
 
 
+def test_explicit_lollipop_keeps_midroute_spur_repeat_out_of_return_to_car():
+    module = load_human_loop_plan()
+    official_by_id = {
+        1: {
+            "seg_id": 1,
+            "seg_name": "Dry Lower",
+            "trail_name": "Dry Creek Trail",
+            "coordinates": [[0.0, 0.0], [1.0, 0.0]],
+            "start": [0.0, 0.0],
+            "end": [1.0, 0.0],
+            "direction": "both",
+            "official_miles": 1.0,
+        },
+        2: {
+            "seg_id": 2,
+            "seg_name": "Sheep Spur",
+            "trail_name": "Sheep Camp Trail",
+            "coordinates": [[1.0, -1.0], [1.0, 0.0]],
+            "start": [1.0, -1.0],
+            "end": [1.0, 0.0],
+            "direction": "both",
+            "official_miles": 1.0,
+        },
+        3: {
+            "seg_id": 3,
+            "seg_name": "Shingle Climb",
+            "trail_name": "Shingle Creek Trail",
+            "coordinates": [[1.0, 0.0], [1.0, 1.0]],
+            "start": [1.0, 0.0],
+            "end": [1.0, 1.0],
+            "direction": "ascent",
+            "official_miles": 1.0,
+        },
+    }
+    repair = {
+        "repair_id": "dry-sheep-shingle",
+        "candidate_id": "manual-16a-d1",
+        "field_menu_label": "16A-D1",
+        "title": "Dry / Sheep / Shingle",
+        "field_shape": "lower_dry_access_sheep_spur_shingle_up_dry_creek_down",
+        "trail_names": ["Dry Creek Trail", "Sheep Camp Trail", "Shingle Creek Trail"],
+        "package_number": 16,
+        "block_name": "Dry block",
+        "trailhead": {
+            "name": "Dry parking",
+            "lon": 0.0,
+            "lat": 0.0,
+            "parking_minutes": 0,
+        },
+        "claim_segment_ids": [1, 2, 3],
+        "traversal": [
+            {"segment_id": 1, "direction": "forward", "credit": "new"},
+            {"segment_id": 2, "direction": "reverse", "credit": "new"},
+            {"segment_id": 2, "direction": "forward", "credit": "repeat"},
+            {"segment_id": 3, "direction": "forward", "credit": "new"},
+            {"segment_id": 1, "direction": "reverse", "credit": "repeat"},
+        ],
+    }
+
+    payload = module.explicit_lollipop_route_payload(repair, official_by_id=official_by_id, state={})
+
+    cue = payload["cue"]
+    assert cue["return_to_car"]["official_repeat_segment_ids"] == [1]
+    assert cue["return_to_car"]["official_repeat_miles"] == 1.0
+    assert payload["component"]["route_quality"]["route_truth_lollipop"] is True
+    assert payload["component"]["route_quality"]["field_shape"] == "lower_dry_access_sheep_spur_shingle_up_dry_creek_down"
+    assert cue["direction_validation"]["ascent_segment_ids_checked"] == [3]
+    assert cue["direction_validation"]["planned_traversal_direction"] == {"3": "official_geometry_start_to_end"}
+
+
 def test_package_status_promotes_manual_design_hold():
     module = load_human_loop_plan()
 
