@@ -57,6 +57,37 @@ def test_trail_groups_split_same_trail_when_inter_segment_connector_is_declared(
     assert groups[1]["incoming_link"] == link
 
 
+def test_official_segment_credit_label_orders_same_trail_segment_numbers():
+    exporter = load_exporter()
+    official_index = {
+        "1497": {
+            "properties": {
+                "seg_id": 1497,
+                "segment_name": "Red Tail Trail 8",
+                "trail_name": "Red Tail Trail",
+            }
+        },
+        "1536": {
+            "properties": {
+                "seg_id": 1536,
+                "segment_name": "Red Tail Trail 6",
+                "trail_name": "Red Tail Trail",
+            }
+        },
+        "1537": {
+            "properties": {
+                "seg_id": 1537,
+                "segment_name": "Red Tail Trail 7",
+                "trail_name": "Red Tail Trail",
+            }
+        },
+    }
+
+    label = exporter.official_segment_credit_label_for_ids({"1537", "1497", "1536"}, official_index)
+
+    assert label == "Red Tail Trail segments 6-8"
+
+
 def test_track_selection_prefers_special_management_legal_cue_track():
     exporter = load_exporter()
     official_index = {

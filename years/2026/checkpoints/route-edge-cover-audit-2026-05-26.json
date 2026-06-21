@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-21T00:18:04Z",
+  "generated_at": "2026-06-21T01:03:07Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {

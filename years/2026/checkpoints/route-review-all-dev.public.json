@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_review_pack_v1",
-  "generated_at": "2026-06-21T00:18:37Z",
+  "generated_at": "2026-06-21T01:03:17Z",
   "thresholds": {
     "material_on_foot_savings_miles": 0.25,
     "material_p75_savings_minutes": 10

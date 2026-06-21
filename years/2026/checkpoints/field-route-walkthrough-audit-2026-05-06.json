@@ -1883,7 +1883,7 @@
           "07 15 60 mi 0 02 return follow dry creek sweet connie until parked car trailhead",
           "after dry creek you are not fully back at car use dry creek sweet connie back toward dry creek sweet connie roadside parking this return leg is part of route even though it is not official challenge credit",
           "at signed junction with dry creek bear right onto dry creek this earns dry creek segment 3 section estimate 0 99 official mi 132 ft climb 333 ft descent next decision look for signs to shingle creek",
-          "at signed junction with dry creek turn onto dry creek this earns dry creek segments 5 4 3 2 and 1 section estimate 6 97 official mi 1208 ft climb 3027 ft descent",
+          "at signed junction with dry creek turn onto dry creek this earns dry creek segments 1 5 section estimate 6 97 official mi 1208 ft climb 3027 ft descent",
           "at signed junction with sheep camp turn onto sheep camp this earns both sheep camp official segments section estimate 1 54 official mi 82 ft climb 828 ft descent next decision look for signs to dry creek",
           "at signed junction with shingle creek bear right onto shingle creek this earns shingle creek segment 1 section estimate 4 76 official mi 2671 ft climb ascent required on shingle creek 1 next decision look for signs to dry creek",
           "bear right",
@@ -7101,7 +7101,7 @@
           "17 10 38 mi 0 48 jct take rock island until end of rock island for this route",
           "18 10 86 mi 1 14 exit follow tram boise river greenbelt east warm springs avenue greenbelt north broadway to warm springs golf course north klotz lane osm footway connector 15305 osm footway connector 43566 osm footway connector 43579 osm footway connector 43580 osm service connector 113596 osm service connector 113597 osm service connector 23777 until parked car trailhead",
           "after rock island you are not fully back at car use tram boise river greenbelt east warm springs avenue greenbelt north broadway to warm springs golf course north klotz lane osm footway connector 15305 osm footway connector 43566 osm footway connector 43579 4 more back toward eagle rock park parking trailhead expect about 1 55 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with quarry castle rock bear left onto quarry castle rock this earns quarry castle rock segments 5 4 3 2 and 1 section estimate 0 54 official mi 17 min moving 133 ft climb next decision look for signs to table rock"
+          "at signed junction with quarry castle rock bear left onto quarry castle rock this earns quarry castle rock segments 1 5 section estimate 0 54 official mi 17 min moving 133 ft climb next decision look for signs to table rock"
         ]
       },
       "failures": []
@@ -7882,11 +7882,11 @@
           "05 1 89 mi 0 48 jct take seaman gulch until end of seaman gulch for this route",
           "06 2 37 mi 0 04 return follow seaman gulch seamans gulch until parked car trailhead",
           "after seaman gulch you are not fully back at car use seaman gulch seamans gulch back toward seamans gulch trailhead this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with seaman gulch bear left onto seaman gulch this earns seaman gulch segments 4 3 and 2 section estimate 1 01 official mi 22 min moving 92 ft climb 342 ft descent next decision look for signs to seaman gulch",
+          "at signed junction with seaman gulch bear left onto seaman gulch this earns seaman gulch segments 2 4 section estimate 1 01 official mi 22 min moving 92 ft climb 342 ft descent next decision look for signs to seaman gulch",
           "at signed junction with seaman gulch turn onto seaman gulch use seaman gulch seamans gulch for 0 11 mi this earns seaman gulch segment 1 section estimate 0 48 official mi 12 min moving 192 ft climb",
           "bear left",
           "bear left onto seaman gulch",
-          "bear left seaman gulch toward seaman gulch until signed junction with seaman gulch this earns seaman gulch segments 4 3 and 2 section estimate 1 01 official mi 22 min moving 92 ft climb 342 ft descent",
+          "bear left seaman gulch toward seaman gulch until signed junction with seaman gulch this earns seaman gulch segments 2 4 section estimate 1 01 official mi 22 min moving 92 ft climb 342 ft descent",
           "end of seaman gulch for this route",
           "follow",
           "follow seaman gulch seamans gulch toward seaman gulch until signed junction with seaman gulch connector mileage does not count as new official challenge credit includes 0 11 mi repeat official no new credit",
@@ -9035,7 +9035,7 @@
           "after rei connection you are not fully back at car use access big springs big springs osm service connector 12725 rei connector veteran's veterans dog on leash back toward veterans trailhead expect about 1 07 mi after final official credit segment this return leg is part of route even though it is not official challenge credit return also follows access big springs",
           "at signed junction with big springs turn onto big springs this earns big springs segment 1 section estimate 0 43 official mi 10 min moving 167 ft climb next decision look for signs to rabbit run",
           "at signed junction with d's chaos continue straight onto d's chaos short link 0 1 mi this earns d's chaos segments 1 4 section estimate 1 04 official mi 26 min moving 352 ft climb next decision look for signs to rei connection",
-          "at signed junction with rabbit run turn onto rabbit run use named connector road for 0 22 mi look for signs access big springs this earns rabbit run segments 4 3 2 and 1 section estimate 1 67 official mi 37 min moving 385 ft climb next decision look for signs to d's chaos",
+          "at signed junction with rabbit run turn onto rabbit run use named connector road for 0 22 mi look for signs access big springs this earns rabbit run segments 1 4 section estimate 1 67 official mi 37 min moving 385 ft climb next decision look for signs to d's chaos",
           "at signed junction with rei connection turn onto rei connection use d's chaos rei connector for 0 06 mi this earns rei connection segment 1 section estimate 0 52 official mi 12 min moving 92 ft climb 244 ft descent",
           "big springs",
           "connector access",

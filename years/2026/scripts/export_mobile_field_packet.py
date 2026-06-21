@@ -3242,6 +3242,7 @@ def segment_credit_label(segments: list[dict[str, Any]]) -> str:
             numbers.append(match.group(1))
         else:
             if numbers:
+                numbers = sorted(numbers, key=lambda value: int(value) if value.isdigit() else value)
                 if len(numbers) == 1:
                     return f"{trail_name} segment {compact_number_list(numbers)}"
                 if len(numbers) == 2:
@@ -3876,7 +3877,7 @@ def official_segment_labels_for_ids(segment_ids: list[Any] | set[Any], official_
 
 def official_segment_credit_label_for_ids(segment_ids: list[Any] | set[Any], official_index: dict[str, dict[str, Any]]) -> str:
     segments = []
-    for segment_id in normalized_segment_ids(segment_ids):
+    for segment_id in ordered_segment_ids(segment_ids):
         feature = official_index.get(str(segment_id)) or {}
         props = feature.get("properties") if isinstance(feature, dict) else {}
         if props:

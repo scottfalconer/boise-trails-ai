@@ -4,6 +4,39 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-21 - Final same-anchor spur proof hardening
+
+- Objective: tighten the proof that no active field-packet route still has the
+  Sheep Camp / Peace Valley failure class: a materially cheaper same-anchor
+  spur left as a separate outing.
+- Result:
+  - Hardened `same_anchor_spur_split_audit.py` so disconnected same-anchor
+    bundles only become manual-review advisories when they have material
+    estimated savings and host-route contact evidence. The audit checkpoint now
+    records both blocking findings and manual-review advisories explicitly.
+  - Added regression tests for disconnected same-anchor candidates with and
+    without material savings.
+  - Fixed repeat-credit label ordering in `export_mobile_field_packet.py` so
+    generated route text is deterministic and compact (`segments 1-4`, `6-8`)
+    instead of flipping segment order between exports.
+- Validation:
+  - `python3 years/2026/scripts/same_anchor_spur_split_audit.py` passed with 18
+    routes, 0 blocking findings, and 0 manual-review advisories.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    54 GPX files plus the regenerated phone packet.
+  - Full field-packet chain passed: latent-credit audit, progress report,
+    recertification report, same-anchor spur-split audit, route-edge cover
+    audit, field-tool completion audit, field-route walkthrough audit, and
+    post-credit connector audit.
+  - `python3 years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 18 routes; `python3 years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    passed with the existing waived `1A-1` dominance finding.
+  - `python3 -m pytest -q years/2026/tests/test_same_anchor_spur_split_audit.py years/2026/tests/test_export_mobile_field_packet.py::test_official_segment_credit_label_orders_same_trail_segment_numbers`
+    passed 6 tests.
+- Current blocker:
+  - No known same-anchor spur-split blocker or advisory remains in the active
+    18-route field packet.
+
 ## 2026-06-20 - Same-anchor spur-split audit and package 8 repair
 
 - Objective: prove whether the Sheep Camp route-selection failure class existed

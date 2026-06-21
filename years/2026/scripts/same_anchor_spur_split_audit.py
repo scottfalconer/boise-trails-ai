@@ -244,7 +244,7 @@ def build_audit(
         if route.get("field_ready") is True and route.get("segment_ids")
     ]
     findings: list[dict[str, Any]] = []
-    advisory_count = 0
+    advisories: list[dict[str, Any]] = []
     for host in routes:
         host_label = route_label(host)
         host_track = route_tracks.get(host_label) or []
@@ -266,21 +266,52 @@ def build_audit(
             if not spur_segments:
                 continue
             nodes, edges = network_nodes_and_edges(spur_segments)
-            if not network_connected(nodes, edges):
-                advisory_count += 1
-                continue
             contacts = contact_nodes(
                 host_track,
                 spur_segments,
                 endpoint_threshold_miles=endpoint_threshold_miles,
             )
-            if len(contacts) != 1:
-                continue
             official_miles = route_official_miles(spur_segments)
             estimated_incremental = official_miles * 2.0
             separate_on_foot = float(spur.get("on_foot_miles") or 0.0)
             savings = separate_on_foot - estimated_incremental
             if savings < min_savings_miles:
+                continue
+            if not network_connected(nodes, edges):
+                if contacts:
+                    advisories.append(
+                        {
+                            "host_route": {
+                                "outing_id": host.get("outing_id"),
+                                "label": host_label,
+                                "route_name": host.get("route_name"),
+                                "trailhead": host.get("trailhead_display") or host.get("trailhead"),
+                                "segment_ids": [str(value) for value in host.get("segment_ids") or []],
+                                "on_foot_miles": host.get("on_foot_miles"),
+                            },
+                            "candidate_route": {
+                                "outing_id": spur.get("outing_id"),
+                                "label": spur_label,
+                                "route_name": spur.get("route_name"),
+                                "trailhead": spur.get("trailhead_display") or spur.get("trailhead"),
+                                "segment_ids": [str(value) for value in spur.get("segment_ids") or []],
+                                "official_miles": round_miles(official_miles),
+                                "on_foot_miles": spur.get("on_foot_miles"),
+                            },
+                            "contacts": contacts,
+                            "estimated_incremental_out_and_back_miles": round_miles(estimated_incremental),
+                            "estimated_saved_on_foot_miles": round_miles(savings),
+                            "status": "manual_review_disconnected_same_anchor_candidate",
+                            "reason": (
+                                "The separate route's claimed official segments are not one connected official "
+                                "network, so this is not a simple spur split. It still shares a parking anchor "
+                                "and contacts the host route, so it needs manual review if the estimated savings "
+                                "is material."
+                            ),
+                        }
+                    )
+                continue
+            if len(contacts) != 1:
                 continue
             findings.append(
                 {
@@ -321,19 +352,28 @@ def build_audit(
             item["spur_route"]["label"],
         ),
     )
+    advisories = sorted(
+        advisories,
+        key=lambda item: (
+            -float(item["estimated_saved_on_foot_miles"]),
+            item["host_route"]["label"],
+            item["candidate_route"]["label"],
+        ),
+    )
     return {
         "schema": "boise_trails_same_anchor_spur_split_audit_v1",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "status": "passed" if not findings else "failed",
+        "status": "passed" if not findings and not advisories else "failed",
         "summary": {
             "route_count": len(routes),
             "finding_count": len(findings),
-            "advisory_disconnected_candidate_count": advisory_count,
+            "advisory_disconnected_candidate_count": len(advisories),
             "endpoint_threshold_miles": endpoint_threshold_miles,
             "parking_threshold_miles": parking_threshold_miles,
             "min_savings_miles": min_savings_miles,
         },
         "findings": findings,
+        "advisories": advisories,
     }
 
 
@@ -348,12 +388,13 @@ def render_markdown(audit: dict[str, Any]) -> str:
         "",
         f"- Routes reviewed: {summary['route_count']}",
         f"- Blocking findings: {summary['finding_count']}",
+        f"- Manual-review advisories: {summary['advisory_disconnected_candidate_count']}",
         f"- Endpoint threshold: {summary['endpoint_threshold_miles']} mi",
         f"- Parking threshold: {summary['parking_threshold_miles']} mi",
         f"- Minimum savings threshold: {summary['min_savings_miles']} mi",
         "",
     ]
-    if not audit.get("findings"):
+    if not audit.get("findings") and not audit.get("advisories"):
         lines.extend(
             [
                 "No current field-packet route has a material same-anchor spur split.",
@@ -361,7 +402,8 @@ def render_markdown(audit: dict[str, Any]) -> str:
             ]
         )
         return "\n".join(lines)
-    lines.extend(["## Findings", ""])
+    if audit.get("findings"):
+        lines.extend(["## Findings", ""])
     for finding in audit["findings"]:
         host = finding["host_route"]
         spur = finding["spur_route"]
@@ -375,6 +417,24 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 f"- Estimated incremental out-and-back miles: {finding['estimated_incremental_out_and_back_miles']}",
                 f"- Estimated saved on-foot miles: {finding['estimated_saved_on_foot_miles']}",
                 f"- Reason: {finding['reason']}",
+                "",
+            ]
+        )
+    if audit.get("advisories"):
+        lines.extend(["## Manual-Review Advisories", ""])
+    for advisory in audit.get("advisories") or []:
+        host = advisory["host_route"]
+        candidate = advisory["candidate_route"]
+        lines.extend(
+            [
+                f"### {host['label']} -> {candidate['label']}",
+                "",
+                f"- Host: {host['route_name']} from {host['trailhead']}",
+                f"- Same-anchor candidate: {candidate['route_name']} ({', '.join(candidate['segment_ids'])})",
+                f"- Separate on-foot miles: {candidate['on_foot_miles']}",
+                f"- Estimated incremental out-and-back miles: {advisory['estimated_incremental_out_and_back_miles']}",
+                f"- Estimated saved on-foot miles: {advisory['estimated_saved_on_foot_miles']}",
+                f"- Reason: {advisory['reason']}",
                 "",
             ]
         )

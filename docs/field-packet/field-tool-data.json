@@ -3142,7 +3142,7 @@
         {
           "kind": "navigate",
           "title": "Bear left onto Seaman Gulch Trail",
-          "detail": "At the signed junction with Seaman Gulch Trail, bear left onto Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 4, 3, and 2. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent. Next decision: look for signs to Seaman Gulch Trail."
+          "detail": "At the signed junction with Seaman Gulch Trail, bear left onto Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 2-4. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent. Next decision: look for signs to Seaman Gulch Trail."
         },
         {
           "kind": "navigate",
@@ -3207,7 +3207,7 @@
           "target": "Seaman Gulch Trail",
           "until": "signed junction with Seaman Gulch Trail",
           "confidence": "planner",
-          "note": "This earns: Seaman Gulch Trail segments 4, 3, and 2. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
+          "note": "This earns: Seaman Gulch Trail segments 2-4. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
           "official_segment_ids": [
             "1645",
             "1646",
@@ -3215,7 +3215,7 @@
           ],
           "official_miles": 1.01,
           "compact": "03 0.77 mi (+1.01) JCT BEAR LEFT Seaman Gulch Trail UNTIL signed junction with Seaman Gulch Trail.",
-          "display_detail": "Bear Left Seaman Gulch Trail toward Seaman Gulch Trail. UNTIL signed junction with Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 4, 3, and 2. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
+          "display_detail": "Bear Left Seaman Gulch Trail toward Seaman Gulch Trail. UNTIL signed junction with Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 2-4. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
           "route_miles": 0.77,
           "route_leg_miles": 0.67
         },
@@ -3570,7 +3570,7 @@
           "target": "Seaman Gulch Trail",
           "until": "signed junction with Seaman Gulch Trail",
           "confidence": "planner",
-          "note": "This earns: Seaman Gulch Trail segments 4, 3, and 2. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
+          "note": "This earns: Seaman Gulch Trail segments 2-4. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
           "official_segment_ids": [
             "1645",
             "1646",
@@ -3578,7 +3578,7 @@
           ],
           "official_miles": 1.01,
           "compact": "03 0.77 mi (+1.01) JCT BEAR LEFT Seaman Gulch Trail UNTIL signed junction with Seaman Gulch Trail.",
-          "display_detail": "Bear Left Seaman Gulch Trail toward Seaman Gulch Trail. UNTIL signed junction with Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 4, 3, and 2. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
+          "display_detail": "Bear Left Seaman Gulch Trail toward Seaman Gulch Trail. UNTIL signed junction with Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 2-4. Section estimate: 1.01 official mi, ~22 min moving, 92 ft climb, 342 ft descent.",
           "route_miles": 0.77,
           "route_leg_miles": 0.67
         },
@@ -27426,7 +27426,7 @@
           "until": "parked car / trailhead",
           "verify": "pass by Dry Creek Parking Area/Trailhead",
           "confidence": "planner",
-          "note": "Official-repeat mileage: Red Tail Trail segments 6, 8, and 7; do not count as new credit.",
+          "note": "Official-repeat mileage: Red Tail Trail segments 6-8; do not count as new credit.",
           "official_repeat_segment_ids": [
             "1497",
             "1536",
@@ -27438,7 +27438,7 @@
           ],
           "official_repeat_miles": 0.76,
           "compact": "07 2.20 mi (+0.76) CAR FOLLOW #70 Landslide Loop / #71 Red Tail / Lookout Loop / OSM path connector 111703 / OSM path connector 111704 / OSM path connector 13980 / OSM path connector 15043 / W. Currant Creek UNTIL parked car / trailhead.",
-          "display_detail": "Follow #70 Landslide Loop / #71 Red Tail / Lookout Loop / OSM path connector 111703 / OSM path connector 111704 / OSM path connector 13980 / OSM path connector 15043 / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: pass by Dry Creek Parking Area/Trailhead. Official-repeat mileage: Red Tail Trail segments 6, 8, and 7; do not count as new credit.",
+          "display_detail": "Follow #70 Landslide Loop / #71 Red Tail / Lookout Loop / OSM path connector 111703 / OSM path connector 111704 / OSM path connector 13980 / OSM path connector 15043 / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: pass by Dry Creek Parking Area/Trailhead. Official-repeat mileage: Red Tail Trail segments 6-8; do not count as new credit.",
           "route_miles": 3.288,
           "route_leg_miles": 0.96,
           "source_cum_miles": 2.91,
@@ -29432,7 +29432,7 @@
           "until": "parked car / trailhead",
           "verify": "pass by Dry Creek Parking Area/Trailhead",
           "confidence": "planner",
-          "note": "Official-repeat mileage: Red Tail Trail segments 6, 8, and 7; do not count as new credit.",
+          "note": "Official-repeat mileage: Red Tail Trail segments 6-8; do not count as new credit.",
           "official_repeat_segment_ids": [
             "1497",
             "1536",
@@ -29444,7 +29444,7 @@
           ],
           "official_repeat_miles": 0.76,
           "compact": "07 2.20 mi (+0.76) CAR FOLLOW #70 Landslide Loop / #71 Red Tail / Lookout Loop / OSM path connector 111703 / OSM path connector 111704 / OSM path connector 13980 / OSM path connector 15043 / W. Currant Creek UNTIL parked car / trailhead.",
-          "display_detail": "Follow #70 Landslide Loop / #71 Red Tail / Lookout Loop / OSM path connector 111703 / OSM path connector 111704 / OSM path connector 13980 / OSM path connector 15043 / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: pass by Dry Creek Parking Area/Trailhead. Official-repeat mileage: Red Tail Trail segments 6, 8, and 7; do not count as new credit.",
+          "display_detail": "Follow #70 Landslide Loop / #71 Red Tail / Lookout Loop / OSM path connector 111703 / OSM path connector 111704 / OSM path connector 13980 / OSM path connector 15043 / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: pass by Dry Creek Parking Area/Trailhead. Official-repeat mileage: Red Tail Trail segments 6-8; do not count as new credit.",
           "route_miles": 3.288,
           "route_leg_miles": 0.96,
           "source_cum_miles": 2.91,
@@ -30493,7 +30493,7 @@
         {
           "kind": "navigate",
           "title": "Turn onto Rabbit Run",
-          "detail": "At the signed junction with Rabbit Run, turn onto Rabbit Run. Use the named connector trail/road for 0.22 mi. Look for signs: #113 Access Trail ( Big Springs Loop). This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb. Next decision: look for signs to D's Chaos."
+          "detail": "At the signed junction with Rabbit Run, turn onto Rabbit Run. Use the named connector trail/road for 0.22 mi. Look for signs: #113 Access Trail ( Big Springs Loop). This earns: Rabbit Run segments 1-4. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb. Next decision: look for signs to D's Chaos."
         },
         {
           "kind": "navigate",
@@ -30837,7 +30837,7 @@
           "target": "D's Chaos",
           "until": "signed junction with D's Chaos",
           "confidence": "planner",
-          "note": "This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
+          "note": "This earns: Rabbit Run segments 1-4. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
           "official_segment_ids": [
             "1611",
             "1612",
@@ -30846,7 +30846,7 @@
           ],
           "official_miles": 1.67,
           "compact": "05 1.90 mi (+1.90) JCT TAKE Rabbit Run UNTIL signed junction with D's Chaos.",
-          "display_detail": "Take Rabbit Run toward D's Chaos. UNTIL signed junction with D's Chaos. This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
+          "display_detail": "Take Rabbit Run toward D's Chaos. UNTIL signed junction with D's Chaos. This earns: Rabbit Run segments 1-4. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
           "route_miles": 1.868,
           "route_leg_miles": 1.9,
           "source_cum_miles": 1.67,
@@ -32814,7 +32814,7 @@
           "target": "D's Chaos",
           "until": "signed junction with D's Chaos",
           "confidence": "planner",
-          "note": "This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
+          "note": "This earns: Rabbit Run segments 1-4. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
           "official_segment_ids": [
             "1611",
             "1612",
@@ -32823,7 +32823,7 @@
           ],
           "official_miles": 1.67,
           "compact": "05 1.90 mi (+1.90) JCT TAKE Rabbit Run UNTIL signed junction with D's Chaos.",
-          "display_detail": "Take Rabbit Run toward D's Chaos. UNTIL signed junction with D's Chaos. This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
+          "display_detail": "Take Rabbit Run toward D's Chaos. UNTIL signed junction with D's Chaos. This earns: Rabbit Run segments 1-4. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb.",
           "route_miles": 1.868,
           "route_leg_miles": 1.9,
           "source_cum_miles": 1.67,
@@ -42900,7 +42900,7 @@
         {
           "kind": "navigate",
           "title": "Bear left onto Quarry Trail - Castle Rock",
-          "detail": "At the signed junction with Quarry Trail - Castle Rock, bear left onto Quarry Trail - Castle Rock. This earns: Quarry Trail - Castle Rock segments 5, 4, 3, 2, and 1. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb. Next decision: look for signs to Table Rock Trail."
+          "detail": "At the signed junction with Quarry Trail - Castle Rock, bear left onto Quarry Trail - Castle Rock. This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb. Next decision: look for signs to Table Rock Trail."
         },
         {
           "kind": "navigate",
@@ -42910,7 +42910,7 @@
         {
           "kind": "navigate",
           "title": "Continue onto Table Rock Quarry Trail",
-          "detail": "At the signed junction with Table Rock Quarry Trail, continue straight onto Table Rock Quarry Trail. Use the named connector trail/road for 0.56 mi. Look for signs: #15 Table Rock; #17 Table Rock Quarry. This earns: Table Rock Quarry Trail segments 3, 2, and 1. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Next decision: look for signs to Tram Trail."
+          "detail": "At the signed junction with Table Rock Quarry Trail, continue straight onto Table Rock Quarry Trail. Use the named connector trail/road for 0.56 mi. Look for signs: #15 Table Rock; #17 Table Rock Quarry. This earns: Table Rock Quarry Trail segments 1-3. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Next decision: look for signs to Tram Trail."
         },
         {
           "kind": "navigate",
@@ -42920,7 +42920,7 @@
         {
           "kind": "navigate",
           "title": "Turn onto Rock Garden",
-          "detail": "At the signed junction with Rock Garden, turn onto Rock Garden. Use the named connector trail/road for 0.32 mi. Look for signs: #14 Tram. This earns: Rock Garden segments 3, 2, and 1. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. Next decision: look for signs to Rock Island."
+          "detail": "At the signed junction with Rock Garden, turn onto Rock Garden. Use the named connector trail/road for 0.32 mi. Look for signs: #14 Tram. This earns: Rock Garden segments 1-3. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. Next decision: look for signs to Rock Island."
         },
         {
           "kind": "navigate",
@@ -42930,7 +42930,7 @@
         {
           "kind": "navigate",
           "title": "Continue onto Rock Island",
-          "detail": "At the signed junction with Rock Island, continue straight onto Rock Island. Use Connector for 0.03 mi. This earns: Rock Island segments 7, 6, 5, 4, and 3. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Next decision: look for signs to Rock Island."
+          "detail": "At the signed junction with Rock Island, continue straight onto Rock Island. Use Connector for 0.03 mi. This earns: Rock Island segments 3-7. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Next decision: look for signs to Rock Island."
         },
         {
           "kind": "navigate",
@@ -43003,7 +43003,7 @@
           "target": "Table Rock Trail",
           "until": "signed junction with Table Rock Trail",
           "confidence": "planner",
-          "note": "This earns: Quarry Trail - Castle Rock segments 5, 4, 3, 2, and 1. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
+          "note": "This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
           "official_segment_ids": [
             "1605",
             "1606",
@@ -43013,7 +43013,7 @@
           ],
           "official_miles": 0.54,
           "compact": "03 0.95 mi (+0.59) JCT BEAR LEFT Quarry Trail - Castle Rock UNTIL signed junction with Table Rock Trail.",
-          "display_detail": "Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock segments 5, 4, 3, 2, and 1. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
+          "display_detail": "Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
           "route_miles": 0.956,
           "route_leg_miles": 0.521,
           "source_cum_miles": 0.87,
@@ -44008,13 +44008,13 @@
           "target": "Tram Trail",
           "until": "signed junction with Tram Trail",
           "confidence": "planner",
-          "note": "This earns: Table Rock Quarry Trail segments 3, 2, and 1. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
+          "note": "This earns: Table Rock Quarry Trail segments 1-3. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1668"
           ],
           "official_miles": 0.58,
           "compact": "07 3.85 mi (+1.11) JCT CONTINUE STRAIGHT Table Rock Quarry Trail UNTIL signed junction with Tram Trail.",
-          "display_detail": "Continue Straight Table Rock Quarry Trail toward Tram Trail. UNTIL signed junction with Tram Trail. This earns: Table Rock Quarry Trail segments 3, 2, and 1. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
+          "display_detail": "Continue Straight Table Rock Quarry Trail toward Tram Trail. UNTIL signed junction with Tram Trail. This earns: Table Rock Quarry Trail segments 1-3. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
           "route_miles": 3.629,
           "route_leg_miles": 1.468,
           "official_repeat_segment_ids": [
@@ -46341,7 +46341,7 @@
           "target": "Rock Island",
           "until": "signed junction with Rock Island",
           "confidence": "planner",
-          "note": "This earns: Rock Garden segments 3, 2, and 1. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
+          "note": "This earns: Rock Garden segments 1-3. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
           "official_segment_ids": [
             "1632",
             "1633",
@@ -46349,7 +46349,7 @@
           ],
           "official_miles": 0.69,
           "compact": "11 7.70 mi (+0.75) JCT TAKE Rock Garden UNTIL signed junction with Rock Island.",
-          "display_detail": "Take Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden segments 3, 2, and 1. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
+          "display_detail": "Take Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden segments 1-3. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
           "route_miles": 7.697,
           "route_leg_miles": 0.694,
           "source_cum_miles": 7.07,
@@ -46623,7 +46623,7 @@
           "target": "Rock Island",
           "until": "signed junction with Rock Island",
           "confidence": "planner",
-          "note": "This earns: Rock Island segments 7, 6, 5, 4, and 3. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
+          "note": "This earns: Rock Island segments 3-7. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1637",
             "1638",
@@ -46632,7 +46632,7 @@
           ],
           "official_miles": 1.28,
           "compact": "15 8.81 mi (+1.46) JCT CONTINUE STRAIGHT Rock Island UNTIL signed junction with Rock Island.",
-          "display_detail": "Continue Straight Rock Island toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Island segments 7, 6, 5, 4, and 3. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
+          "display_detail": "Continue Straight Rock Island toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Island segments 3-7. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
           "route_miles": 8.817,
           "route_leg_miles": 1.342,
           "official_repeat_segment_ids": [
@@ -48404,7 +48404,7 @@
           "target": "Table Rock Trail",
           "until": "signed junction with Table Rock Trail",
           "confidence": "planner",
-          "note": "This earns: Quarry Trail - Castle Rock segments 5, 4, 3, 2, and 1. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
+          "note": "This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
           "official_segment_ids": [
             "1605",
             "1606",
@@ -48414,7 +48414,7 @@
           ],
           "official_miles": 0.54,
           "compact": "03 0.95 mi (+0.59) JCT BEAR LEFT Quarry Trail - Castle Rock UNTIL signed junction with Table Rock Trail.",
-          "display_detail": "Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock segments 5, 4, 3, 2, and 1. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
+          "display_detail": "Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
           "route_miles": 0.956,
           "route_leg_miles": 0.521,
           "source_cum_miles": 0.87,
@@ -49409,13 +49409,13 @@
           "target": "Tram Trail",
           "until": "signed junction with Tram Trail",
           "confidence": "planner",
-          "note": "This earns: Table Rock Quarry Trail segments 3, 2, and 1. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
+          "note": "This earns: Table Rock Quarry Trail segments 1-3. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1668"
           ],
           "official_miles": 0.58,
           "compact": "07 3.85 mi (+1.11) JCT CONTINUE STRAIGHT Table Rock Quarry Trail UNTIL signed junction with Tram Trail.",
-          "display_detail": "Continue Straight Table Rock Quarry Trail toward Tram Trail. UNTIL signed junction with Tram Trail. This earns: Table Rock Quarry Trail segments 3, 2, and 1. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
+          "display_detail": "Continue Straight Table Rock Quarry Trail toward Tram Trail. UNTIL signed junction with Tram Trail. This earns: Table Rock Quarry Trail segments 1-3. Section estimate: 1.02 official mi, ~18 min moving, 151 ft climb, 457 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 0.44 mi repeat official; no new credit.",
           "route_miles": 3.629,
           "route_leg_miles": 1.468,
           "official_repeat_segment_ids": [
@@ -51742,7 +51742,7 @@
           "target": "Rock Island",
           "until": "signed junction with Rock Island",
           "confidence": "planner",
-          "note": "This earns: Rock Garden segments 3, 2, and 1. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
+          "note": "This earns: Rock Garden segments 1-3. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
           "official_segment_ids": [
             "1632",
             "1633",
@@ -51750,7 +51750,7 @@
           ],
           "official_miles": 0.69,
           "compact": "11 7.70 mi (+0.75) JCT TAKE Rock Garden UNTIL signed junction with Rock Island.",
-          "display_detail": "Take Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden segments 3, 2, and 1. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
+          "display_detail": "Take Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden segments 1-3. Section estimate: 0.69 official mi, ~17 min moving, 127 ft climb. This is the exit from the overlapping repeated route line.",
           "route_miles": 7.697,
           "route_leg_miles": 0.694,
           "source_cum_miles": 7.07,
@@ -52024,7 +52024,7 @@
           "target": "Rock Island",
           "until": "signed junction with Rock Island",
           "confidence": "planner",
-          "note": "This earns: Rock Island segments 7, 6, 5, 4, and 3. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
+          "note": "This earns: Rock Island segments 3-7. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1637",
             "1638",
@@ -52033,7 +52033,7 @@
           ],
           "official_miles": 1.28,
           "compact": "15 8.81 mi (+1.46) JCT CONTINUE STRAIGHT Rock Island UNTIL signed junction with Rock Island.",
-          "display_detail": "Continue Straight Rock Island toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Island segments 7, 6, 5, 4, and 3. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
+          "display_detail": "Continue Straight Rock Island toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Island segments 3-7. Section estimate: 1.34 official mi, ~27 min moving, 248 ft climb. Also includes repeat official mileage already credited earlier in this route. Includes 0.06 mi repeat official; no new credit.",
           "route_miles": 8.817,
           "route_leg_miles": 1.342,
           "official_repeat_segment_ids": [
@@ -73669,7 +73669,7 @@
         {
           "kind": "navigate",
           "title": "Turn onto Dry Creek Trail",
-          "detail": "At the signed junction with Dry Creek Trail, turn onto Dry Creek Trail. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent."
+          "detail": "At the signed junction with Dry Creek Trail, turn onto Dry Creek Trail. This earns: Dry Creek Trail segments 1-5. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent."
         },
         {
           "kind": "return",
@@ -73813,14 +73813,14 @@
           "target": "return to car",
           "until": "end of Dry Creek Trail for this route",
           "confidence": "planner",
-          "note": "This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
+          "note": "This earns: Dry Creek Trail segments 1-5. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1545",
             "1546"
           ],
           "official_miles": 4.67,
           "compact": "06 8.63 mi (+6.97) JCT TAKE Dry Creek Trail UNTIL end of Dry Creek Trail for this route.",
-          "display_detail": "Take Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
+          "display_detail": "Take Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail segments 1-5. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
           "route_miles": 8.63,
           "route_leg_miles": 4.645,
           "official_repeat_segment_ids": [
@@ -74035,14 +74035,14 @@
           "target": "return to car",
           "until": "end of Dry Creek Trail for this route",
           "confidence": "planner",
-          "note": "This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
+          "note": "This earns: Dry Creek Trail segments 1-5. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
           "official_segment_ids": [
             "1545",
             "1546"
           ],
           "official_miles": 4.67,
           "compact": "06 8.63 mi (+6.97) JCT TAKE Dry Creek Trail UNTIL end of Dry Creek Trail for this route.",
-          "display_detail": "Take Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
+          "display_detail": "Take Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail segments 1-5. Section estimate: 6.97 official mi, 1208 ft climb, 3027 ft descent. Also includes repeat official mileage already credited earlier in this route. Includes 2.31 mi repeat official; no new credit.",
           "route_miles": 8.63,
           "route_leg_miles": 4.645,
           "official_repeat_segment_ids": [
