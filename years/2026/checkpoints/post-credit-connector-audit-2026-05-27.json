@@ -1,14 +1,14 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-20T22:20:32Z",
+  "generated_at": "2026-06-21T00:17:47Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {
-    "route_count": 19,
+    "route_count": 18,
     "failed_route_count": 0,
     "finding_count": 0,
     "warning_count": 2,
-    "post_credit_connector_proof_count": 52,
+    "post_credit_connector_proof_count": 51,
     "hidden_exit_finding_count": 0,
     "hidden_exit_warning_count": 2,
     "shorter_connector_finding_count": 0,
@@ -294,61 +294,6 @@
           ],
           "snap_start_miles": 0.0013,
           "snap_end_miles": 0.0025,
-          "status": "passed"
-        }
-      ],
-      "findings": [],
-      "warnings": []
-    },
-    {
-      "route_key": "8-2",
-      "outing_id": "8-2",
-      "label": "8-2: 8B",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "audit_status": "passed",
-      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-peace-valley-overlook-8b.gpx",
-      "segment_ids": [
-        "1722",
-        "1723"
-      ],
-      "post_credit_connector_proofs": [
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "8-2",
-          "label": "8-2: 8B",
-          "outing_id": "8-2",
-          "candidate_ids": [
-            "peace-valley-overlook"
-          ],
-          "seq": 3,
-          "cue_type": "exit_access",
-          "signed_as": [
-            "#109 Peace Valley Overlook Trail"
-          ],
-          "target": "Homestead Trail Access Point",
-          "actual_miles": 0.18,
-          "credited_segment_ids_before_cue": [
-            "1722",
-            "1723"
-          ],
-          "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 0.1754,
-          "savings_miles": 0.0046,
-          "savings_feet": 24,
-          "shortest_connector_names": [
-            "#109 Peace Valley Overlook Trail"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1723"
-          ],
-          "snap_start_miles": 0.0,
-          "snap_end_miles": 0.0,
           "status": "passed"
         }
       ],
@@ -728,58 +673,6 @@
       "warnings": []
     },
     {
-      "route_key": "8-1",
-      "outing_id": "8-1",
-      "label": "8-1: 8A",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "audit_status": "passed",
-      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8a.gpx",
-      "segment_ids": [
-        "1724"
-      ],
-      "post_credit_connector_proofs": [
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "8-1",
-          "label": "8-1: 8A",
-          "outing_id": "8-1",
-          "candidate_ids": [
-            "harris-ridge-trail"
-          ],
-          "seq": 3,
-          "cue_type": "exit_access",
-          "signed_as": [
-            "Harris Ridge Trail",
-            "#108 Harris Ridge Trail",
-            "OSM service connector 42418"
-          ],
-          "target": "Homestead Trail Access Point",
-          "actual_miles": 0.72,
-          "credited_segment_ids_before_cue": [
-            "1724"
-          ],
-          "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 0.7181,
-          "savings_miles": 0.0019,
-          "savings_feet": 10,
-          "shortest_connector_names": [],
-          "shortest_connector_classes": [
-            "official_repeat"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1724"
-          ],
-          "snap_start_miles": 0.0,
-          "snap_end_miles": 0.0,
-          "status": "passed"
-        }
-      ],
-      "findings": [],
-      "warnings": []
-    },
-    {
       "route_key": "1-1",
       "outing_id": "1-1",
       "label": "1-1: 1A-1",
@@ -826,6 +719,86 @@
           ],
           "snap_start_miles": 0.0029,
           "snap_end_miles": 0.0017,
+          "status": "passed"
+        }
+      ],
+      "findings": [],
+      "warnings": []
+    },
+    {
+      "route_key": "8-1",
+      "outing_id": "8-1",
+      "label": "8-1: 8",
+      "candidate_ids": [
+        "block-oregon_trail_harris_peace_valley"
+      ],
+      "audit_status": "passed",
+      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8.gpx",
+      "segment_ids": [
+        "1722",
+        "1723",
+        "1724"
+      ],
+      "post_credit_connector_proofs": [
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "8-1",
+          "label": "8-1: 8",
+          "outing_id": "8-1",
+          "candidate_ids": [
+            "block-oregon_trail_harris_peace_valley"
+          ],
+          "seq": 5,
+          "cue_type": "exit_access",
+          "signed_as": [
+            "#109 Peace Valley Overlook Trail",
+            "East Grand Prairie Drive",
+            "OSM footway connector 110358",
+            "OSM footway connector 42829",
+            "OSM footway connector 42830",
+            "OSM footway connector 47409",
+            "OSM footway connector 47519",
+            "OSM footway connector 47523",
+            "OSM footway connector 47525",
+            "OSM footway connector 47527",
+            "OSM footway connector 47533",
+            "OSM footway connector 47536"
+          ],
+          "target": "Homestead Trail Access Point",
+          "actual_miles": 0.79,
+          "credited_segment_ids_before_cue": [
+            "1722",
+            "1723",
+            "1724"
+          ],
+          "avoided_unearned_route_segment_ids": [],
+          "shortest_miles": 0.7928,
+          "savings_miles": -0.0028,
+          "savings_feet": -15,
+          "shortest_connector_names": [
+            "#109 Peace Valley Overlook Trail",
+            "East Grand Prairie Drive",
+            "OSM footway connector 110358",
+            "OSM footway connector 42829",
+            "OSM footway connector 42830",
+            "OSM footway connector 47409",
+            "OSM footway connector 47519",
+            "OSM footway connector 47523",
+            "OSM footway connector 47525",
+            "OSM footway connector 47527",
+            "OSM footway connector 47533",
+            "OSM footway connector 47536"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1723"
+          ],
+          "snap_start_miles": 0.0034,
+          "snap_end_miles": 0.0026,
           "status": "passed"
         }
       ],

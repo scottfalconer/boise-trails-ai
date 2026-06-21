@@ -1,10 +1,10 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-20T22:19:52Z",
+  "generated_at": "2026-06-21T00:18:04Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
-    "route_count": 19,
+    "route_count": 18,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "phase_reset_failure_count": 0,
@@ -106,33 +106,6 @@
       ]
     },
     {
-      "label": "8-2: 8B",
-      "outing_id": "8-2",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "trailhead": "Homestead",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.53,
-        "generated_miles": 2.7,
-        "lower_bound_miles": 1.54,
-        "efficiency_ratio": 1.759,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.2,
-        "depot_component_attachment_miles": 0.8
-      },
-      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-peace-valley-overlook-8b.gpx",
-      "segment_ids": [
-        "1722",
-        "1723"
-      ]
-    },
-    {
       "label": "1-2: 1A-2",
       "outing_id": "1-2",
       "candidate_ids": [
@@ -195,32 +168,6 @@
       ]
     },
     {
-      "label": "8-1: 8A",
-      "outing_id": "8-1",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "trailhead": "Homestead",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 1.72,
-        "generated_miles": 4.44,
-        "lower_bound_miles": 2.93,
-        "efficiency_ratio": 1.513,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.83,
-        "depot_component_attachment_miles": 0.38
-      },
-      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8a.gpx",
-      "segment_ids": [
-        "1724"
-      ]
-    },
-    {
       "label": "1-1: 1A-1",
       "outing_id": "1-1",
       "candidate_ids": [
@@ -244,6 +191,34 @@
       "gpx_path": "docs/field-packet/gpx/official/13-36th-street-chute-1a-1.gpx",
       "segment_ids": [
         "1482"
+      ]
+    },
+    {
+      "label": "8-1: 8",
+      "outing_id": "8-1",
+      "candidate_ids": [
+        "block-oregon_trail_harris_peace_valley"
+      ],
+      "trailhead": "Homestead",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 2.26,
+        "generated_miles": 3.64,
+        "lower_bound_miles": 3.62,
+        "efficiency_ratio": 1.005,
+        "required_component_count": 2,
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 0.92,
+        "depot_component_attachment_miles": 0.45
+      },
+      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8.gpx",
+      "segment_ids": [
+        "1722",
+        "1723",
+        "1724"
       ]
     },
     {

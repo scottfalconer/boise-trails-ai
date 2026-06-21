@@ -1,14 +1,14 @@
 {
   "schema": "boise_trails_route_review_pack_v1",
-  "generated_at": "2026-06-20T22:42:16Z",
+  "generated_at": "2026-06-21T00:18:37Z",
   "thresholds": {
     "material_on_foot_savings_miles": 0.25,
     "material_p75_savings_minutes": 10
   },
   "summary": {
-    "route_count": 19,
+    "route_count": 18,
     "deterministic_failure_count": 1,
-    "single_segment_route_count": 4
+    "single_segment_route_count": 3
   },
   "routes": [
     {
@@ -240,58 +240,6 @@
       }
     },
     {
-      "route_label": "8B",
-      "route_source_hash": "425ce8d490a07daeafd0dd11b3db39ebb13b173853555b70ae2e342f7bc1fdc6",
-      "current_start": "Homestead",
-      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with field-packet parking evidence parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1723",
-        "1722"
-      ],
-      "trail_names": [
-        "Peace Valley Overlook"
-      ],
-      "metrics": {
-        "on_foot_miles": 2.7,
-        "p75_minutes": 101,
-        "p90_minutes": 114,
-        "drive_minutes": 0,
-        "parking_confidence": null,
-        "cue_complexity": 3,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 0.53,
-        "on_foot_to_official_ratio": 5.09,
-        "start_access_gap_miles": 0.909,
-        "return_access_gap_miles": 1.171,
-        "repeat_or_non_credit_burden_miles": 2.17
-      },
-      "parking": {
-        "name": "Homestead Trail Access Point",
-        "display_name": "Homestead Trail Access Point",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": null,
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Homestead",
-        "nearest_open_trail_label": "#12 Homestead"
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0243,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "1A-2",
       "route_source_hash": "327f40c47b4dd600c2ef0be888c41a8f7c6534c47445c05dea915f2ee3c82d75",
       "current_start": "West Climb",
@@ -407,57 +355,6 @@
       }
     },
     {
-      "route_label": "8A",
-      "route_source_hash": "57dff1e01f04c380f129a58f85e1f66bb05ab35c46bb75923f0b65e01953a8f7",
-      "current_start": "Homestead",
-      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with field-packet parking evidence parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1724"
-      ],
-      "trail_names": [
-        "Harris Ridge Trail"
-      ],
-      "metrics": {
-        "on_foot_miles": 4.44,
-        "p75_minutes": 118,
-        "p90_minutes": 133,
-        "drive_minutes": 0,
-        "parking_confidence": null,
-        "cue_complexity": 3,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 1.72,
-        "on_foot_to_official_ratio": 2.58,
-        "start_access_gap_miles": 0.378,
-        "return_access_gap_miles": 0.378,
-        "repeat_or_non_credit_burden_miles": 2.72
-      },
-      "parking": {
-        "name": "Homestead Trail Access Point",
-        "display_name": "Homestead Trail Access Point",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": null,
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Homestead",
-        "nearest_open_trail_label": "#12 Homestead"
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0288,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "1A-1",
       "route_source_hash": "7a83d8ef06af77b77edadf6c92391b10bc612d79689bb8a4db8ed75dfb8dcb91",
       "current_start": "prior parking anchor 13",
@@ -566,6 +463,60 @@
       "prior_audit_evidence": {
         "passed": true,
         "max_trackpoint_gap_miles": 0.028,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "8",
+      "route_source_hash": "f568ce12c75e8229fcb6a76dd143bda432d0d28e99e86c18274c3048884080a0",
+      "current_start": "Homestead",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1724",
+        "1722",
+        "1723"
+      ],
+      "trail_names": [
+        "Harris Ridge Trail",
+        "Peace Valley Overlook"
+      ],
+      "metrics": {
+        "on_foot_miles": 3.64,
+        "p75_minutes": 139,
+        "p90_minutes": 156,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 5,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 2.26,
+        "on_foot_to_official_ratio": 1.61,
+        "start_access_gap_miles": 0.378,
+        "return_access_gap_miles": 0.867,
+        "repeat_or_non_credit_burden_miles": 1.38
+      },
+      "parking": {
+        "name": "Homestead Trail Access Point",
+        "display_name": "Homestead Trail Access Point",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Homestead",
+        "nearest_open_trail_label": "#12 Homestead"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0294,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -1450,38 +1401,6 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "8B",
-      "route_label": "8B",
-      "route_source_hash": "425ce8d490a07daeafd0dd11b3db39ebb13b173853555b70ae2e342f7bc1fdc6",
-      "segment_ids": [
-        "1723",
-        "1722"
-      ],
-      "decision": "PASS_NON_DOMINATED",
-      "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1723, 1722.",
-      "start_anchor_assessment": "Current start is Homestead. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with field-packet parking evidence parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "2.7 on-foot miles for 0.53 official miles; non-credit/repeat burden is 2.17 miles.",
-      "dominance_assessment": {
-        "is_dominated": false,
-        "dominating_anchor": null,
-        "same_credit": false,
-        "estimated_miles_saved": null,
-        "estimated_minutes_saved": null,
-        "reason": "No material accepted same-credit alternative found."
-      },
-      "required_action": "No route-review action required.",
-      "waiver_allowed": false,
-      "evidence": [
-        "route review pack",
-        "field-tool route record",
-        "accepted-route-replacements manifest",
-        "multi-start alternative audit",
-        "start_justification"
-      ]
-    },
-    {
-      "schema": "boise_trails_route_review_v1",
       "route_id": "1A-2",
       "route_label": "1A-2",
       "route_source_hash": "327f40c47b4dd600c2ef0be888c41a8f7c6534c47445c05dea915f2ee3c82d75",
@@ -1554,37 +1473,6 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "8A",
-      "route_label": "8A",
-      "route_source_hash": "57dff1e01f04c380f129a58f85e1f66bb05ab35c46bb75923f0b65e01953a8f7",
-      "segment_ids": [
-        "1724"
-      ],
-      "decision": "PASS_NON_DOMINATED",
-      "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1724.",
-      "start_anchor_assessment": "Current start is Homestead. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with field-packet parking evidence parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "4.44 on-foot miles for 1.72 official miles; non-credit/repeat burden is 2.72 miles.",
-      "dominance_assessment": {
-        "is_dominated": false,
-        "dominating_anchor": null,
-        "same_credit": false,
-        "estimated_miles_saved": null,
-        "estimated_minutes_saved": null,
-        "reason": "No material accepted same-credit alternative found."
-      },
-      "required_action": "No route-review action required.",
-      "waiver_allowed": false,
-      "evidence": [
-        "route review pack",
-        "field-tool route record",
-        "accepted-route-replacements manifest",
-        "multi-start alternative audit",
-        "start_justification"
-      ]
-    },
-    {
-      "schema": "boise_trails_route_review_v1",
       "route_id": "1A-1",
       "route_label": "1A-1",
       "route_source_hash": "7a83d8ef06af77b77edadf6c92391b10bc612d79689bb8a4db8ed75dfb8dcb91",
@@ -1606,6 +1494,39 @@
       },
       "required_action": "Regenerate 1A-1 from Full Sail Trailhead, N 36th St Parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
       "waiver_allowed": true,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "8",
+      "route_label": "8",
+      "route_source_hash": "f568ce12c75e8229fcb6a76dd143bda432d0d28e99e86c18274c3048884080a0",
+      "segment_ids": [
+        "1724",
+        "1722",
+        "1723"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1724, 1722, 1723.",
+      "start_anchor_assessment": "Current start is Homestead. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "3.64 on-foot miles for 2.26 official miles; non-credit/repeat burden is 1.38 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
       "evidence": [
         "route review pack",
         "field-tool route record",

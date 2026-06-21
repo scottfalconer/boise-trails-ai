@@ -1,6 +1,6 @@
 {
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-20T22:42:29Z",
+  "generated_at": "2026-06-21T00:18:50Z",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
     "field_packet_manifest": "docs/field-packet/manifest.json",
@@ -13,18 +13,18 @@
     "canonical_md": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md"
   },
   "summary": {
-    "route_count": 19,
-    "proof_count": 19,
+    "route_count": 18,
+    "proof_count": 18,
     "decision_counts": {
-      "HOLD_CURRENT_RECERTIFIED": 19
+      "HOLD_CURRENT_RECERTIFIED": 18
     },
     "area_counts": {
       "Upper Hulls Gulch": 2,
       "Western Foothills": 2,
       "Dry Creek": 2,
-      "Boise River WMA": 2,
       "Hillside to Hollow": 1,
       "13": 1,
+      "Boise River WMA": 1,
       "Hidden Springs": 2,
       "Hawkins Range Reserve": 1,
       "Cervidae / Arrow Rock": 1,
@@ -38,7 +38,7 @@
     "failed_route_labels": [],
     "route_efficiency_verdict": "current_routes_proofed",
     "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 19,
-    "review_today": "2026-06-20"
+    "accepted_active_candidate_target": 18,
+    "review_today": "2026-06-21"
   }
 }

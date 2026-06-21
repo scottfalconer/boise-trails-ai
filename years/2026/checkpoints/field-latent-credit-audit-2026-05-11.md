@@ -1,12 +1,12 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 19
+- Routes audited: 18
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 6
-- Unexpected latent official segments: 14
+- Routes with reconciled latent credit: 5
+- Unexpected latent official segments: 13
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 14
+- Reconciled latent segments claimed by another active route: 13
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 1
 
@@ -23,12 +23,6 @@
 - Declared owned by other active routes: 1577
 - Segment details:
   - 1577 Highlands Trail; claimed by 15-2: 15B
-
-### 8-1: 8A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8a.gpx`
-- Declared owned by other active routes: 1722
-- Segment details:
-  - 1722 Peace Valley Overlook; claimed by 8-2: 8B
 
 ### 10-2: 10B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx`

@@ -776,10 +776,11 @@ def route_interval_end_for_official_cue(
     official_index: dict[str, dict[str, Any]],
     route_points: list[dict[str, Any]],
 ) -> float:
-    candidates = official_segment_endpoint_miles_for_ids(cue.get("official_segment_ids") or [], official_index, route_points)
+    segment_ids = route_geometry_segment_ids_for_cue(cue)
+    candidates = official_segment_endpoint_miles_for_ids(segment_ids, official_index, route_points)
     target = start_mile + float(cue.get("leg_miles") or 0)
     span_ends = official_segment_span_end_miles_for_ids(
-        cue.get("official_segment_ids") or [],
+        segment_ids,
         official_index,
         route_points,
         start_mile=start_mile,
@@ -800,6 +801,15 @@ def set_cue_route_interval(cue: dict[str, Any], start_mile: float, end_mile: flo
     end = max(start, float(end_mile or start))
     cue["route_miles"] = round(start, 3)
     cue["route_leg_miles"] = round(end - start, 3)
+
+
+def route_geometry_segment_ids_for_cue(cue: dict[str, Any]) -> list[Any]:
+    official_ids = list(cue.get("official_segment_ids") or [])
+    if official_ids:
+        return official_ids
+    if str(cue.get("cue_type") or "") == "repeat_official_noncredit":
+        return list(cue.get("official_repeat_segment_ids") or [])
+    return []
 
 
 def point_at_route_mile(
@@ -907,7 +917,7 @@ def assign_wayfinding_route_miles(route: dict[str, Any]) -> dict[str, Any]:
     official_anchor_by_index: dict[int, float] = {}
     floor = 0.0
     for index, cue in enumerate(cues):
-        segment_ids = cue.get("official_segment_ids") or []
+        segment_ids = route_geometry_segment_ids_for_cue(cue)
         if not segment_ids:
             continue
         candidates = official_segment_endpoint_miles_for_ids(segment_ids, official_index, route_points)
@@ -930,7 +940,7 @@ def assign_wayfinding_route_miles(route: dict[str, Any]) -> dict[str, Any]:
                 break
         if index in official_anchor_by_index:
             start = max(previous_end, official_anchor_by_index[index])
-            next_is_connector = index + 1 < len(cues) and not (cues[index + 1].get("official_segment_ids") or [])
+            next_is_connector = index + 1 < len(cues) and not route_geometry_segment_ids_for_cue(cues[index + 1])
             if next_is_connector or next_official_anchor is None or next_official_anchor <= start + 0.05:
                 end = route_interval_end_for_official_cue(
                     cue,
@@ -3864,6 +3874,16 @@ def official_segment_labels_for_ids(segment_ids: list[Any] | set[Any], official_
     return labels
 
 
+def official_segment_credit_label_for_ids(segment_ids: list[Any] | set[Any], official_index: dict[str, dict[str, Any]]) -> str:
+    segments = []
+    for segment_id in normalized_segment_ids(segment_ids):
+        feature = official_index.get(str(segment_id)) or {}
+        props = feature.get("properties") if isinstance(feature, dict) else {}
+        if props:
+            segments.append(props)
+    return segment_credit_label(segments)
+
+
 def set_cue_repeat_ids(
     cue: dict[str, Any],
     repeat_ids: set[str],
@@ -3951,13 +3971,21 @@ def promote_non_credit_required_segment_cues(
             elevation_sampler=elevation_sampler,
         )
         if not completed_ids:
-            set_cue_repeat_ids(cue, repeat_ids & credited, official_index)
+            preserved_prior_credit_ids = repeat_ids - claimed_segment_ids
+            set_cue_repeat_ids(cue, (repeat_ids & credited) | preserved_prior_credit_ids, official_index)
             if cue.get("official_repeat_segment_ids"):
-                cue["note"] = non_credit_repeat_note(
-                    non_credit_repeat_prefix_for_cue(cue),
-                    cue.get("official_repeat_miles"),
-                    cue.get("official_repeat_segment_ids") or [],
-                )
+                if preserved_prior_credit_ids:
+                    repeat_label = official_segment_credit_label_for_ids(preserved_prior_credit_ids, official_index)
+                    cue["note"] = (
+                        f"Official-repeat mileage: {repeat_label or sentence_list(ordered_segment_ids(preserved_prior_credit_ids))}; "
+                        "do not count as new credit."
+                    )
+                else:
+                    cue["note"] = non_credit_repeat_note(
+                        non_credit_repeat_prefix_for_cue(cue),
+                        cue.get("official_repeat_miles"),
+                        cue.get("official_repeat_segment_ids") or [],
+                    )
                 refresh_wayfinding_text(cue)
             continue
         ordered_completed = ordered_segment_ids(completed_ids)
@@ -4121,11 +4149,19 @@ def apply_non_credit_claimed_repeat_declarations(
             declaration_overrides[cue_key] = all_repeat_ids
             cue["official_repeat_segment_ids"] = all_repeat_ids
             cue["official_repeat_miles"] = round(max(repeat_miles, 0.01), 2)
-            cue["note"] = non_credit_repeat_note(
-                non_credit_repeat_prefix_for_cue(cue),
-                cue.get("official_repeat_miles"),
-                all_repeat_ids,
-            )
+            prior_credit_repeat_ids = set(all_repeat_ids) - claimed_segment_ids
+            if prior_credit_repeat_ids:
+                repeat_label = official_segment_credit_label_for_ids(prior_credit_repeat_ids, official_index)
+                cue["note"] = (
+                    f"Official-repeat mileage: {repeat_label or sentence_list(ordered_segment_ids(prior_credit_repeat_ids))}; "
+                    "do not count as new credit."
+                )
+            else:
+                cue["note"] = non_credit_repeat_note(
+                    non_credit_repeat_prefix_for_cue(cue),
+                    cue.get("official_repeat_miles"),
+                    all_repeat_ids,
+                )
         elif cue.get("official_repeat_segment_ids"):
             cue.pop("official_repeat_segment_ids", None)
             cue.pop("official_repeat_miles", None)
@@ -4683,6 +4719,11 @@ def official_group_wayfinding_cue(
         for segment in segments
         if claimed_segment_ids is None or str(segment.get("seg_id") or "") in claimed_segment_ids
     ]
+    repeat_segment_ids = [
+        segment.get("seg_id")
+        for segment in segments
+        if segment.get("seg_id") is not None
+    ] if not segment_ids else []
     if next_group:
         until = f"signed junction with {display_trail(next_group['trail_name'])}"
         target = display_trail(next_group["trail_name"])
@@ -4723,7 +4764,9 @@ def official_group_wayfinding_cue(
         confidence="planner",
         note=" ".join(note for note in notes if note),
         official_segment_ids=segment_ids,
-        official_miles=official_miles,
+        official_miles=official_miles if segment_ids else None,
+        official_repeat_segment_ids=repeat_segment_ids,
+        official_repeat_miles=official_miles if repeat_segment_ids else None,
     )
 
 

@@ -1,12 +1,12 @@
 # 2026 Route Review Pack
 
-Generated: 2026-06-20T22:42:16Z
+Generated: 2026-06-21T00:18:37Z
 
 ## Summary
 
-- Routes reviewed: 19
+- Routes reviewed: 18
 - Deterministic failures: 1
-- Single-segment routes included: 4
+- Single-segment routes included: 3
 
 ## 4B
 
@@ -60,23 +60,6 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
-## 8B
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Homestead
-- Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with field-packet parking evidence parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1723, 1722
-- Official miles: 0.53
-- On-foot miles: 2.7
-- p75 / p90: 101 / 114 min
-- Non-credit/repeat burden: 2.17 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
 ## 1A-2
 
 - Decision: `PASS_NON_DOMINATED`
@@ -111,23 +94,6 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
-## 8A
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Homestead
-- Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with field-packet parking evidence parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1724
-- Official miles: 1.72
-- On-foot miles: 4.44
-- p75 / p90: 118 / 133 min
-- Non-credit/repeat burden: 2.72 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
 ## 1A-1
 
 - Decision: `FAIL_DOMINATED`
@@ -145,6 +111,23 @@ Required action: No route-review action required.
 - Full Sail Trailhead, N 36th St Parking (multi_start_alternative_audit): 1.38 mi / 54 min; saves 1.79 mi / 65 min.
 
 Required action: Regenerate 1A-1 from Full Sail Trailhead, N 36th St Parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.
+
+## 8
+
+- Decision: `PASS_NON_DOMINATED`
+- Start: Homestead
+- Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Homestead Trail Access Point is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
+- Official segments: 1724, 1722, 1723
+- Official miles: 2.26
+- On-foot miles: 3.64
+- p75 / p90: 139 / 156 min
+- Non-credit/repeat burden: 1.38 mi
+
+### Same-Credit Alternatives
+
+- None found.
+
+Required action: No route-review action required.
 
 ## 15A
 

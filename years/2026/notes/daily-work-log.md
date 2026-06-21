@@ -4,6 +4,48 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-20 - Same-anchor spur-split audit and package 8 repair
+
+- Objective: prove whether the Sheep Camp route-selection failure class existed
+  elsewhere in the active field packet, specifically small same-parking spurs
+  preserved as separate outings after another route already reaches their
+  endpoint.
+- Result:
+  - Added `same_anchor_spur_split_audit.py` with regression tests for
+    same-anchor spur splits, different-anchor exclusions, and through-route
+    exclusions.
+  - The audit found one real remaining case: package `8` had separate Homestead
+    cards for Harris Ridge (`8A`) and Peace Valley (`8B`) even though the base
+    graph-validated combined route `block-oregon_trail_harris_peace_valley`
+    covered `1724`, `1722`, and `1723` in one 4.05 mi card.
+  - Removed the stale package-8 split override from the tracked public override
+    source and the active private replacement source, then regenerated the
+    human-loop plan and phone packet. Package `8` is now one route, and the
+    runnable field-packet route count is 18.
+  - Fixed exporter repeat-credit cue anchoring so official segments completed
+    before export can remain visible as structured repeat mileage without
+    being reintroduced as new remaining credit or blocking the route as a
+    navigation-source mismatch.
+- Validation:
+  - `python3 years/2026/scripts/same_anchor_spur_split_audit.py` passed with 18
+    routes and 0 findings.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    54 GPX files plus the regenerated phone packet.
+  - Full field-packet chain passed: latent-credit audit, progress report,
+    recertification report, same-anchor spur-split audit, route-edge cover
+    audit, field-tool completion audit, field-route walkthrough audit, and
+    post-credit connector audit.
+  - `python3 years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 18 routes; `python3 years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    passed with the existing waived `1A-1` dominance finding; refreshed
+    all-route adversarial disproof reports 18 / 18 current routes accepted.
+  - `python3 -m pytest -q years/2026/tests/test_same_anchor_spur_split_audit.py years/2026/tests/test_export_mobile_field_packet.py::test_field_packet_treats_completed_official_geometry_as_repeat_not_new_credit`
+    passed 4 tests.
+- Current blocker:
+  - No known same-anchor spur-split or packet certification blocker remains in
+    the generated 18-route field packet. Standard day-of condition, heat,
+    closure, and signage checks still apply.
+
 ## 2026-06-20 - Repair Sheep Camp / Dry Creek route selection
 
 - Objective: answer whether Sheep Camp Trail 1 should stay as its own package

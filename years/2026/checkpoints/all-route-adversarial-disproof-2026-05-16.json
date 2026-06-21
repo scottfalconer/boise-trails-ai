@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_all_route_adversarial_disproof_v1",
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-20T22:42:29Z",
+  "generated_at": "2026-06-21T00:18:50Z",
   "artifact_contract": "Public-safe current-route proof registry keyed to the deterministic route-review dominance gate. A route is accepted only when a current review covers its exact segment set and did not fail (or carries a valid waiver).",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
@@ -11,18 +11,18 @@
     "public_sanitized_map_data": "outing-menu-map-data.json"
   },
   "summary": {
-    "route_count": 19,
-    "proof_count": 19,
+    "route_count": 18,
+    "proof_count": 18,
     "decision_counts": {
-      "HOLD_CURRENT_RECERTIFIED": 19
+      "HOLD_CURRENT_RECERTIFIED": 18
     },
     "area_counts": {
       "Upper Hulls Gulch": 2,
       "Western Foothills": 2,
       "Dry Creek": 2,
-      "Boise River WMA": 2,
       "Hillside to Hollow": 1,
       "13": 1,
+      "Boise River WMA": 1,
       "Hidden Springs": 2,
       "Hawkins Range Reserve": 1,
       "Cervidae / Arrow Rock": 1,
@@ -36,8 +36,8 @@
     "failed_route_labels": [],
     "route_efficiency_verdict": "current_routes_proofed",
     "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 19,
-    "review_today": "2026-06-20"
+    "accepted_active_candidate_target": 18,
+    "review_today": "2026-06-21"
   },
   "routes": [
     {
@@ -156,43 +156,6 @@
       "field_readiness_status": "field_ready"
     },
     {
-      "route_label": "8B",
-      "candidate_id": "peace-valley-overlook",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "route_source_hash": "1625229b330596fdd99593f2a2bd107d793218e1398189f39c09e9696a6a359e",
-      "review_route_source_hash": "425ce8d490a07daeafd0dd11b3db39ebb13b173853555b70ae2e342f7bc1fdc6",
-      "area": "Boise River WMA",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Homestead",
-      "official_segment_ids": [
-        "1723",
-        "1722"
-      ],
-      "trail_names": [
-        "Peace Valley Overlook"
-      ],
-      "metrics": {
-        "official_miles": 0.53,
-        "on_foot_miles": 2.7,
-        "on_foot_to_official_ratio": 5.09,
-        "p75_minutes": 101,
-        "p90_minutes": 114,
-        "non_credit_or_repeat_miles": 2.17,
-        "declared_repeat_miles": 0.18
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
       "route_label": "1A-2",
       "candidate_id": "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie",
       "candidate_ids": [
@@ -278,42 +241,6 @@
       "field_readiness_status": "field_ready"
     },
     {
-      "route_label": "8A",
-      "candidate_id": "harris-ridge-trail",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "route_source_hash": "9374e53435bf1c996d00b571d8e65e6482c6d4b7c1622c65cb39791677a2632b",
-      "review_route_source_hash": "57dff1e01f04c380f129a58f85e1f66bb05ab35c46bb75923f0b65e01953a8f7",
-      "area": "Boise River WMA",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Homestead",
-      "official_segment_ids": [
-        "1724"
-      ],
-      "trail_names": [
-        "Harris Ridge Trail"
-      ],
-      "metrics": {
-        "official_miles": 1.72,
-        "on_foot_miles": 4.44,
-        "on_foot_to_official_ratio": 2.58,
-        "p75_minutes": 118,
-        "p90_minutes": 133,
-        "non_credit_or_repeat_miles": 2.72,
-        "declared_repeat_miles": 0.72
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
       "route_label": "1A-1",
       "candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
       "candidate_ids": [
@@ -344,6 +271,45 @@
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
       "required_action": "Regenerate 1A-1 from Full Sail Trailhead, N 36th St Parking or add a route/source-hashed waiver explaining why that same-credit anchor is invalid.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
+      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
+      "requires_field_walkthrough": false,
+      "field_readiness_status": "field_ready"
+    },
+    {
+      "route_label": "8",
+      "candidate_id": "block-oregon_trail_harris_peace_valley",
+      "candidate_ids": [
+        "block-oregon_trail_harris_peace_valley"
+      ],
+      "route_source_hash": "7d76d29d156eb79a41dcb6296443ab9e8a86ce15b74128dc1b18ad474e640cd5",
+      "review_route_source_hash": "f568ce12c75e8229fcb6a76dd143bda432d0d28e99e86c18274c3048884080a0",
+      "area": "Boise River WMA",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
+      "current_start": "Homestead",
+      "official_segment_ids": [
+        "1724",
+        "1722",
+        "1723"
+      ],
+      "trail_names": [
+        "Harris Ridge Trail",
+        "Peace Valley Overlook"
+      ],
+      "metrics": {
+        "official_miles": 2.26,
+        "on_foot_miles": 3.64,
+        "on_foot_to_official_ratio": 1.61,
+        "p75_minutes": 139,
+        "p90_minutes": 156,
+        "non_credit_or_repeat_miles": 1.38,
+        "declared_repeat_miles": 0.54
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
       "disproof_result": "Kept as the current recertified field-packet route.",
       "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
       "requires_field_walkthrough": false,
@@ -383,7 +349,7 @@
         "p75_minutes": 147,
         "p90_minutes": 165,
         "non_credit_or_repeat_miles": 1.02,
-        "declared_repeat_miles": 0.37
+        "declared_repeat_miles": 0.68
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -776,7 +742,7 @@
         "p75_minutes": 332,
         "p90_minutes": 372,
         "non_credit_or_repeat_miles": 5.69,
-        "declared_repeat_miles": 2.73
+        "declared_repeat_miles": 3.32
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -820,7 +786,7 @@
         "p75_minutes": 347,
         "p90_minutes": 385,
         "non_credit_or_repeat_miles": 3.11,
-        "declared_repeat_miles": 2.31
+        "declared_repeat_miles": 2.33
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -871,7 +837,7 @@
         "p75_minutes": 386,
         "p90_minutes": 433,
         "non_credit_or_repeat_miles": 4.73,
-        "declared_repeat_miles": 1.1
+        "declared_repeat_miles": 2.75
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
@@ -998,44 +964,6 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
-      "candidate_id": "peace-valley-overlook",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "labels": [
-        "8B"
-      ],
-      "area": "Boise River WMA",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 0.53,
-        "on_foot_miles": 2.7,
-        "on_foot_to_official_ratio": 5.09,
-        "p75_minutes": 101,
-        "p90_minutes": 114,
-        "non_credit_or_repeat_miles": 2.17,
-        "declared_repeat_miles": 0.18
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
       "candidate_id": "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie",
       "candidate_ids": [
         "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
@@ -1112,44 +1040,6 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
-      "candidate_id": "harris-ridge-trail",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "labels": [
-        "8A"
-      ],
-      "area": "Boise River WMA",
-      "status": "accepted_current",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "metrics": {
-        "official_miles": 1.72,
-        "on_foot_miles": 4.44,
-        "on_foot_to_official_ratio": 2.58,
-        "p75_minutes": 118,
-        "p90_minutes": 133,
-        "non_credit_or_repeat_miles": 2.72,
-        "declared_repeat_miles": 0.72
-      },
-      "evidence": [
-        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
-        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
-        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
-      ],
-      "checks": {
-        "gpx_continuity_passed": true,
-        "current_route_has_p75_time": true,
-        "current_route_has_dem_effort": true,
-        "no_better_exact_generated_candidate": true,
-        "no_dominant_boundary_recombination": true,
-        "no_dominant_global_optimizer_replacement": true,
-        "field_tool_completion_passed": true,
-        "special_management_passed": true
-      },
-      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
-    },
-    {
       "candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
       "candidate_ids": [
         "multi-start-1a-1a-ms-04-1-36th-street-chute"
@@ -1188,6 +1078,44 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
+      "candidate_id": "block-oregon_trail_harris_peace_valley",
+      "candidate_ids": [
+        "block-oregon_trail_harris_peace_valley"
+      ],
+      "labels": [
+        "8"
+      ],
+      "area": "Boise River WMA",
+      "status": "accepted_current",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "metrics": {
+        "official_miles": 2.26,
+        "on_foot_miles": 3.64,
+        "on_foot_to_official_ratio": 1.61,
+        "p75_minutes": 139,
+        "p90_minutes": 156,
+        "non_credit_or_repeat_miles": 1.38,
+        "declared_repeat_miles": 0.54
+      },
+      "evidence": [
+        "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
+        "years/2026/scripts/gate_route_reviews.py: pass/fail/waiver gate applied to that review",
+        "docs/field-packet/field-tool-data.json: route is present in the regenerated phone packet"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "field_tool_completion_passed": true,
+        "special_management_passed": true
+      },
+      "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
+    },
+    {
       "candidate_id": "multi-start-15-15-ms-15-1-red-tail-trail-landslide",
       "candidate_ids": [
         "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
@@ -1206,7 +1134,7 @@
         "p75_minutes": 147,
         "p90_minutes": 165,
         "non_credit_or_repeat_miles": 1.02,
-        "declared_repeat_miles": 0.37
+        "declared_repeat_miles": 0.68
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1510,7 +1438,7 @@
         "p75_minutes": 332,
         "p90_minutes": 372,
         "non_credit_or_repeat_miles": 5.69,
-        "declared_repeat_miles": 2.73
+        "declared_repeat_miles": 3.32
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1548,7 +1476,7 @@
         "p75_minutes": 347,
         "p90_minutes": 385,
         "non_credit_or_repeat_miles": 3.11,
-        "declared_repeat_miles": 2.31
+        "declared_repeat_miles": 2.33
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -1586,7 +1514,7 @@
         "p75_minutes": 386,
         "p90_minutes": 433,
         "non_credit_or_repeat_miles": 4.73,
-        "declared_repeat_miles": 1.1
+        "declared_repeat_miles": 2.75
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",

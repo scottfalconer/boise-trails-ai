@@ -1,0 +1,14 @@
+{
+  "schema": "boise_trails_same_anchor_spur_split_audit_v1",
+  "generated_at": "2026-06-21T00:17:13.618628+00:00",
+  "status": "passed",
+  "summary": {
+    "route_count": 18,
+    "finding_count": 0,
+    "advisory_disconnected_candidate_count": 1,
+    "endpoint_threshold_miles": 0.045,
+    "parking_threshold_miles": 0.1,
+    "min_savings_miles": 0.25
+  },
+  "findings": []
+}

@@ -4,9 +4,9 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 ## Summary
 
-- Routes: 19
-- Proofs: 19
-- Accepted (recertified): 19
+- Routes: 18
+- Proofs: 18
+- Accepted (recertified): 18
 - Deterministic same-credit failures: 0
 
 ## Routes
@@ -35,14 +35,6 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 8B - Boise River WMA
-
-- Candidate id: `peace-valley-overlook`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 0.53 official mi / 2.7 on-foot mi / p75 101 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
 ### 1A-2 - Hillside to Hollow
 
 - Candidate id: `multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie`
@@ -59,19 +51,19 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 8A - Boise River WMA
-
-- Candidate id: `harris-ridge-trail`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 1.72 official mi / 4.44 on-foot mi / p75 118 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
 ### 1A-1 - 13
 
 - Candidate id: `multi-start-1a-1a-ms-04-1-36th-street-chute`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 0.74 official mi / 3.17 on-foot mi / p75 119 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 8 - Boise River WMA
+
+- Candidate id: `block-oregon_trail_harris_peace_valley`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 2.26 official mi / 3.64 on-foot mi / p75 139 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 

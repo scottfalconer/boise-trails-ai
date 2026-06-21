@@ -102,6 +102,7 @@ python years/2026/scripts/export_mobile_field_packet.py
 python years/2026/scripts/field_latent_credit_audit.py
 python years/2026/scripts/field_progress_report.py
 python years/2026/scripts/field_recertification_report.py
+python years/2026/scripts/same_anchor_spur_split_audit.py
 python years/2026/scripts/route_edge_cover_audit.py
 python years/2026/scripts/field_tool_completion_audit.py
 python years/2026/scripts/field_route_walkthrough_audit.py
@@ -110,6 +111,7 @@ python years/2026/scripts/post_credit_connector_audit.py
 
 Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The latent-credit audit is the cross-route segment-claim guard. The field-tool completion audit includes the land-manager special-management hard gate. The walkthrough audit is the headless field-runner check.
 The post-credit connector audit is the proof that field-packet connector, repeat, exit, and return cues do not preserve a longer route when a shorter legal connector graph path exists. If an official-credit cue hides post-credit movement, split that movement into an explicit connector or return cue and prove it there instead of burying it inside the credit cue.
+The same-anchor spur-split audit is the proof that a small same-parking route has not been left as a separate card when an active route already reaches the spur endpoint and can clear it with materially lower incremental mileage.
 
 ## Headless Walker Debugging
 
