@@ -1,12 +1,12 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 18
+- Routes audited: 17
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 5
-- Unexpected latent official segments: 13
+- Routes with reconciled latent credit: 4
+- Unexpected latent official segments: 11
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 13
+- Reconciled latent segments claimed by another active route: 11
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 1
 
@@ -40,13 +40,6 @@
 - Segment details:
   - 1558 Femrite's Patrol; claimed by 13-1: 13
   - 1685 Three Bears Trail; claimed by 13-1: 13
-
-### 2-1: 2
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx`
-- Declared owned by other active routes: 1483, 1484
-- Segment details:
-  - 1483 8th Street Motorcycle Trail; claimed by 12-1: 12
-  - 1484 8th Street Motorcycle Trail; claimed by 12-1: 12
 
 ### 17-1: 17
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-sunshine-xc-17.gpx`

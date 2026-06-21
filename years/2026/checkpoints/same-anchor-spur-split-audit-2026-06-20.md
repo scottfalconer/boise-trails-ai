@@ -4,7 +4,7 @@ Status: `passed`
 
 ## Summary
 
-- Routes reviewed: 18
+- Routes reviewed: 17
 - Blocking findings: 0
 - Manual-review advisories: 0
 - Endpoint threshold: 0.045 mi

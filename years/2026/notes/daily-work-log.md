@@ -37,6 +37,68 @@ field-test logs.
   - No known same-anchor spur-split blocker or advisory remains in the active
     18-route field packet.
 
+## 2026-06-20 - BTC dashboard progress sync and map update
+
+- Objective: pull the current BTC dashboard progress after Owl's Roost, 15th
+  St., Gold Finch, and Chickadee Ridge were completed, then update the active
+  maps without publishing stale route-source directions.
+- Result:
+  - Captured a fresh read-only BTC dashboard snapshot under ignored private
+    inputs. The dashboard reported 19 completed official segments, 6.889
+    official miles, and 4.3329% complete.
+  - Joined the dashboard `CompletedSegmentIds` against the June 13 official
+    foot segment GeoJSON. All 19 ids matched current official segments.
+  - Applied only the six new dashboard ids beyond the existing private ledger:
+    `1481`, `1517`, `1518`, `1567`, `1568`, and `1596`.
+  - The first packet export correctly refused to publish because the
+    post-progress Camel's Back / Hulls Gulch route `2` had stale cue/GPX
+    anchors after the now-completed Owl's Roost / Gold Finch / 15th St. /
+    Chickadee Ridge cluster was removed from new-credit planning.
+  - Added `block-camels_lower_hulls_even_day` to the source route-truth
+    mismatch hold area, regenerated the canonical outing menu, and reapplied
+    progress. Route `2` is now a manual repair hold instead of a runnable
+    field card.
+  - Regenerated the phone field packet and GPX set with 17 field-ready routes,
+    11 manual holds, 0 omitted non-field-ready routes, and the 19 completed
+    segment ids embedded in `docs/field-packet/field-tool-data.json`.
+- Validation:
+  - `python3 -m json.tool years/2026/inputs/personal/2026-manual-route-designs-v1.json >/dev/null`
+    passed.
+  - `python3 years/2026/scripts/human_loop_plan.py` passed and regenerated the
+    canonical private outing map/menu.
+  - `python3 years/2026/scripts/field_progress_versions.py apply-day --epoch challenge-2026 --day-id 2026-06-20-dashboard-sync --review-json years/2026/outputs/private/progress/dashboard-review-2026-06-20.json`
+    passed, regenerated reports, and wrote 51 GPX files plus the phone packet.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed with 17
+    routes and 0 routes needing repair.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 19
+    completed segments, 231 remaining, and 250 / 250 official segments
+    accounted.
+  - `python3 years/2026/scripts/field_recertification_report.py --skip-heavy-optimizer`
+    ran and reported remaining coverage preserved, original target still
+    possible from the menu, and remaining full completion not currently
+    field-ready because manual holds remain.
+  - `python3 years/2026/scripts/same_anchor_spur_split_audit.py` passed with
+    17 routes and 0 findings.
+  - `python3 years/2026/scripts/route_edge_cover_audit.py` passed with 17
+    routes and 0 failed routes.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` failed 20 / 21
+    requirements at the adaptive completion-feasibility gate because
+    `remaining_full_completion_feasible=false` while 114 remaining segments are
+    held. The generated packet itself had 17 field-ready routes, 0 GPX failures,
+    0 cue/map mismatches, and 0 omitted non-field-ready routes.
+  - `python3 years/2026/scripts/field_route_walkthrough_audit.py` passed with
+    17 / 17 routes.
+  - `python3 years/2026/scripts/post_credit_connector_audit.py` passed with 17
+    routes, 0 findings, and 2 non-blocking hidden-exit warnings.
+  - `python3 -m pytest -q years/2026/tests/test_field_progress_report.py years/2026/tests/test_field_recertification_report.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py`
+    passed 167 tests in 1721.72s.
+- Current blocker:
+  - Remaining coverage is preserved, but field-ready remaining coverage is
+    still incomplete because manual route-source holds remain. The specific
+    post-progress blocker for route `2` is now explicit and must be repaired as
+    a new canonical Hulls / Red Cliffs route before it returns to the runnable
+    field menu.
+
 ## 2026-06-20 - Same-anchor spur-split audit and package 8 repair
 
 - Objective: prove whether the Sheep Camp route-selection failure class existed

@@ -13,12 +13,13 @@ activity geometry stay out of this committed note.
 ## Current Reviewed State
 
 - Epoch: `challenge-2026`
-- Reviewed completion events: 1
-- Completed official segments: 13 / 250
-- Remaining official segments: 237 / 250
-- Latest reviewed event: `2026-06-19-1b`
-- BTC dashboard proof: not refreshed in this repo for this event. The current
-  local proof is Strava activity geometry matched against the official June 13
+- Reviewed completion events: 2
+- Completed official segments: 19 / 250
+- Remaining official segments: 231 / 250
+- Latest reviewed event: `2026-06-20-dashboard-sync`
+- BTC dashboard proof: refreshed 2026-06-20 from the read-only dashboard API.
+  The ignored raw snapshot reported 19 completed segments, 6.889 official
+  miles, and 4.3329% complete; all completed ids matched the official June 13
   segment data.
 
 ## Events
@@ -26,6 +27,7 @@ activity geometry stay out of this committed note.
 | Date | Event | Planned route | Evidence | Result | Planner effect |
 | --- | --- | --- | --- | --- | --- |
 | 2026-06-19 | `2026-06-19-1b` | `1B` / outing `1-3` / Harrison Hollow | Strava API pull in ignored `years/2026/inputs/strava/api-pulls/2026-06-20-challenge-1b/`; local activity review in ignored `years/2026/outputs/private/progress/activity-review-2026-06-19-1b.json` | Completed all 12 planned `1B` official segments; also completed extra segment `1755`; crossing/near-touch on `1507` only, not counted | Private planner state now marks 13 segment ids complete; regenerated field packet removes `1B` from manual holds and removes `1755` from `1A-2` new-credit planning |
+| 2026-06-20 | `2026-06-20-dashboard-sync` | BTC dashboard sync | Read-only BTC dashboard API snapshot in ignored `years/2026/inputs/official/private/api-pull-2026-06-20-191248/dashboard_raw.json` | Added six dashboard-completed segment ids beyond the private ledger: `1481`, `1517`, `1518`, `1567`, `1568`, and `1596` | Private planner state now marks 19 segment ids complete; canonical maps and phone packet were regenerated. The post-progress Camel's Back / Hulls Gulch card `2` moved into the route-truth manual hold because its stale cue/GPX source no longer certifies after Owl's Roost / Gold Finch / 15th St. / Chickadee Ridge credit was removed from new-credit planning |
 
 ## Completed Segment Ids
 
@@ -55,6 +57,17 @@ Crossed / near-touch only:
 - `1507` - Buena Vista Trail 4. The activity touched/crossed the segment near
   its endpoint but did not start traversing the segment edge, so it remains in
   route planning.
+
+### 2026-06-20 - BTC dashboard sync
+
+Dashboard-completed segment ids added to the private ledger:
+
+- `1481` - 15th St. Trail 1
+- `1517` - Chickadee Ridge Trail 1
+- `1518` - Chickadee Ridge Trail 2
+- `1567` - Gold Finch 1
+- `1568` - Gold Finch 2
+- `1596` - Owl's Roost 1
 
 ## Evidence Rules
 

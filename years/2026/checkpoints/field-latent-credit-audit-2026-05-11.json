@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-21T01:02:38.003230+00:00",
+  "audited_at": "2026-06-21T01:27:46.012505+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 18,
+    "route_count": 17,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 5,
+    "routes_reconciled": 4,
     "repeat_only_routes": 1,
-    "unexpected_latent_segment_count": 13,
+    "unexpected_latent_segment_count": 11,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 13,
+    "reconciled_claimed_elsewhere_segment_count": 11,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 1,
     "dual_claimed_exact_credit_segment_count": 0
@@ -303,104 +303,6 @@
               "label": "13-1: 13",
               "candidate_ids": [
                 "block-freestone_three_bears_curlew"
-              ],
-              "ownership_status": "manual_hold"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "2-1",
-      "outing_id": "2-1",
-      "label": "2-1: 2",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "planned_segment_ids": [
-        "1481",
-        "1517",
-        "1518",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1567",
-        "1568",
-        "1583",
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1596",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 3014,
-      "review_point_count": 1006,
-      "candidate_segment_count": 51,
-      "latent_completed_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1485"
-      ],
-      "segments": [
-        {
-          "seg_id": "1483",
-          "seg_name": "8th Street Motorcycle Trail 1",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.44,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
-              ],
-              "ownership_status": "manual_hold"
-            }
-          ]
-        },
-        {
-          "seg_id": "1484",
-          "seg_name": "8th Street Motorcycle Trail 2",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.22,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
               ],
               "ownership_status": "manual_hold"
             }
@@ -1220,104 +1122,6 @@
               "label": "13-1: 13",
               "candidate_ids": [
                 "block-freestone_three_bears_curlew"
-              ],
-              "ownership_status": "manual_hold"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "2-1",
-      "outing_id": "2-1",
-      "label": "2-1: 2",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "planned_segment_ids": [
-        "1481",
-        "1517",
-        "1518",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1567",
-        "1568",
-        "1583",
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1596",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 3014,
-      "review_point_count": 1006,
-      "candidate_segment_count": 51,
-      "latent_completed_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1485"
-      ],
-      "segments": [
-        {
-          "seg_id": "1483",
-          "seg_name": "8th Street Motorcycle Trail 1",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.44,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
-              ],
-              "ownership_status": "manual_hold"
-            }
-          ]
-        },
-        {
-          "seg_id": "1484",
-          "seg_name": "8th Street Motorcycle Trail 2",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.22,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
               ],
               "ownership_status": "manual_hold"
             }

@@ -1,10 +1,10 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-21T01:03:07Z",
+  "generated_at": "2026-06-21T01:28:39Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
-    "route_count": 18,
+    "route_count": 17,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "phase_reset_failure_count": 0,
@@ -492,56 +492,6 @@
         "1595",
         "1694",
         "1695"
-      ]
-    },
-    {
-      "label": "2-1: 2",
-      "outing_id": "2-1",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "trailhead": "Hulls Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 13.11,
-        "generated_miles": 18.8,
-        "lower_bound_miles": 16.94,
-        "efficiency_ratio": 1.11,
-        "required_component_count": 5,
-        "odd_required_node_count": 16,
-        "parity_add_on_miles": 3.43,
-        "depot_component_attachment_miles": 0.39
-      },
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
-      "segment_ids": [
-        "1481",
-        "1517",
-        "1518",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1567",
-        "1568",
-        "1583",
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1596",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
       ]
     },
     {

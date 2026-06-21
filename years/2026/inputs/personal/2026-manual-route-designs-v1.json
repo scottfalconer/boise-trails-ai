@@ -446,12 +446,13 @@
         "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
         "manual-10a",
         "block-cartwright_peggy_interface",
-        "block-freestone_three_bears_curlew"
+        "block-freestone_three_bears_curlew",
+        "block-camels_lower_hulls_even_day"
       ],
       "current_placeholder": {
-        "label": "11 route-source holds",
+        "label": "12 route-source holds",
         "trailhead": "various starts",
-        "official_miles": 75.07,
+        "official_miles": 88.18,
         "on_foot_miles": null,
         "door_to_door_minutes": null,
         "candidate_ids": [
@@ -465,7 +466,8 @@
           "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
           "manual-10a",
           "block-cartwright_peggy_interface",
-          "block-freestone_three_bears_curlew"
+          "block-freestone_three_bears_curlew",
+          "block-camels_lower_hulls_even_day"
         ],
         "reason": "Certification found cue/map mileage drift large enough to make the route source untrustworthy."
       },
@@ -480,7 +482,8 @@
         {"label": "18A", "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive", "failure": "multiple Brewers / Mores cue spans disagree"},
         {"label": "10A", "candidate_id": "manual-10a", "failure": "multiple Harlow's / Spring cue spans disagree"},
         {"label": "6", "candidate_id": "block-cartwright_peggy_interface", "failure": "Peggy's / Cartwright cue spans disagree"},
-        {"label": "13", "candidate_id": "block-freestone_three_bears_curlew", "failure": "multiple Three Bears / Freestone cue spans disagree"}
+        {"label": "13", "candidate_id": "block-freestone_three_bears_curlew", "failure": "multiple Three Bears / Freestone cue spans disagree"},
+        {"label": "2", "candidate_id": "block-camels_lower_hulls_even_day", "failure": "after BTC dashboard progress removed Owl's Roost / Gold Finch / 15th St. / Chickadee Ridge credit, the remaining Hulls / Red Cliffs card reused stale full-route cue anchors: cue 13 spans 4.98 GPX mi for 0.27 cue mi and crosses a parked-car pass; cue 19 spans 0.00 GPX mi for 1.42 cue mi"}
       ],
       "acceptance_gates": [
         "Do not publish these candidates as runnable field cards until cue mileage, live-map/GPX route spans, and canonical route topology reconcile.",
