@@ -132,6 +132,114 @@ def test_explicit_lollipop_keeps_midroute_spur_repeat_out_of_return_to_car():
     assert cue["direction_validation"]["planned_traversal_direction"] == {"3": "official_geometry_start_to_end"}
 
 
+def test_apply_route_truth_repairs_rebuilds_standalone_pruned_component(monkeypatch):
+    module = load_human_loop_plan()
+    route_pass = {
+        "routes": [
+            {
+                "candidate_id": "stale-candidate",
+                "route_number": 7,
+            }
+        ]
+    }
+    package_pass = {
+        "packages": [
+            {
+                "package_number": 2,
+                "components": [
+                    {
+                        "candidate_id": "stale-candidate",
+                        "route_number": 7,
+                        "field_menu_label": "2",
+                    }
+                ],
+            }
+        ]
+    }
+    package_map = {
+        "packages": [
+            {
+                "package_number": 2,
+                "components": [
+                    {
+                        "candidate_id": "stale-candidate",
+                        "route_number": 7,
+                        "field_menu_label": "2",
+                    }
+                ],
+            }
+        ],
+        "route_cues": {
+            "stale-candidate": {
+                "candidate_id": "stale-candidate",
+                "trailhead": {"name": "Shared trailhead"},
+            }
+        },
+        "feature_collections": {
+            "routes": {"type": "FeatureCollection", "features": []},
+            "parking": {"type": "FeatureCollection", "features": []},
+        },
+    }
+    repairs = {
+        "repairs": [
+            {
+                "repair_id": "prune-stale",
+                "status": "active",
+                "repair_type": "pruned_component_route",
+                "package_number": 2,
+                "candidate_id": "stale-candidate",
+                "replacement_segment_ids": [101, 102],
+            }
+        ]
+    }
+
+    monkeypatch.setattr(module, "route_truth_context", lambda state, official_segments: {"stub": True})
+
+    def fake_payload(**kwargs):
+        assert kwargs["prune"]["replacement_segment_ids"] == [101, 102]
+        assert kwargs["prune"]["replacement_candidate_id"] == "stale-candidate"
+        return {
+            "component": {
+                "candidate_id": "stale-candidate",
+                "route_number": 7,
+                "field_menu_label": "2",
+                "segment_ids": [101, 102],
+            },
+            "cue": {"candidate_id": "stale-candidate", "segments": []},
+            "route_feature": {
+                "type": "Feature",
+                "geometry": {"type": "LineString", "coordinates": []},
+                "properties": {"candidate_id": "stale-candidate"},
+            },
+            "parking_feature": {
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [0, 0]},
+                "properties": {"candidate_id": "stale-candidate"},
+            },
+            "route_validation": {"candidate_id": "stale-candidate", "rendered_passed": True},
+        }
+
+    monkeypatch.setattr(module, "build_pruned_component_payload", fake_payload)
+
+    module.apply_route_truth_repairs(
+        route_pass,
+        package_pass,
+        package_map,
+        repairs,
+        official_segments=[
+            {"seg_id": 101, "coordinates": [[0, 0], [1, 1]]},
+            {"seg_id": 102, "coordinates": [[1, 1], [2, 2]]},
+        ],
+        state={},
+    )
+
+    assert package_map["packages"][0]["components"][0]["segment_ids"] == [101, 102]
+    assert package_map["packages"][0]["planning_status"] == "route_truth_repaired"
+    assert "completed_segments_pruned_from_route_source" in package_map["packages"][0]["planning_reasons"]
+    assert route_pass["routes"][0]["candidate_id"] == "stale-candidate"
+    assert route_pass["routes"][0]["route_source"] == "route_truth_pruned_component"
+
+
 def test_package_status_promotes_manual_design_hold():
     module = load_human_loop_plan()
 

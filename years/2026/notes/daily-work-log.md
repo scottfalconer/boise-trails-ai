@@ -4,6 +4,54 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-21 - Route 2 stale live-map source repair
+
+- Objective: remove the completed Owl's Roost / Gold Finch / 15th St. /
+  Chickadee Ridge source legs from live-map route `2-1` after dashboard
+  progress made those trails completed credit, while keeping the remaining
+  Kestral / Red Cliffs / Crestline / Lower Hulls / Hulls Interpretive route
+  certified and publishable.
+- Result:
+  - Added a generic active `pruned_component_route` route-truth repair path to
+    `human_loop_plan.py` and applied it to
+    `block-camels_lower_hulls_even_day`.
+  - Regenerated the canonical private outing menu, sanitized public map/menu,
+    phone field packet, GPX bundle, route-review pack, adversarial disproof
+    registry, and certification checkpoints from one route source.
+  - Route `2-1` now reads as `Camels Back / Hulls Gulch: Kestrel` and its
+    public/private/phone payloads list only Kestral Trail, Red Cliffs,
+    Crestline Trail, Lower Hull's Gulch Trail, and Hull's Gulch Interpretive.
+    The stale Owl's Roost / Gold Finch / 15th / Chickadee names have zero hits
+    in the route `2-1` payloads.
+  - Fixed two exporter regressions found during full-suite verification:
+    special-management GPX ordering now searches the directed group globally
+    instead of greedily, and wayfinding display-mileage sync preserves access
+    cue mileage/source snapshots.
+- Validation:
+  - `python3 years/2026/scripts/human_loop_plan.py` passed and regenerated the
+    canonical private outing map/menu.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and
+    wrote 84 GPX files plus the regenerated phone packet.
+  - Full field-packet chain passed: latent-credit audit, progress report,
+    recertification report, same-anchor spur-split audit, route-edge cover
+    audit, field-tool completion audit, field-route walkthrough audit, and
+    post-credit connector audit.
+  - `python3 years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 28 routes; `python3 years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json --today 2026-06-21`
+    passed with the existing valid `1A-1` waiver.
+  - `python3 years/2026/scripts/refresh_all_route_adversarial_disproof.py`
+    passed with 28 / 28 routes accepted and 0 deterministic same-credit
+    failures.
+  - JSON validation passed for the route-truth repair file, public field-tool
+    data, manifest, and public/example map-data JSON files.
+  - `git diff --check` passed.
+  - `python3 -m pytest -q --durations=10` passed with 741 tests passed and 1
+    skipped in 1941.96s.
+- Current blocker:
+  - No known packet/source certification blocker remains in the generated field
+    packet or public map. Standard same-day condition, closure, signage, and
+    heat checks still apply before running any route.
+
 ## 2026-06-21 - Final same-anchor spur proof hardening
 
 - Objective: tighten the proof that no active field-packet route still has the

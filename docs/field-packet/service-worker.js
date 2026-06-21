@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v28-cc4c76d1c1562a27e7";
+const CACHE_NAME = "boise-trails-field-packet-v28-a20db8234bbcb5b660";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -72,12 +72,12 @@ const PRECACHE_URLS = [
   "gpx/official/rocky-canyon-orchard-gulch-14.gpx",
   "gpx/cues/rocky-canyon-orchard-gulch-14.gpx",
   "gpx/audit/rocky-canyon-orchard-gulch-14.gpx",
-  "gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
-  "gpx/cues/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
-  "gpx/audit/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
   "gpx/official/dry-creek-16a-d1.gpx",
   "gpx/cues/dry-creek-16a-d1.gpx",
   "gpx/audit/dry-creek-16a-d1.gpx",
+  "gpx/official/camels-back-hulls-gulch-kestrel-2.gpx",
+  "gpx/cues/camels-back-hulls-gulch-kestrel-2.gpx",
+  "gpx/audit/camels-back-hulls-gulch-kestrel-2.gpx",
   "gpx/official/bogus-basin-brewers-byway-ext-18a.gpx",
   "gpx/cues/bogus-basin-brewers-byway-ext-18a.gpx",
   "gpx/audit/bogus-basin-brewers-byway-ext-18a.gpx",

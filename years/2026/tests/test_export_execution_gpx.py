@@ -376,8 +376,8 @@ def test_candidate_segments_for_track_reorders_special_management_loop_to_legal_
     assert [segment["seg_id"] for segment in ordered] == [
         1599,
         1604,
-        1603,
         1601,
+        1603,
         1598,
         1600,
         1602,

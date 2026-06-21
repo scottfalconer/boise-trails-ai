@@ -475,24 +475,51 @@ def reorder_special_management_group(
     official_index: dict[int, dict[str, Any]],
     current: tuple[float, float] | None,
 ) -> list[dict[str, Any]]:
-    remaining = list(segments)
-    ordered: list[dict[str, Any]] = []
-    while remaining:
-        best_index = 0
-        best_coords: list[tuple[float, float]] | None = None
-        best_gap = float("inf")
-        for index, segment in enumerate(remaining):
-            for option in oriented_segment_options(candidate, segment, official_index):
-                gap = 0.0 if current is None else haversine_miles(current, option[0])
-                if gap < best_gap:
-                    best_gap = gap
-                    best_index = index
-                    best_coords = option
-        selected = remaining.pop(best_index)
-        ordered.append(selected)
-        if best_coords:
-            current = best_coords[-1]
-    return ordered
+    indexed_options: list[tuple[int, dict[str, Any], list[list[tuple[float, float]]]]] = []
+    for index, segment in enumerate(segments):
+        options = oriented_segment_options(candidate, segment, official_index)
+        indexed_options.append((index, segment, options))
+    if any(not options for _index, _segment, options in indexed_options):
+        return list(segments)
+
+    best_cost = float("inf")
+    best_order: list[int] | None = None
+    best_segments: list[dict[str, Any]] | None = None
+
+    def search(
+        current_point: tuple[float, float] | None,
+        remaining: list[tuple[int, dict[str, Any], list[list[tuple[float, float]]]]],
+        order: list[int],
+        ordered_segments: list[dict[str, Any]],
+        cost: float,
+    ) -> None:
+        nonlocal best_cost, best_order, best_segments
+        if cost > best_cost + 1e-9:
+            return
+        if not remaining:
+            if (
+                cost < best_cost - 1e-9
+                or best_order is None
+                or (abs(cost - best_cost) <= 1e-9 and order < best_order)
+            ):
+                best_cost = cost
+                best_order = list(order)
+                best_segments = list(ordered_segments)
+            return
+        for remaining_index, (source_index, segment, options) in enumerate(remaining):
+            next_remaining = remaining[:remaining_index] + remaining[remaining_index + 1 :]
+            for option in options:
+                gap = 0.0 if current_point is None else haversine_miles(current_point, option[0])
+                search(
+                    option[-1],
+                    next_remaining,
+                    [*order, source_index],
+                    [*ordered_segments, segment],
+                    cost + gap,
+                )
+
+    search(current, indexed_options, [], [], 0.0)
+    return best_segments or list(segments)
 
 
 def candidate_segments_for_track(

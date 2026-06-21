@@ -1769,6 +1769,55 @@ def apply_route_truth_repairs(
     context = route_truth_context(state, official_segments)
     route_cues = package_map.setdefault("route_cues", {})
     for repair in repairs:
+        if repair.get("repair_type") == "pruned_component_route":
+            source_id = str(repair.get("candidate_id"))
+            map_package = package_by_number(package_map, repair.get("package_number"))
+            pass_package = package_by_number(package_pass, repair.get("package_number"))
+            source_component = component_by_candidate(map_package, source_id) or component_by_candidate(
+                pass_package,
+                source_id,
+            )
+            source_cue = copy.deepcopy(route_cues.get(source_id) or {})
+            if not map_package or not source_component or not source_cue:
+                raise ValueError(
+                    f"Route-truth pruned component repair {repair.get('repair_id')} missing source {source_id}"
+                )
+            pruned_payload = build_pruned_component_payload(
+                prune={**repair, "replacement_candidate_id": repair.get("replacement_candidate_id") or source_id},
+                source_component=source_component,
+                source_cue=source_cue,
+                official_by_id=official_by_id,
+                state=state,
+                context=context,
+                package=map_package,
+            )
+            replacement_id = pruned_payload["component"]["candidate_id"]
+            for package in [pass_package, map_package]:
+                if not package:
+                    continue
+                remove_candidates_from_package(package, {source_id, replacement_id})
+                package.setdefault("components", []).append(copy.deepcopy(pruned_payload["component"]))
+                reasons = list(package.get("planning_reasons") or [])
+                for reason in ["route_truth_repaired", "completed_segments_pruned_from_route_source"]:
+                    if reason not in reasons:
+                        reasons.append(reason)
+                package["planning_reasons"] = reasons
+                package["planning_status"] = "route_truth_repaired"
+                update_manual_package_summary(package)
+            remove_candidate_sources(package_map, {source_id, replacement_id})
+            add_route_truth_sources(package_map, pruned_payload)
+            route_pass["routes"] = [
+                route
+                for route in route_pass.get("routes") or []
+                if str(route.get("candidate_id")) not in {source_id, replacement_id}
+            ]
+            append_route_pass_route(
+                route_pass,
+                package=map_package,
+                component=pruned_payload["component"],
+                source="route_truth_pruned_component",
+            )
+            continue
         if repair.get("repair_type") != "explicit_lollipop_route":
             continue
         replacement_payload = explicit_lollipop_route_payload(

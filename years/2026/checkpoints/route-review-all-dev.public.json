@@ -1,14 +1,14 @@
 {
   "schema": "boise_trails_route_review_pack_v1",
-  "generated_at": "2026-06-21T01:03:17Z",
+  "generated_at": "2026-06-21T14:34:12Z",
   "thresholds": {
     "material_on_foot_savings_miles": 0.25,
     "material_p75_savings_minutes": 10
   },
   "summary": {
-    "route_count": 18,
+    "route_count": 28,
     "deterministic_failure_count": 1,
-    "single_segment_route_count": 3
+    "single_segment_route_count": 4
   },
   "routes": [
     {
@@ -621,6 +621,94 @@
       }
     },
     {
+      "route_label": "15B",
+      "route_source_hash": "c9adb357f2642f557830aa0e99db11697a7032a5966c9009f8567491457cc927",
+      "current_start": "Bob's",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Bob's Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1576",
+        "1577",
+        "1523"
+      ],
+      "trail_names": [
+        "Highlands Trail",
+        "Connector"
+      ],
+      "metrics": {
+        "on_foot_miles": 8.43,
+        "p75_minutes": 147,
+        "p90_minutes": 165,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 5,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 2.35,
+        "on_foot_to_official_ratio": 3.59,
+        "start_access_gap_miles": 0.547,
+        "return_access_gap_miles": 2.303,
+        "repeat_or_non_credit_burden_miles": 6.08
+      },
+      "parking": {
+        "name": "Bob's Trailhead",
+        "display_name": "Bob's Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Bob's",
+        "nearest_open_trail_label": "#30 Bob's"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [
+        {
+          "source": "multi_start_alternative_audit",
+          "alternative_id": "15-MS-06",
+          "accepted_replacement_id": null,
+          "anchor_label": "Bob's Trailhead",
+          "anchor_ref": "facility-831",
+          "parking_confidence": "inferred_from_trailhead_layer",
+          "parking_blockers": [],
+          "field_ready": true,
+          "same_credit": true,
+          "segment_ids": [
+            "1577",
+            "1576",
+            "1523"
+          ],
+          "official_miles": 2.35,
+          "on_foot_miles": 4.49,
+          "p75_minutes": 113,
+          "p90_minutes": 0,
+          "material_savings": true,
+          "deltas": {
+            "dominance_delta_on_foot_miles": 3.94,
+            "dominance_delta_p75_minutes": 34.0,
+            "dominance_delta_p90_minutes": 165.0,
+            "dominance_delta_cue_complexity": 5.0,
+            "parking_confidence_delta": {
+              "baseline": "inferred_from_trailhead_layer",
+              "replacement": "inferred_from_trailhead_layer"
+            }
+          },
+          "applied_to_current_route": true,
+          "same_as_current_anchor": true
+        }
+      ],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0285,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
       "route_label": "11",
       "route_source_hash": "f28e99a6d51ef7da674191fb42ad817e583d5065aa64f98e8f612927b9a87506",
       "current_start": "Hawkins Range Reserve",
@@ -723,6 +811,110 @@
       "prior_audit_evidence": {
         "passed": true,
         "max_trackpoint_gap_miles": 0.0272,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "18B",
+      "route_source_hash": "e3f609ff14ab175f1184187d0c8dc64a83d957ee7f1e986db02144f4e36ce461",
+      "current_start": "Simplot Lodge Parking Area",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Simplot Lodge Parking Area is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1655",
+        "1721"
+      ],
+      "trail_names": [
+        "Shindig",
+        "Lodge Trail"
+      ],
+      "metrics": {
+        "on_foot_miles": 6.82,
+        "p75_minutes": 165,
+        "p90_minutes": 185,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 5,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 0.66,
+        "on_foot_to_official_ratio": 10.33,
+        "start_access_gap_miles": 1.311,
+        "return_access_gap_miles": 2.875,
+        "repeat_or_non_credit_burden_miles": 6.16
+      },
+      "parking": {
+        "name": "Simplot Lodge Parking Area",
+        "display_name": "Simplot Lodge Parking Area",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Deer Point",
+        "nearest_open_trail_label": "#91 Deer Point"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0371,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "16C-1",
+      "route_source_hash": "c9fa25fd0997e40efd3f5a07df212392692e1e898b76a0549e4debc7f79dff8c",
+      "current_start": "Freddy's Stack Rock",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Freddy's Stack Rock Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1762"
+      ],
+      "trail_names": [
+        "Stack Rock Connector"
+      ],
+      "metrics": {
+        "on_foot_miles": 7.77,
+        "p75_minutes": 170,
+        "p90_minutes": 191,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 3,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 1.0,
+        "on_foot_to_official_ratio": 7.77,
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 0.094,
+        "repeat_or_non_credit_burden_miles": 6.77
+      },
+      "parking": {
+        "name": "Freddy's Stack Rock Trailhead",
+        "display_name": "Freddy's Stack Rock Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Freddys Stack Rock Trail",
+        "nearest_open_trail_label": "#125 Freddys Stack Rock Trail"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0325,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -948,6 +1140,208 @@
       }
     },
     {
+      "route_label": "3",
+      "route_source_hash": "6e5867ea2c284ade5d167d2acfc7b7cc0b353a4fd87a55d51d1b36f2fd871999",
+      "current_start": "Freestone Creek",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Freestone Creek Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1590",
+        "1594",
+        "1593",
+        "1592",
+        "1591",
+        "1515",
+        "1514",
+        "1513",
+        "1512",
+        "1511",
+        "1510",
+        "1720",
+        "1629",
+        "1631",
+        "1630",
+        "1627",
+        "1628",
+        "1529",
+        "1530",
+        "1531",
+        "1522",
+        "1548",
+        "1549",
+        "1550",
+        "1551",
+        "1552",
+        "1574",
+        "1575"
+      ],
+      "trail_names": [
+        "Military Reserve Connection",
+        "Mountain Cove",
+        "Central Ridge Trail",
+        "Central Ridge Spur",
+        "Ridge Crest",
+        "Cottonwood Creek Trail",
+        "Connection (Eagle Ridge)",
+        "Eagle Ridge Trail",
+        "Elephant Rock Loop",
+        "Heroes Trail"
+      ],
+      "metrics": {
+        "on_foot_miles": 13.58,
+        "p75_minutes": 236,
+        "p90_minutes": 265,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 25,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 8.31,
+        "on_foot_to_official_ratio": 1.63,
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 0.627,
+        "repeat_or_non_credit_burden_miles": 5.27
+      },
+      "parking": {
+        "name": "Freestone Creek Trailhead",
+        "display_name": "Freestone Creek Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Mountain Cove",
+        "nearest_open_trail_label": "#22C Mountain Cove"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0369,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "12",
+      "route_source_hash": "a9fc3ae92b73cb980938a1e0edc47d76d8ec17d0d865597dd320ba17380dae46",
+      "current_start": "8th Street ATV Parking Area",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because 8th Street ATV Parking Area is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1660"
+      ],
+      "trail_names": [
+        "Corrals Trail",
+        "8th Street Motorcycle Trail",
+        "Sidewinder Trail"
+      ],
+      "metrics": {
+        "on_foot_miles": 13.44,
+        "p75_minutes": 243,
+        "p90_minutes": 273,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 7,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 7.81,
+        "on_foot_to_official_ratio": 1.72,
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 1.457,
+        "repeat_or_non_credit_burden_miles": 5.63
+      },
+      "parking": {
+        "name": "8th Street ATV Parking Area",
+        "display_name": "8th Street ATV Parking Area",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "8th Street Motorcycle",
+        "nearest_open_trail_label": "#4 8th Street Motorcycle"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "16A-1",
+      "route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
+      "current_start": "Dry Creek / Sweet Connie roadside parking",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "trail_names": [
+        "Sweet Connie Trail"
+      ],
+      "metrics": {
+        "on_foot_miles": 14.2,
+        "p75_minutes": 249,
+        "p90_minutes": 279,
+        "drive_minutes": 0,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "cue_complexity": 3,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 6.09,
+        "on_foot_to_official_ratio": 2.33,
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 1.543,
+        "repeat_or_non_credit_burden_miles": 8.11
+      },
+      "parking": {
+        "name": "Dry Creek / Sweet Connie roadside parking",
+        "display_name": "Dry Creek / Sweet Connie roadside parking",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "source": "historical_strava_anchor_plus_swimba_and_local_parking_sources",
+        "field_ready": true,
+        "nearest_open_trail_name": "",
+        "nearest_open_trail_label": ""
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0153,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
       "route_label": "4C",
       "route_source_hash": "03ca332051f4ca842024b5a679e347c6c90ffbda12b5f0c3b25b2baf95278748",
       "current_start": "Eagle Rock Park",
@@ -1091,89 +1485,6 @@
       }
     },
     {
-      "route_label": "2",
-      "route_source_hash": "a742129e95a46111357eb903184654a2bdc768f51c8bd4e9df107405f6b61325",
-      "current_start": "Hulls Gulch",
-      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1730",
-        "1728",
-        "1726",
-        "1725",
-        "1727",
-        "1729",
-        "1751",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1583",
-        "1596",
-        "1567",
-        "1568",
-        "1481",
-        "1517",
-        "1518",
-        "1616",
-        "1615"
-      ],
-      "trail_names": [
-        "Lower Hull's Gulch Trail",
-        "Hull's Gulch Interpretive",
-        "Crestline Trail",
-        "Kestral Trail",
-        "Owl's Roost",
-        "Gold Finch",
-        "15th St. Trail",
-        "Chickadee Ridge Trail",
-        "Red Cliffs"
-      ],
-      "metrics": {
-        "on_foot_miles": 18.8,
-        "p75_minutes": 332,
-        "p90_minutes": 372,
-        "drive_minutes": 0,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "cue_complexity": 20,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 13.11,
-        "on_foot_to_official_ratio": 1.43,
-        "start_access_gap_miles": 0.042,
-        "return_access_gap_miles": 0.459,
-        "repeat_or_non_credit_burden_miles": 5.69
-      },
-      "parking": {
-        "name": "Hulls Gulch Trailhead",
-        "display_name": "Hulls Gulch Trailhead",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Kestrel",
-        "nearest_open_trail_label": "#39A Kestrel"
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0299,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "16A-D1",
       "route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
       "current_start": "Dry Creek / Sweet Connie roadside parking",
@@ -1227,6 +1538,213 @@
       "prior_audit_evidence": {
         "passed": true,
         "max_trackpoint_gap_miles": 0.0375,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "2",
+      "route_source_hash": "3a30e384d63ddba2271540e7df9efbcbf525f2169eb6ceb06ff67c1b3d247f9c",
+      "current_start": "Hulls Gulch",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1583",
+        "1616",
+        "1615",
+        "1535",
+        "1534",
+        "1533",
+        "1532",
+        "1589",
+        "1588",
+        "1587",
+        "1586",
+        "1585",
+        "1751",
+        "1729",
+        "1727",
+        "1725",
+        "1726",
+        "1728",
+        "1730"
+      ],
+      "trail_names": [
+        "Kestral Trail",
+        "Red Cliffs",
+        "Crestline Trail",
+        "Lower Hull's Gulch Trail",
+        "Hull's Gulch Interpretive"
+      ],
+      "metrics": {
+        "on_foot_miles": 20.62,
+        "p75_minutes": 349,
+        "p90_minutes": 391,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 15,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 11.08,
+        "on_foot_to_official_ratio": 1.86,
+        "start_access_gap_miles": 0.1,
+        "return_access_gap_miles": 3.009,
+        "repeat_or_non_credit_burden_miles": 9.54
+      },
+      "parking": {
+        "name": "Hulls Gulch Trailhead",
+        "display_name": "Hulls Gulch Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Kestrel",
+        "nearest_open_trail_label": "#39A Kestrel"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.036,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "18A",
+      "route_source_hash": "9fb44003623436c3da215f3c32515e32e4bebcbc0a65795559f9fc3f47a64e9e",
+      "current_start": "Bogus Basin Base Area",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Bogus Basin Base Area is the current field-packet parking/start anchor for this exact official segment set, with user_configured_trailhead parking evidence from personal_planner_state; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1703",
+        "1679",
+        "1678",
+        "1502",
+        "1503",
+        "1501",
+        "1736",
+        "1735",
+        "1734",
+        "1733",
+        "1732"
+      ],
+      "trail_names": [
+        "Brewer's Byway Extension",
+        "Tempest Trail",
+        "Brewers Byway",
+        "The Face Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "metrics": {
+        "on_foot_miles": 15.3,
+        "p75_minutes": 357,
+        "p90_minutes": 400,
+        "drive_minutes": 0,
+        "parking_confidence": "user_configured_trailhead",
+        "cue_complexity": 11,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 4.43,
+        "on_foot_to_official_ratio": 3.45,
+        "start_access_gap_miles": 1.03,
+        "return_access_gap_miles": 3.263,
+        "repeat_or_non_credit_burden_miles": 10.87
+      },
+      "parking": {
+        "name": "Bogus Basin Base Area",
+        "display_name": "Bogus Basin Base Area",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "user_configured_trailhead",
+        "source": "personal_planner_state",
+        "field_ready": null,
+        "nearest_open_trail_name": "",
+        "nearest_open_trail_label": ""
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0296,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "10A",
+      "route_source_hash": "70feb9edc48fbc52bb1df9a8c1147b423eb26db3f36b4fc9ff70e1772df72421",
+      "current_start": "Harlow's / Hidden Springs west access probe",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Harlow's / Hidden Springs west access probe is the current field-packet parking/start anchor for this exact official segment set, with manual_required parking evidence from official_segment_endpoint_plus_osm_path_probe; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1704",
+        "1705",
+        "1707",
+        "1706",
+        "1708",
+        "1626",
+        "1657",
+        "1696",
+        "1687",
+        "1688",
+        "1689",
+        "1661",
+        "1662"
+      ],
+      "trail_names": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
+      ],
+      "metrics": {
+        "on_foot_miles": 21.84,
+        "p75_minutes": 360,
+        "p90_minutes": 404,
+        "drive_minutes": 0,
+        "parking_confidence": "manual_required",
+        "cue_complexity": 16,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 7.3,
+        "on_foot_to_official_ratio": 2.99,
+        "start_access_gap_miles": 5.568,
+        "return_access_gap_miles": 0.059,
+        "repeat_or_non_credit_burden_miles": 14.54
+      },
+      "parking": {
+        "name": "Harlow's / Hidden Springs west access probe",
+        "display_name": "Harlow's / Hidden Springs west access probe",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "manual_required",
+        "source": "official_segment_endpoint_plus_osm_path_probe",
+        "field_ready": false,
+        "nearest_open_trail_name": "",
+        "nearest_open_trail_label": ""
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0299,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -1293,6 +1811,141 @@
       "prior_audit_evidence": {
         "passed": true,
         "max_trackpoint_gap_miles": 0.0296,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "6",
+      "route_source_hash": "6e23ce2721e362b7768b65af9e343a997ee3acb28c84abfabc201af0d0860b4f",
+      "current_start": "Cartwright",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Cartwright Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1597",
+        "1519",
+        "1520",
+        "1521",
+        "1709",
+        "1509",
+        "1508",
+        "1516"
+      ],
+      "trail_names": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ],
+      "metrics": {
+        "on_foot_miles": 22.41,
+        "p75_minutes": 409,
+        "p90_minutes": 459,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 14,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 13.67,
+        "on_foot_to_official_ratio": 1.64,
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 1.554,
+        "repeat_or_non_credit_burden_miles": 8.74
+      },
+      "parking": {
+        "name": "Cartwright Trailhead",
+        "display_name": "Cartwright Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Polecat Loop",
+        "nearest_open_trail_label": "#81 Polecat Loop"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
+      "route_label": "13",
+      "route_source_hash": "6ffdfa3fc2fe92be4cee7fc518e7967dca61369c3149f78a9597b4a55210bfb4",
+      "current_start": "Freestone Creek",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Freestone Creek Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1558",
+        "1564",
+        "1563",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1748",
+        "1555",
+        "1711",
+        "1710"
+      ],
+      "trail_names": [
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Two Point",
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ],
+      "metrics": {
+        "on_foot_miles": 32.47,
+        "p75_minutes": 497,
+        "p90_minutes": 557,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 16,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 14.35,
+        "on_foot_to_official_ratio": 2.26,
+        "start_access_gap_miles": 0.791,
+        "return_access_gap_miles": 3.5,
+        "repeat_or_non_credit_burden_miles": 18.12
+      },
+      "parking": {
+        "name": "Freestone Creek Trailhead",
+        "display_name": "Freestone Creek Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Mountain Cove",
+        "nearest_open_trail_label": "#22C Mountain Cove"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.03,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -1575,6 +2228,39 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
+      "route_id": "15B",
+      "route_label": "15B",
+      "route_source_hash": "c9adb357f2642f557830aa0e99db11697a7032a5966c9009f8567491457cc927",
+      "segment_ids": [
+        "1576",
+        "1577",
+        "1523"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1576, 1577, 1523.",
+      "start_anchor_assessment": "Current start is Bob's. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Bob's Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "8.43 on-foot miles for 2.35 official miles; non-credit/repeat burden is 6.08 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
       "route_id": "11",
       "route_label": "11",
       "route_source_hash": "f28e99a6d51ef7da674191fb42ad817e583d5065aa64f98e8f612927b9a87506",
@@ -1622,6 +2308,69 @@
       "official_credit_summary": "Route buys exact official segment set 1497, 1538, 1537, 1536.",
       "start_anchor_assessment": "Current start is Dry Creek Parking Area/Trailhead. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "4.28 on-foot miles for 2.45 official miles; non-credit/repeat burden is 1.83 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "18B",
+      "route_label": "18B",
+      "route_source_hash": "e3f609ff14ab175f1184187d0c8dc64a83d957ee7f1e986db02144f4e36ce461",
+      "segment_ids": [
+        "1655",
+        "1721"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1655, 1721.",
+      "start_anchor_assessment": "Current start is Simplot Lodge Parking Area. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Simplot Lodge Parking Area is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "6.82 on-foot miles for 0.66 official miles; non-credit/repeat burden is 6.16 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "16C-1",
+      "route_label": "16C-1",
+      "route_source_hash": "c9fa25fd0997e40efd3f5a07df212392692e1e898b76a0549e4debc7f79dff8c",
+      "segment_ids": [
+        "1762"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1762.",
+      "start_anchor_assessment": "Current start is Freddy's Stack Rock. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Freddy's Stack Rock Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "7.77 on-foot miles for 1.0 official miles; non-credit/repeat burden is 6.77 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -1755,6 +2504,137 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
+      "route_id": "3",
+      "route_label": "3",
+      "route_source_hash": "6e5867ea2c284ade5d167d2acfc7b7cc0b353a4fd87a55d51d1b36f2fd871999",
+      "segment_ids": [
+        "1590",
+        "1594",
+        "1593",
+        "1592",
+        "1591",
+        "1515",
+        "1514",
+        "1513",
+        "1512",
+        "1511",
+        "1510",
+        "1720",
+        "1629",
+        "1631",
+        "1630",
+        "1627",
+        "1628",
+        "1529",
+        "1530",
+        "1531",
+        "1522",
+        "1548",
+        "1549",
+        "1550",
+        "1551",
+        "1552",
+        "1574",
+        "1575"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1590, 1594, 1593, 1592, 1591, 1515, 1514, 1513, 1512, 1511, 1510, 1720, 1629, 1631, 1630, 1627, 1628, 1529, 1530, 1531, 1522, 1548, 1549, 1550, 1551, 1552, 1574, 1575.",
+      "start_anchor_assessment": "Current start is Freestone Creek. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Freestone Creek Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "13.58 on-foot miles for 8.31 official miles; non-credit/repeat burden is 5.27 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "12",
+      "route_label": "12",
+      "route_source_hash": "a9fc3ae92b73cb980938a1e0edc47d76d8ec17d0d865597dd320ba17380dae46",
+      "segment_ids": [
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1660"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1524, 1525, 1526, 1527, 1528, 1483, 1484, 1485, 1486, 1660.",
+      "start_anchor_assessment": "Current start is 8th Street ATV Parking Area. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because 8th Street ATV Parking Area is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "13.44 on-foot miles for 7.81 official miles; non-credit/repeat burden is 5.63 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "16A-1",
+      "route_label": "16A-1",
+      "route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
+      "segment_ids": [
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1665, 1666, 1667.",
+      "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "14.2 on-foot miles for 6.09 official miles; non-credit/repeat burden is 8.11 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
       "route_id": "4C",
       "route_label": "4C",
       "route_source_hash": "03ca332051f4ca842024b5a679e347c6c90ffbda12b5f0c3b25b2baf95278748",
@@ -1850,41 +2730,23 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "2",
-      "route_label": "2",
-      "route_source_hash": "a742129e95a46111357eb903184654a2bdc768f51c8bd4e9df107405f6b61325",
+      "route_id": "16A-D1",
+      "route_label": "16A-D1",
+      "route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
       "segment_ids": [
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1730",
-        "1728",
-        "1726",
-        "1725",
-        "1727",
-        "1729",
-        "1751",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1583",
-        "1596",
-        "1567",
-        "1568",
-        "1481",
-        "1517",
-        "1518",
-        "1616",
-        "1615"
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
       ],
       "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1585, 1586, 1587, 1588, 1589, 1730, 1728, 1726, 1725, 1727, 1729, 1751, 1532, 1533, 1534, 1535, 1583, 1596, 1567, 1568, 1481, 1517, 1518, 1616, 1615.",
-      "start_anchor_assessment": "Current start is Hulls Gulch. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "18.8 on-foot miles for 13.11 official miles; non-credit/repeat burden is 5.69 miles.",
+      "official_credit_summary": "Route buys exact official segment set 1542, 1543, 1544, 1545, 1546, 1653, 1656.",
+      "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "15.61 on-foot miles for 12.5 official miles; non-credit/repeat burden is 3.11 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -1905,23 +2767,119 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "16A-D1",
-      "route_label": "16A-D1",
-      "route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
+      "route_id": "2",
+      "route_label": "2",
+      "route_source_hash": "3a30e384d63ddba2271540e7df9efbcbf525f2169eb6ceb06ff67c1b3d247f9c",
       "segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1653",
-        "1656"
+        "1583",
+        "1616",
+        "1615",
+        "1535",
+        "1534",
+        "1533",
+        "1532",
+        "1589",
+        "1588",
+        "1587",
+        "1586",
+        "1585",
+        "1751",
+        "1729",
+        "1727",
+        "1725",
+        "1726",
+        "1728",
+        "1730"
       ],
       "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1542, 1543, 1544, 1545, 1546, 1653, 1656.",
-      "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "15.61 on-foot miles for 12.5 official miles; non-credit/repeat burden is 3.11 miles.",
+      "official_credit_summary": "Route buys exact official segment set 1583, 1616, 1615, 1535, 1534, 1533, 1532, 1589, 1588, 1587, 1586, 1585, 1751, 1729, 1727, 1725, 1726, 1728, 1730.",
+      "start_anchor_assessment": "Current start is Hulls Gulch. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "20.62 on-foot miles for 11.08 official miles; non-credit/repeat burden is 9.54 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "18A",
+      "route_label": "18A",
+      "route_source_hash": "9fb44003623436c3da215f3c32515e32e4bebcbc0a65795559f9fc3f47a64e9e",
+      "segment_ids": [
+        "1703",
+        "1679",
+        "1678",
+        "1502",
+        "1503",
+        "1501",
+        "1736",
+        "1735",
+        "1734",
+        "1733",
+        "1732"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1703, 1679, 1678, 1502, 1503, 1501, 1736, 1735, 1734, 1733, 1732.",
+      "start_anchor_assessment": "Current start is Bogus Basin Base Area. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Bogus Basin Base Area is the current field-packet parking/start anchor for this exact official segment set, with user_configured_trailhead parking evidence from personal_planner_state; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "15.3 on-foot miles for 4.43 official miles; non-credit/repeat burden is 10.87 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "10A",
+      "route_label": "10A",
+      "route_source_hash": "70feb9edc48fbc52bb1df9a8c1147b423eb26db3f36b4fc9ff70e1772df72421",
+      "segment_ids": [
+        "1704",
+        "1705",
+        "1707",
+        "1706",
+        "1708",
+        "1626",
+        "1657",
+        "1696",
+        "1687",
+        "1688",
+        "1689",
+        "1661",
+        "1662"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1704, 1705, 1707, 1706, 1708, 1626, 1657, 1696, 1687, 1688, 1689, 1661, 1662.",
+      "start_anchor_assessment": "Current start is Harlow's / Hidden Springs west access probe. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Harlow's / Hidden Springs west access probe is the current field-packet parking/start anchor for this exact official segment set, with manual_required parking evidence from official_segment_endpoint_plus_osm_path_probe; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "21.84 on-foot miles for 7.3 official miles; non-credit/repeat burden is 14.54 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -1964,6 +2922,90 @@
       "official_credit_summary": "Route buys exact official segment set 1713, 1540, 1488, 1489, 1490, 1491, 1492, 1493, 1750, 1680, 1553, 1554.",
       "start_anchor_assessment": "Current start is Simplot Lodge Parking Area. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Simplot Lodge Parking Area is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "16.02 on-foot miles for 11.29 official miles; non-credit/repeat burden is 4.73 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "6",
+      "route_label": "6",
+      "route_source_hash": "6e23ce2721e362b7768b65af9e343a997ee3acb28c84abfabc201af0d0860b4f",
+      "segment_ids": [
+        "1597",
+        "1519",
+        "1520",
+        "1521",
+        "1709",
+        "1509",
+        "1508",
+        "1516"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1597, 1519, 1520, 1521, 1709, 1509, 1508, 1516.",
+      "start_anchor_assessment": "Current start is Cartwright. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Cartwright Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "22.41 on-foot miles for 13.67 official miles; non-credit/repeat burden is 8.74 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "No route-review action required.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    },
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "13",
+      "route_label": "13",
+      "route_source_hash": "6ffdfa3fc2fe92be4cee7fc518e7967dca61369c3149f78a9597b4a55210bfb4",
+      "segment_ids": [
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1558",
+        "1564",
+        "1563",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1748",
+        "1555",
+        "1711",
+        "1710"
+      ],
+      "decision": "PASS_NON_DOMINATED",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1681, 1682, 1683, 1684, 1685, 1558, 1564, 1563, 1649, 1650, 1651, 1652, 1748, 1555, 1711, 1710.",
+      "start_anchor_assessment": "Current start is Freestone Creek. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Freestone Creek Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "32.47 on-foot miles for 14.35 official miles; non-credit/repeat burden is 18.12 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,

@@ -1032,6 +1032,10 @@ def reconcile_wayfinding_miles_to_route_card(route: dict[str, Any]) -> dict[str,
     if not cues or card_miles <= 0 or cue_miles <= 0:
         route["wayfinding_mileage_reconciliation"]["status"] = "not_applicable"
         return route
+    if any("source_leg_miles" in cue or "source_cum_miles" in cue for cue in cues):
+        for cue in cues:
+            cue.setdefault("source_cum_miles", round(float(cue.get("cum_miles") or 0), 2))
+            cue.setdefault("source_leg_miles", round(float(cue.get("leg_miles") or 0), 2))
     tolerance = route_card_mileage_tolerance(card_miles)
     if abs(cue_miles - card_miles) <= tolerance:
         return route
@@ -4245,14 +4249,19 @@ def sync_wayfinding_display_miles_to_route_intervals(route: dict[str, Any]) -> d
         if route_miles is not None:
             current_cum = float(cue.get("cum_miles") or 0.0)
             route_cum = round(float(route_miles or 0.0), 2)
-            if abs(current_cum - route_cum) >= 0.01:
+            if "cum_miles" not in cue or abs(current_cum - route_cum) >= 0.01:
                 cue.setdefault("source_cum_miles", round(current_cum, 2))
                 cue["cum_miles"] = route_cum
                 changed = True
         if route_leg_miles is not None:
             current_leg = float(cue.get("leg_miles") or 0.0)
             route_leg = round(float(route_leg_miles or 0.0), 2)
-            if abs(current_leg - route_leg) >= 0.01:
+            preserve_display_leg = (
+                route_leg <= 0
+                and current_leg > 0
+                and str(cue.get("cue_type") or "") in NON_CREDIT_WAYFINDING_CUE_TYPES
+            )
+            if not preserve_display_leg and ("leg_miles" not in cue or abs(current_leg - route_leg) >= 0.01):
                 cue.setdefault("source_leg_miles", round(current_leg, 2))
                 cue["leg_miles"] = route_leg
                 changed = True

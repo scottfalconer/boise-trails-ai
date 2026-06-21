@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-21T03:51:57.805424+00:00",
+  "generated_at": "2026-06-21T14:33:10.679776+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -27,7 +27,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 7fd62cff96d2a1a7cadb1c087da7039dc1e7efadecc3cecee942852c3da5f861; canonical map hash 7fd62cff96d2a1a7cadb1c087da7039dc1e7efadecc3cecee942852c3da5f861"
+      "evidence": "field source hash e6a457a58db9301cfd90ff8b2e64d1a02c37b17c994e621d0e53976d020cb3c6; canonical map hash e6a457a58db9301cfd90ff8b2e64d1a02c37b17c994e621d0e53976d020cb3c6"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -158,7 +158,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-21T03:51:56.092303+00:00",
+    "generated_at": "2026-06-21T14:33:08.844294+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -411,6 +411,14 @@
         "failures": []
       },
       {
+        "label": "16A-D1",
+        "outing_id": "16-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "2",
         "outing_id": "2-1",
         "passed": true,
@@ -418,14 +426,6 @@
         "date_context_required": [
           "r2r-lower-hulls-29-even-day-foot-access"
         ],
-        "failures": []
-      },
-      {
-        "label": "16A-D1",
-        "outing_id": "16-3",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
         "failures": []
       },
       {

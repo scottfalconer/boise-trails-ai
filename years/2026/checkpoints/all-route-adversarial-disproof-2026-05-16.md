@@ -4,9 +4,9 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 ## Summary
 
-- Routes: 18
-- Proofs: 18
-- Accepted (recertified): 18
+- Routes: 28
+- Proofs: 28
+- Accepted (recertified): 28
 - Deterministic same-credit failures: 0
 
 ## Routes
@@ -75,6 +75,14 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
+### 15B - Dry Creek
+
+- Candidate id: `route-truth-15b-highlands-connector`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 2.35 official mi / 8.43 on-foot mi / p75 147 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
 ### 11 - Hawkins Range Reserve
 
 - Candidate id: `block-hawkins`
@@ -88,6 +96,22 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Candidate id: `manual-10b`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 2.45 official mi / 4.28 on-foot mi / p75 152 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 18B - Bogus Basin
+
+- Candidate id: `combo-lodge-trail-shindig`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 0.66 official mi / 6.82 on-foot mi / p75 165 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 16C-1 - Bogus Basin
+
+- Candidate id: `multi-start-16c-16c-ms-02-1-stack-rock-connector`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 1.0 official mi / 7.77 on-foot mi / p75 170 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -115,6 +139,30 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
+### 3 - Military Reserve
+
+- Candidate id: `block-military_core`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 8.31 official mi / 13.58 on-foot mi / p75 236 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 12 - Dry Creek
+
+- Candidate id: `block-upper_8th_corrals_sidewinder`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 7.81 official mi / 13.44 on-foot mi / p75 243 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 16A-1 - Dry Creek
+
+- Candidate id: `manual-16a-1`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 6.09 official mi / 14.2 on-foot mi / p75 249 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
 ### 4C - Table Rock
 
 - Candidate id: `combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute`
@@ -131,14 +179,6 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
-### 2 - Camels Back / Hulls Gulch
-
-- Candidate id: `block-camels_lower_hulls_even_day`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 13.11 official mi / 18.8 on-foot mi / p75 332 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
 ### 16A-D1 - Dry Creek
 
 - Candidate id: `manual-16a-d1`
@@ -147,10 +187,50 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
+### 2 - Camels Back / Hulls Gulch
+
+- Candidate id: `block-camels_lower_hulls_even_day`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 11.08 official mi / 20.62 on-foot mi / p75 349 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 18A - Bogus Basin
+
+- Candidate id: `brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 4.43 official mi / 15.3 on-foot mi / p75 357 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 10A - Harlow's / Hidden Springs west access probe
+
+- Candidate id: `manual-10a`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 7.3 official mi / 21.84 on-foot mi / p75 360 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
 ### 17 - Bogus Basin
 
 - Candidate id: `block-bogus_atm_deer_elk_sunshine`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 11.29 official mi / 16.02 on-foot mi / p75 386 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 6 - Dry Creek
+
+- Candidate id: `block-cartwright_peggy_interface`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 13.67 official mi / 22.41 on-foot mi / p75 409 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
+### 13 - Rocky Canyon
+
+- Candidate id: `block-freestone_three_bears_curlew`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 14.35 official mi / 32.47 on-foot mi / p75 497 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.

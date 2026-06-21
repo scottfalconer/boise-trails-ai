@@ -29,8 +29,7 @@ CURRENT_MENU_TEXT = [
 
 CURRENT_PRIVATE_CANDIDATES_REDACTED = {
     "manual-16a-1",
-    "manual-16a-2",
-    "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
+    "manual-16a-d1",
 }
 
 
@@ -119,7 +118,7 @@ def test_public_html_embedded_data_matches_public_json_for_current_routes():
 def test_public_menu_markdown_contains_current_rows_and_not_stale_rows():
     for menu_path in [ROOT_MENU_MD, EXAMPLE_MENU_MD]:
         menu = menu_path.read_text(encoding="utf-8")
-        assert "Open runnable outings: 31" in menu
+        assert "Open runnable outings: 28" in menu
         for expected_text in CURRENT_MENU_TEXT:
             assert expected_text in menu, (menu_path, expected_text)
         for stale_row in STALE_MENU_ROWS:
