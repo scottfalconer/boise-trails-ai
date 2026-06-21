@@ -677,6 +677,28 @@ def source_path_route_interval(
     return start, end
 
 
+def source_path_start_route_mile(
+    cue: dict[str, Any],
+    route_points: list[dict[str, Any]],
+    *,
+    floor_mile: float,
+    target_mile: float,
+    floor_slop_miles: float = 0.12,
+) -> float | None:
+    start_point = coordinate_pair(cue.get("source_path_start"))
+    if not start_point:
+        return None
+    candidates = route_miles_near_point(route_points, tuple(start_point))
+    if not candidates:
+        return None
+    return nearest_route_anchor_mile(
+        candidates,
+        target_mile=target_mile,
+        floor_mile=floor_mile,
+        floor_slop_miles=floor_slop_miles,
+    )
+
+
 def official_endpoint_route_miles(
     segment: dict[str, Any],
     official_index: dict[str, dict[str, Any]],
@@ -942,13 +964,23 @@ def assign_wayfinding_route_miles(route: dict[str, Any]) -> dict[str, Any]:
             start = max(previous_end, official_anchor_by_index[index])
             next_is_connector = index + 1 < len(cues) and not route_geometry_segment_ids_for_cue(cues[index + 1])
             if next_is_connector or next_official_anchor is None or next_official_anchor <= start + 0.05:
+                fallback_end = min(track_total, start + float(cue.get("leg_miles") or 0))
                 end = route_interval_end_for_official_cue(
                     cue,
                     start_mile=start,
-                    fallback_end_mile=min(track_total, start + float(cue.get("leg_miles") or 0)),
+                    fallback_end_mile=fallback_end,
                     official_index=official_index,
                     route_points=route_points,
                 )
+                if next_is_connector:
+                    next_source_start = source_path_start_route_mile(
+                        cues[index + 1],
+                        route_points,
+                        floor_mile=start,
+                        target_mile=start,
+                    )
+                    if next_source_start is not None and start + 0.03 < next_source_start < end:
+                        end = next_source_start
                 if next_official_anchor is None and index == len(cues) - 1:
                     end = track_total
             else:
@@ -4180,6 +4212,7 @@ def refresh_wayfinding_measurements(
     declare_non_credit_repeats: bool = True,
 ) -> dict[str, Any]:
     assign_wayfinding_route_miles(route)
+    sync_wayfinding_display_miles_to_route_intervals(route)
     promote_non_credit_required_segment_cues(route, elevation_sampler=elevation_sampler)
     if declare_non_credit_repeats:
         apply_non_credit_claimed_repeat_declarations(
@@ -4188,6 +4221,7 @@ def refresh_wayfinding_measurements(
         )
     reconcile_wayfinding_miles_to_route_card(route)
     cap_route_cue_repeat_miles(route)
+    sync_wayfinding_display_miles_to_route_intervals(route)
     return route
 
 
@@ -4201,6 +4235,30 @@ def cue_route_leg_miles(cue: dict[str, Any]) -> float:
         if value > 0:
             return value
     return 0.0
+
+
+def sync_wayfinding_display_miles_to_route_intervals(route: dict[str, Any]) -> dict[str, Any]:
+    for cue in route.get("wayfinding_cues") or []:
+        route_miles = cue.get("route_miles")
+        route_leg_miles = cue.get("route_leg_miles")
+        changed = False
+        if route_miles is not None:
+            current_cum = float(cue.get("cum_miles") or 0.0)
+            route_cum = round(float(route_miles or 0.0), 2)
+            if abs(current_cum - route_cum) >= 0.01:
+                cue.setdefault("source_cum_miles", round(current_cum, 2))
+                cue["cum_miles"] = route_cum
+                changed = True
+        if route_leg_miles is not None:
+            current_leg = float(cue.get("leg_miles") or 0.0)
+            route_leg = round(float(route_leg_miles or 0.0), 2)
+            if abs(current_leg - route_leg) >= 0.01:
+                cue.setdefault("source_leg_miles", round(current_leg, 2))
+                cue["leg_miles"] = route_leg
+                changed = True
+        if changed:
+            refresh_wayfinding_text(cue)
+    return route
 
 
 def alternate_path_for_repeated_cue(

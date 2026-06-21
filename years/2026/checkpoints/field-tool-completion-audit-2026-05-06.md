@@ -1,32 +1,32 @@
 # Field Tool Completion Audit - 2026-05-06
 
-- Status: `failed`
-- Requirements: 20 / 21 passed
+- Status: `passed`
+- Requirements: 21 / 21 passed
 - Advisory optimization actions surfaced: 74
-- Field-ready route cards: 17
-- Held route cards: 11
-- Total route cards: 17
-- Official segment accounting: 250 / 250 (117 active field-menu ids, 19 completed, 0 blocked)
+- Field-ready route cards: 28
+- Held route cards: 0
+- Total route cards: 28
+- Official segment accounting: 250 / 250 (231 active field-menu ids, 19 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash c5587dea4988e1a1f43fcb43268ae10c6734071514710249d7b92e5ea4f760eb; canonical map hash c5587dea4988e1a1f43fcb43268ae10c6734071514710249d7b92e5ea4f760eb |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 7fd62cff96d2a1a7cadb1c087da7039dc1e7efadecc3cecee942852c3da5f861; canonical map hash 7fd62cff96d2a1a7cadb1c087da7039dc1e7efadecc3cecee942852c3da5f861 |
 | Field packet route records match canonical outing menu metrics | Pass | field packet route miles, p75 minutes, and segment ids match canonical menu components |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 17 route cards passed field-structure checks; 11 held by legality/certification gates |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 28 route cards passed field-structure checks; 0 held by legality/certification gates |
 | Field cues and live-map cue spans agree per movement leg | Pass | all movement cues have matching written mileage and live-map route spans |
 | Live map default cue starts at the first field cue | Pass | no route has a clustered start cue sequence that would make live map open on cue 2+ |
 | Source routes have no hidden unstitched gaps | Pass | canonical map source has no source_gap_warning routes |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
-| Active field packet accounts for every official segment geometry id | Pass | field menu 117 ids; held 114 ids; completed 19 ids; blocked 0 ids; accounted 250 ids; official target 250 ids |
-| GPX validation passed for every exported route card | Pass | {"failed": 0, "navigation": 17, "passed": true} |
+| Active field packet accounts for every official segment geometry id | Pass | field menu 231 ids; held 0 ids; completed 19 ids; blocked 0 ids; accounted 250 ids; official target 250 ids |
+| GPX validation passed for every exported route card | Pass | {"failed": 0, "navigation": 28, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |
-| Adaptive recertification reports whether selected-profile completion remains feasible | Fail | {"remaining_coverage_preserved": true, "remaining_full_completion_feasible": false, "status": "not_run"} |
+| Adaptive recertification reports whether selected-profile completion remains feasible | Pass | {"remaining_coverage_preserved": true, "remaining_full_completion_feasible": true, "status": "passed"} |
 | Public field outputs do not expose private origin, tokens, dashboard data, or private paths | Pass | public packet files passed private-token scan |
 | Official repeat audit hard gate has no hidden repeat-accounting failures | Pass | {"bucket_a_bad_hidden_self_repeat_count": 0, "repeat_cues_missing_text": 0, "repeat_legs_missing_segment_ids": 0, "status": "passed", "unreconciled_extra_credit_segment_count": 0} |
 | Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures | Pass | {"avoidable_post_credit_repeat_instance_count": 0, "failed_route_count": 0, "hidden_self_repeat_segment_count": 0, "latent_credit_segment_count": 0, "missing_gpx_route_count": 0, "status": "passed", "unpriced_repeat_segment_count": 0} |

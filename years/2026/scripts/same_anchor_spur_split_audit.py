@@ -236,6 +236,8 @@ def build_audit(
     endpoint_threshold_miles: float = 0.045,
     parking_threshold_miles: float = 0.10,
     min_savings_miles: float = 0.25,
+    max_combined_on_foot_miles: float = 18.0,
+    max_host_p90_minutes: float = 360.0,
 ) -> dict[str, Any]:
     official_index = official_by_id(official_segments)
     routes = [
@@ -245,6 +247,8 @@ def build_audit(
     ]
     findings: list[dict[str, Any]] = []
     advisories: list[dict[str, Any]] = []
+    skipped_over_max: list[dict[str, Any]] = []
+    skipped_over_p90: list[dict[str, Any]] = []
     for host in routes:
         host_label = route_label(host)
         host_track = route_tracks.get(host_label) or []
@@ -276,6 +280,71 @@ def build_audit(
             separate_on_foot = float(spur.get("on_foot_miles") or 0.0)
             savings = separate_on_foot - estimated_incremental
             if savings < min_savings_miles:
+                continue
+            host_on_foot = float(host.get("on_foot_miles") or 0.0)
+            combined_on_foot = host_on_foot + estimated_incremental
+            host_p90 = host.get("door_to_door_minutes_p90")
+            if host_p90 is not None and float(host_p90 or 0.0) > max_host_p90_minutes:
+                skipped_over_p90.append(
+                    {
+                        "host_route": {
+                            "outing_id": host.get("outing_id"),
+                            "label": host_label,
+                            "route_name": host.get("route_name"),
+                            "trailhead": host.get("trailhead_display") or host.get("trailhead"),
+                            "on_foot_miles": host.get("on_foot_miles"),
+                            "door_to_door_minutes_p90": host_p90,
+                        },
+                        "candidate_route": {
+                            "outing_id": spur.get("outing_id"),
+                            "label": spur_label,
+                            "route_name": spur.get("route_name"),
+                            "trailhead": spur.get("trailhead_display") or spur.get("trailhead"),
+                            "segment_ids": [str(value) for value in spur.get("segment_ids") or []],
+                            "official_miles": round_miles(official_miles),
+                            "on_foot_miles": spur.get("on_foot_miles"),
+                        },
+                        "estimated_incremental_out_and_back_miles": round_miles(estimated_incremental),
+                        "max_host_p90_minutes": round(max_host_p90_minutes),
+                        "estimated_saved_on_foot_miles": round_miles(savings),
+                        "status": "skipped_over_host_p90_limit",
+                        "reason": (
+                            "The host route is already over the configured p90 field-day bound, so "
+                            "absorbing another same-anchor candidate is not a runnable-cost improvement."
+                        ),
+                    }
+                )
+                continue
+            if combined_on_foot > max_combined_on_foot_miles:
+                skipped_over_max.append(
+                    {
+                        "host_route": {
+                            "outing_id": host.get("outing_id"),
+                            "label": host_label,
+                            "route_name": host.get("route_name"),
+                            "trailhead": host.get("trailhead_display") or host.get("trailhead"),
+                            "on_foot_miles": host.get("on_foot_miles"),
+                        },
+                        "candidate_route": {
+                            "outing_id": spur.get("outing_id"),
+                            "label": spur_label,
+                            "route_name": spur.get("route_name"),
+                            "trailhead": spur.get("trailhead_display") or spur.get("trailhead"),
+                            "segment_ids": [str(value) for value in spur.get("segment_ids") or []],
+                            "official_miles": round_miles(official_miles),
+                            "on_foot_miles": spur.get("on_foot_miles"),
+                        },
+                        "estimated_incremental_out_and_back_miles": round_miles(estimated_incremental),
+                        "estimated_combined_on_foot_miles": round_miles(combined_on_foot),
+                        "max_combined_on_foot_miles": round_miles(max_combined_on_foot_miles),
+                        "estimated_saved_on_foot_miles": round_miles(savings),
+                        "status": "skipped_over_human_scale_limit",
+                        "reason": (
+                            "Absorbing the same-anchor spur would exceed the configured human-scale "
+                            "single-route mileage cap, so preserving separate route cards is intentional."
+                        ),
+                    }
+                )
                 continue
             if not network_connected(nodes, edges):
                 if contacts:
@@ -371,9 +440,15 @@ def build_audit(
             "endpoint_threshold_miles": endpoint_threshold_miles,
             "parking_threshold_miles": parking_threshold_miles,
             "min_savings_miles": min_savings_miles,
+            "max_combined_on_foot_miles": max_combined_on_foot_miles,
+            "max_host_p90_minutes": max_host_p90_minutes,
+            "skipped_over_max_combined_miles_count": len(skipped_over_max),
+            "skipped_over_host_p90_count": len(skipped_over_p90),
         },
         "findings": findings,
         "advisories": advisories,
+        "skipped_over_max_combined_miles": skipped_over_max,
+        "skipped_over_host_p90": skipped_over_p90,
     }
 
 
@@ -389,9 +464,13 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Routes reviewed: {summary['route_count']}",
         f"- Blocking findings: {summary['finding_count']}",
         f"- Manual-review advisories: {summary['advisory_disconnected_candidate_count']}",
+        f"- Skipped over max combined miles: {summary.get('skipped_over_max_combined_miles_count', 0)}",
+        f"- Skipped over host p90: {summary.get('skipped_over_host_p90_count', 0)}",
         f"- Endpoint threshold: {summary['endpoint_threshold_miles']} mi",
         f"- Parking threshold: {summary['parking_threshold_miles']} mi",
         f"- Minimum savings threshold: {summary['min_savings_miles']} mi",
+        f"- Max combined on-foot miles: {summary.get('max_combined_on_foot_miles', 18.0)} mi",
+        f"- Max host p90 minutes: {summary.get('max_host_p90_minutes', 360.0)}",
         "",
     ]
     if not audit.get("findings") and not audit.get("advisories"):
@@ -451,6 +530,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--endpoint-threshold-miles", type=float, default=0.045)
     parser.add_argument("--parking-threshold-miles", type=float, default=0.10)
     parser.add_argument("--min-savings-miles", type=float, default=0.25)
+    parser.add_argument("--max-combined-on-foot-miles", type=float, default=18.0)
+    parser.add_argument("--max-host-p90-minutes", type=float, default=360.0)
     return parser.parse_args()
 
 
@@ -466,6 +547,8 @@ def main() -> int:
         endpoint_threshold_miles=args.endpoint_threshold_miles,
         parking_threshold_miles=args.parking_threshold_miles,
         min_savings_miles=args.min_savings_miles,
+        max_combined_on_foot_miles=args.max_combined_on_foot_miles,
+        max_host_p90_minutes=args.max_host_p90_minutes,
     )
     write_json(args.output_json, audit)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)

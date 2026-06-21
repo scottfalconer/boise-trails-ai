@@ -1,17 +1,17 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-21T01:28:45.620881+00:00",
+  "generated_at": "2026-06-21T03:51:57.805424+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
-  "status": "failed",
+  "status": "passed",
   "summary": {
-    "passed_requirement_count": 20,
+    "passed_requirement_count": 21,
     "requirement_count": 21,
-    "route_count": 17,
-    "field_ready_route_count": 17,
-    "held_route_count": 11,
+    "route_count": 28,
+    "field_ready_route_count": 28,
+    "held_route_count": 0,
     "official_segment_count": 250,
-    "field_menu_segment_count": 117,
-    "held_segment_count": 114,
+    "field_menu_segment_count": 231,
+    "held_segment_count": 0,
     "completed_segment_count_at_export": 19,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 250,
@@ -27,7 +27,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash c5587dea4988e1a1f43fcb43268ae10c6734071514710249d7b92e5ea4f760eb; canonical map hash c5587dea4988e1a1f43fcb43268ae10c6734071514710249d7b92e5ea4f760eb"
+      "evidence": "field source hash 7fd62cff96d2a1a7cadb1c087da7039dc1e7efadecc3cecee942852c3da5f861; canonical map hash 7fd62cff96d2a1a7cadb1c087da7039dc1e7efadecc3cecee942852c3da5f861"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -47,7 +47,7 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "17 route cards passed field-structure checks; 11 held by legality/certification gates"
+      "evidence": "28 route cards passed field-structure checks; 0 held by legality/certification gates"
     },
     {
       "requirement": "Field cues and live-map cue spans agree per movement leg",
@@ -72,12 +72,12 @@
     {
       "requirement": "Active field packet accounts for every official segment geometry id",
       "passed": true,
-      "evidence": "field menu 117 ids; held 114 ids; completed 19 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
+      "evidence": "field menu 231 ids; held 0 ids; completed 19 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
     },
     {
       "requirement": "GPX validation passed for every exported route card",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 17, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 28, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
@@ -96,8 +96,8 @@
     },
     {
       "requirement": "Adaptive recertification reports whether selected-profile completion remains feasible",
-      "passed": false,
-      "evidence": "{\"remaining_coverage_preserved\": true, \"remaining_full_completion_feasible\": false, \"status\": \"not_run\"}"
+      "passed": true,
+      "evidence": "{\"remaining_coverage_preserved\": true, \"remaining_full_completion_feasible\": true, \"status\": \"passed\"}"
     },
     {
       "requirement": "Public field outputs do not expose private origin, tokens, dashboard data, or private paths",
@@ -158,7 +158,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-21T01:28:44.742522+00:00",
+    "generated_at": "2026-06-21T03:51:56.092303+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -166,11 +166,11 @@
       "rule_count": 4
     },
     "summary": {
-      "route_count": 17,
-      "passed_route_count": 17,
+      "route_count": 28,
+      "passed_route_count": 28,
       "failed_route_count": 0,
       "failure_counts": {},
-      "date_context_required_route_count": 0
+      "date_context_required_route_count": 1
     },
     "routes": [
       {
@@ -238,6 +238,14 @@
         "failures": []
       },
       {
+        "label": "15B",
+        "outing_id": "15-2",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "11",
         "outing_id": "11-1",
         "passed": true,
@@ -248,6 +256,22 @@
       {
         "label": "10B",
         "outing_id": "10-2",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "18B",
+        "outing_id": "18-2",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "16C-1",
+        "outing_id": "16-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -347,6 +371,30 @@
         "failures": []
       },
       {
+        "label": "3",
+        "outing_id": "3-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "12",
+        "outing_id": "12-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "16A-1",
+        "outing_id": "16-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "4C",
         "outing_id": "4-3",
         "passed": true,
@@ -363,8 +411,57 @@
         "failures": []
       },
       {
+        "label": "2",
+        "outing_id": "2-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [
+          "r2r-lower-hulls-29-even-day-foot-access"
+        ],
+        "failures": []
+      },
+      {
         "label": "16A-D1",
         "outing_id": "16-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "18A",
+        "outing_id": "18-1",
+        "passed": true,
+        "checked_segments": [
+          {
+            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
+            "segment_id": "1493",
+            "segment_name": "Around the Mountain Trail 6",
+            "observed_directions": {
+              "forward": 0.918
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          },
+          {
+            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
+            "segment_id": "1750",
+            "segment_name": "Around the Mountain Trail 7",
+            "observed_directions": {
+              "forward": 0.353
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          }
+        ],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "10A",
+        "outing_id": "10-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -453,6 +550,36 @@
             ]
           }
         ],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "6",
+        "outing_id": "6-1",
+        "passed": true,
+        "checked_segments": [
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1604",
+            "segment_name": "Polecat Loop 7",
+            "observed_directions": {
+              "forward": 0.311,
+              "reverse": 0.303
+            },
+            "allowed_directions": [
+              "forward",
+              "reverse"
+            ]
+          }
+        ],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "13",
+        "outing_id": "13-1",
+        "passed": true,
+        "checked_segments": [],
         "date_context_required": [],
         "failures": []
       }

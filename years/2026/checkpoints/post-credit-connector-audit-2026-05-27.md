@@ -1,17 +1,17 @@
 # Post-Credit Connector Audit
 
-Generated: 2026-06-21T01:30:04Z
+Generated: 2026-06-21T03:52:28Z
 Status: `passed`
 
 ## Summary
 
-- Routes audited: 17
+- Routes audited: 28
 - Failed routes: 0
 - Findings: 0
-- Warnings: 2
-- Explicit post-credit connector proofs: 43
+- Warnings: 7
+- Explicit post-credit connector proofs: 95
 - Hidden official-cue exit findings: 0
-- Hidden official-cue exit warnings: 2
+- Hidden official-cue exit warnings: 7
 - Shorter connector findings: 0
 - Stale connector-savings metadata findings: 0
 - Unproved connector findings: 0
@@ -27,7 +27,12 @@ No findings.
 | Route | Cue | Code | Miles | Feet | Message |
 |---|---:|---|---:|---:|---|
 | 1-2: 1A-2 | 5 | official_credit_cue_hides_post_credit_exit | 0.06 | 317 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
+| 3-1: 3 | 7 | official_credit_cue_hides_post_credit_exit | 0.54 | 2851 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
+| 3-1: 3 | 9 | official_credit_cue_hides_post_credit_exit | 0.25 | 1320 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
+| 3-1: 3 | 23 | official_credit_cue_hides_post_credit_exit | 0.03 | 158 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
 | 4-3: 4C | 6 | official_credit_cue_hides_post_credit_exit | 0.12 | 634 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
+| 18-1: 18A | 3 | official_credit_cue_hides_post_credit_exit | 0.31 | 1637 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
+| 18-1: 18A | 9 | official_credit_cue_hides_post_credit_exit | 1.75 | 9240 | Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues. |
 
 ## Scope
 

@@ -3401,6 +3401,96 @@ def test_navigation_source_cue_map_mileage_mismatch_holds_route_card():
     assert "cue_map_mileage_mismatch" in route["outing"]["route_card_audit_blockers"][0]
 
 
+def test_official_wayfinding_boundary_uses_next_connector_first_source_pass():
+    module = load_exporter()
+    mile = 1 / 69.0
+    track = [
+        (0.0, 0.0),
+        (0.2 * mile, 0.0),
+        (0.7 * mile, 0.0),
+        (2.0 * mile, 0.0),
+        (0.7 * mile, 0.0),
+        (3.0 * mile, 0.0),
+    ]
+    route = {
+        "_track_segments": [track],
+        "_official_segment_index": {
+            "101": {
+                "type": "Feature",
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [0.2 * mile, 0.0],
+                        [0.7 * mile, 0.0],
+                    ],
+                },
+                "properties": {
+                    "seg_id": "101",
+                    "official_miles": 0.5,
+                },
+            }
+        },
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cum_miles": 0.0,
+                "leg_miles": 0.2,
+                "cue_type": "start_access",
+            },
+            {
+                "seq": 2,
+                "cum_miles": 0.2,
+                "leg_miles": 2.0,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": ["101"],
+            },
+            {
+                "seq": 3,
+                "cum_miles": 2.2,
+                "leg_miles": 1.0,
+                "cue_type": "connector_named_trail",
+                "source_path_start": [0.7 * mile, 0.0],
+                "source_path_end": [3.0 * mile, 0.0],
+            },
+        ],
+    }
+
+    module.assign_wayfinding_route_miles(route)
+
+    official_cue = route["wayfinding_cues"][1]
+    connector_cue = route["wayfinding_cues"][2]
+    assert official_cue["route_miles"] == pytest.approx(0.2, abs=0.02)
+    assert official_cue["route_leg_miles"] == pytest.approx(0.5, abs=0.03)
+    assert connector_cue["route_miles"] == pytest.approx(0.7, abs=0.03)
+
+
+def test_wayfinding_display_miles_follow_route_intervals_and_preserve_source():
+    module = load_exporter()
+    route = {
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cum_miles": 1.25,
+                "leg_miles": 2.6,
+                "route_miles": 1.64,
+                "route_leg_miles": 1.62,
+                "cue_type": "follow_official_segment",
+                "action": "FOLLOW",
+                "signed_as": ["Highlands Trail"],
+            }
+        ]
+    }
+
+    module.sync_wayfinding_display_miles_to_route_intervals(route)
+
+    cue = route["wayfinding_cues"][0]
+    assert cue["cum_miles"] == 1.64
+    assert cue["leg_miles"] == 1.62
+    assert cue["source_cum_miles"] == 1.25
+    assert cue["source_leg_miles"] == 2.6
+    assert "+1.62" in cue["compact"]
+
+
 def test_public_route_surfaces_sanitize_private_strava_anchor_display_text():
     module = load_exporter()
     route = special_management_failed_route()

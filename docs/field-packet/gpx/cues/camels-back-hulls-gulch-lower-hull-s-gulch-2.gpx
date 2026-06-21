@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Camels Back / Hulls Gulch: Lower Hull's Gulch (2) cues</name>
+    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 18.8 mi; Door-to-door p75 5h 32m; Segments left 19 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.642210" lon="-116.185043">
+    <name>PARK/START Hulls Gulch Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.642600" lon="-116.184700">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 15.78.</desc>
+  </wpt>
+  <wpt lat="43.643295" lon="-116.182426">
+    <name>CUE 01 Lower Hull's Gulch Trail</name>
+    <desc>Follow Lower Hull's Gulch Trail. First official segment here: Lower Hull's Gulch Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.647614" lon="-116.140867">
+    <name>CUE 02 Hull's Gulch Interpretive</name>
+    <desc>Follow Hull's Gulch Interpretive. First official segment here: Hull's Gulch Interpretive 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.645351" lon="-116.157768">
+    <name>CUE 03 Crestline Trail</name>
+    <desc>Follow Crestline Trail. First official segment here: Crestline Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.640453" lon="-116.176727">
+    <name>CUE 04 Kestral Trail</name>
+    <desc>Follow Kestral Trail. First official segment here: Kestral Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.640480" lon="-116.187538">
+    <name>CUE 05 Owl's Roost</name>
+    <desc>Follow Owl's Roost. First official segment here: Owl's Roost 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.638336" lon="-116.195641">
+    <name>CUE 06 Gold Finch</name>
+    <desc>Follow Gold Finch. First official segment here: Gold Finch 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.640610" lon="-116.203064">
+    <name>CUE 07 15th St. Trail</name>
+    <desc>Follow 15th St. Trail. First official segment here: 15th St. Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.641117" lon="-116.195374">
+    <name>CUE 08 Chickadee Ridge Trail</name>
+    <desc>Follow Chickadee Ridge Trail. First official segment here: Chickadee Ridge Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.641730" lon="-116.181250">
+    <name>CUE 09 Red Cliffs</name>
+    <desc>Follow Red Cliffs. First official segment here: Red Cliffs 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.642238" lon="-116.184865">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

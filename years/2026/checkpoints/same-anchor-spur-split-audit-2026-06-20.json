@@ -1,15 +1,77 @@
 {
   "schema": "boise_trails_same_anchor_spur_split_audit_v1",
-  "generated_at": "2026-06-21T01:27:59.578218+00:00",
+  "generated_at": "2026-06-21T03:51:41.210539+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 17,
+    "route_count": 28,
     "finding_count": 0,
     "advisory_disconnected_candidate_count": 0,
     "endpoint_threshold_miles": 0.045,
     "parking_threshold_miles": 0.1,
-    "min_savings_miles": 0.25
+    "min_savings_miles": 0.25,
+    "max_combined_on_foot_miles": 18.0,
+    "max_host_p90_minutes": 360.0,
+    "skipped_over_max_combined_miles_count": 0,
+    "skipped_over_host_p90_count": 2
   },
   "findings": [],
-  "advisories": []
+  "advisories": [],
+  "skipped_over_max_combined_miles": [],
+  "skipped_over_host_p90": [
+    {
+      "host_route": {
+        "outing_id": "16-3",
+        "label": "16A-D1",
+        "route_name": "Dry Creek",
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "on_foot_miles": 15.61,
+        "door_to_door_minutes_p90": 385
+      },
+      "candidate_route": {
+        "outing_id": "16-1",
+        "label": "16A-1",
+        "route_name": "Dry Creek: Sweet Connie",
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "segment_ids": [
+          "1665",
+          "1666",
+          "1667"
+        ],
+        "official_miles": 3.14,
+        "on_foot_miles": 14.2
+      },
+      "estimated_incremental_out_and_back_miles": 6.29,
+      "max_host_p90_minutes": 360,
+      "estimated_saved_on_foot_miles": 7.91,
+      "status": "skipped_over_host_p90_limit",
+      "reason": "The host route is already over the configured p90 field-day bound, so absorbing another same-anchor candidate is not a runnable-cost improvement."
+    },
+    {
+      "host_route": {
+        "outing_id": "17-1",
+        "label": "17",
+        "route_name": "Bogus Basin: Sunshine XC",
+        "trailhead": "Simplot Lodge Parking Area",
+        "on_foot_miles": 16.02,
+        "door_to_door_minutes_p90": 433
+      },
+      "candidate_route": {
+        "outing_id": "18-2",
+        "label": "18B",
+        "route_name": "Bogus Basin: Shindig",
+        "trailhead": "Simplot Lodge Parking Area",
+        "segment_ids": [
+          "1655",
+          "1721"
+        ],
+        "official_miles": 0.66,
+        "on_foot_miles": 6.82
+      },
+      "estimated_incremental_out_and_back_miles": 1.31,
+      "max_host_p90_minutes": 360,
+      "estimated_saved_on_foot_miles": 5.51,
+      "status": "skipped_over_host_p90_limit",
+      "reason": "The host route is already over the configured p90 field-day bound, so absorbing another same-anchor candidate is not a runnable-cost improvement."
+    }
+  ]
 }

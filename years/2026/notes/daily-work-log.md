@@ -5192,6 +5192,43 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     packet. Standard same-day condition and closure checks still apply before
     running any route.
 
+## 2026-06-20 - Remove route holds after dashboard progress sync
+
+- Objective: complete the BTC dashboard progress sync without leaving manual
+  route-source holds in the live phone packet.
+- Result:
+  - Repaired route-card mileage anchoring so displayed cue mileage follows the
+    GPX route interval while preserving source mileage for audit context.
+  - Removed the route-truth manual hold area from the active manual design
+    source and regenerated the canonical map, phone packet, GPX exports, and
+    audit checkpoints.
+  - Field packet now has 28 runnable / field-ready routes, 0 manual holds, 0
+    held routes, 0 omitted routes, and 84 GPX files.
+  - Same-anchor spur audit now skips non-runnable-cost absorptions when the host
+    route is already over the p90 bound.
+- Validation:
+  - `python3 years/2026/scripts/human_loop_plan.py` passed.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 19
+    completed, 231 remaining, and 0 held remaining segments.
+  - `python3 years/2026/scripts/field_recertification_report.py` passed.
+  - `python3 years/2026/scripts/same_anchor_spur_split_audit.py` passed with 0
+    findings and 0 advisories.
+  - `python3 years/2026/scripts/route_edge_cover_audit.py` passed.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 21 / 21
+    requirements.
+  - `python3 years/2026/scripts/field_route_walkthrough_audit.py` passed 28 /
+    28 routes.
+  - `python3 years/2026/scripts/post_credit_connector_audit.py` passed.
+  - `python3 -m pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_official_wayfinding_boundary_uses_next_connector_first_source_pass years/2026/tests/test_export_mobile_field_packet.py::test_wayfinding_display_miles_follow_route_intervals_and_preserve_source years/2026/tests/test_same_anchor_spur_split_audit.py` passed 9 tests.
+  - `git diff --check` passed.
+  - Changed JSON files parsed successfully.
+- Current blocker:
+  - No route-card hold or certification blocker remains. The old dated field-day
+    layer was not promoted; `python3 years/2026/scripts/export_field_day_layer.py`
+    still fails on a 2026-07-04 p90-bound violation in the historical assignment.
+
 ## 2026-06-20 - Challenge epoch progress reset
 
 - Objective: reset any pre-challenge or provisional completion state now that

@@ -89,6 +89,76 @@ def test_spur_split_audit_ignores_different_anchor_routes():
     assert audit["summary"]["finding_count"] == 0
 
 
+def test_spur_split_audit_skips_overlong_combined_routes():
+    module = load_module()
+    official = [
+        official_segment(1, [(-116.0, 43.0), (-115.99, 43.0)], official_miles=8.0),
+        official_segment(2, [(-115.99, 43.0), (-115.99, 43.008)], official_miles=3.2),
+    ]
+    field_tool_data = {
+        "routes": [
+            route("MAIN", "Shared Trailhead", ["1"], 15.7),
+            route("SPUR", "Shared Trailhead", ["2"], 14.2),
+        ]
+    }
+    route_tracks = {
+        "MAIN": module.densify_coordinates([(-116.0, 43.0), (-115.99, 43.0)]),
+        "SPUR": module.densify_coordinates([(-115.99, 43.0), (-115.99, 43.008)]),
+    }
+
+    audit = module.build_audit(
+        field_tool_data,
+        official,
+        route_tracks,
+        min_savings_miles=0.25,
+        max_combined_on_foot_miles=18.0,
+    )
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["finding_count"] == 0
+    assert audit["summary"]["skipped_over_max_combined_miles_count"] == 1
+    skipped = audit["skipped_over_max_combined_miles"][0]
+    assert skipped["host_route"]["label"] == "MAIN"
+    assert skipped["candidate_route"]["label"] == "SPUR"
+    assert skipped["estimated_combined_on_foot_miles"] == 22.1
+
+
+def test_spur_split_audit_skips_hosts_over_p90_bound():
+    module = load_module()
+    official = [
+        official_segment(1, [(-116.0, 43.0), (-115.99, 43.0)], official_miles=4.0),
+        official_segment(2, [(-115.99, 43.0), (-115.99, 43.008)], official_miles=0.7),
+    ]
+    main = route("MAIN", "Shared Trailhead", ["1"], 16.0)
+    main["door_to_door_minutes_p90"] = 433
+    field_tool_data = {
+        "routes": [
+            main,
+            route("SPUR", "Shared Trailhead", ["2"], 6.8),
+        ]
+    }
+    route_tracks = {
+        "MAIN": module.densify_coordinates([(-116.0, 43.0), (-115.99, 43.0)]),
+        "SPUR": module.densify_coordinates([(-115.99, 43.0), (-115.99, 43.008)]),
+    }
+
+    audit = module.build_audit(
+        field_tool_data,
+        official,
+        route_tracks,
+        min_savings_miles=0.25,
+        max_host_p90_minutes=360,
+    )
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["finding_count"] == 0
+    assert audit["summary"]["advisory_disconnected_candidate_count"] == 0
+    assert audit["summary"]["skipped_over_host_p90_count"] == 1
+    skipped = audit["skipped_over_host_p90"][0]
+    assert skipped["host_route"]["label"] == "MAIN"
+    assert skipped["candidate_route"]["label"] == "SPUR"
+
+
 def test_spur_split_audit_ignores_through_routes_with_two_contacts():
     module = load_module()
     official = [

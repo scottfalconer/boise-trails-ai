@@ -429,67 +429,6 @@
       "preflight_notes": [
         "Verify Harlow's / Hidden Springs west access and parking before using 10A in the field."
       ]
-    },
-    {
-      "area_id": "route_truth_mismatch_holds_2026_06_19",
-      "title": "Route-truth mismatch holds",
-      "status": "manual_design_area",
-      "decision": "Hold active route cards whose cue mileage and live-map/GPX span materially disagree. These are planner artifacts until repaired, not field insights.",
-      "demote_candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-        "route-truth-15b-highlands-connector",
-        "combo-lodge-trail-shindig",
-        "multi-start-16c-16c-ms-02-1-stack-rock-connector",
-        "block-military_core",
-        "block-upper_8th_corrals_sidewinder",
-        "manual-16a-1",
-        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
-        "manual-10a",
-        "block-cartwright_peggy_interface",
-        "block-freestone_three_bears_curlew",
-        "block-camels_lower_hulls_even_day"
-      ],
-      "current_placeholder": {
-        "label": "12 route-source holds",
-        "trailhead": "various starts",
-        "official_miles": 88.18,
-        "on_foot_miles": null,
-        "door_to_door_minutes": null,
-        "candidate_ids": [
-          "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-          "route-truth-15b-highlands-connector",
-          "combo-lodge-trail-shindig",
-          "multi-start-16c-16c-ms-02-1-stack-rock-connector",
-          "block-military_core",
-          "block-upper_8th_corrals_sidewinder",
-          "manual-16a-1",
-          "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
-          "manual-10a",
-          "block-cartwright_peggy_interface",
-          "block-freestone_three_bears_curlew",
-          "block-camels_lower_hulls_even_day"
-        ],
-        "reason": "Certification found cue/map mileage drift large enough to make the route source untrustworthy."
-      },
-      "affected_routes": [
-        {"label": "1B", "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail", "failure": "cue 7 spans 1.32 GPX mi for 0.09 cue mi"},
-        {"label": "15B", "candidate_id": "route-truth-15b-highlands-connector", "failure": "cue 3 spans 2.19 GPX mi for 1.42 cue mi"},
-        {"label": "18B", "candidate_id": "combo-lodge-trail-shindig", "failure": "multiple Shindig connector/cue spans disagree"},
-        {"label": "16C-1", "candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector", "failure": "Stack Rock Connector cue span disagrees with GPX"},
-        {"label": "3", "candidate_id": "block-military_core", "failure": "multiple Military Reserve cue spans disagree"},
-        {"label": "12", "candidate_id": "block-upper_8th_corrals_sidewinder", "failure": "Corrals connector cue span disagrees with GPX"},
-        {"label": "16A-1", "candidate_id": "manual-16a-1", "failure": "Sweet Connie cue span disagrees with GPX"},
-        {"label": "18A", "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive", "failure": "multiple Brewers / Mores cue spans disagree"},
-        {"label": "10A", "candidate_id": "manual-10a", "failure": "multiple Harlow's / Spring cue spans disagree"},
-        {"label": "6", "candidate_id": "block-cartwright_peggy_interface", "failure": "Peggy's / Cartwright cue spans disagree"},
-        {"label": "13", "candidate_id": "block-freestone_three_bears_curlew", "failure": "multiple Three Bears / Freestone cue spans disagree"},
-        {"label": "2", "candidate_id": "block-camels_lower_hulls_even_day", "failure": "after BTC dashboard progress removed Owl's Roost / Gold Finch / 15th St. / Chickadee Ridge credit, the remaining Hulls / Red Cliffs card reused stale full-route cue anchors: cue 13 spans 4.98 GPX mi for 0.27 cue mi and crosses a parked-car pass; cue 19 spans 0.00 GPX mi for 1.42 cue mi"}
-      ],
-      "acceptance_gates": [
-        "Do not publish these candidates as runnable field cards until cue mileage, live-map/GPX route spans, and canonical route topology reconcile.",
-        "Each repaired route must regenerate from canonical source and pass the field-packet certification gate without a blocked_navigation_source audit.",
-        "If a route cannot be repaired, keep its official segments in a manual design hold instead of exporting a planner artifact."
-      ]
     }
   ]
 }
