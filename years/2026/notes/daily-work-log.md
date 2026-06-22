@@ -4,6 +4,58 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-22 - Route 2 progress-prune cost regression repair
+
+- Objective: fix the route `2-1` regression introduced by pruning completed
+  Owl's Roost / Gold Finch / 15th St. / Chickadee Ridge mileage out of the
+  physical route. The pruned route was coverage-valid but longer in runnable
+  cost than the original car-to-car route.
+- Result:
+  - Deactivated the route 2 `pruned_component_route` repair and restored the
+    lower-cost Lower Hull's Gulch physical route: 18.8 on-foot miles, 332 min
+    p75, 372 min p90.
+  - Changed outing-menu metric generation so progress-filtered route summaries
+    recompute claimed official miles and displayed trail names from remaining
+    official segment ids, while completed segments may remain as repeat or
+    connector context in the physical route.
+  - Added a route-truth repair guard that rejects future `pruned_component_route`
+    repairs when they materially increase runnable cost without an explicit
+    waiver.
+  - Fixed repeat-accounting gates exposed by the restored route: completed
+    progress segments are reconciled as completed-at-export repeat context,
+    repeat/no-credit text matching recognizes the packet's current wording, and
+    long cues with existing repeat ids are reviewed for omitted self-repeat ids.
+  - Regenerated canonical private map/menu, sanitized public map/menu, phone
+    field packet, GPX bundle, route-review pack, adversarial disproof registry,
+    and checkpoint audits from the corrected source.
+- Validation:
+  - `python3 years/2026/scripts/human_loop_plan.py` passed.
+  - `python3 years/2026/scripts/export_example_map.py` passed.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    84 GPX files plus the regenerated phone packet.
+  - JSON validation passed for the route-truth repair file, public field-tool
+    data, public/example/private map data, and current hard-gate checkpoint
+    JSON files.
+  - Field certification passed: latent-credit audit, progress report,
+    recertification report, same-anchor spur-split audit, route-edge cover
+    audit, official-repeat audit, route-repeat optimization audit, field-tool
+    completion audit, field-route walkthrough audit, and post-credit connector
+    audit.
+  - Advisory/dependency audits refreshed: route-bridge duplication, latent
+    repricing, ownership reassignment, and simulated-progress sweep.
+  - `python3 years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 28 routes; `python3 years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json --today 2026-06-22`
+    passed with the existing `1A-1` waiver.
+  - `python3 years/2026/scripts/refresh_all_route_adversarial_disproof.py`
+    passed with 28 / 28 routes accepted and 0 deterministic same-credit
+    failures.
+  - `python3 -m pytest -q --durations=10` passed with 746 tests passed and 1
+    skipped in 2542.79s.
+- Current blocker:
+  - No known packet/source certification blocker remains. Standard same-day
+    trail condition, closure, signage, heat, and water checks still apply before
+    running any route.
+
 ## 2026-06-21 - Route 2 stale live-map source repair
 
 - Objective: remove the completed Owl's Roost / Gold Finch / 15th St. /

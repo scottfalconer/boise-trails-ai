@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-21T14:33:10.679776+00:00",
+  "generated_at": "2026-06-22T14:33:22.450993+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -19,7 +19,7 @@
     "cue_map_mismatch_failure_count": 0,
     "live_map_default_cue_failure_count": 0,
     "advisory_check_count": 4,
-    "advisory_action_count": 74,
+    "advisory_action_count": 46,
     "special_management_status": "passed",
     "special_management_failed_route_count": 0
   },
@@ -27,7 +27,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash e6a457a58db9301cfd90ff8b2e64d1a02c37b17c994e621d0e53976d020cb3c6; canonical map hash e6a457a58db9301cfd90ff8b2e64d1a02c37b17c994e621d0e53976d020cb3c6"
+      "evidence": "field source hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a; canonical map hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -122,7 +122,7 @@
     {
       "requirement": "Graduated bridge-duplication failures are repaired or waived",
       "passed": true,
-      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 31, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 5}"
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 26, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 6}"
     },
     {
       "requirement": "Land-manager special-management rules pass for every published route",
@@ -141,24 +141,24 @@
       "name": "Ownership reassignment optimization advisory",
       "status": "informational",
       "action_count": 0,
-      "evidence": "{\"current_calendar_skip_ready_removed_route_count\": 0, \"current_calendar_skip_ready_saved_on_foot_miles\": 0.0, \"order_free_saved_on_foot_miles\": 4.58, \"status\": \"ownership_reassignment_reduces_existing_loop_work\"}"
+      "evidence": "{\"current_calendar_skip_ready_removed_route_count\": 0, \"current_calendar_skip_ready_saved_on_foot_miles\": 0.0, \"order_free_saved_on_foot_miles\": 6.82, \"status\": \"ownership_reassignment_reduces_existing_loop_work\"}"
     },
     {
       "name": "Simulated-progress priority advisory",
       "status": "actionable",
-      "action_count": 38,
-      "evidence": "{\"status\": \"simulated_progress_priority_found\", \"sweeps_with_future_removed_route_count\": 3, \"sweeps_with_future_shrunk_route_count\": 35}"
+      "action_count": 14,
+      "evidence": "{\"status\": \"simulated_progress_priority_found\", \"sweeps_with_future_removed_route_count\": 2, \"sweeps_with_future_shrunk_route_count\": 12}"
     },
     {
       "name": "Bridge duplication repair advisory",
       "status": "actionable",
-      "action_count": 36,
-      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 31, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 5}"
+      "action_count": 32,
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 26, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 6}"
     }
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-21T14:33:08.844294+00:00",
+    "generated_at": "2026-06-22T14:33:20.604446+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -411,14 +411,6 @@
         "failures": []
       },
       {
-        "label": "16A-D1",
-        "outing_id": "16-3",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "2",
         "outing_id": "2-1",
         "passed": true,
@@ -426,6 +418,14 @@
         "date_context_required": [
           "r2r-lower-hulls-29-even-day-foot-access"
         ],
+        "failures": []
+      },
+      {
+        "label": "16A-D1",
+        "outing_id": "16-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
         "failures": []
       },
       {

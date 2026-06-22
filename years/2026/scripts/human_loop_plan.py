@@ -591,6 +591,7 @@ def sync_official_segment_features(package_map: dict[str, Any], official_segment
                         "title": ", ".join(component.get("trail_names") or []) or component.get("field_menu_label"),
                         "official_miles": round_miles(segment.get("official_miles")),
                         "segment_official_miles": round_miles(segment.get("official_miles")),
+                        "segment_official_miles_raw": segment.get("official_miles"),
                         "route_official_miles": round_miles(component.get("official_miles")),
                         "route_on_foot_miles": round_miles(component.get("on_foot_miles")),
                         "on_foot_miles": round_miles(component.get("on_foot_miles")),
@@ -1753,6 +1754,46 @@ def build_pruned_component_payload(
     }
 
 
+def numeric_cost(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def pruned_route_cost_regression_message(
+    repair: dict[str, Any],
+    source_component: dict[str, Any],
+    pruned_component: dict[str, Any],
+) -> str | None:
+    if repair.get("allow_runnable_cost_regression") and repair.get("runnable_cost_regression_waiver"):
+        return None
+
+    max_mile_regression = float(repair.get("max_allowed_on_foot_regression_miles", 0.25))
+    max_minute_regression = float(repair.get("max_allowed_total_minutes_regression", 10))
+    source_miles = numeric_cost(source_component.get("on_foot_miles"))
+    pruned_miles = numeric_cost(pruned_component.get("on_foot_miles"))
+    source_minutes = numeric_cost(source_component.get("total_minutes"))
+    pruned_minutes = numeric_cost(pruned_component.get("total_minutes"))
+
+    failures: list[str] = []
+    if source_miles is not None and pruned_miles is not None:
+        if pruned_miles > source_miles + max_mile_regression:
+            failures.append(f"on_foot_miles {pruned_miles:.2f} > source {source_miles:.2f}")
+    if source_minutes is not None and pruned_minutes is not None:
+        if pruned_minutes > source_minutes + max_minute_regression:
+            failures.append(f"total_minutes {pruned_minutes:.0f} > source {source_minutes:.0f}")
+    if not failures:
+        return None
+    return (
+        f"Route-truth prune {repair.get('repair_id')} for candidate {repair.get('candidate_id')} "
+        f"regresses runnable cost: {', '.join(failures)}. Preserve completed segments as "
+        "repeat/connector mileage, or add an explicit runnable_cost_regression_waiver after route review."
+    )
+
+
 def apply_route_truth_repairs(
     route_pass: dict[str, Any],
     package_pass: dict[str, Any],
@@ -1791,6 +1832,13 @@ def apply_route_truth_repairs(
                 context=context,
                 package=map_package,
             )
+            cost_regression = pruned_route_cost_regression_message(
+                repair,
+                source_component,
+                pruned_payload["component"],
+            )
+            if cost_regression:
+                raise ValueError(cost_regression)
             replacement_id = pruned_payload["component"]["candidate_id"]
             for package in [pass_package, map_package]:
                 if not package:
@@ -1877,6 +1925,13 @@ def apply_route_truth_repairs(
                 context=context,
                 package=map_package,
             )
+            cost_regression = pruned_route_cost_regression_message(
+                prune,
+                source_component,
+                pruned_payload["component"],
+            )
+            if cost_regression:
+                raise ValueError(cost_regression)
             replacement_id = pruned_payload["component"]["candidate_id"]
             for package in [pass_package, map_package]:
                 if not package:

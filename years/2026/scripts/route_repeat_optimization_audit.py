@@ -855,6 +855,8 @@ def cue_repeat_text_ok(cue: dict[str, Any]) -> bool:
     mentions_repeat = "repeat" in text
     mentions_no_credit = (
         "no new credit" in text
+        or "do not count as new credit" in text
+        or "do not count as new official challenge credit" in text
         or "not official challenge credit" in text
         or "does not count" in text
     )

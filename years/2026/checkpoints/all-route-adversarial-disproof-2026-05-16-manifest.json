@@ -1,6 +1,6 @@
 {
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-21T14:34:22Z",
+  "generated_at": "2026-06-22T03:12:44Z",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
     "field_packet_manifest": "docs/field-packet/manifest.json",
@@ -41,6 +41,6 @@
     "route_efficiency_verdict": "current_routes_proofed",
     "route_efficiency_achieved": true,
     "accepted_active_candidate_target": 28,
-    "review_today": "2026-06-21"
+    "review_today": "2026-06-22"
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-21T14:34:00Z",
+  "generated_at": "2026-06-22T01:56:24Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
@@ -692,6 +692,50 @@
       ]
     },
     {
+      "label": "2-1: 2",
+      "outing_id": "2-1",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "trailhead": "Hulls Gulch",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 11.08,
+        "generated_miles": 18.8,
+        "lower_bound_miles": 14.04,
+        "efficiency_ratio": 1.339,
+        "required_component_count": 3,
+        "odd_required_node_count": 12,
+        "parity_add_on_miles": 2.77,
+        "depot_component_attachment_miles": 0.19
+      },
+      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
+      "segment_ids": [
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616",
+        "1725",
+        "1726",
+        "1727",
+        "1728",
+        "1729",
+        "1730",
+        "1751"
+      ]
+    },
+    {
       "label": "16-3: 16A-D1",
       "outing_id": "16-3",
       "candidate_ids": [
@@ -721,50 +765,6 @@
         "1546",
         "1653",
         "1656"
-      ]
-    },
-    {
-      "label": "2-1: 2",
-      "outing_id": "2-1",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "trailhead": "Hulls Gulch",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 11.08,
-        "generated_miles": 20.62,
-        "lower_bound_miles": 14.04,
-        "efficiency_ratio": 1.469,
-        "required_component_count": 3,
-        "odd_required_node_count": 12,
-        "parity_add_on_miles": 2.77,
-        "depot_component_attachment_miles": 0.19
-      },
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-2.gpx",
-      "segment_ids": [
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1583",
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
       ]
     },
     {

@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_all_route_adversarial_disproof_v1",
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-06-21T14:34:22Z",
+  "generated_at": "2026-06-22T03:12:44Z",
   "artifact_contract": "Public-safe current-route proof registry keyed to the deterministic route-review dominance gate. A route is accepted only when a current review covers its exact segment set and did not fail (or carries a valid waiver).",
   "source_files": {
     "field_tool_data": "docs/field-packet/field-tool-data.json",
@@ -39,7 +39,7 @@
     "route_efficiency_verdict": "current_routes_proofed",
     "route_efficiency_achieved": true,
     "accepted_active_candidate_target": 28,
-    "review_today": "2026-06-21"
+    "review_today": "2026-06-22"
   },
   "routes": [
     {
@@ -163,8 +163,8 @@
       "candidate_ids": [
         "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
       ],
-      "route_source_hash": "3ce99a5127f5ff9a5edf34b9de79fa6e596275423e4696b3cbc298151def2ccf",
-      "review_route_source_hash": "327f40c47b4dd600c2ef0be888c41a8f7c6534c47445c05dea915f2ee3c82d75",
+      "route_source_hash": "ff93c075d397e5bf99bbb2c008d8d2e140e42c492bc2549915fe10e485acb6a3",
+      "review_route_source_hash": "15cf7e8430f25449e058f64b52f5f3af97e59f19e25b0b293cbe281cc9748bb3",
       "area": "Hillside to Hollow",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -186,12 +186,12 @@
         "Bob Smylie"
       ],
       "metrics": {
-        "official_miles": 3.13,
+        "official_miles": 2.99,
         "on_foot_miles": 4.86,
-        "on_foot_to_official_ratio": 1.55,
+        "on_foot_to_official_ratio": 1.63,
         "p75_minutes": 107,
         "p90_minutes": 120,
-        "non_credit_or_repeat_miles": 1.73,
+        "non_credit_or_repeat_miles": 1.87,
         "declared_repeat_miles": 1.74
       },
       "warning_codes_closed": [],
@@ -811,8 +811,8 @@
       "candidate_ids": [
         "manual-16a-1"
       ],
-      "route_source_hash": "c612c2d578fc5ea5f324fa39870c69fdba6b8b8f3b0e22d0e019284b813a7a8d",
-      "review_route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
+      "route_source_hash": "f2d3fbaa9212677db8550f089cee5c65eb1f3e854282f64552d9686642de5e1c",
+      "review_route_source_hash": "7550bc70992bfe01ab1370b85e596a603952eb117056abb3bccdaf42ad6b5ee9",
       "area": "Dry Creek",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
@@ -827,12 +827,12 @@
         "Sweet Connie Trail"
       ],
       "metrics": {
-        "official_miles": 6.09,
+        "official_miles": 3.14,
         "on_foot_miles": 14.2,
-        "on_foot_to_official_ratio": 2.33,
+        "on_foot_to_official_ratio": 4.52,
         "p75_minutes": 249,
         "p90_minutes": 279,
-        "non_credit_or_repeat_miles": 8.11,
+        "non_credit_or_repeat_miles": 11.06,
         "declared_repeat_miles": 7.7
       },
       "warning_codes_closed": [],
@@ -957,6 +957,64 @@
       "field_readiness_status": "field_ready"
     },
     {
+      "route_label": "2",
+      "candidate_id": "block-camels_lower_hulls_even_day",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "route_source_hash": "fdd656b0ce9156bc37d3cc91ac16ce4cdb2d6ca231f17a31b2278872ac9c84cb",
+      "review_route_source_hash": "a3cd0c17523918bc08301d5e073c62fbc52ad47208962d065f814d30c9a6e42d",
+      "area": "Camels Back / Hulls Gulch",
+      "decision": "HOLD_CURRENT_RECERTIFIED",
+      "review_decision": "PASS_NON_DOMINATED",
+      "review_state": "accepted_current",
+      "current_start": "Hulls Gulch",
+      "official_segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1730",
+        "1728",
+        "1726",
+        "1725",
+        "1727",
+        "1729",
+        "1751",
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1616",
+        "1615"
+      ],
+      "trail_names": [
+        "Lower Hull's Gulch Trail",
+        "Hull's Gulch Interpretive",
+        "Crestline Trail",
+        "Kestral Trail",
+        "Red Cliffs"
+      ],
+      "metrics": {
+        "official_miles": 11.08,
+        "on_foot_miles": 18.8,
+        "on_foot_to_official_ratio": 1.7,
+        "p75_minutes": 332,
+        "p90_minutes": 372,
+        "non_credit_or_repeat_miles": 7.72,
+        "declared_repeat_miles": 6.69
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
+      "required_action": "No route-review action required.",
+      "disproof_result": "Kept as the current recertified field-packet route.",
+      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
+      "requires_field_walkthrough": false,
+      "field_readiness_status": "field_ready"
+    },
+    {
       "route_label": "16A-D1",
       "candidate_id": "manual-16a-d1",
       "candidate_ids": [
@@ -1001,64 +1059,6 @@
       "field_readiness_status": "field_ready"
     },
     {
-      "route_label": "2",
-      "candidate_id": "block-camels_lower_hulls_even_day",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "route_source_hash": "b804458e1b6e1492722c1ed4cabbdcb5c2824e24c9cf9ddcfa0f9ac9042a1ca8",
-      "review_route_source_hash": "3a30e384d63ddba2271540e7df9efbcbf525f2169eb6ceb06ff67c1b3d247f9c",
-      "area": "Camels Back / Hulls Gulch",
-      "decision": "HOLD_CURRENT_RECERTIFIED",
-      "review_decision": "PASS_NON_DOMINATED",
-      "review_state": "accepted_current",
-      "current_start": "Hulls Gulch",
-      "official_segment_ids": [
-        "1583",
-        "1616",
-        "1615",
-        "1535",
-        "1534",
-        "1533",
-        "1532",
-        "1589",
-        "1588",
-        "1587",
-        "1586",
-        "1585",
-        "1751",
-        "1729",
-        "1727",
-        "1725",
-        "1726",
-        "1728",
-        "1730"
-      ],
-      "trail_names": [
-        "Kestral Trail",
-        "Red Cliffs",
-        "Crestline Trail",
-        "Lower Hull's Gulch Trail",
-        "Hull's Gulch Interpretive"
-      ],
-      "metrics": {
-        "official_miles": 11.08,
-        "on_foot_miles": 20.62,
-        "on_foot_to_official_ratio": 1.86,
-        "p75_minutes": 349,
-        "p90_minutes": 391,
-        "non_credit_or_repeat_miles": 9.54,
-        "declared_repeat_miles": 7.09
-      },
-      "warning_codes_closed": [],
-      "same_credit_anchor_attack": "No same-credit anchor beats this route in the current deterministic review.",
-      "required_action": "No route-review action required.",
-      "disproof_result": "Kept as the current recertified field-packet route.",
-      "what_would_disprove_later": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.",
-      "requires_field_walkthrough": false,
-      "field_readiness_status": "field_ready"
-    },
-    {
       "route_label": "18A",
       "candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
       "candidate_ids": [
@@ -1088,7 +1088,6 @@
         "Brewer's Byway Extension",
         "Tempest Trail",
         "Brewers Byway",
-        "The Face Trail",
         "Mores Mtn Interpretive"
       ],
       "metrics": {
@@ -1141,9 +1140,9 @@
         "Harlow's Hollows Connector",
         "Ricochet",
         "Shooting Range",
-        "Spring Creek",
+        "Whistling Pig",
         "Twisted Spring",
-        "Whistling Pig"
+        "Spring Creek"
       ],
       "metrics": {
         "official_miles": 7.3,
@@ -1447,12 +1446,12 @@
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 3.13,
+        "official_miles": 2.99,
         "on_foot_miles": 4.86,
-        "on_foot_to_official_ratio": 1.55,
+        "on_foot_to_official_ratio": 1.63,
         "p75_minutes": 107,
         "p90_minutes": 120,
-        "non_credit_or_repeat_miles": 1.73,
+        "non_credit_or_repeat_miles": 1.87,
         "declared_repeat_miles": 1.74
       },
       "evidence": [
@@ -2017,12 +2016,12 @@
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 6.09,
+        "official_miles": 3.14,
         "on_foot_miles": 14.2,
-        "on_foot_to_official_ratio": 2.33,
+        "on_foot_to_official_ratio": 4.52,
         "p75_minutes": 249,
         "p90_minutes": 279,
-        "non_credit_or_repeat_miles": 8.11,
+        "non_credit_or_repeat_miles": 11.06,
         "declared_repeat_miles": 7.7
       },
       "evidence": [
@@ -2119,25 +2118,25 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
-      "candidate_id": "manual-16a-d1",
+      "candidate_id": "block-camels_lower_hulls_even_day",
       "candidate_ids": [
-        "manual-16a-d1"
+        "block-camels_lower_hulls_even_day"
       ],
       "labels": [
-        "16A-D1"
+        "2"
       ],
-      "area": "Dry Creek",
+      "area": "Camels Back / Hulls Gulch",
       "status": "accepted_current",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 12.5,
-        "on_foot_miles": 15.61,
-        "on_foot_to_official_ratio": 1.25,
-        "p75_minutes": 347,
-        "p90_minutes": 385,
-        "non_credit_or_repeat_miles": 3.11,
-        "declared_repeat_miles": 2.37
+        "official_miles": 11.08,
+        "on_foot_miles": 18.8,
+        "on_foot_to_official_ratio": 1.7,
+        "p75_minutes": 332,
+        "p90_minutes": 372,
+        "non_credit_or_repeat_miles": 7.72,
+        "declared_repeat_miles": 6.69
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",
@@ -2157,25 +2156,25 @@
       "remaining_caveat": "A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression."
     },
     {
-      "candidate_id": "block-camels_lower_hulls_even_day",
+      "candidate_id": "manual-16a-d1",
       "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
+        "manual-16a-d1"
       ],
       "labels": [
-        "2"
+        "16A-D1"
       ],
-      "area": "Camels Back / Hulls Gulch",
+      "area": "Dry Creek",
       "status": "accepted_current",
       "decision": "HOLD_CURRENT_RECERTIFIED",
       "review_decision": "PASS_NON_DOMINATED",
       "metrics": {
-        "official_miles": 11.08,
-        "on_foot_miles": 20.62,
-        "on_foot_to_official_ratio": 1.86,
-        "p75_minutes": 349,
-        "p90_minutes": 391,
-        "non_credit_or_repeat_miles": 9.54,
-        "declared_repeat_miles": 7.09
+        "official_miles": 12.5,
+        "on_foot_miles": 15.61,
+        "on_foot_to_official_ratio": 1.25,
+        "p75_minutes": 347,
+        "p90_minutes": 385,
+        "non_credit_or_repeat_miles": 3.11,
+        "declared_repeat_miles": 2.37
       },
       "evidence": [
         "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json: deterministic same-credit dominance review for this route",

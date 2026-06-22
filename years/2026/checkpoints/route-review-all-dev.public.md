@@ -1,6 +1,6 @@
 # 2026 Route Review Pack
 
-Generated: 2026-06-21T14:34:12Z
+Generated: 2026-06-22T03:12:21Z
 
 ## Summary
 
@@ -66,10 +66,10 @@ Required action: No route-review action required.
 - Start: West Climb
 - Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because West Climb Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1566, 1565, 1504, 1505, 1506, 1507, 1718, 1719
-- Official miles: 3.13
+- Official miles: 2.99
 - On-foot miles: 4.86
 - p75 / p90: 107 / 120 min
-- Non-credit/repeat burden: 1.73 mi
+- Non-credit/repeat burden: 1.87 mi
 
 ### Same-Credit Alternatives
 
@@ -322,10 +322,10 @@ Required action: No route-review action required.
 - Start: Dry Creek / Sweet Connie roadside parking
 - Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.
 - Official segments: 1665, 1666, 1667
-- Official miles: 6.09
+- Official miles: 3.14
 - On-foot miles: 14.2
 - p75 / p90: 249 / 279 min
-- Non-credit/repeat burden: 8.11 mi
+- Non-credit/repeat burden: 11.06 mi
 
 ### Same-Credit Alternatives
 
@@ -367,6 +367,23 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
+## 2
+
+- Decision: `PASS_NON_DOMINATED`
+- Start: Hulls Gulch
+- Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
+- Official segments: 1585, 1586, 1587, 1588, 1589, 1730, 1728, 1726, 1725, 1727, 1729, 1751, 1532, 1533, 1534, 1535, 1583, 1616, 1615
+- Official miles: 11.08
+- On-foot miles: 18.8
+- p75 / p90: 332 / 372 min
+- Non-credit/repeat burden: 7.72 mi
+
+### Same-Credit Alternatives
+
+- None found.
+
+Required action: No route-review action required.
+
 ## 16A-D1
 
 - Decision: `PASS_NON_DOMINATED`
@@ -377,23 +394,6 @@ Required action: No route-review action required.
 - On-foot miles: 15.61
 - p75 / p90: 347 / 385 min
 - Non-credit/repeat burden: 3.11 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
-## 2
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Hulls Gulch
-- Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1583, 1616, 1615, 1535, 1534, 1533, 1532, 1589, 1588, 1587, 1586, 1585, 1751, 1729, 1727, 1725, 1726, 1728, 1730
-- Official miles: 11.08
-- On-foot miles: 20.62
-- p75 / p90: 349 / 391 min
-- Non-credit/repeat burden: 9.54 mi
 
 ### Same-Credit Alternatives
 

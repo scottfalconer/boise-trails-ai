@@ -2,6 +2,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pytest
+
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "human_loop_plan.py"
 
@@ -238,6 +240,89 @@ def test_apply_route_truth_repairs_rebuilds_standalone_pruned_component(monkeypa
     assert "completed_segments_pruned_from_route_source" in package_map["packages"][0]["planning_reasons"]
     assert route_pass["routes"][0]["candidate_id"] == "stale-candidate"
     assert route_pass["routes"][0]["route_source"] == "route_truth_pruned_component"
+
+
+def test_apply_route_truth_repairs_rejects_worse_pruned_component(monkeypatch):
+    module = load_human_loop_plan()
+    route_pass = {"routes": [{"candidate_id": "stale-candidate", "route_number": 7}]}
+    source_component = {
+        "candidate_id": "stale-candidate",
+        "route_number": 7,
+        "field_menu_label": "2",
+        "segment_ids": [1, 2, 3],
+        "on_foot_miles": 10.0,
+        "total_minutes": 100,
+    }
+    package_pass = {"packages": [{"package_number": 2, "components": [source_component.copy()]}]}
+    package_map = {
+        "packages": [{"package_number": 2, "components": [source_component.copy()]}],
+        "route_cues": {
+            "stale-candidate": {
+                "candidate_id": "stale-candidate",
+                "trailhead": {"name": "Shared trailhead"},
+            }
+        },
+        "feature_collections": {
+            "routes": {"type": "FeatureCollection", "features": []},
+            "parking": {"type": "FeatureCollection", "features": []},
+        },
+    }
+    repairs = {
+        "repairs": [
+            {
+                "repair_id": "prune-stale",
+                "status": "active",
+                "repair_type": "pruned_component_route",
+                "package_number": 2,
+                "candidate_id": "stale-candidate",
+                "replacement_segment_ids": [2, 3],
+            }
+        ]
+    }
+
+    monkeypatch.setattr(module, "route_truth_context", lambda state, official_segments: {"stub": True})
+
+    def fake_payload(**kwargs):
+        return {
+            "component": {
+                "candidate_id": "stale-candidate",
+                "route_number": 7,
+                "field_menu_label": "2",
+                "segment_ids": [2, 3],
+                "on_foot_miles": 12.0,
+                "total_minutes": 120,
+            },
+            "cue": {"candidate_id": "stale-candidate", "segments": []},
+            "route_feature": {
+                "type": "Feature",
+                "geometry": {"type": "LineString", "coordinates": []},
+                "properties": {"candidate_id": "stale-candidate"},
+            },
+            "parking_feature": {
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [0, 0]},
+                "properties": {"candidate_id": "stale-candidate"},
+            },
+            "route_validation": {"candidate_id": "stale-candidate", "rendered_passed": True},
+        }
+
+    monkeypatch.setattr(module, "build_pruned_component_payload", fake_payload)
+
+    with pytest.raises(ValueError, match="regresses runnable cost"):
+        module.apply_route_truth_repairs(
+            route_pass,
+            package_pass,
+            package_map,
+            repairs,
+            official_segments=[
+                {"seg_id": 1, "coordinates": [[0, 0], [1, 1]]},
+                {"seg_id": 2, "coordinates": [[1, 1], [2, 2]]},
+                {"seg_id": 3, "coordinates": [[2, 2], [3, 3]]},
+            ],
+            state={},
+        )
+
+    assert package_map["packages"][0]["components"][0]["segment_ids"] == [1, 2, 3]
 
 
 def test_package_status_promotes_manual_design_hold():

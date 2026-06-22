@@ -124,6 +124,46 @@ def test_audit_accepts_counted_and_cued_self_repeat_and_reconciled_extra_credit(
     assert report["summary"]["bucket_c_reconciled_extra_credit_route_count"] == 1
 
 
+def test_audit_accepts_completed_at_export_repeat_reconciliation():
+    module = load_module()
+    field_tool = field_tool_with_repeat_cue(
+        {
+            "seq": 2,
+            "cue_type": "connector_named_trail",
+            "official_repeat_miles": 0.2,
+            "official_repeat_segment_ids": ["1"],
+            "note": "Connector includes 0.2 mi repeat official; do not count as new credit.",
+        }
+    )
+    field_tool["routes"][0]["segment_ownership_reconciliation"] = {
+        "status": "reconciled",
+        "segments_owned_elsewhere": [],
+        "segments_completed_at_export": [
+            {
+                "seg_id": "3",
+                "trail_name": "Completed Trail",
+                "official_miles": 0.4,
+            }
+        ],
+        "unclaimed_completed_segments": [],
+    }
+
+    report = module.audit(
+        map_data_with_repeat_leg(
+            {
+                "official_repeat_miles": 0.2,
+                "official_repeat_segment_ids": [1],
+                "connector_miles": 0.1,
+                "connector_classes": ["official_repeat"],
+            }
+        ),
+        field_tool,
+    )
+
+    assert report["status"] == "passed"
+    assert report["summary"]["bucket_c_reconciled_extra_credit_route_count"] == 1
+
+
 def test_audit_accepts_source_repeat_ids_superseded_by_final_public_cue():
     module = load_module()
     report = module.audit(

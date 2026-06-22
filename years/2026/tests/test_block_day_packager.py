@@ -579,6 +579,69 @@ def test_render_outing_menu_markdown_matches_map_cards_and_progress():
     assert "`/tmp/2026-outing-menu-map.html`" in markdown
 
 
+def test_build_outing_menu_recomputes_claim_summary_after_progress():
+    packager = load_packager()
+    map_data = {
+        "progress": {"completed_segment_ids": [1]},
+        "packages": [
+            {
+                "package_number": 2,
+                "block_name": "Progress-filtered block",
+                "components": [
+                    {
+                        "candidate_id": "route-2",
+                        "trail_names": ["Completed Connector", "Remaining Trail", "Other Trail"],
+                        "official_miles": 6.0,
+                        "on_foot_miles": 8.0,
+                        "total_minutes": 120,
+                        "trailhead": "Shared Trailhead",
+                        "segment_ids": [1, 2, 3],
+                    }
+                ],
+            }
+        ],
+        "feature_collections": {
+            "official_segments": {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "seg_id": 1,
+                            "trail_name": "Completed Connector",
+                            "segment_official_miles": 1.0,
+                        },
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "seg_id": 2,
+                            "trail_name": "Remaining Trail",
+                            "segment_official_miles": 2.0,
+                        },
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "seg_id": 3,
+                            "trail_name": "Other Trail",
+                            "segment_official_miles": 3.0,
+                        },
+                    },
+                ],
+            }
+        },
+    }
+
+    outings = packager.build_outing_menu(map_data)
+
+    assert len(outings) == 1
+    assert outings[0]["segment_ids"] == ["1", "2", "3"]
+    assert outings[0]["remaining_segment_ids"] == ["2", "3"]
+    assert outings[0]["official_miles"] == 5.0
+    assert outings[0]["trails"] == ["Remaining Trail", "Other Trail"]
+
+
 def test_render_outing_menu_markdown_computes_missing_planwide_ratio():
     packager = load_packager()
     map_data = {

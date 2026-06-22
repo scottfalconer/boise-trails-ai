@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Hillside to Hollow: Full Sail (1A-2)</name>
-    <desc>1A-2. West Climb | Official 3.13 mi; On-foot 4.86 mi; Door-to-door p75 1h 47m; Segments left 8 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>1A-2. West Climb | Official 2.99 mi; On-foot 4.86 mi; Door-to-door p75 1h 47m; Segments left 8 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650998" lon="-116.224045">
     <name>PARK/START West Climb Trailhead</name>
@@ -26,7 +26,7 @@
   </wpt>
   <trk>
     <name>Hillside to Hollow: Full Sail (1A-2)</name>
-    <desc>1A-2. West Climb | Official 3.13 mi; On-foot 4.86 mi; Door-to-door p75 1h 47m; Segments left 8 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>1A-2. West Climb | Official 2.99 mi; On-foot 4.86 mi; Door-to-door p75 1h 47m; Segments left 8 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.650998" lon="-116.224045" />
       <trkpt lat="43.651247" lon="-116.224014" />

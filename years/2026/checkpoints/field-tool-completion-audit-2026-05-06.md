@@ -2,7 +2,7 @@
 
 - Status: `passed`
 - Requirements: 21 / 21 passed
-- Advisory optimization actions surfaced: 74
+- Advisory optimization actions surfaced: 46
 - Field-ready route cards: 28
 - Held route cards: 0
 - Total route cards: 28
@@ -12,7 +12,7 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash e6a457a58db9301cfd90ff8b2e64d1a02c37b17c994e621d0e53976d020cb3c6; canonical map hash e6a457a58db9301cfd90ff8b2e64d1a02c37b17c994e621d0e53976d020cb3c6 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a; canonical map hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a |
 | Field packet route records match canonical outing menu metrics | Pass | field packet route miles, p75 minutes, and segment ids match canonical menu components |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
@@ -31,7 +31,7 @@
 | Official repeat audit hard gate has no hidden repeat-accounting failures | Pass | {"bucket_a_bad_hidden_self_repeat_count": 0, "repeat_cues_missing_text": 0, "repeat_legs_missing_segment_ids": 0, "status": "passed", "unreconciled_extra_credit_segment_count": 0} |
 | Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures | Pass | {"avoidable_post_credit_repeat_instance_count": 0, "failed_route_count": 0, "hidden_self_repeat_segment_count": 0, "latent_credit_segment_count": 0, "missing_gpx_route_count": 0, "status": "passed", "unpriced_repeat_segment_count": 0} |
 | Route edge-cover hard gate has no hard depot phase resets or missing route-quality GPX | Pass | {"failed_route_count": 0, "missing_gpx_route_count": 0, "phase_reset_advisory_count": 0, "phase_reset_failure_count": 0, "status": "passed"} |
-| Graduated bridge-duplication failures are repaired or waived | Pass | {"graduated_blocking_strict_bridge_count": 0, "near_bridge_count": 31, "status": "actionable_bridge_debt", "strict_bridge_count_unwaived": 5} |
+| Graduated bridge-duplication failures are repaired or waived | Pass | {"graduated_blocking_strict_bridge_count": 0, "near_bridge_count": 26, "status": "actionable_bridge_debt", "strict_bridge_count_unwaived": 6} |
 | Land-manager special-management rules pass for every published route | Pass | {"failed_route_count": 0, "failure_counts": {}, "status": "passed"} |
 
 ## Optimization Advisories
@@ -39,9 +39,9 @@
 | Advisory | Status | Actions | Evidence |
 |---|---|---:|---|
 | Latent-credit delta repricing advisory | informational | 0 | {"current_calendar_removed_route_count": 0, "current_calendar_saved_on_foot_miles": 0.0, "current_calendar_saved_p75_minutes": 0, "status": "pairwise_savings_only"} |
-| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 4.58, "status": "ownership_reassignment_reduces_existing_loop_work"} |
-| Simulated-progress priority advisory | actionable | 38 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 3, "sweeps_with_future_shrunk_route_count": 35} |
-| Bridge duplication repair advisory | actionable | 36 | {"graduated_blocking_strict_bridge_count": 0, "near_bridge_count": 31, "status": "actionable_bridge_debt", "strict_bridge_count_unwaived": 5} |
+| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 6.82, "status": "ownership_reassignment_reduces_existing_loop_work"} |
+| Simulated-progress priority advisory | actionable | 14 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 2, "sweeps_with_future_shrunk_route_count": 12} |
+| Bridge duplication repair advisory | actionable | 32 | {"graduated_blocking_strict_bridge_count": 0, "near_bridge_count": 26, "status": "actionable_bridge_debt", "strict_bridge_count_unwaived": 6} |
 
 ## Validation Commands
 

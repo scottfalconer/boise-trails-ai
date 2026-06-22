@@ -960,6 +960,7 @@ def build_map_data(
                     "seg_id": segment.get("seg_id"),
                     "segment_name": segment.get("seg_name") or segment.get("trail_name"),
                     "trail_name": segment.get("trail_name"),
+                    "segment_official_miles_raw": segment.get("official_miles"),
                     "direction_rule": segment.get("direction"),
                     "direction_cue": segment_direction_cue(candidate, segment),
                 },
@@ -1123,8 +1124,63 @@ def manual_design_area_for_candidate_ids(
     return None
 
 
+def official_segment_props_by_id(map_data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    collection = (map_data.get("feature_collections") or {}).get("official_segments") or {}
+    index: dict[str, dict[str, Any]] = {}
+    for feature in collection.get("features") or []:
+        props = feature.get("properties") or {}
+        segment_id = props.get("seg_id") or props.get("segment_id") or props.get("segId")
+        if segment_id is not None:
+            index[str(segment_id)] = props
+    return index
+
+
+def official_segment_miles(props: dict[str, Any]) -> float:
+    for key in ("segment_official_miles_raw", "segment_official_miles", "official_miles", "LengthMi", "length_miles"):
+        value = props.get(key)
+        if value is not None:
+            return float(value)
+    length_ft = props.get("LengthFt") or props.get("length_ft")
+    if length_ft is not None:
+        return float(length_ft) / 5280.0
+    return 0.0
+
+
+def official_miles_for_segment_ids(
+    segment_ids: list[str],
+    official_props_by_id: dict[str, dict[str, Any]],
+) -> float | None:
+    miles = 0.0
+    found = False
+    for segment_id in segment_ids:
+        props = official_props_by_id.get(str(segment_id))
+        if not props:
+            continue
+        segment_miles = official_segment_miles(props)
+        if segment_miles <= 0:
+            continue
+        found = True
+        miles += segment_miles
+    return round_miles(miles) if found else None
+
+
+def trails_for_segment_ids(
+    segment_ids: list[str],
+    official_props_by_id: dict[str, dict[str, Any]],
+    fallback_trails: list[str],
+) -> list[str]:
+    trails: list[str] = []
+    for segment_id in segment_ids:
+        props = official_props_by_id.get(str(segment_id)) or {}
+        trail = props.get("trail_name") or props.get("TrailName") or props.get("trailName")
+        if trail and trail not in trails:
+            trails.append(str(trail))
+    return trails or fallback_trails
+
+
 def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
     completed = {str(item) for item in (map_data.get("progress") or {}).get("completed_segment_ids") or []}
+    official_props_by_id = official_segment_props_by_id(map_data)
     r2r_index = load_r2r_route_name_index()
     outings: list[dict[str, Any]] = []
     for package in map_data.get("packages") or []:
@@ -1196,11 +1252,16 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
             remaining_segment_ids = [segment_id for segment_id in segment_ids if segment_id not in completed]
             if segment_ids and not remaining_segment_ids:
                 continue
+            display_segment_ids = remaining_segment_ids or segment_ids
+            official_miles = official_miles_for_segment_ids(display_segment_ids, official_props_by_id)
+            if official_miles is None:
+                official_miles = round_miles(start["official_miles"])
+            display_trails = trails_for_segment_ids(display_segment_ids, official_props_by_id, start["trails"])
             label = str(
                 start.get("label_override")
                 or f"{package['package_number']}{chr(65 + index) if len(starts) > 1 else ''}"
             )
-            route_name = human_route_name(start["trails"], start["trailhead"], r2r_index=r2r_index)
+            route_name = human_route_name(display_trails, start["trailhead"], r2r_index=r2r_index)
             manual_area = manual_design_area_for_candidate_ids(
                 map_data,
                 package.get("package_number"),
@@ -1214,10 +1275,10 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     **route_name,
                     "package_number": package["package_number"],
                     "package_start_count": len(starts),
-                    "block_name": package["block_name"],
+                    "block_name": package.get("block_name") or f"Package {package['package_number']}",
                     "trailhead": start["trailhead"],
-                    "trails": start["trails"],
-                    "official_miles": round_miles(start["official_miles"]),
+                    "trails": display_trails,
+                    "official_miles": official_miles,
                     "on_foot_miles": round_miles(start["on_foot_miles"]),
                     "total_minutes": start["total_minutes"],
                     "candidate_ids": start["candidate_ids"],

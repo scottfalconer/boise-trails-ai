@@ -1,9 +1,9 @@
 {
   "schema": "boise_trails_route_repeat_optimization_audit_v1",
-  "generated_at": "2026-06-09T23:55:22Z",
+  "generated_at": "2026-06-22T14:33:16Z",
   "status": "passed",
   "summary": {
-    "route_count": 31,
+    "route_count": 28,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "hidden_self_repeat_segment_count": 0,
@@ -11,15 +11,15 @@
     "unpriced_repeat_segment_count": 0,
     "avoidable_post_credit_repeat_segment_count": 0,
     "avoidable_post_credit_repeat_instance_count": 0,
-    "post_credit_repeat_advisory_count": 39,
-    "optimization_warning_count": 6,
-    "total_optimization_warning_count": 57,
-    "closed_optimization_warning_count": 51,
+    "post_credit_repeat_advisory_count": 58,
+    "optimization_warning_count": 0,
+    "total_optimization_warning_count": 50,
+    "closed_optimization_warning_count": 50,
     "high_non_credit_route_count": 12,
-    "high_ratio_route_count": 5,
-    "high_declared_repeat_route_count": 18,
-    "same_trailhead_bundle_warning_count": 7,
-    "cross_route_tail_opportunity_count": 7
+    "high_ratio_route_count": 6,
+    "high_declared_repeat_route_count": 14,
+    "same_trailhead_bundle_warning_count": 6,
+    "cross_route_tail_opportunity_count": 6
   },
   "parameters": {
     "threshold_miles": 0.045,
@@ -37,8 +37,8 @@
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
     "packet_dir": "docs/field-packet",
     "audit_gpx_glob": "docs/field-packet/gpx/audit/*.gpx",
-    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
-    "official_last_updated_utc": "2026-05-01T19:14:44",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson",
+    "official_last_updated_utc": "2026-06-11T01:45:43",
     "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
     "dem_tif": "years/2026/inputs/open-data/dem-2026-05-04/usgs_13arcsec_boise_planning_bbox.tif",
     "dem_summary_json": "years/2026/inputs/open-data/dem-2026-05-04/dem_summary.json",
@@ -59,17 +59,12 @@
     "avoidable_post_credit_repeat_segment_ids": []
   },
   "advisory_closure": {
-    "status": "closed_non_blocking_optimization_backlog",
-    "warning_count": 6,
-    "closed_warning_count": 51,
-    "warning_counts": {
-      "high_declared_repeat_miles": 3,
-      "high_non_credit_miles": 1,
-      "high_on_foot_to_official_ratio": 1,
-      "same_trailhead_bundle_candidate": 1
-    },
+    "status": "closed_by_route_disproof",
+    "warning_count": 0,
+    "closed_warning_count": 50,
+    "warning_counts": {},
     "blocking_policy": "Route-repeat audit blocks only on missing GPX, hidden self-repeat, latent credit without ownership/repeat decision, unpriced repeat, or proven avoidable post-credit repeat. High ratio, high non-credit, high declared-repeat, and same-trailhead bundle rows are optimization pressure signals.",
-    "closure_reason": "No repeat-accounting hard failures remain. Optimization warnings are intentionally carried forward to ownership, repeat-productivity, same-car, and route-efficiency audits without blocking route promotion by themselves."
+    "closure_reason": "No repeat-accounting hard failures remain and all optimization warnings have a current adversarial disproof record."
   },
   "avoidable_post_credit_repeat_instances": [],
   "post_credit_repeat_advisories": [
@@ -84,25 +79,23 @@
         "1643"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.165,
-      "source_route_leg_miles": 1.165,
+      "current_route_leg_miles": 1.189,
+      "source_route_leg_miles": 1.189,
       "savings_threshold_miles": 0.227,
-      "alternate_distance_miles": 5.6059,
-      "graph_alternate_distance_miles": 3.8573,
-      "estimated_savings_miles": -4.4409,
-      "alternate_connector_miles": 2.0,
+      "alternate_distance_miles": 5.5816,
+      "graph_alternate_distance_miles": 3.8369,
+      "estimated_savings_miles": -4.3926,
+      "alternate_connector_miles": 1.98,
       "alternate_official_repeat_miles": 1.86,
       "alternate_connector_names": [
         "#0 Hull's Gulch Interpretive Trail",
         "#31 Corrals",
-        "#32 Scott's",
         "Corrals",
         "East Sunset Peak Road",
         "Hull's Gulch Interpretive Loop",
         "Hull's Gulch Interpretive Trail",
         "OSM service connector 12944",
-        "OSM service connector 12945",
-        "Scott's"
+        "OSM service connector 12945"
       ],
       "alternate_connector_classes": [
         "official_repeat",
@@ -123,8 +116,8 @@
         "1646"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.169,
-      "source_route_leg_miles": 0.169,
+      "current_route_leg_miles": 0.165,
+      "source_route_leg_miles": 0.165,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
@@ -140,25 +133,9 @@
         "1495"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.392,
-      "source_route_leg_miles": 1.392,
-      "savings_threshold_miles": 0.1392,
-      "reason": "repeat_exit_no_alternate_graph_path_proven"
-    },
-    {
-      "label": "16-2: 16A-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "seq": 3,
-      "cue_type": "exit_access",
-      "repeated_segment_ids": [
-        "1653"
-      ],
-      "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 2.187,
-      "source_route_leg_miles": 2.187,
-      "savings_threshold_miles": 0.2187,
+      "current_route_leg_miles": 1.5208,
+      "source_route_leg_miles": 1.521,
+      "savings_threshold_miles": 0.1521,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
@@ -178,6 +155,23 @@
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
+      "label": "1-2: 1A-2",
+      "candidate_ids": [
+        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
+      ],
+      "seq": 9,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1507",
+        "1755"
+      ],
+      "already_credited_source": "mixed",
+      "current_route_leg_miles": 0.996,
+      "source_route_leg_miles": 0.996,
+      "savings_threshold_miles": 0.1,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
       "label": "4-1: 4A",
       "candidate_ids": [
         "bobs-trail-urban-connector"
@@ -188,9 +182,9 @@
         "1500"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.147,
-      "source_route_leg_miles": 1.147,
-      "savings_threshold_miles": 0.1147,
+      "current_route_leg_miles": 1.164,
+      "source_route_leg_miles": 1.164,
+      "savings_threshold_miles": 0.1164,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
@@ -204,48 +198,38 @@
         "1482"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.675,
-      "source_route_leg_miles": 0.675,
+      "current_route_leg_miles": 0.736,
+      "source_route_leg_miles": 0.736,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
-      "label": "1-3: 1B",
+      "label": "8-1: 8",
       "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+        "block-oregon_trail_harris_peace_valley"
       ],
-      "seq": 6,
+      "seq": 4,
       "cue_type": "junction_turn",
       "repeated_segment_ids": [
-        "1699"
+        "1722"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.699,
-      "source_route_leg_miles": 0.699,
-      "savings_threshold_miles": 0.1,
-      "reason": "alternate_would_drop_claimed_geometry_coverage",
-      "would_miss_claimed_segment_ids": [
-        "1700"
-      ]
-    },
-    {
-      "label": "1-3: 1B",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+      "current_route_leg_miles": 0.512,
+      "source_route_leg_miles": 0.512,
+      "savings_threshold_miles": 0.364,
+      "alternate_distance_miles": 0.2137,
+      "graph_alternate_distance_miles": 0.1578,
+      "estimated_savings_miles": 0.2983,
+      "alternate_connector_miles": 0.04,
+      "alternate_official_repeat_miles": 0.12,
+      "alternate_connector_names": [
+        "#109 Peace Valley Overlook Trail"
       ],
-      "seq": 7,
-      "cue_type": "connector_named_trail",
-      "repeated_segment_ids": [
-        "1698"
+      "alternate_connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
       ],
-      "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.324,
-      "source_route_leg_miles": 1.324,
-      "savings_threshold_miles": 0.1324,
-      "reason": "alternate_would_drop_claimed_geometry_coverage",
-      "would_miss_claimed_segment_ids": [
-        "1698"
-      ]
+      "reason": "alternate_savings_below_route_threshold"
     },
     {
       "label": "15-1: 15A",
@@ -260,8 +244,8 @@
         "1624"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.977,
-      "source_route_leg_miles": 0.977,
+      "current_route_leg_miles": 0.896,
+      "source_route_leg_miles": 0.896,
       "savings_threshold_miles": 0.1,
       "reason": "alternate_geometry_still_completes_repeated_segments",
       "alternate_completed_repeat_ids": [
@@ -269,42 +253,100 @@
       ]
     },
     {
-      "label": "16-3: 16C-1",
+      "label": "15-2: 15B",
+      "candidate_ids": [
+        "route-truth-15b-highlands-connector"
+      ],
+      "seq": 3,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 2.085,
+      "source_route_leg_miles": 2.085,
+      "savings_threshold_miles": 0.2085,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "18-2: 18B",
+      "candidate_ids": [
+        "combo-lodge-trail-shindig"
+      ],
+      "seq": 5,
+      "cue_type": "exit_access",
+      "repeated_segment_ids": [
+        "1655"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 2.9217,
+      "source_route_leg_miles": 2.922,
+      "savings_threshold_miles": 0.2922,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "16-2: 16C-1",
       "candidate_ids": [
         "multi-start-16c-16c-ms-02-1-stack-rock-connector"
       ],
       "seq": 3,
       "cue_type": "exit_access",
       "repeated_segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 3.318,
-      "source_route_leg_miles": 3.318,
-      "savings_threshold_miles": 0.688,
-      "alternate_distance_miles": 4.6167,
-      "graph_alternate_distance_miles": 4.2954,
-      "estimated_savings_miles": -1.2987,
-      "alternate_connector_miles": 3.99,
-      "alternate_official_repeat_miles": 0.31,
+      "current_route_leg_miles": 3.4816,
+      "source_route_leg_miles": 3.482,
+      "savings_threshold_miles": 0.3482,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "9-1: 9",
+      "candidate_ids": [
+        "block-eagle_bike_park_red_tail"
+      ],
+      "seq": 4,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1692",
+        "1693"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.365,
+      "source_route_leg_miles": 0.365,
+      "savings_threshold_miles": 0.65,
+      "alternate_distance_miles": 0.4213,
+      "graph_alternate_distance_miles": 0.2346,
+      "estimated_savings_miles": -0.0563,
+      "alternate_connector_miles": 0.09,
+      "alternate_official_repeat_miles": 0.14,
       "alternate_connector_names": [
-        "#125 Freddys Stack Rock Trail",
-        "#77 Sweet Connie",
-        "Freddys Stack Rock Trail",
-        "North Bogus Basin Road",
-        "OSM path connector 13963",
-        "OSM service connector 112257",
-        "OSM service connector 40457",
-        "Sweet Connie"
+        "Big Springs Loop"
       ],
       "alternate_connector_classes": [
         "official_repeat",
         "osm_path_footway",
-        "osm_public_road",
         "r2r_trail"
       ],
       "reason": "alternate_savings_below_route_threshold"
+    },
+    {
+      "label": "9-1: 9",
+      "candidate_ids": [
+        "block-eagle_bike_park_red_tail"
+      ],
+      "seq": 6,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1611",
+        "1612"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.206,
+      "source_route_leg_miles": 0.206,
+      "savings_threshold_miles": 0.1,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
       "label": "9-1: 9",
@@ -319,15 +361,16 @@
         "1693"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.044,
-      "source_route_leg_miles": 1.044,
+      "current_route_leg_miles": 1.109,
+      "source_route_leg_miles": 1.109,
       "savings_threshold_miles": 0.65,
-      "alternate_distance_miles": 1.9297,
-      "graph_alternate_distance_miles": 1.678,
-      "estimated_savings_miles": -0.8857,
-      "alternate_connector_miles": 1.68,
-      "alternate_official_repeat_miles": 0.0,
+      "alternate_distance_miles": 2.0003,
+      "graph_alternate_distance_miles": 1.7096,
+      "estimated_savings_miles": -0.8913,
+      "alternate_connector_miles": 1.7,
+      "alternate_official_repeat_miles": 0.01,
       "alternate_connector_names": [
+        "Access Trail (#113 Big Springs Loop)",
         "Big Springs Loop",
         "North Dry Creek Cemetery Road",
         "North Palisades Way",
@@ -338,10 +381,10 @@
         "OSM footway connector 38017",
         "OSM footway connector 38018",
         "OSM footway connector 38019",
-        "OSM footway connector 38020",
-        "OSM footway connector 38021"
+        "OSM footway connector 38020"
       ],
       "alternate_connector_classes": [
+        "official_repeat",
         "osm_path_footway",
         "osm_public_road",
         "r2r_trail"
@@ -359,8 +402,8 @@
         "1604"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.18,
-      "source_route_leg_miles": 0.18,
+      "current_route_leg_miles": 0.236,
+      "source_route_leg_miles": 0.236,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
@@ -374,11 +417,28 @@
       "repeated_segment_ids": [
         "1541",
         "1599",
-        "1604"
+        "1604",
+        "1610"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.7938,
-      "source_route_leg_miles": 0.794,
+      "current_route_leg_miles": 1.234,
+      "source_route_leg_miles": 1.234,
+      "savings_threshold_miles": 0.1234,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "3-1: 3",
+      "candidate_ids": [
+        "block-military_core"
+      ],
+      "seq": 3,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1590"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.804,
+      "source_route_leg_miles": 0.804,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
@@ -393,8 +453,8 @@
         "1720"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.715,
-      "source_route_leg_miles": 0.715,
+      "current_route_leg_miles": 0.713,
+      "source_route_leg_miles": 0.713,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
@@ -404,13 +464,13 @@
         "block-military_core"
       ],
       "seq": 11,
-      "cue_type": "connector_named_trail",
+      "cue_type": "overlap_repeat",
       "repeated_segment_ids": [
         "1629"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.202,
-      "source_route_leg_miles": 0.202,
+      "current_route_leg_miles": 0.201,
+      "source_route_leg_miles": 0.201,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
@@ -438,14 +498,30 @@
       "candidate_ids": [
         "block-military_core"
       ],
+      "seq": 19,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1548"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.173,
+      "source_route_leg_miles": 0.173,
+      "savings_threshold_miles": 0.1,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "3-1: 3",
+      "candidate_ids": [
+        "block-military_core"
+      ],
       "seq": 21,
       "cue_type": "connector_road",
       "repeated_segment_ids": [
         "1591"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.364,
-      "source_route_leg_miles": 0.364,
+      "current_route_leg_miles": 0.42,
+      "source_route_leg_miles": 0.42,
       "savings_threshold_miles": 0.1,
       "reason": "alternate_geometry_still_completes_repeated_segments",
       "alternate_completed_repeat_ids": [
@@ -463,8 +539,8 @@
         "1574"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.178,
-      "source_route_leg_miles": 0.178,
+      "current_route_leg_miles": 0.807,
+      "source_route_leg_miles": 0.807,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
@@ -477,12 +553,13 @@
       "cue_type": "exit_access",
       "repeated_segment_ids": [
         "1574",
+        "1575",
         "1592"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.627,
-      "source_route_leg_miles": 0.627,
-      "savings_threshold_miles": 0.1,
+      "current_route_leg_miles": 1.428,
+      "source_route_leg_miles": 1.428,
+      "savings_threshold_miles": 0.1428,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
@@ -496,14 +573,14 @@
         "1524"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 3.958,
-      "source_route_leg_miles": 3.958,
+      "current_route_leg_miles": 4.013,
+      "source_route_leg_miles": 4.013,
       "savings_threshold_miles": 1.344,
-      "alternate_distance_miles": 3.5169,
-      "graph_alternate_distance_miles": 2.8349,
-      "estimated_savings_miles": 0.4411,
-      "alternate_connector_miles": 2.24,
-      "alternate_official_repeat_miles": 0.6,
+      "alternate_distance_miles": 3.5625,
+      "graph_alternate_distance_miles": 2.8762,
+      "estimated_savings_miles": 0.4505,
+      "alternate_connector_miles": 2.29,
+      "alternate_official_repeat_miles": 0.59,
       "alternate_connector_names": [
         "#30 Bob's",
         "#31 Corrals",
@@ -555,14 +632,14 @@
         "1484"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.43,
-      "source_route_leg_miles": 1.43,
+      "current_route_leg_miles": 1.484,
+      "source_route_leg_miles": 1.484,
       "savings_threshold_miles": 1.344,
-      "alternate_distance_miles": 4.398,
-      "graph_alternate_distance_miles": 3.6484,
-      "estimated_savings_miles": -2.968,
-      "alternate_connector_miles": 2.55,
-      "alternate_official_repeat_miles": 1.1,
+      "alternate_distance_miles": 4.3948,
+      "graph_alternate_distance_miles": 3.6402,
+      "estimated_savings_miles": -2.9108,
+      "alternate_connector_miles": 2.56,
+      "alternate_official_repeat_miles": 1.08,
       "alternate_connector_names": [
         "#28 Crestline",
         "#29 Lower Hulls Gulch",
@@ -593,13 +670,37 @@
       "seq": 3,
       "cue_type": "exit_access",
       "repeated_segment_ids": [
-        "1665"
+        "1666",
+        "1667"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 6.1245,
-      "source_route_leg_miles": 6.125,
-      "savings_threshold_miles": 0.6125,
-      "reason": "repeat_exit_no_alternate_graph_path_proven"
+      "current_route_leg_miles": 13.185,
+      "source_route_leg_miles": 13.185,
+      "savings_threshold_miles": 1.3185,
+      "reason": "alternate_would_drop_claimed_endpoint_coverage",
+      "would_miss_claimed_segment_ids": [
+        "1666",
+        "1667"
+      ]
+    },
+    {
+      "label": "4-3: 4C",
+      "candidate_ids": [
+        "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute"
+      ],
+      "seq": 5,
+      "cue_type": "junction_turn",
+      "repeated_segment_ids": [
+        "1671"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 1.795,
+      "source_route_leg_miles": 1.795,
+      "savings_threshold_miles": 0.1795,
+      "reason": "alternate_would_drop_claimed_endpoint_coverage",
+      "would_miss_claimed_segment_ids": [
+        "1671"
+      ]
     },
     {
       "label": "4-3: 4C",
@@ -613,9 +714,9 @@
         "1670"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.468,
-      "source_route_leg_miles": 1.468,
-      "savings_threshold_miles": 0.1468,
+      "current_route_leg_miles": 0.992,
+      "source_route_leg_miles": 0.992,
+      "savings_threshold_miles": 0.1,
       "reason": "alternate_would_drop_claimed_endpoint_coverage",
       "would_miss_claimed_segment_ids": [
         "1669",
@@ -671,9 +772,9 @@
         "1641"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.342,
-      "source_route_leg_miles": 1.342,
-      "savings_threshold_miles": 0.1342,
+      "current_route_leg_miles": 1.349,
+      "source_route_leg_miles": 1.349,
+      "savings_threshold_miles": 0.1349,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
@@ -744,9 +845,25 @@
         "1595"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.933,
-      "source_route_leg_miles": 1.933,
-      "savings_threshold_miles": 0.1933,
+      "current_route_leg_miles": 2.05,
+      "source_route_leg_miles": 2.05,
+      "savings_threshold_miles": 0.205,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "seq": 4,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1725"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.191,
+      "source_route_leg_miles": 0.191,
+      "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
@@ -760,14 +877,14 @@
         "1728"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.606,
-      "source_route_leg_miles": 1.606,
+      "current_route_leg_miles": 1.706,
+      "source_route_leg_miles": 1.706,
       "savings_threshold_miles": 1.88,
-      "alternate_distance_miles": 4.1199,
-      "graph_alternate_distance_miles": 3.4044,
-      "estimated_savings_miles": -2.5139,
-      "alternate_connector_miles": 3.06,
-      "alternate_official_repeat_miles": 0.35,
+      "alternate_distance_miles": 3.9544,
+      "graph_alternate_distance_miles": 3.2892,
+      "estimated_savings_miles": -2.2484,
+      "alternate_connector_miles": 2.96,
+      "alternate_official_repeat_miles": 0.33,
       "alternate_connector_names": [
         "#0 Hull's Gulch Interpretive Trail",
         "East Sunset Peak Road",
@@ -787,14 +904,162 @@
       "candidate_ids": [
         "block-camels_lower_hulls_even_day"
       ],
+      "seq": 12,
+      "cue_type": "repeat_official_noncredit",
+      "repeated_segment_ids": [
+        "1596"
+      ],
+      "already_credited_source": "completed_at_export",
+      "current_route_leg_miles": 0.642,
+      "source_route_leg_miles": 0.642,
+      "savings_threshold_miles": 0.1,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "seq": 13,
+      "cue_type": "repeat_official_noncredit",
+      "repeated_segment_ids": [
+        "1567"
+      ],
+      "already_credited_source": "completed_at_export",
+      "current_route_leg_miles": 0.269,
+      "source_route_leg_miles": 0.269,
+      "savings_threshold_miles": 0.1,
+      "reason": "alternate_geometry_still_completes_repeated_segments",
+      "alternate_completed_repeat_ids": [
+        "1567"
+      ]
+    },
+    {
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "seq": 15,
+      "cue_type": "repeat_official_noncredit",
+      "repeated_segment_ids": [
+        "1481"
+      ],
+      "already_credited_source": "completed_at_export",
+      "current_route_leg_miles": 0.433,
+      "source_route_leg_miles": 0.433,
+      "savings_threshold_miles": 1.88,
+      "alternate_distance_miles": 1.0913,
+      "graph_alternate_distance_miles": 0.9151,
+      "estimated_savings_miles": -0.6583,
+      "alternate_connector_miles": 0.92,
+      "alternate_official_repeat_miles": 0.0,
+      "alternate_connector_names": [
+        "15th Street #41",
+        "Camel's Back",
+        "Camelsback Trails #40",
+        "North 13th Street",
+        "OSM footway connector 11376",
+        "OSM footway connector 114198",
+        "OSM footway connector 114199",
+        "OSM footway connector 114200",
+        "OSM footway connector 114201",
+        "OSM footway connector 19171",
+        "OSM footway connector 51989",
+        "OSM footway connector 83792"
+      ],
+      "alternate_connector_classes": [
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ],
+      "reason": "alternate_savings_below_route_threshold"
+    },
+    {
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "seq": 16,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1481"
+      ],
+      "already_credited_source": "completed_at_export",
+      "current_route_leg_miles": 0.711,
+      "source_route_leg_miles": 0.711,
+      "savings_threshold_miles": 1.88,
+      "alternate_distance_miles": 1.2662,
+      "graph_alternate_distance_miles": 1.0824,
+      "estimated_savings_miles": -0.5552,
+      "alternate_connector_miles": 1.08,
+      "alternate_official_repeat_miles": 0.0,
+      "alternate_connector_names": [
+        "15th Street #41",
+        "Camel's Back",
+        "Camelsback Trails #40",
+        "North 13th Street",
+        "OSM footway connector 11376",
+        "OSM footway connector 114198",
+        "OSM footway connector 114199",
+        "OSM footway connector 114200",
+        "OSM footway connector 114201",
+        "OSM footway connector 19171",
+        "OSM footway connector 51989",
+        "OSM footway connector 83792"
+      ],
+      "alternate_connector_classes": [
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ],
+      "reason": "alternate_savings_below_route_threshold"
+    },
+    {
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "seq": 17,
+      "cue_type": "repeat_official_noncredit",
+      "repeated_segment_ids": [
+        "1517",
+        "1518"
+      ],
+      "already_credited_source": "completed_at_export",
+      "current_route_leg_miles": 0.607,
+      "source_route_leg_miles": 0.607,
+      "savings_threshold_miles": 1.88,
+      "alternate_distance_miles": 0.5995,
+      "graph_alternate_distance_miles": 0.5771,
+      "estimated_savings_miles": 0.0075,
+      "alternate_connector_miles": 0.58,
+      "alternate_official_repeat_miles": 0.0,
+      "alternate_connector_names": [
+        "Chickadee Ridge",
+        "OSM service connector 19868",
+        "Red Fox #36",
+        "Red Fox (Dog Off-Leash)"
+      ],
+      "alternate_connector_classes": [
+        "osm_path_footway",
+        "osm_public_road",
+        "r2r_trail"
+      ],
+      "reason": "alternate_savings_below_route_threshold"
+    },
+    {
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
       "seq": 18,
       "cue_type": "connector_road",
       "repeated_segment_ids": [
         "1585"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 0.344,
-      "source_route_leg_miles": 0.344,
+      "current_route_leg_miles": 0.407,
+      "source_route_leg_miles": 0.407,
       "savings_threshold_miles": 0.1,
       "reason": "alternate_geometry_still_completes_repeated_segments",
       "alternate_completed_repeat_ids": [
@@ -822,19 +1087,18 @@
       "candidate_ids": [
         "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
       ],
-      "seq": 6,
-      "cue_type": "junction_turn",
+      "seq": 7,
+      "cue_type": "overlap_repeat",
       "repeated_segment_ids": [
-        "1501"
+        "1501",
+        "1502",
+        "1503"
       ],
       "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.514,
-      "source_route_leg_miles": 1.514,
-      "savings_threshold_miles": 0.1514,
-      "reason": "alternate_would_drop_claimed_geometry_coverage",
-      "would_miss_claimed_segment_ids": [
-        "1503"
-      ]
+      "current_route_leg_miles": 1.49,
+      "source_route_leg_miles": 1.49,
+      "savings_threshold_miles": 0.149,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
     },
     {
       "label": "18-1: 18A",
@@ -878,80 +1142,6 @@
       "reason": "alternate_savings_below_route_threshold"
     },
     {
-      "label": "15-2: 15B",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "seq": 5,
-      "cue_type": "overlap_repeat",
-      "repeated_segment_ids": [
-        "1546"
-      ],
-      "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 1.539,
-      "source_route_leg_miles": 1.539,
-      "savings_threshold_miles": 0.1539,
-      "reason": "repeat_exit_no_alternate_graph_path_proven"
-    },
-    {
-      "label": "15-2: 15B",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "seq": 7,
-      "cue_type": "connector_road",
-      "repeated_segment_ids": [
-        "1542"
-      ],
-      "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 2.48,
-      "source_route_leg_miles": 2.48,
-      "savings_threshold_miles": 0.248,
-      "reason": "repeat_exit_no_alternate_graph_path_proven"
-    },
-    {
-      "label": "15-2: 15B",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "seq": 9,
-      "cue_type": "exit_access",
-      "repeated_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "already_credited_source": "prior_route_cue",
-      "current_route_leg_miles": 2.069,
-      "source_route_leg_miles": 2.069,
-      "savings_threshold_miles": 2.539,
-      "alternate_distance_miles": 4.0256,
-      "graph_alternate_distance_miles": 3.8584,
-      "estimated_savings_miles": -1.9566,
-      "alternate_connector_miles": 3.61,
-      "alternate_official_repeat_miles": 0.25,
-      "alternate_connector_names": [
-        "#30 Bob's",
-        "#31 Corrals",
-        "Corrals",
-        "East Hearthstone Drive",
-        "North Bogus Basin Road",
-        "OSM footway connector 24296",
-        "OSM footway connector 24301",
-        "OSM footway connector 51185",
-        "OSM footway connector 70456",
-        "OSM footway connector 70457",
-        "OSM footway connector 70609",
-        "OSM footway connector 70610"
-      ],
-      "alternate_connector_classes": [
-        "official_repeat",
-        "osm_path_footway",
-        "osm_public_road",
-        "r2r_trail"
-      ],
-      "reason": "alternate_savings_below_route_threshold"
-    },
-    {
       "label": "10-1: 10A",
       "candidate_ids": [
         "manual-10a"
@@ -966,18 +1156,233 @@
       "source_route_leg_miles": 0.059,
       "savings_threshold_miles": 0.1,
       "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "17-1: 17",
+      "candidate_ids": [
+        "block-bogus_atm_deer_elk_sunshine"
+      ],
+      "seq": 9,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1553"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.269,
+      "source_route_leg_miles": 0.269,
+      "savings_threshold_miles": 0.1,
+      "reason": "alternate_geometry_still_completes_repeated_segments",
+      "alternate_completed_repeat_ids": [
+        "1553"
+      ]
+    },
+    {
+      "label": "6-1: 6",
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ],
+      "seq": 12,
+      "cue_type": "connector_road",
+      "repeated_segment_ids": [
+        "1508"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 4.078,
+      "source_route_leg_miles": 4.078,
+      "savings_threshold_miles": 0.4078,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "6-1: 6",
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ],
+      "seq": 14,
+      "cue_type": "exit_access",
+      "repeated_segment_ids": [
+        "1516"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 2.417,
+      "source_route_leg_miles": 2.417,
+      "savings_threshold_miles": 0.2417,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 3,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1685"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 1.697,
+      "source_route_leg_miles": 1.697,
+      "savings_threshold_miles": 0.1697,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 5,
+      "cue_type": "connector_named_trail",
+      "repeated_segment_ids": [
+        "1558"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 2.797,
+      "source_route_leg_miles": 2.797,
+      "savings_threshold_miles": 0.2797,
+      "reason": "alternate_geometry_still_completes_repeated_segments",
+      "alternate_completed_repeat_ids": [
+        "1558"
+      ]
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 7,
+      "cue_type": "connector_road",
+      "repeated_segment_ids": [
+        "1682"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.855,
+      "source_route_leg_miles": 0.855,
+      "savings_threshold_miles": 0.1,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 9,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1651"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 0.424,
+      "source_route_leg_miles": 0.424,
+      "savings_threshold_miles": 3.247,
+      "alternate_distance_miles": 2.0354,
+      "graph_alternate_distance_miles": 1.5246,
+      "estimated_savings_miles": -1.6114,
+      "alternate_connector_miles": 1.02,
+      "alternate_official_repeat_miles": 0.51,
+      "alternate_connector_names": [
+        "#26 Three Bears",
+        "#26A Shane's",
+        "Shane's",
+        "Three Bears"
+      ],
+      "alternate_connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ],
+      "reason": "alternate_savings_below_route_threshold"
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 11,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1650",
+        "1652"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 1.522,
+      "source_route_leg_miles": 1.522,
+      "savings_threshold_miles": 0.1522,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 13,
+      "cue_type": "overlap_repeat",
+      "repeated_segment_ids": [
+        "1563",
+        "1681"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 2.603,
+      "source_route_leg_miles": 2.603,
+      "savings_threshold_miles": 0.2603,
+      "reason": "repeat_exit_no_alternate_graph_path_proven"
+    },
+    {
+      "label": "13-1: 13",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "seq": 16,
+      "cue_type": "exit_access",
+      "repeated_segment_ids": [
+        "1563",
+        "1564",
+        "1681"
+      ],
+      "already_credited_source": "prior_route_cue",
+      "current_route_leg_miles": 5.881,
+      "source_route_leg_miles": 5.881,
+      "savings_threshold_miles": 3.247,
+      "alternate_distance_miles": 5.6561,
+      "graph_alternate_distance_miles": 3.872,
+      "estimated_savings_miles": 0.2249,
+      "alternate_connector_miles": 2.36,
+      "alternate_official_repeat_miles": 1.51,
+      "alternate_connector_names": [
+        "#20 Ridgecrest",
+        "#26 Three Bears",
+        "#26A Shane's",
+        "#3 Watchman",
+        "Central Ridge",
+        "Shane's",
+        "Three Bears",
+        "Watchman"
+      ],
+      "alternate_connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "r2r_trail"
+      ],
+      "reason": "alternate_savings_below_route_threshold"
     }
   ],
-  "optimization_warnings": [
+  "optimization_warnings": [],
+  "closed_optimization_warnings": [
     {
-      "label": "1-2: 1A-2",
+      "label": "4-1: 4A",
       "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
+        "bobs-trail-urban-connector"
       ],
-      "code": "high_declared_repeat_miles",
+      "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
-      "value": 2.33,
-      "message": "Declared official repeat mileage is above 2 miles."
+      "trailhead": "Bob's",
+      "route_count": 2,
+      "labels": [
+        "4-1: 4A",
+        "15-2: 15B"
+      ],
+      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "bobs-trail-urban-connector",
+      "route_proof_area": "Upper Hulls Gulch"
     },
     {
       "label": "1-1: 1A-1",
@@ -987,233 +1392,10 @@
       "code": "high_on_foot_to_official_ratio",
       "severity": "optimization_warning",
       "value": 4.28,
-      "message": "On-foot miles are more than 3x official miles."
-    },
-    {
-      "label": "16-3: 16C-1",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
-      ],
-      "code": "high_declared_repeat_miles",
-      "severity": "optimization_warning",
-      "value": 3.49,
-      "message": "Declared official repeat mileage is above 2 miles."
-    },
-    {
-      "label": "15-2: 15B",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "code": "high_non_credit_miles",
-      "severity": "optimization_warning",
-      "value": 16.06,
-      "message": "More than 5 miles of this outing is non-credit movement."
-    },
-    {
-      "label": "15-2: 15B",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "code": "high_declared_repeat_miles",
-      "severity": "optimization_warning",
-      "value": 3.91,
-      "message": "Declared official repeat mileage is above 2 miles."
-    },
-    {
-      "label": "15-2: 15B",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Bob's",
-      "route_count": 2,
-      "labels": [
-        "4-1: 4A",
-        "15-2: 15B"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    }
-  ],
-  "closed_optimization_warnings": [
-    {
-      "label": "8-2: 8B",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 5.0,
       "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "peace-valley-overlook",
-      "route_proof_area": "Boise River WMA"
-    },
-    {
-      "label": "8-2: 8B",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Homestead",
-      "route_count": 2,
-      "labels": [
-        "8-2: 8B",
-        "8-1: 8A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "peace-valley-overlook",
-      "route_proof_area": "Boise River WMA"
-    },
-    {
-      "label": "16-2: 16A-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 5.73,
-      "message": "On-foot miles are more than 3x official miles.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
-      "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
-    },
-    {
-      "label": "16-2: 16A-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "route_count": 3,
-      "labels": [
-        "16-2: 16A-2",
-        "16-1: 16A-1",
-        "16-4: 16C-2"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
-      "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
-    },
-    {
-      "label": "4-1: 4A",
-      "candidate_ids": [
-        "bobs-trail-urban-connector"
-      ],
-      "code": "high_declared_repeat_miles",
-      "severity": "optimization_warning",
-      "value": 2.38,
-      "message": "Declared official repeat mileage is above 2 miles.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "bobs-trail-urban-connector",
-      "route_proof_area": "Upper Hulls Gulch"
-    },
-    {
-      "label": "4-1: 4A",
-      "candidate_ids": [
-        "bobs-trail-urban-connector"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Bob's",
-      "route_count": 2,
-      "labels": [
-        "4-1: 4A",
-        "15-2: 15B"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "bobs-trail-urban-connector",
-      "route_proof_area": "Upper Hulls Gulch"
-    },
-    {
-      "label": "8-1: 8A",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Homestead",
-      "route_count": 2,
-      "labels": [
-        "8-2: 8B",
-        "8-1: 8A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "harris-ridge-trail",
-      "route_proof_area": "Boise River WMA"
-    },
-    {
-      "label": "1-3: 1B",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "code": "high_declared_repeat_miles",
-      "severity": "optimization_warning",
-      "value": 2.22,
-      "message": "Declared official repeat mileage is above 2 miles.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-      "route_proof_area": "Hillside to Hollow"
-    },
-    {
-      "label": "1-3: 1B",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "code": "cross_route_tail_opportunity",
-      "severity": "optimization_warning",
-      "repeated_owned_segment_id": "1755",
-      "adjacent_candidate_segment_id": "1699",
-      "adjacent_segment_miles": 0.19,
-      "endpoint_gap_miles": 0.0055,
-      "owner_routes": [
-        {
-          "route_key": "1-2",
-          "outing_id": "1-2",
-          "label": "1A-2",
-          "candidate_ids": [
-            "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-          ],
-          "found_in_field_tool_data": true
-        }
-      ],
-      "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-      "route_proof_area": "Hillside to Hollow"
-    },
-    {
-      "label": "1-3: 1B",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "code": "cross_route_tail_opportunity",
-      "severity": "optimization_warning",
-      "repeated_owned_segment_id": "1755",
-      "adjacent_candidate_segment_id": "1579",
-      "adjacent_segment_miles": 0.2,
-      "endpoint_gap_miles": 0.0,
-      "owner_routes": [
-        {
-          "route_key": "1-2",
-          "outing_id": "1-2",
-          "label": "1A-2",
-          "candidate_ids": [
-            "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-          ],
-          "found_in_field_tool_data": true
-        }
-      ],
-      "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
-      "route_proof_area": "Hillside to Hollow"
+      "route_proof_candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
+      "route_proof_area": "13"
     },
     {
       "label": "15-1: 15A",
@@ -1234,30 +1416,61 @@
       "route_proof_area": "Hidden Springs"
     },
     {
-      "label": "11-1: 11",
+      "label": "15-2: 15B",
       "candidate_ids": [
-        "block-hawkins"
+        "route-truth-15b-highlands-connector"
       ],
-      "code": "high_declared_repeat_miles",
+      "code": "high_non_credit_miles",
       "severity": "optimization_warning",
-      "value": 4.94,
-      "message": "Declared official repeat mileage is above 2 miles.",
+      "value": 6.08,
+      "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-hawkins",
-      "route_proof_area": "Hawkins Range Reserve"
+      "route_proof_candidate_id": "route-truth-15b-highlands-connector",
+      "route_proof_area": "Dry Creek"
     },
     {
-      "label": "10-2: 10B",
+      "label": "15-2: 15B",
       "candidate_ids": [
-        "manual-10b"
+        "route-truth-15b-highlands-connector"
+      ],
+      "code": "high_on_foot_to_official_ratio",
+      "severity": "optimization_warning",
+      "value": 3.59,
+      "message": "On-foot miles are more than 3x official miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "route-truth-15b-highlands-connector",
+      "route_proof_area": "Dry Creek"
+    },
+    {
+      "label": "15-2: 15B",
+      "candidate_ids": [
+        "route-truth-15b-highlands-connector"
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 5.97,
+      "value": 2.75,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "manual-10b",
-      "route_proof_area": "Hidden Springs"
+      "route_proof_candidate_id": "route-truth-15b-highlands-connector",
+      "route_proof_area": "Dry Creek"
+    },
+    {
+      "label": "15-2: 15B",
+      "candidate_ids": [
+        "route-truth-15b-highlands-connector"
+      ],
+      "code": "same_trailhead_bundle_candidate",
+      "severity": "optimization_warning",
+      "trailhead": "Bob's",
+      "route_count": 2,
+      "labels": [
+        "4-1: 4A",
+        "15-2: 15B"
+      ],
+      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "route-truth-15b-highlands-connector",
+      "route_proof_area": "Dry Creek"
     },
     {
       "label": "10-2: 10B",
@@ -1308,6 +1521,19 @@
       "candidate_ids": [
         "combo-lodge-trail-shindig"
       ],
+      "code": "high_declared_repeat_miles",
+      "severity": "optimization_warning",
+      "value": 3.78,
+      "message": "Declared official repeat mileage is above 2 miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "combo-lodge-trail-shindig",
+      "route_proof_area": "Bogus Basin"
+    },
+    {
+      "label": "18-2: 18B",
+      "candidate_ids": [
+        "combo-lodge-trail-shindig"
+      ],
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Simplot Lodge Parking Area",
@@ -1349,6 +1575,32 @@
       "route_proof_area": "Bogus Basin"
     },
     {
+      "label": "16-2: 16C-1",
+      "candidate_ids": [
+        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
+      ],
+      "code": "high_non_credit_miles",
+      "severity": "optimization_warning",
+      "value": 6.77,
+      "message": "More than 5 miles of this outing is non-credit movement.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector",
+      "route_proof_area": "Bogus Basin"
+    },
+    {
+      "label": "16-2: 16C-1",
+      "candidate_ids": [
+        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
+      ],
+      "code": "high_on_foot_to_official_ratio",
+      "severity": "optimization_warning",
+      "value": 7.77,
+      "message": "On-foot miles are more than 3x official miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "multi-start-16c-16c-ms-02-1-stack-rock-connector",
+      "route_proof_area": "Bogus Basin"
+    },
+    {
       "label": "19-1: 19",
       "candidate_ids": [
         "block-cervidae_peak"
@@ -1386,7 +1638,7 @@
       ],
       "code": "high_non_credit_miles",
       "severity": "optimization_warning",
-      "value": 5.74,
+      "value": 5.27,
       "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-military_core",
@@ -1399,7 +1651,7 @@
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 4.16,
+      "value": 3.6,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-military_core",
@@ -1495,6 +1747,19 @@
       "candidate_ids": [
         "block-upper_8th_corrals_sidewinder"
       ],
+      "code": "high_declared_repeat_miles",
+      "severity": "optimization_warning",
+      "value": 5.53,
+      "message": "Declared official repeat mileage is above 2 miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "route_proof_area": "Dry Creek"
+    },
+    {
+      "label": "12-1: 12",
+      "candidate_ids": [
+        "block-upper_8th_corrals_sidewinder"
+      ],
       "code": "cross_route_tail_opportunity",
       "severity": "optimization_warning",
       "repeated_owned_segment_id": "1532",
@@ -1524,8 +1789,21 @@
       ],
       "code": "high_non_credit_miles",
       "severity": "optimization_warning",
-      "value": 8.11,
+      "value": 11.06,
       "message": "More than 5 miles of this outing is non-credit movement.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "manual-16a-1",
+      "route_proof_area": "Dry Creek"
+    },
+    {
+      "label": "16-1: 16A-1",
+      "candidate_ids": [
+        "manual-16a-1"
+      ],
+      "code": "high_on_foot_to_official_ratio",
+      "severity": "optimization_warning",
+      "value": 4.52,
+      "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "manual-16a-1",
       "route_proof_area": "Dry Creek"
@@ -1537,7 +1815,7 @@
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 6.08,
+      "value": 7.7,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "manual-16a-1",
@@ -1551,11 +1829,10 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "route_count": 3,
+      "route_count": 2,
       "labels": [
-        "16-2: 16A-2",
         "16-1: 16A-1",
-        "16-4: 16C-2"
+        "16-3: 16A-D1"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
@@ -1576,114 +1853,74 @@
       "route_proof_area": "Table Rock"
     },
     {
-      "label": "4-3: 4C",
-      "candidate_ids": [
-        "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute"
-      ],
-      "code": "high_declared_repeat_miles",
-      "severity": "optimization_warning",
-      "value": 2.97,
-      "message": "Declared official repeat mileage is above 2 miles.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "combo-rock-island-rock-garden-tram-trail-table-rock-trail-table-rock-quarry-trail-quarry-trail-castle-rock-shoshone-paiute",
-      "route_proof_area": "Table Rock"
-    },
-    {
       "label": "14-1: 14",
       "candidate_ids": [
         "block-watchman_five_mile_rocky"
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 5.72,
+      "value": 4.66,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-watchman_five_mile_rocky",
       "route_proof_area": "Rocky Canyon"
     },
     {
-      "label": "16-4: 16C-2",
+      "label": "2-1: 2",
       "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+        "block-camels_lower_hulls_even_day"
       ],
       "code": "high_non_credit_miles",
       "severity": "optimization_warning",
-      "value": 9.55,
+      "value": 7.72,
       "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
-      "route_proof_area": "Dry Creek"
+      "route_proof_candidate_id": "block-camels_lower_hulls_even_day",
+      "route_proof_area": "Camels Back / Hulls Gulch"
     },
     {
-      "label": "16-4: 16C-2",
+      "label": "2-1: 2",
       "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 3.01,
-      "message": "On-foot miles are more than 3x official miles.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
-      "route_proof_area": "Dry Creek"
-    },
-    {
-      "label": "16-4: 16C-2",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+        "block-camels_lower_hulls_even_day"
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 7.91,
+      "value": 6.69,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
+      "route_proof_candidate_id": "block-camels_lower_hulls_even_day",
+      "route_proof_area": "Camels Back / Hulls Gulch"
+    },
+    {
+      "label": "16-3: 16A-D1",
+      "candidate_ids": [
+        "manual-16a-d1"
+      ],
+      "code": "high_declared_repeat_miles",
+      "severity": "optimization_warning",
+      "value": 2.37,
+      "message": "Declared official repeat mileage is above 2 miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "manual-16a-d1",
       "route_proof_area": "Dry Creek"
     },
     {
-      "label": "16-4: 16C-2",
+      "label": "16-3: 16A-D1",
       "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
+        "manual-16a-d1"
       ],
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "route_count": 3,
+      "route_count": 2,
       "labels": [
-        "16-2: 16A-2",
         "16-1: 16A-1",
-        "16-4: 16C-2"
+        "16-3: 16A-D1"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "multi-start-16c-16c-ms-02-2-shingle-creek-trail",
+      "route_proof_candidate_id": "manual-16a-d1",
       "route_proof_area": "Dry Creek"
-    },
-    {
-      "label": "2-1: 2",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "code": "high_non_credit_miles",
-      "severity": "optimization_warning",
-      "value": 5.69,
-      "message": "More than 5 miles of this outing is non-credit movement.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-camels_lower_hulls_even_day",
-      "route_proof_area": "Camels Back / Hulls Gulch"
-    },
-    {
-      "label": "2-1: 2",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "code": "high_declared_repeat_miles",
-      "severity": "optimization_warning",
-      "value": 5.35,
-      "message": "Declared official repeat mileage is above 2 miles.",
-      "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-camels_lower_hulls_even_day",
-      "route_proof_area": "Camels Back / Hulls Gulch"
     },
     {
       "label": "18-1: 18A",
@@ -1692,8 +1929,21 @@
       ],
       "code": "high_non_credit_miles",
       "severity": "optimization_warning",
-      "value": 9.72,
+      "value": 10.87,
       "message": "More than 5 miles of this outing is non-credit movement.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "route_proof_area": "Bogus Basin"
+    },
+    {
+      "label": "18-1: 18A",
+      "candidate_ids": [
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+      ],
+      "code": "high_on_foot_to_official_ratio",
+      "severity": "optimization_warning",
+      "value": 3.45,
+      "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
       "route_proof_area": "Bogus Basin"
@@ -1705,8 +1955,35 @@
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 3.46,
+      "value": 6.18,
       "message": "Declared official repeat mileage is above 2 miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
+      "route_proof_area": "Bogus Basin"
+    },
+    {
+      "label": "18-1: 18A",
+      "candidate_ids": [
+        "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
+      ],
+      "code": "cross_route_tail_opportunity",
+      "severity": "optimization_warning",
+      "repeated_owned_segment_id": "1680",
+      "adjacent_candidate_segment_id": "1678",
+      "adjacent_segment_miles": 0.29,
+      "endpoint_gap_miles": 0.0,
+      "owner_routes": [
+        {
+          "route_key": "17-1",
+          "outing_id": "17-1",
+          "label": "17",
+          "candidate_ids": [
+            "block-bogus_atm_deer_elk_sunshine"
+          ],
+          "found_in_field_tool_data": true
+        }
+      ],
+      "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive",
       "route_proof_area": "Bogus Basin"
@@ -1731,11 +2008,24 @@
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 9.66,
+      "value": 2.12,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "manual-10a",
       "route_proof_area": "Harlow's / Hidden Springs west access probe"
+    },
+    {
+      "label": "17-1: 17",
+      "candidate_ids": [
+        "block-bogus_atm_deer_elk_sunshine"
+      ],
+      "code": "high_declared_repeat_miles",
+      "severity": "optimization_warning",
+      "value": 2.92,
+      "message": "Declared official repeat mileage is above 2 miles.",
+      "proof_status": "closed_by_route_disproof",
+      "route_proof_candidate_id": "block-bogus_atm_deer_elk_sunshine",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "17-1: 17",
@@ -1775,7 +2065,7 @@
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 7.13,
+      "value": 6.26,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-cartwright_peggy_interface",
@@ -1819,7 +2109,7 @@
       ],
       "code": "high_declared_repeat_miles",
       "severity": "optimization_warning",
-      "value": 12.09,
+      "value": 14.26,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-freestone_three_bears_curlew",
@@ -1898,11 +2188,10 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "route_count": 3,
+      "route_count": 2,
       "labels": [
-        "16-2: 16A-2",
         "16-1: 16A-1",
-        "16-4: 16C-2"
+        "16-3: 16A-D1"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -1925,17 +2214,6 @@
       "labels": [
         "3-1: 3",
         "13-1: 13"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Homestead",
-      "route_count": 2,
-      "labels": [
-        "8-2: 8B",
-        "8-1: 8A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -2049,6 +2327,64 @@
     {
       "code": "cross_route_tail_opportunity",
       "severity": "optimization_warning",
+      "receiver_route_key": "18-1",
+      "receiver_label": "18-1: 18A",
+      "receiver_outing_id": "18-1",
+      "receiver_trailhead": "Bogus Basin Base Area",
+      "repeated_owned_segment": {
+        "seg_id": "1680",
+        "seg_name": "The Face Trail 1",
+        "trail_name": "The Face Trail",
+        "direction": "both",
+        "official_miles": 1.15
+      },
+      "adjacent_candidate_segment": {
+        "seg_id": "1678",
+        "seg_name": "Tempest Trail 1",
+        "trail_name": "Tempest Trail",
+        "direction": "both",
+        "official_miles": 0.29
+      },
+      "owner_routes": [
+        {
+          "route_key": "17-1",
+          "outing_id": "17-1",
+          "label": "17",
+          "candidate_ids": [
+            "block-bogus_atm_deer_elk_sunshine"
+          ],
+          "found_in_field_tool_data": true
+        }
+      ],
+      "endpoint_gap_miles": 0.0,
+      "adjacent_segment_miles": 0.29,
+      "worst_case_out_and_back_added_miles": 0.58,
+      "cue_context": {
+        "repeat_cues": [
+          {
+            "seq": 8,
+            "cue_type": "repeat_official_noncredit"
+          }
+        ],
+        "adjacent_credit_cues": [
+          {
+            "seq": 4,
+            "cue_type": "junction_turn"
+          }
+        ],
+        "nearest_cue_pair": {
+          "repeat_cue_seq": 8,
+          "repeat_cue_type": "repeat_official_noncredit",
+          "adjacent_cue_seq": 4,
+          "adjacent_cue_type": "junction_turn",
+          "cue_seq_delta": 4.0
+        }
+      },
+      "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
+    },
+    {
+      "code": "cross_route_tail_opportunity",
+      "severity": "optimization_warning",
       "receiver_route_key": "12-1",
       "receiver_label": "12-1: 12",
       "receiver_outing_id": "12-1",
@@ -2082,14 +2418,25 @@
       "adjacent_segment_miles": 0.22,
       "worst_case_out_and_back_added_miles": 0.45,
       "cue_context": {
-        "repeat_cues": [],
+        "repeat_cues": [
+          {
+            "seq": 7,
+            "cue_type": "exit_access"
+          }
+        ],
         "adjacent_credit_cues": [
           {
             "seq": 4,
             "cue_type": "junction_turn"
           }
         ],
-        "nearest_cue_pair": null
+        "nearest_cue_pair": {
+          "repeat_cue_seq": 7,
+          "repeat_cue_type": "exit_access",
+          "adjacent_cue_seq": 4,
+          "adjacent_cue_type": "junction_turn",
+          "cue_seq_delta": 3.0
+        }
       },
       "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
     },
@@ -2129,14 +2476,29 @@
       "adjacent_segment_miles": 0.06,
       "worst_case_out_and_back_added_miles": 0.11,
       "cue_context": {
-        "repeat_cues": [],
+        "repeat_cues": [
+          {
+            "seq": 3,
+            "cue_type": "connector_named_trail"
+          },
+          {
+            "seq": 5,
+            "cue_type": "connector_named_trail"
+          }
+        ],
         "adjacent_credit_cues": [
           {
             "seq": 4,
             "cue_type": "junction_turn"
           }
         ],
-        "nearest_cue_pair": null
+        "nearest_cue_pair": {
+          "repeat_cue_seq": 3,
+          "repeat_cue_type": "connector_named_trail",
+          "adjacent_cue_seq": 4,
+          "adjacent_cue_type": "junction_turn",
+          "cue_seq_delta": 1.0
+        }
       },
       "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
     },
@@ -2186,100 +2548,6 @@
         "nearest_cue_pair": null
       },
       "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
-    },
-    {
-      "code": "cross_route_tail_opportunity",
-      "severity": "optimization_warning",
-      "receiver_route_key": "1-3",
-      "receiver_label": "1-3: 1B",
-      "receiver_outing_id": "1-3",
-      "receiver_trailhead": "Harrison Hollow",
-      "repeated_owned_segment": {
-        "seg_id": "1755",
-        "seg_name": "Buena Vista Trail 5",
-        "trail_name": "Buena Vista Trail",
-        "direction": "both",
-        "official_miles": 0.14
-      },
-      "adjacent_candidate_segment": {
-        "seg_id": "1699",
-        "seg_name": "Who Now Loop Trail 3",
-        "trail_name": "Who Now Loop Trail",
-        "direction": "both",
-        "official_miles": 0.19
-      },
-      "owner_routes": [
-        {
-          "route_key": "1-2",
-          "outing_id": "1-2",
-          "label": "1A-2",
-          "candidate_ids": [
-            "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-          ],
-          "found_in_field_tool_data": true
-        }
-      ],
-      "endpoint_gap_miles": 0.0055,
-      "adjacent_segment_miles": 0.19,
-      "worst_case_out_and_back_added_miles": 0.39,
-      "cue_context": {
-        "repeat_cues": [],
-        "adjacent_credit_cues": [
-          {
-            "seq": 3,
-            "cue_type": "junction_turn"
-          }
-        ],
-        "nearest_cue_pair": null
-      },
-      "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
-    },
-    {
-      "code": "cross_route_tail_opportunity",
-      "severity": "optimization_warning",
-      "receiver_route_key": "1-3",
-      "receiver_label": "1-3: 1B",
-      "receiver_outing_id": "1-3",
-      "receiver_trailhead": "Harrison Hollow",
-      "repeated_owned_segment": {
-        "seg_id": "1755",
-        "seg_name": "Buena Vista Trail 5",
-        "trail_name": "Buena Vista Trail",
-        "direction": "both",
-        "official_miles": 0.14
-      },
-      "adjacent_candidate_segment": {
-        "seg_id": "1579",
-        "seg_name": "Kemper's Ridge Trail 1",
-        "trail_name": "Kemper's Ridge Trail",
-        "direction": "both",
-        "official_miles": 0.2
-      },
-      "owner_routes": [
-        {
-          "route_key": "1-2",
-          "outing_id": "1-2",
-          "label": "1A-2",
-          "candidate_ids": [
-            "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-          ],
-          "found_in_field_tool_data": true
-        }
-      ],
-      "endpoint_gap_miles": 0.0,
-      "adjacent_segment_miles": 0.2,
-      "worst_case_out_and_back_added_miles": 0.4,
-      "cue_context": {
-        "repeat_cues": [],
-        "adjacent_credit_cues": [
-          {
-            "seq": 4,
-            "cue_type": "junction_turn"
-          }
-        ],
-        "nearest_cue_pair": null
-      },
-      "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
     }
   ],
   "high_repeat_burden": [
@@ -2293,19 +2561,7 @@
       "on_foot_miles": 32.47,
       "non_credit_miles": 18.12,
       "on_foot_to_official_ratio": 2.26,
-      "declared_repeat_miles": 12.09
-    },
-    {
-      "label": "15-2: 15B",
-      "outing_id": "15-2",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "official_miles": 9.33,
-      "on_foot_miles": 25.39,
-      "non_credit_miles": 16.06,
-      "on_foot_to_official_ratio": 2.72,
-      "declared_repeat_miles": 3.91
+      "declared_repeat_miles": 14.26
     },
     {
       "label": "10-1: 10A",
@@ -2317,7 +2573,19 @@
       "on_foot_miles": 21.84,
       "non_credit_miles": 14.54,
       "on_foot_to_official_ratio": 2.99,
-      "declared_repeat_miles": 9.66
+      "declared_repeat_miles": 2.12
+    },
+    {
+      "label": "16-1: 16A-1",
+      "outing_id": "16-1",
+      "candidate_ids": [
+        "manual-16a-1"
+      ],
+      "official_miles": 3.14,
+      "on_foot_miles": 14.2,
+      "non_credit_miles": 11.06,
+      "on_foot_to_official_ratio": 4.52,
+      "declared_repeat_miles": 7.7
     },
     {
       "label": "18-1: 18A",
@@ -2325,23 +2593,11 @@
       "candidate_ids": [
         "brewers-byway-extension-tempest-trail-brewers-byway-the-face-trail-mores-mtn-interpretive"
       ],
-      "official_miles": 5.58,
+      "official_miles": 4.43,
       "on_foot_miles": 15.3,
-      "non_credit_miles": 9.72,
-      "on_foot_to_official_ratio": 2.74,
-      "declared_repeat_miles": 3.46
-    },
-    {
-      "label": "16-4: 16C-2",
-      "outing_id": "16-4",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
-      ],
-      "official_miles": 4.76,
-      "on_foot_miles": 14.31,
-      "non_credit_miles": 9.55,
-      "on_foot_to_official_ratio": 3.01,
-      "declared_repeat_miles": 7.91
+      "non_credit_miles": 10.87,
+      "on_foot_to_official_ratio": 3.45,
+      "declared_repeat_miles": 6.18
     },
     {
       "label": "6-1: 6",
@@ -2353,19 +2609,31 @@
       "on_foot_miles": 22.41,
       "non_credit_miles": 8.74,
       "on_foot_to_official_ratio": 1.64,
-      "declared_repeat_miles": 7.13
+      "declared_repeat_miles": 6.26
     },
     {
-      "label": "16-1: 16A-1",
-      "outing_id": "16-1",
+      "label": "2-1: 2",
+      "outing_id": "2-1",
       "candidate_ids": [
-        "manual-16a-1"
+        "block-camels_lower_hulls_even_day"
       ],
-      "official_miles": 6.09,
-      "on_foot_miles": 14.2,
-      "non_credit_miles": 8.11,
-      "on_foot_to_official_ratio": 2.33,
-      "declared_repeat_miles": 6.08
+      "official_miles": 11.08,
+      "on_foot_miles": 18.8,
+      "non_credit_miles": 7.72,
+      "on_foot_to_official_ratio": 1.7,
+      "declared_repeat_miles": 6.69
+    },
+    {
+      "label": "16-2: 16C-1",
+      "outing_id": "16-2",
+      "candidate_ids": [
+        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
+      ],
+      "official_miles": 1.0,
+      "on_foot_miles": 7.77,
+      "non_credit_miles": 6.77,
+      "on_foot_to_official_ratio": 7.77,
+      "declared_repeat_miles": 1.0
     },
     {
       "label": "18-2: 18B",
@@ -2377,7 +2645,19 @@
       "on_foot_miles": 6.82,
       "non_credit_miles": 6.16,
       "on_foot_to_official_ratio": 10.33,
-      "declared_repeat_miles": 0.99
+      "declared_repeat_miles": 3.78
+    },
+    {
+      "label": "15-2: 15B",
+      "outing_id": "15-2",
+      "candidate_ids": [
+        "route-truth-15b-highlands-connector"
+      ],
+      "official_miles": 2.35,
+      "on_foot_miles": 8.43,
+      "non_credit_miles": 6.08,
+      "on_foot_to_official_ratio": 3.59,
+      "declared_repeat_miles": 2.75
     },
     {
       "label": "4-3: 4C",
@@ -2389,31 +2669,7 @@
       "on_foot_miles": 12.55,
       "non_credit_miles": 5.95,
       "on_foot_to_official_ratio": 1.9,
-      "declared_repeat_miles": 2.97
-    },
-    {
-      "label": "3-1: 3",
-      "outing_id": "3-1",
-      "candidate_ids": [
-        "block-military_core"
-      ],
-      "official_miles": 8.31,
-      "on_foot_miles": 14.05,
-      "non_credit_miles": 5.74,
-      "on_foot_to_official_ratio": 1.69,
-      "declared_repeat_miles": 4.16
-    },
-    {
-      "label": "2-1: 2",
-      "outing_id": "2-1",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "official_miles": 13.11,
-      "on_foot_miles": 18.8,
-      "non_credit_miles": 5.69,
-      "on_foot_to_official_ratio": 1.43,
-      "declared_repeat_miles": 5.35
+      "declared_repeat_miles": 1.98
     },
     {
       "label": "12-1: 12",
@@ -2425,7 +2681,19 @@
       "on_foot_miles": 13.44,
       "non_credit_miles": 5.63,
       "on_foot_to_official_ratio": 1.72,
-      "declared_repeat_miles": 1.49
+      "declared_repeat_miles": 5.53
+    },
+    {
+      "label": "3-1: 3",
+      "outing_id": "3-1",
+      "candidate_ids": [
+        "block-military_core"
+      ],
+      "official_miles": 8.31,
+      "on_foot_miles": 13.58,
+      "non_credit_miles": 5.27,
+      "on_foot_to_official_ratio": 1.63,
+      "declared_repeat_miles": 3.6
     },
     {
       "label": "14-1: 14",
@@ -2437,7 +2705,7 @@
       "on_foot_miles": 13.26,
       "non_credit_miles": 4.81,
       "on_foot_to_official_ratio": 1.57,
-      "declared_repeat_miles": 5.72
+      "declared_repeat_miles": 4.66
     },
     {
       "label": "17-1: 17",
@@ -2449,43 +2717,19 @@
       "on_foot_miles": 16.02,
       "non_credit_miles": 4.73,
       "on_foot_to_official_ratio": 1.42,
-      "declared_repeat_miles": 1.25
+      "declared_repeat_miles": 2.92
     },
     {
-      "label": "16-2: 16A-2",
-      "outing_id": "16-2",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "official_miles": 0.77,
-      "on_foot_miles": 4.41,
-      "non_credit_miles": 3.64,
-      "on_foot_to_official_ratio": 5.73,
-      "declared_repeat_miles": 0.77
-    },
-    {
-      "label": "16-3: 16C-1",
+      "label": "16-3: 16A-D1",
       "outing_id": "16-3",
       "candidate_ids": [
-        "multi-start-16c-16c-ms-02-1-stack-rock-connector"
+        "manual-16a-d1"
       ],
-      "official_miles": 3.5,
-      "on_foot_miles": 6.88,
-      "non_credit_miles": 3.38,
-      "on_foot_to_official_ratio": 1.97,
-      "declared_repeat_miles": 3.49
-    },
-    {
-      "label": "8-1: 8A",
-      "outing_id": "8-1",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "official_miles": 1.72,
-      "on_foot_miles": 4.44,
-      "non_credit_miles": 2.72,
-      "on_foot_to_official_ratio": 2.58,
-      "declared_repeat_miles": 1.72
+      "official_miles": 12.5,
+      "on_foot_miles": 15.61,
+      "non_credit_miles": 3.11,
+      "on_foot_to_official_ratio": 1.25,
+      "declared_repeat_miles": 2.37
     },
     {
       "label": "1-1: 1A-1",
@@ -2512,16 +2756,16 @@
       "declared_repeat_miles": 2.24
     },
     {
-      "label": "8-2: 8B",
-      "outing_id": "8-2",
+      "label": "1-2: 1A-2",
+      "outing_id": "1-2",
       "candidate_ids": [
-        "peace-valley-overlook"
+        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
       ],
-      "official_miles": 0.54,
-      "on_foot_miles": 2.7,
-      "non_credit_miles": 2.16,
-      "on_foot_to_official_ratio": 5.0,
-      "declared_repeat_miles": 0.24
+      "official_miles": 2.99,
+      "on_foot_miles": 4.86,
+      "non_credit_miles": 1.87,
+      "on_foot_to_official_ratio": 1.63,
+      "declared_repeat_miles": 1.74
     },
     {
       "label": "10-2: 10B",
@@ -2533,7 +2777,7 @@
       "on_foot_miles": 4.28,
       "non_credit_miles": 1.83,
       "on_foot_to_official_ratio": 1.75,
-      "declared_repeat_miles": 5.97
+      "declared_repeat_miles": 1.85
     },
     {
       "label": "9-1: 9",
@@ -2545,7 +2789,7 @@
       "on_foot_miles": 6.5,
       "non_credit_miles": 1.82,
       "on_foot_to_official_ratio": 1.39,
-      "declared_repeat_miles": 1.72
+      "declared_repeat_miles": 1.6
     },
     {
       "label": "5-2: 5B",
@@ -2557,7 +2801,7 @@
       "on_foot_miles": 8.38,
       "non_credit_miles": 1.82,
       "on_foot_to_official_ratio": 1.28,
-      "declared_repeat_miles": 1.81
+      "declared_repeat_miles": 1.47
     },
     {
       "label": "4-1: 4A",
@@ -2569,19 +2813,7 @@
       "on_foot_miles": 4.58,
       "non_credit_miles": 1.74,
       "on_foot_to_official_ratio": 1.61,
-      "declared_repeat_miles": 2.38
-    },
-    {
-      "label": "1-2: 1A-2",
-      "outing_id": "1-2",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-      ],
-      "official_miles": 3.13,
-      "on_foot_miles": 4.86,
-      "non_credit_miles": 1.73,
-      "on_foot_to_official_ratio": 1.55,
-      "declared_repeat_miles": 2.33
+      "declared_repeat_miles": 1.75
     },
     {
       "label": "11-1: 11",
@@ -2593,19 +2825,7 @@
       "on_foot_miles": 7.3,
       "non_credit_miles": 1.67,
       "on_foot_to_official_ratio": 1.3,
-      "declared_repeat_miles": 4.94
-    },
-    {
-      "label": "1-3: 1B",
-      "outing_id": "1-3",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "official_miles": 4.72,
-      "on_foot_miles": 6.36,
-      "non_credit_miles": 1.64,
-      "on_foot_to_official_ratio": 1.35,
-      "declared_repeat_miles": 2.22
+      "declared_repeat_miles": 1.1
     },
     {
       "label": "5-1: 5A",
@@ -2614,10 +2834,22 @@
         "multi-start-5-5-ms-04-1-barn-owl"
       ],
       "official_miles": 1.44,
-      "on_foot_miles": 2.88,
-      "non_credit_miles": 1.44,
-      "on_foot_to_official_ratio": 2.0,
-      "declared_repeat_miles": 1.43
+      "on_foot_miles": 2.96,
+      "non_credit_miles": 1.52,
+      "on_foot_to_official_ratio": 2.06,
+      "declared_repeat_miles": 1.52
+    },
+    {
+      "label": "8-1: 8",
+      "outing_id": "8-1",
+      "candidate_ids": [
+        "block-oregon_trail_harris_peace_valley"
+      ],
+      "official_miles": 2.26,
+      "on_foot_miles": 3.64,
+      "non_credit_miles": 1.38,
+      "on_foot_to_official_ratio": 1.61,
+      "declared_repeat_miles": 0.54
     },
     {
       "label": "4-2: 4B",
@@ -2638,10 +2870,10 @@
         "multi-start-15-15-ms-15-1-red-tail-trail-landslide"
       ],
       "official_miles": 4.02,
-      "on_foot_miles": 5.07,
-      "non_credit_miles": 1.05,
-      "on_foot_to_official_ratio": 1.26,
-      "declared_repeat_miles": 0.37
+      "on_foot_miles": 5.04,
+      "non_credit_miles": 1.02,
+      "on_foot_to_official_ratio": 1.25,
+      "declared_repeat_miles": 0.79
     },
     {
       "label": "7-1: 7",
@@ -2683,8 +2915,6 @@
         "1643"
       ],
       "partial_segment_ids": [
-        "1525",
-        "1526",
         "1725"
       ],
       "non_credit_full_segment_ids": [
@@ -2703,25 +2933,23 @@
             "1643"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.165,
-          "source_route_leg_miles": 1.165,
+          "current_route_leg_miles": 1.189,
+          "source_route_leg_miles": 1.189,
           "savings_threshold_miles": 0.227,
-          "alternate_distance_miles": 5.6059,
-          "graph_alternate_distance_miles": 3.8573,
-          "estimated_savings_miles": -4.4409,
-          "alternate_connector_miles": 2.0,
+          "alternate_distance_miles": 5.5816,
+          "graph_alternate_distance_miles": 3.8369,
+          "estimated_savings_miles": -4.3926,
+          "alternate_connector_miles": 1.98,
           "alternate_official_repeat_miles": 1.86,
           "alternate_connector_names": [
             "#0 Hull's Gulch Interpretive Trail",
             "#31 Corrals",
-            "#32 Scott's",
             "Corrals",
             "East Sunset Peak Road",
             "Hull's Gulch Interpretive Loop",
             "Hull's Gulch Interpretive Trail",
             "OSM service connector 12944",
-            "OSM service connector 12945",
-            "Scott's"
+            "OSM service connector 12945"
           ],
           "alternate_connector_classes": [
             "official_repeat",
@@ -2795,8 +3023,8 @@
             "1646"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.169,
-          "source_route_leg_miles": 0.169,
+          "current_route_leg_miles": 0.165,
+          "source_route_leg_miles": 0.165,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
@@ -2828,21 +3056,20 @@
       ],
       "declared_repeat_segment_ids": [
         "1494",
-        "1495"
+        "1495",
+        "1508"
       ],
       "declared_owned_elsewhere_segment_ids": [],
       "official_miles": 1.44,
-      "on_foot_miles": 2.88,
+      "on_foot_miles": 2.96,
       "audit_status": "passed",
-      "activity_point_count": 631,
+      "activity_point_count": 640,
       "candidate_segment_count": 3,
       "actual_full_segment_ids": [
         "1494",
         "1495"
       ],
-      "partial_segment_ids": [
-        "1508"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1494",
         "1495"
@@ -2861,9 +3088,9 @@
             "1495"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.392,
-          "source_route_leg_miles": 1.392,
-          "savings_threshold_miles": 0.1392,
+          "current_route_leg_miles": 1.5208,
+          "source_route_leg_miles": 1.521,
+          "savings_threshold_miles": 0.1521,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
@@ -2875,166 +3102,9 @@
         "avoidable_post_credit_repeat": []
       },
       "optimization_warnings": [],
-      "non_credit_miles": 1.44,
-      "on_foot_to_official_ratio": 2.0,
-      "declared_repeat_miles": 1.43
-    },
-    {
-      "route_key": "8-2",
-      "outing_id": "8-2",
-      "label": "8-2: 8B",
-      "trailhead": "Homestead",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/boise-river-wma-peace-valley-overlook-8b.gpx",
-      "claimed_segment_ids": [
-        "1722",
-        "1723"
-      ],
-      "declared_repeat_segment_ids": [
-        "1723"
-      ],
-      "declared_owned_elsewhere_segment_ids": [],
-      "official_miles": 0.54,
-      "on_foot_miles": 2.7,
-      "audit_status": "passed",
-      "activity_point_count": 311,
-      "candidate_segment_count": 3,
-      "actual_full_segment_ids": [
-        "1722",
-        "1723"
-      ],
-      "partial_segment_ids": [
-        "1724"
-      ],
-      "non_credit_full_segment_ids": [
-        "1722",
-        "1723"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "avoidable_post_credit_repeat_ids": [],
-      "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": [],
-        "avoidable_post_credit_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 5.0,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Homestead",
-          "route_count": 2,
-          "labels": [
-            "8-2: 8B",
-            "8-1: 8A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 2.16,
-      "on_foot_to_official_ratio": 5.0,
-      "declared_repeat_miles": 0.24
-    },
-    {
-      "route_key": "16-2",
-      "outing_id": "16-2",
-      "label": "16-2: 16A-2",
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "candidate_ids": [
-        "manual-16a-2"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/dry-creek-sheep-camp-16a-2.gpx",
-      "claimed_segment_ids": [
-        "1653"
-      ],
-      "declared_repeat_segment_ids": [
-        "1653"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1542",
-        "1543"
-      ],
-      "official_miles": 0.77,
-      "on_foot_miles": 4.41,
-      "audit_status": "passed",
-      "activity_point_count": 525,
-      "candidate_segment_count": 5,
-      "actual_full_segment_ids": [
-        "1542",
-        "1543",
-        "1653"
-      ],
-      "partial_segment_ids": [
-        "1544",
-        "1665"
-      ],
-      "non_credit_full_segment_ids": [
-        "1542",
-        "1543",
-        "1653"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "avoidable_post_credit_repeat_ids": [],
-      "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "repeated_segment_ids": [
-            "1653"
-          ],
-          "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 2.187,
-          "source_route_leg_miles": 2.187,
-          "savings_threshold_miles": 0.2187,
-          "reason": "repeat_exit_no_alternate_graph_path_proven"
-        }
-      ],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": [],
-        "avoidable_post_credit_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 5.73,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Dry Creek / Sweet Connie roadside parking",
-          "route_count": 3,
-          "labels": [
-            "16-2: 16A-2",
-            "16-1: 16A-1",
-            "16-4: 16C-2"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 3.64,
-      "on_foot_to_official_ratio": 5.73,
-      "declared_repeat_miles": 0.77
+      "non_credit_miles": 1.52,
+      "on_foot_to_official_ratio": 2.06,
+      "declared_repeat_miles": 1.52
     },
     {
       "route_key": "1-2",
@@ -3053,8 +3123,7 @@
         "1565",
         "1566",
         "1718",
-        "1719",
-        "1755"
+        "1719"
       ],
       "declared_repeat_segment_ids": [
         "1504",
@@ -3064,7 +3133,7 @@
         "1755"
       ],
       "declared_owned_elsewhere_segment_ids": [],
-      "official_miles": 3.13,
+      "official_miles": 2.99,
       "on_foot_miles": 4.86,
       "audit_status": "passed",
       "activity_point_count": 1589,
@@ -3080,12 +3149,7 @@
         "1719",
         "1755"
       ],
-      "partial_segment_ids": [
-        "1579",
-        "1581",
-        "1698",
-        "1699"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1505",
         "1507",
@@ -3109,6 +3173,19 @@
           "source_route_leg_miles": 0.726,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1507",
+            "1755"
+          ],
+          "already_credited_source": "mixed",
+          "current_route_leg_miles": 0.996,
+          "source_route_leg_miles": 0.996,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
       "unpriced_repeat_rows": [],
@@ -3118,17 +3195,10 @@
         "unpriced_repeat": [],
         "avoidable_post_credit_repeat": []
       },
-      "optimization_warnings": [
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 2.33,
-          "message": "Declared official repeat mileage is above 2 miles."
-        }
-      ],
-      "non_credit_miles": 1.73,
-      "on_foot_to_official_ratio": 1.55,
-      "declared_repeat_miles": 2.33
+      "optimization_warnings": [],
+      "non_credit_miles": 1.87,
+      "on_foot_to_official_ratio": 1.63,
+      "declared_repeat_miles": 1.74
     },
     {
       "route_key": "4-1",
@@ -3147,6 +3217,8 @@
       ],
       "declared_repeat_segment_ids": [
         "1500",
+        "1576",
+        "1577",
         "1690"
       ],
       "declared_owned_elsewhere_segment_ids": [
@@ -3164,11 +3236,7 @@
         "1577",
         "1690"
       ],
-      "partial_segment_ids": [
-        "1524",
-        "1525",
-        "1576"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1500",
         "1577"
@@ -3186,9 +3254,9 @@
             "1500"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.147,
-          "source_route_leg_miles": 1.147,
-          "savings_threshold_miles": 0.1147,
+          "current_route_leg_miles": 1.164,
+          "source_route_leg_miles": 1.164,
+          "savings_threshold_miles": 0.1164,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
@@ -3200,12 +3268,6 @@
         "avoidable_post_credit_repeat": []
       },
       "optimization_warnings": [
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 2.38,
-          "message": "Declared official repeat mileage is above 2 miles."
-        },
         {
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
@@ -3220,71 +3282,7 @@
       ],
       "non_credit_miles": 1.74,
       "on_foot_to_official_ratio": 1.61,
-      "declared_repeat_miles": 2.38
-    },
-    {
-      "route_key": "8-1",
-      "outing_id": "8-1",
-      "label": "8-1: 8A",
-      "trailhead": "Homestead",
-      "candidate_ids": [
-        "harris-ridge-trail"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/boise-river-wma-harris-ridge-trail-8a.gpx",
-      "claimed_segment_ids": [
-        "1724"
-      ],
-      "declared_repeat_segment_ids": [
-        "1724"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1722"
-      ],
-      "official_miles": 1.72,
-      "on_foot_miles": 4.44,
-      "audit_status": "passed",
-      "activity_point_count": 1082,
-      "candidate_segment_count": 3,
-      "actual_full_segment_ids": [
-        "1722",
-        "1724"
-      ],
-      "partial_segment_ids": [
-        "1723"
-      ],
-      "non_credit_full_segment_ids": [
-        "1722",
-        "1724"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "avoidable_post_credit_repeat_ids": [],
-      "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": [],
-        "avoidable_post_credit_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Homestead",
-          "route_count": 2,
-          "labels": [
-            "8-2: 8B",
-            "8-1: 8A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 2.72,
-      "on_foot_to_official_ratio": 2.58,
-      "declared_repeat_miles": 1.72
+      "declared_repeat_miles": 1.75
     },
     {
       "route_key": "1-1",
@@ -3311,9 +3309,7 @@
       "actual_full_segment_ids": [
         "1482"
       ],
-      "partial_segment_ids": [
-        "1516"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1482"
       ],
@@ -3330,8 +3326,8 @@
             "1482"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.675,
-          "source_route_leg_miles": 0.675,
+          "current_route_leg_miles": 0.736,
+          "source_route_leg_miles": 0.736,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
@@ -3356,63 +3352,36 @@
       "declared_repeat_miles": 1.55
     },
     {
-      "route_key": "1-3",
-      "outing_id": "1-3",
-      "label": "1-3: 1B",
-      "trailhead": "Harrison Hollow",
+      "route_key": "8-1",
+      "outing_id": "8-1",
+      "label": "8-1: 8",
+      "trailhead": "Homestead",
       "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+        "block-oregon_trail_harris_peace_valley"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/hillside-to-hollow-who-now-loop-1b.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/boise-river-wma-harris-ridge-trail-8.gpx",
       "claimed_segment_ids": [
-        "1578",
-        "1579",
-        "1581",
-        "1582",
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1714",
-        "1715",
-        "1716",
-        "1717"
+        "1722",
+        "1723",
+        "1724"
       ],
       "declared_repeat_segment_ids": [
-        "1698",
-        "1699",
-        "1716",
-        "1717"
+        "1722",
+        "1723"
       ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1755"
-      ],
-      "official_miles": 4.72,
-      "on_foot_miles": 6.36,
+      "declared_owned_elsewhere_segment_ids": [],
+      "official_miles": 2.26,
+      "on_foot_miles": 3.64,
       "audit_status": "passed",
-      "activity_point_count": 1824,
-      "candidate_segment_count": 14,
+      "activity_point_count": 989,
+      "candidate_segment_count": 3,
       "actual_full_segment_ids": [
-        "1578",
-        "1579",
-        "1581",
-        "1582",
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1714",
-        "1715",
-        "1716",
-        "1717",
-        "1755"
+        "1722",
+        "1723",
+        "1724"
       ],
-      "partial_segment_ids": [
-        "1507"
-      ],
-      "non_credit_full_segment_ids": [
-        "1699"
-      ],
+      "partial_segment_ids": [],
+      "non_credit_full_segment_ids": [],
       "hidden_self_repeat_ids": [],
       "latent_credit_ids": [],
       "unpriced_repeat_ids": [],
@@ -3420,34 +3389,28 @@
       "avoidable_post_credit_repeat_instances": [],
       "post_credit_repeat_advisories": [
         {
-          "seq": 6,
+          "seq": 4,
           "cue_type": "junction_turn",
           "repeated_segment_ids": [
-            "1699"
+            "1722"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.699,
-          "source_route_leg_miles": 0.699,
-          "savings_threshold_miles": 0.1,
-          "reason": "alternate_would_drop_claimed_geometry_coverage",
-          "would_miss_claimed_segment_ids": [
-            "1700"
-          ]
-        },
-        {
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "repeated_segment_ids": [
-            "1698"
+          "current_route_leg_miles": 0.512,
+          "source_route_leg_miles": 0.512,
+          "savings_threshold_miles": 0.364,
+          "alternate_distance_miles": 0.2137,
+          "graph_alternate_distance_miles": 0.1578,
+          "estimated_savings_miles": 0.2983,
+          "alternate_connector_miles": 0.04,
+          "alternate_official_repeat_miles": 0.12,
+          "alternate_connector_names": [
+            "#109 Peace Valley Overlook Trail"
           ],
-          "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.324,
-          "source_route_leg_miles": 1.324,
-          "savings_threshold_miles": 0.1324,
-          "reason": "alternate_would_drop_claimed_geometry_coverage",
-          "would_miss_claimed_segment_ids": [
-            "1698"
-          ]
+          "alternate_connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
         }
       ],
       "unpriced_repeat_rows": [],
@@ -3457,57 +3420,10 @@
         "unpriced_repeat": [],
         "avoidable_post_credit_repeat": []
       },
-      "optimization_warnings": [
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 2.22,
-          "message": "Declared official repeat mileage is above 2 miles."
-        },
-        {
-          "code": "cross_route_tail_opportunity",
-          "severity": "optimization_warning",
-          "repeated_owned_segment_id": "1755",
-          "adjacent_candidate_segment_id": "1699",
-          "adjacent_segment_miles": 0.19,
-          "endpoint_gap_miles": 0.0055,
-          "owner_routes": [
-            {
-              "route_key": "1-2",
-              "outing_id": "1-2",
-              "label": "1A-2",
-              "candidate_ids": [
-                "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-              ],
-              "found_in_field_tool_data": true
-            }
-          ],
-          "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
-        },
-        {
-          "code": "cross_route_tail_opportunity",
-          "severity": "optimization_warning",
-          "repeated_owned_segment_id": "1755",
-          "adjacent_candidate_segment_id": "1579",
-          "adjacent_segment_miles": 0.2,
-          "endpoint_gap_miles": 0.0,
-          "owner_routes": [
-            {
-              "route_key": "1-2",
-              "outing_id": "1-2",
-              "label": "1A-2",
-              "candidate_ids": [
-                "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-              ],
-              "found_in_field_tool_data": true
-            }
-          ],
-          "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
-        }
-      ],
-      "non_credit_miles": 1.64,
-      "on_foot_to_official_ratio": 1.35,
-      "declared_repeat_miles": 2.22
+      "optimization_warnings": [],
+      "non_credit_miles": 1.38,
+      "on_foot_to_official_ratio": 1.61,
+      "declared_repeat_miles": 0.54
     },
     {
       "route_key": "15-1",
@@ -3529,15 +3445,16 @@
         "1624"
       ],
       "declared_repeat_segment_ids": [
+        "1536",
         "1622",
         "1623",
         "1624"
       ],
       "declared_owned_elsewhere_segment_ids": [],
       "official_miles": 4.02,
-      "on_foot_miles": 5.07,
+      "on_foot_miles": 5.04,
       "audit_status": "passed",
-      "activity_point_count": 930,
+      "activity_point_count": 956,
       "candidate_segment_count": 12,
       "actual_full_segment_ids": [
         "1584",
@@ -3550,10 +3467,7 @@
         "1624"
       ],
       "partial_segment_ids": [
-        "1497",
-        "1521",
-        "1536",
-        "1537"
+        "1536"
       ],
       "non_credit_full_segment_ids": [
         "1622",
@@ -3575,8 +3489,8 @@
             "1624"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.977,
-          "source_route_leg_miles": 0.977,
+          "current_route_leg_miles": 0.896,
+          "source_route_leg_miles": 0.896,
           "savings_threshold_miles": 0.1,
           "reason": "alternate_geometry_still_completes_repeated_segments",
           "alternate_completed_repeat_ids": [
@@ -3604,9 +3518,113 @@
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
       ],
-      "non_credit_miles": 1.05,
-      "on_foot_to_official_ratio": 1.26,
-      "declared_repeat_miles": 0.37
+      "non_credit_miles": 1.02,
+      "on_foot_to_official_ratio": 1.25,
+      "declared_repeat_miles": 0.79
+    },
+    {
+      "route_key": "15-2",
+      "outing_id": "15-2",
+      "label": "15-2: 15B",
+      "trailhead": "Bob's",
+      "candidate_ids": [
+        "route-truth-15b-highlands-connector"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/dry-creek-highlands-15b.gpx",
+      "claimed_segment_ids": [
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "declared_repeat_segment_ids": [
+        "1523",
+        "1528",
+        "1576",
+        "1577"
+      ],
+      "declared_owned_elsewhere_segment_ids": [
+        "1528"
+      ],
+      "official_miles": 2.35,
+      "on_foot_miles": 8.43,
+      "audit_status": "passed",
+      "activity_point_count": 1649,
+      "candidate_segment_count": 7,
+      "actual_full_segment_ids": [
+        "1523",
+        "1528",
+        "1576",
+        "1577"
+      ],
+      "partial_segment_ids": [
+        "1498"
+      ],
+      "non_credit_full_segment_ids": [
+        "1528",
+        "1576",
+        "1577"
+      ],
+      "hidden_self_repeat_ids": [],
+      "latent_credit_ids": [],
+      "unpriced_repeat_ids": [],
+      "avoidable_post_credit_repeat_ids": [],
+      "avoidable_post_credit_repeat_instances": [],
+      "post_credit_repeat_advisories": [
+        {
+          "seq": 3,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1576",
+            "1577"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 2.085,
+          "source_route_leg_miles": 2.085,
+          "savings_threshold_miles": 0.2085,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        }
+      ],
+      "unpriced_repeat_rows": [],
+      "segments": {
+        "hidden_self_repeat": [],
+        "latent_credit": [],
+        "unpriced_repeat": [],
+        "avoidable_post_credit_repeat": []
+      },
+      "optimization_warnings": [
+        {
+          "code": "high_non_credit_miles",
+          "severity": "optimization_warning",
+          "value": 6.08,
+          "message": "More than 5 miles of this outing is non-credit movement."
+        },
+        {
+          "code": "high_on_foot_to_official_ratio",
+          "severity": "optimization_warning",
+          "value": 3.59,
+          "message": "On-foot miles are more than 3x official miles."
+        },
+        {
+          "code": "high_declared_repeat_miles",
+          "severity": "optimization_warning",
+          "value": 2.75,
+          "message": "Declared official repeat mileage is above 2 miles."
+        },
+        {
+          "code": "same_trailhead_bundle_candidate",
+          "severity": "optimization_warning",
+          "trailhead": "Bob's",
+          "route_count": 2,
+          "labels": [
+            "4-1: 4A",
+            "15-2: 15B"
+          ],
+          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
+        }
+      ],
+      "non_credit_miles": 6.08,
+      "on_foot_to_official_ratio": 3.59,
+      "declared_repeat_miles": 2.75
     },
     {
       "route_key": "11-1",
@@ -3653,17 +3671,10 @@
         "unpriced_repeat": [],
         "avoidable_post_credit_repeat": []
       },
-      "optimization_warnings": [
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 4.94,
-          "message": "Declared official repeat mileage is above 2 miles."
-        }
-      ],
+      "optimization_warnings": [],
       "non_credit_miles": 1.67,
       "on_foot_to_official_ratio": 1.3,
-      "declared_repeat_miles": 4.94
+      "declared_repeat_miles": 1.1
     },
     {
       "route_key": "10-2",
@@ -3682,9 +3693,14 @@
       ],
       "declared_repeat_segment_ids": [
         "1497",
+        "1519",
+        "1520",
         "1536",
         "1537",
-        "1538"
+        "1538",
+        "1622",
+        "1623",
+        "1624"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1520",
@@ -3710,10 +3726,7 @@
         "1624"
       ],
       "partial_segment_ids": [
-        "1519",
         "1521",
-        "1584",
-        "1618",
         "1620",
         "1621"
       ],
@@ -3736,12 +3749,6 @@
       },
       "optimization_warnings": [
         {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 5.97,
-          "message": "Declared official repeat mileage is above 2 miles."
-        },
-        {
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Dry Creek Parking Area/Trailhead",
@@ -3755,7 +3762,7 @@
       ],
       "non_credit_miles": 1.83,
       "on_foot_to_official_ratio": 1.75,
-      "declared_repeat_miles": 5.97
+      "declared_repeat_miles": 1.85
     },
     {
       "route_key": "18-2",
@@ -3771,7 +3778,10 @@
         "1721"
       ],
       "declared_repeat_segment_ids": [
+        "1554",
         "1655",
+        "1679",
+        "1680",
         "1713"
       ],
       "declared_owned_elsewhere_segment_ids": [
@@ -3794,9 +3804,6 @@
         "1721"
       ],
       "partial_segment_ids": [
-        "1502",
-        "1540",
-        "1678",
         "1713"
       ],
       "non_credit_full_segment_ids": [
@@ -3811,7 +3818,20 @@
       "unpriced_repeat_ids": [],
       "avoidable_post_credit_repeat_ids": [],
       "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
+      "post_credit_repeat_advisories": [
+        {
+          "seq": 5,
+          "cue_type": "exit_access",
+          "repeated_segment_ids": [
+            "1655"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 2.9217,
+          "source_route_leg_miles": 2.922,
+          "savings_threshold_miles": 0.2922,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        }
+      ],
       "unpriced_repeat_rows": [],
       "segments": {
         "hidden_self_repeat": [],
@@ -3831,6 +3851,12 @@
           "severity": "optimization_warning",
           "value": 10.33,
           "message": "On-foot miles are more than 3x official miles."
+        },
+        {
+          "code": "high_declared_repeat_miles",
+          "severity": "optimization_warning",
+          "value": 3.78,
+          "message": "Declared official repeat mileage is above 2 miles."
         },
         {
           "code": "same_trailhead_bundle_candidate",
@@ -3866,41 +3892,35 @@
       ],
       "non_credit_miles": 6.16,
       "on_foot_to_official_ratio": 10.33,
-      "declared_repeat_miles": 0.99
+      "declared_repeat_miles": 3.78
     },
     {
-      "route_key": "16-3",
-      "outing_id": "16-3",
-      "label": "16-3: 16C-1",
+      "route_key": "16-2",
+      "outing_id": "16-2",
+      "label": "16-2: 16C-1",
       "trailhead": "Freddy's Stack Rock",
       "candidate_ids": [
         "multi-start-16c-16c-ms-02-1-stack-rock-connector"
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/bogus-basin-stack-rock-connector-16c-1.gpx",
       "claimed_segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
       "declared_repeat_segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
       "declared_owned_elsewhere_segment_ids": [],
-      "official_miles": 3.5,
-      "on_foot_miles": 6.88,
+      "official_miles": 1.0,
+      "on_foot_miles": 7.77,
       "audit_status": "passed",
-      "activity_point_count": 865,
-      "candidate_segment_count": 3,
+      "activity_point_count": 1140,
+      "candidate_segment_count": 1,
       "actual_full_segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
-      "partial_segment_ids": [
-        "1667"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
-        "1663",
-        "1664"
+        "1762"
       ],
       "hidden_self_repeat_ids": [],
       "latent_credit_ids": [],
@@ -3912,35 +3932,13 @@
           "seq": 3,
           "cue_type": "exit_access",
           "repeated_segment_ids": [
-            "1663",
-            "1664"
+            "1762"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 3.318,
-          "source_route_leg_miles": 3.318,
-          "savings_threshold_miles": 0.688,
-          "alternate_distance_miles": 4.6167,
-          "graph_alternate_distance_miles": 4.2954,
-          "estimated_savings_miles": -1.2987,
-          "alternate_connector_miles": 3.99,
-          "alternate_official_repeat_miles": 0.31,
-          "alternate_connector_names": [
-            "#125 Freddys Stack Rock Trail",
-            "#77 Sweet Connie",
-            "Freddys Stack Rock Trail",
-            "North Bogus Basin Road",
-            "OSM path connector 13963",
-            "OSM service connector 112257",
-            "OSM service connector 40457",
-            "Sweet Connie"
-          ],
-          "alternate_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "osm_public_road",
-            "r2r_trail"
-          ],
-          "reason": "alternate_savings_below_route_threshold"
+          "current_route_leg_miles": 3.4816,
+          "source_route_leg_miles": 3.482,
+          "savings_threshold_miles": 0.3482,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
       "unpriced_repeat_rows": [],
@@ -3952,15 +3950,21 @@
       },
       "optimization_warnings": [
         {
-          "code": "high_declared_repeat_miles",
+          "code": "high_non_credit_miles",
           "severity": "optimization_warning",
-          "value": 3.49,
-          "message": "Declared official repeat mileage is above 2 miles."
+          "value": 6.77,
+          "message": "More than 5 miles of this outing is non-credit movement."
+        },
+        {
+          "code": "high_on_foot_to_official_ratio",
+          "severity": "optimization_warning",
+          "value": 7.77,
+          "message": "On-foot miles are more than 3x official miles."
         }
       ],
-      "non_credit_miles": 3.38,
-      "on_foot_to_official_ratio": 1.97,
-      "declared_repeat_miles": 3.49
+      "non_credit_miles": 6.77,
+      "on_foot_to_official_ratio": 7.77,
+      "declared_repeat_miles": 1.0
     },
     {
       "route_key": "9-1",
@@ -4030,6 +4034,45 @@
       "avoidable_post_credit_repeat_instances": [],
       "post_credit_repeat_advisories": [
         {
+          "seq": 4,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1692",
+            "1693"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.365,
+          "source_route_leg_miles": 0.365,
+          "savings_threshold_miles": 0.65,
+          "alternate_distance_miles": 0.4213,
+          "graph_alternate_distance_miles": 0.2346,
+          "estimated_savings_miles": -0.0563,
+          "alternate_connector_miles": 0.09,
+          "alternate_official_repeat_miles": 0.14,
+          "alternate_connector_names": [
+            "Big Springs Loop"
+          ],
+          "alternate_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
+        },
+        {
+          "seq": 6,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1611",
+            "1612"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.206,
+          "source_route_leg_miles": 0.206,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
           "seq": 10,
           "cue_type": "exit_access",
           "repeated_segment_ids": [
@@ -4038,15 +4081,16 @@
             "1693"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.044,
-          "source_route_leg_miles": 1.044,
+          "current_route_leg_miles": 1.109,
+          "source_route_leg_miles": 1.109,
           "savings_threshold_miles": 0.65,
-          "alternate_distance_miles": 1.9297,
-          "graph_alternate_distance_miles": 1.678,
-          "estimated_savings_miles": -0.8857,
-          "alternate_connector_miles": 1.68,
-          "alternate_official_repeat_miles": 0.0,
+          "alternate_distance_miles": 2.0003,
+          "graph_alternate_distance_miles": 1.7096,
+          "estimated_savings_miles": -0.8913,
+          "alternate_connector_miles": 1.7,
+          "alternate_official_repeat_miles": 0.01,
           "alternate_connector_names": [
+            "Access Trail (#113 Big Springs Loop)",
             "Big Springs Loop",
             "North Dry Creek Cemetery Road",
             "North Palisades Way",
@@ -4057,10 +4101,10 @@
             "OSM footway connector 38017",
             "OSM footway connector 38018",
             "OSM footway connector 38019",
-            "OSM footway connector 38020",
-            "OSM footway connector 38021"
+            "OSM footway connector 38020"
           ],
           "alternate_connector_classes": [
+            "official_repeat",
             "osm_path_footway",
             "osm_public_road",
             "r2r_trail"
@@ -4078,7 +4122,7 @@
       "optimization_warnings": [],
       "non_credit_miles": 1.82,
       "on_foot_to_official_ratio": 1.39,
-      "declared_repeat_miles": 1.72
+      "declared_repeat_miles": 1.6
     },
     {
       "route_key": "19-1",
@@ -4174,7 +4218,6 @@
         "1610"
       ],
       "partial_segment_ids": [
-        "1516",
         "1601",
         "1603"
       ],
@@ -4197,8 +4240,8 @@
             "1604"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.18,
-          "source_route_leg_miles": 0.18,
+          "current_route_leg_miles": 0.236,
+          "source_route_leg_miles": 0.236,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         },
@@ -4208,12 +4251,13 @@
           "repeated_segment_ids": [
             "1541",
             "1599",
-            "1604"
+            "1604",
+            "1610"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.7938,
-          "source_route_leg_miles": 0.794,
-          "savings_threshold_miles": 0.1,
+          "current_route_leg_miles": 1.234,
+          "source_route_leg_miles": 1.234,
+          "savings_threshold_miles": 0.1234,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
@@ -4239,7 +4283,7 @@
       ],
       "non_credit_miles": 1.82,
       "on_foot_to_official_ratio": 1.28,
-      "declared_repeat_miles": 1.81
+      "declared_repeat_miles": 1.47
     },
     {
       "route_key": "3-1",
@@ -4298,9 +4342,9 @@
         "1748"
       ],
       "official_miles": 8.31,
-      "on_foot_miles": 14.05,
+      "on_foot_miles": 13.58,
       "audit_status": "passed",
-      "activity_point_count": 3031,
+      "activity_point_count": 2851,
       "candidate_segment_count": 35,
       "actual_full_segment_ids": [
         "1510",
@@ -4333,11 +4377,7 @@
         "1720",
         "1748"
       ],
-      "partial_segment_ids": [
-        "1649",
-        "1650",
-        "1681"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1511",
         "1548",
@@ -4346,7 +4386,6 @@
         "1590",
         "1591",
         "1592",
-        "1593",
         "1629"
       ],
       "hidden_self_repeat_ids": [],
@@ -4356,26 +4395,38 @@
       "avoidable_post_credit_repeat_instances": [],
       "post_credit_repeat_advisories": [
         {
+          "seq": 3,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1590"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.804,
+          "source_route_leg_miles": 0.804,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
           "seq": 9,
           "cue_type": "junction_turn",
           "repeated_segment_ids": [
             "1720"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.715,
-          "source_route_leg_miles": 0.715,
+          "current_route_leg_miles": 0.713,
+          "source_route_leg_miles": 0.713,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         },
         {
           "seq": 11,
-          "cue_type": "connector_named_trail",
+          "cue_type": "overlap_repeat",
           "repeated_segment_ids": [
             "1629"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.202,
-          "source_route_leg_miles": 0.202,
+          "current_route_leg_miles": 0.201,
+          "source_route_leg_miles": 0.201,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         },
@@ -4395,14 +4446,26 @@
           ]
         },
         {
+          "seq": 19,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1548"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.173,
+          "source_route_leg_miles": 0.173,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
           "seq": 21,
           "cue_type": "connector_road",
           "repeated_segment_ids": [
             "1591"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.364,
-          "source_route_leg_miles": 0.364,
+          "current_route_leg_miles": 0.42,
+          "source_route_leg_miles": 0.42,
           "savings_threshold_miles": 0.1,
           "reason": "alternate_geometry_still_completes_repeated_segments",
           "alternate_completed_repeat_ids": [
@@ -4416,8 +4479,8 @@
             "1574"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.178,
-          "source_route_leg_miles": 0.178,
+          "current_route_leg_miles": 0.807,
+          "source_route_leg_miles": 0.807,
           "savings_threshold_miles": 0.1,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         },
@@ -4426,12 +4489,13 @@
           "cue_type": "exit_access",
           "repeated_segment_ids": [
             "1574",
+            "1575",
             "1592"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.627,
-          "source_route_leg_miles": 0.627,
-          "savings_threshold_miles": 0.1,
+          "current_route_leg_miles": 1.428,
+          "source_route_leg_miles": 1.428,
+          "savings_threshold_miles": 0.1428,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
@@ -4446,13 +4510,13 @@
         {
           "code": "high_non_credit_miles",
           "severity": "optimization_warning",
-          "value": 5.74,
+          "value": 5.27,
           "message": "More than 5 miles of this outing is non-credit movement."
         },
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 4.16,
+          "value": 3.6,
           "message": "Declared official repeat mileage is above 2 miles."
         },
         {
@@ -4507,9 +4571,9 @@
           "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
         }
       ],
-      "non_credit_miles": 5.74,
-      "on_foot_to_official_ratio": 1.69,
-      "declared_repeat_miles": 4.16
+      "non_credit_miles": 5.27,
+      "on_foot_to_official_ratio": 1.63,
+      "declared_repeat_miles": 3.6
     },
     {
       "route_key": "12-1",
@@ -4536,7 +4600,13 @@
         "1483",
         "1484",
         "1486",
-        "1524"
+        "1498",
+        "1499",
+        "1500",
+        "1524",
+        "1532",
+        "1576",
+        "1577"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1498",
@@ -4569,16 +4639,7 @@
         "1577",
         "1660"
       ],
-      "partial_segment_ids": [
-        "1523",
-        "1533",
-        "1555",
-        "1589",
-        "1643",
-        "1690",
-        "1730",
-        "1751"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1483",
         "1484",
@@ -4604,14 +4665,14 @@
             "1524"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 3.958,
-          "source_route_leg_miles": 3.958,
+          "current_route_leg_miles": 4.013,
+          "source_route_leg_miles": 4.013,
           "savings_threshold_miles": 1.344,
-          "alternate_distance_miles": 3.5169,
-          "graph_alternate_distance_miles": 2.8349,
-          "estimated_savings_miles": 0.4411,
-          "alternate_connector_miles": 2.24,
-          "alternate_official_repeat_miles": 0.6,
+          "alternate_distance_miles": 3.5625,
+          "graph_alternate_distance_miles": 2.8762,
+          "estimated_savings_miles": 0.4505,
+          "alternate_connector_miles": 2.29,
+          "alternate_official_repeat_miles": 0.59,
           "alternate_connector_names": [
             "#30 Bob's",
             "#31 Corrals",
@@ -4655,14 +4716,14 @@
             "1484"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.43,
-          "source_route_leg_miles": 1.43,
+          "current_route_leg_miles": 1.484,
+          "source_route_leg_miles": 1.484,
           "savings_threshold_miles": 1.344,
-          "alternate_distance_miles": 4.398,
-          "graph_alternate_distance_miles": 3.6484,
-          "estimated_savings_miles": -2.968,
-          "alternate_connector_miles": 2.55,
-          "alternate_official_repeat_miles": 1.1,
+          "alternate_distance_miles": 4.3948,
+          "graph_alternate_distance_miles": 3.6402,
+          "estimated_savings_miles": -2.9108,
+          "alternate_connector_miles": 2.56,
+          "alternate_official_repeat_miles": 1.08,
           "alternate_connector_names": [
             "#28 Crestline",
             "#29 Lower Hulls Gulch",
@@ -4701,6 +4762,12 @@
           "message": "More than 5 miles of this outing is non-credit movement."
         },
         {
+          "code": "high_declared_repeat_miles",
+          "severity": "optimization_warning",
+          "value": 5.53,
+          "message": "Declared official repeat mileage is above 2 miles."
+        },
+        {
           "code": "cross_route_tail_opportunity",
           "severity": "optimization_warning",
           "repeated_owned_segment_id": "1532",
@@ -4723,7 +4790,7 @@
       ],
       "non_credit_miles": 5.63,
       "on_foot_to_official_ratio": 1.72,
-      "declared_repeat_miles": 1.49
+      "declared_repeat_miles": 5.53
     },
     {
       "route_key": "16-1",
@@ -4740,27 +4807,23 @@
         "1667"
       ],
       "declared_repeat_segment_ids": [
+        "1597",
         "1665",
         "1666",
         "1667"
       ],
       "declared_owned_elsewhere_segment_ids": [],
-      "official_miles": 6.09,
+      "official_miles": 3.14,
       "on_foot_miles": 14.2,
       "audit_status": "passed",
       "activity_point_count": 3181,
-      "candidate_segment_count": 15,
+      "candidate_segment_count": 14,
       "actual_full_segment_ids": [
         "1665",
         "1666",
         "1667"
       ],
-      "partial_segment_ids": [
-        "1519",
-        "1542",
-        "1597",
-        "1663"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1665"
       ],
@@ -4774,13 +4837,18 @@
           "seq": 3,
           "cue_type": "exit_access",
           "repeated_segment_ids": [
-            "1665"
+            "1666",
+            "1667"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 6.1245,
-          "source_route_leg_miles": 6.125,
-          "savings_threshold_miles": 0.6125,
-          "reason": "repeat_exit_no_alternate_graph_path_proven"
+          "current_route_leg_miles": 13.185,
+          "source_route_leg_miles": 13.185,
+          "savings_threshold_miles": 1.3185,
+          "reason": "alternate_would_drop_claimed_endpoint_coverage",
+          "would_miss_claimed_segment_ids": [
+            "1666",
+            "1667"
+          ]
         }
       ],
       "unpriced_repeat_rows": [],
@@ -4794,31 +4862,36 @@
         {
           "code": "high_non_credit_miles",
           "severity": "optimization_warning",
-          "value": 8.11,
+          "value": 11.06,
           "message": "More than 5 miles of this outing is non-credit movement."
+        },
+        {
+          "code": "high_on_foot_to_official_ratio",
+          "severity": "optimization_warning",
+          "value": 4.52,
+          "message": "On-foot miles are more than 3x official miles."
         },
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 6.08,
+          "value": 7.7,
           "message": "Declared official repeat mileage is above 2 miles."
         },
         {
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Dry Creek / Sweet Connie roadside parking",
-          "route_count": 3,
+          "route_count": 2,
           "labels": [
-            "16-2: 16A-2",
             "16-1: 16A-1",
-            "16-4: 16C-2"
+            "16-3: 16A-D1"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
       ],
-      "non_credit_miles": 8.11,
-      "on_foot_to_official_ratio": 2.33,
-      "declared_repeat_miles": 6.08
+      "non_credit_miles": 11.06,
+      "on_foot_to_official_ratio": 4.52,
+      "declared_repeat_miles": 7.7
     },
     {
       "route_key": "4-3",
@@ -4922,6 +4995,21 @@
       "avoidable_post_credit_repeat_instances": [],
       "post_credit_repeat_advisories": [
         {
+          "seq": 5,
+          "cue_type": "junction_turn",
+          "repeated_segment_ids": [
+            "1671"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 1.795,
+          "source_route_leg_miles": 1.795,
+          "savings_threshold_miles": 0.1795,
+          "reason": "alternate_would_drop_claimed_endpoint_coverage",
+          "would_miss_claimed_segment_ids": [
+            "1671"
+          ]
+        },
+        {
           "seq": 7,
           "cue_type": "junction_turn",
           "repeated_segment_ids": [
@@ -4929,9 +5017,9 @@
             "1670"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.468,
-          "source_route_leg_miles": 1.468,
-          "savings_threshold_miles": 0.1468,
+          "current_route_leg_miles": 0.992,
+          "source_route_leg_miles": 0.992,
+          "savings_threshold_miles": 0.1,
           "reason": "alternate_would_drop_claimed_endpoint_coverage",
           "would_miss_claimed_segment_ids": [
             "1669",
@@ -4979,9 +5067,9 @@
             "1641"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.342,
-          "source_route_leg_miles": 1.342,
-          "savings_threshold_miles": 0.1342,
+          "current_route_leg_miles": 1.349,
+          "source_route_leg_miles": 1.349,
+          "savings_threshold_miles": 0.1349,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         },
         {
@@ -5046,17 +5134,11 @@
           "severity": "optimization_warning",
           "value": 5.95,
           "message": "More than 5 miles of this outing is non-credit movement."
-        },
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 2.97,
-          "message": "Declared official repeat mileage is above 2 miles."
         }
       ],
       "non_credit_miles": 5.95,
       "on_foot_to_official_ratio": 1.9,
-      "declared_repeat_miles": 2.97
+      "declared_repeat_miles": 1.98
     },
     {
       "route_key": "14-1",
@@ -5076,11 +5158,14 @@
         "1695"
       ],
       "declared_repeat_segment_ids": [
+        "1558",
         "1560",
         "1561",
         "1562",
         "1595",
-        "1695"
+        "1685",
+        "1695",
+        "1710"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1558",
@@ -5101,9 +5186,7 @@
         "1695"
       ],
       "partial_segment_ids": [
-        "1560",
-        "1684",
-        "1710"
+        "1560"
       ],
       "non_credit_full_segment_ids": [
         "1558",
@@ -5125,9 +5208,9 @@
             "1595"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.933,
-          "source_route_leg_miles": 1.933,
-          "savings_threshold_miles": 0.1933,
+          "current_route_leg_miles": 2.05,
+          "source_route_leg_miles": 2.05,
+          "savings_threshold_miles": 0.205,
           "reason": "repeat_exit_no_alternate_graph_path_proven"
         }
       ],
@@ -5142,108 +5225,13 @@
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 5.72,
+          "value": 4.66,
           "message": "Declared official repeat mileage is above 2 miles."
         }
       ],
       "non_credit_miles": 4.81,
       "on_foot_to_official_ratio": 1.57,
-      "declared_repeat_miles": 5.72
-    },
-    {
-      "route_key": "16-4",
-      "outing_id": "16-4",
-      "label": "16-4: 16C-2",
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "candidate_ids": [
-        "multi-start-16c-16c-ms-02-2-shingle-creek-trail"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/dry-creek-shingle-creek-16c-2.gpx",
-      "claimed_segment_ids": [
-        "1656"
-      ],
-      "declared_repeat_segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1656",
-        "1665"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1542",
-        "1543",
-        "1544"
-      ],
-      "official_miles": 4.76,
-      "on_foot_miles": 14.31,
-      "audit_status": "passed",
-      "activity_point_count": 2532,
-      "candidate_segment_count": 12,
-      "actual_full_segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1656"
-      ],
-      "partial_segment_ids": [
-        "1545",
-        "1546",
-        "1653",
-        "1665"
-      ],
-      "non_credit_full_segment_ids": [
-        "1542",
-        "1543",
-        "1544"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "avoidable_post_credit_repeat_ids": [],
-      "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": [],
-        "avoidable_post_credit_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_non_credit_miles",
-          "severity": "optimization_warning",
-          "value": 9.55,
-          "message": "More than 5 miles of this outing is non-credit movement."
-        },
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 3.01,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 7.91,
-          "message": "Declared official repeat mileage is above 2 miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Dry Creek / Sweet Connie roadside parking",
-          "route_count": 3,
-          "labels": [
-            "16-2: 16A-2",
-            "16-1: 16A-1",
-            "16-4: 16C-2"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 9.55,
-      "on_foot_to_official_ratio": 3.01,
-      "declared_repeat_miles": 7.91
+      "declared_repeat_miles": 4.66
     },
     {
       "route_key": "2-1",
@@ -5255,22 +5243,16 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
       "claimed_segment_ids": [
-        "1481",
-        "1517",
-        "1518",
         "1532",
         "1533",
         "1534",
         "1535",
-        "1567",
-        "1568",
         "1583",
         "1585",
         "1586",
         "1587",
         "1588",
         "1589",
-        "1596",
         "1615",
         "1616",
         "1725",
@@ -5283,6 +5265,12 @@
       ],
       "declared_repeat_segment_ids": [
         "1481",
+        "1483",
+        "1484",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
         "1583",
         "1585",
         "1586",
@@ -5296,7 +5284,7 @@
         "1483",
         "1484"
       ],
-      "official_miles": 13.11,
+      "official_miles": 11.08,
       "on_foot_miles": 18.8,
       "audit_status": "passed",
       "activity_point_count": 3014,
@@ -5331,16 +5319,19 @@
         "1751"
       ],
       "partial_segment_ids": [
-        "1485",
-        "1524",
-        "1660"
+        "1485"
       ],
       "non_credit_full_segment_ids": [
         "1481",
         "1483",
         "1484",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
         "1585",
         "1586",
+        "1596",
         "1615",
         "1725",
         "1728"
@@ -5352,20 +5343,32 @@
       "avoidable_post_credit_repeat_instances": [],
       "post_credit_repeat_advisories": [
         {
+          "seq": 4,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1725"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.191,
+          "source_route_leg_miles": 0.191,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
           "seq": 6,
           "cue_type": "overlap_repeat",
           "repeated_segment_ids": [
             "1728"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.606,
-          "source_route_leg_miles": 1.606,
+          "current_route_leg_miles": 1.706,
+          "source_route_leg_miles": 1.706,
           "savings_threshold_miles": 1.88,
-          "alternate_distance_miles": 4.1199,
-          "graph_alternate_distance_miles": 3.4044,
-          "estimated_savings_miles": -2.5139,
-          "alternate_connector_miles": 3.06,
-          "alternate_official_repeat_miles": 0.35,
+          "alternate_distance_miles": 3.9544,
+          "graph_alternate_distance_miles": 3.2892,
+          "estimated_savings_miles": -2.2484,
+          "alternate_connector_miles": 2.96,
+          "alternate_official_repeat_miles": 0.33,
           "alternate_connector_names": [
             "#0 Hull's Gulch Interpretive Trail",
             "East Sunset Peak Road",
@@ -5381,14 +5384,142 @@
           "reason": "alternate_savings_below_route_threshold"
         },
         {
+          "seq": 12,
+          "cue_type": "repeat_official_noncredit",
+          "repeated_segment_ids": [
+            "1596"
+          ],
+          "already_credited_source": "completed_at_export",
+          "current_route_leg_miles": 0.642,
+          "source_route_leg_miles": 0.642,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 13,
+          "cue_type": "repeat_official_noncredit",
+          "repeated_segment_ids": [
+            "1567"
+          ],
+          "already_credited_source": "completed_at_export",
+          "current_route_leg_miles": 0.269,
+          "source_route_leg_miles": 0.269,
+          "savings_threshold_miles": 0.1,
+          "reason": "alternate_geometry_still_completes_repeated_segments",
+          "alternate_completed_repeat_ids": [
+            "1567"
+          ]
+        },
+        {
+          "seq": 15,
+          "cue_type": "repeat_official_noncredit",
+          "repeated_segment_ids": [
+            "1481"
+          ],
+          "already_credited_source": "completed_at_export",
+          "current_route_leg_miles": 0.433,
+          "source_route_leg_miles": 0.433,
+          "savings_threshold_miles": 1.88,
+          "alternate_distance_miles": 1.0913,
+          "graph_alternate_distance_miles": 0.9151,
+          "estimated_savings_miles": -0.6583,
+          "alternate_connector_miles": 0.92,
+          "alternate_official_repeat_miles": 0.0,
+          "alternate_connector_names": [
+            "15th Street #41",
+            "Camel's Back",
+            "Camelsback Trails #40",
+            "North 13th Street",
+            "OSM footway connector 11376",
+            "OSM footway connector 114198",
+            "OSM footway connector 114199",
+            "OSM footway connector 114200",
+            "OSM footway connector 114201",
+            "OSM footway connector 19171",
+            "OSM footway connector 51989",
+            "OSM footway connector 83792"
+          ],
+          "alternate_connector_classes": [
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
+        },
+        {
+          "seq": 16,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1481"
+          ],
+          "already_credited_source": "completed_at_export",
+          "current_route_leg_miles": 0.711,
+          "source_route_leg_miles": 0.711,
+          "savings_threshold_miles": 1.88,
+          "alternate_distance_miles": 1.2662,
+          "graph_alternate_distance_miles": 1.0824,
+          "estimated_savings_miles": -0.5552,
+          "alternate_connector_miles": 1.08,
+          "alternate_official_repeat_miles": 0.0,
+          "alternate_connector_names": [
+            "15th Street #41",
+            "Camel's Back",
+            "Camelsback Trails #40",
+            "North 13th Street",
+            "OSM footway connector 11376",
+            "OSM footway connector 114198",
+            "OSM footway connector 114199",
+            "OSM footway connector 114200",
+            "OSM footway connector 114201",
+            "OSM footway connector 19171",
+            "OSM footway connector 51989",
+            "OSM footway connector 83792"
+          ],
+          "alternate_connector_classes": [
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
+        },
+        {
+          "seq": 17,
+          "cue_type": "repeat_official_noncredit",
+          "repeated_segment_ids": [
+            "1517",
+            "1518"
+          ],
+          "already_credited_source": "completed_at_export",
+          "current_route_leg_miles": 0.607,
+          "source_route_leg_miles": 0.607,
+          "savings_threshold_miles": 1.88,
+          "alternate_distance_miles": 0.5995,
+          "graph_alternate_distance_miles": 0.5771,
+          "estimated_savings_miles": 0.0075,
+          "alternate_connector_miles": 0.58,
+          "alternate_official_repeat_miles": 0.0,
+          "alternate_connector_names": [
+            "Chickadee Ridge",
+            "OSM service connector 19868",
+            "Red Fox #36",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "alternate_connector_classes": [
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
+        },
+        {
           "seq": 18,
           "cue_type": "connector_road",
           "repeated_segment_ids": [
             "1585"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 0.344,
-          "source_route_leg_miles": 0.344,
+          "current_route_leg_miles": 0.407,
+          "source_route_leg_miles": 0.407,
           "savings_threshold_miles": 0.1,
           "reason": "alternate_geometry_still_completes_repeated_segments",
           "alternate_completed_repeat_ids": [
@@ -5419,19 +5550,96 @@
         {
           "code": "high_non_credit_miles",
           "severity": "optimization_warning",
-          "value": 5.69,
+          "value": 7.72,
           "message": "More than 5 miles of this outing is non-credit movement."
         },
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 5.35,
+          "value": 6.69,
           "message": "Declared official repeat mileage is above 2 miles."
         }
       ],
-      "non_credit_miles": 5.69,
-      "on_foot_to_official_ratio": 1.43,
-      "declared_repeat_miles": 5.35
+      "non_credit_miles": 7.72,
+      "on_foot_to_official_ratio": 1.7,
+      "declared_repeat_miles": 6.69
+    },
+    {
+      "route_key": "16-3",
+      "outing_id": "16-3",
+      "label": "16-3: 16A-D1",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "candidate_ids": [
+        "manual-16a-d1"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/dry-creek-16a-d1.gpx",
+      "claimed_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
+      ],
+      "declared_repeat_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1665"
+      ],
+      "declared_owned_elsewhere_segment_ids": [],
+      "official_miles": 12.5,
+      "on_foot_miles": 15.61,
+      "audit_status": "passed",
+      "activity_point_count": 1515,
+      "candidate_segment_count": 12,
+      "actual_full_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
+      ],
+      "partial_segment_ids": [],
+      "non_credit_full_segment_ids": [],
+      "hidden_self_repeat_ids": [],
+      "latent_credit_ids": [],
+      "unpriced_repeat_ids": [],
+      "avoidable_post_credit_repeat_ids": [],
+      "avoidable_post_credit_repeat_instances": [],
+      "post_credit_repeat_advisories": [],
+      "unpriced_repeat_rows": [],
+      "segments": {
+        "hidden_self_repeat": [],
+        "latent_credit": [],
+        "unpriced_repeat": [],
+        "avoidable_post_credit_repeat": []
+      },
+      "optimization_warnings": [
+        {
+          "code": "high_declared_repeat_miles",
+          "severity": "optimization_warning",
+          "value": 2.37,
+          "message": "Declared official repeat mileage is above 2 miles."
+        },
+        {
+          "code": "same_trailhead_bundle_candidate",
+          "severity": "optimization_warning",
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
+          "route_count": 2,
+          "labels": [
+            "16-1: 16A-1",
+            "16-3: 16A-D1"
+          ],
+          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
+        }
+      ],
+      "non_credit_miles": 3.11,
+      "on_foot_to_official_ratio": 1.25,
+      "declared_repeat_miles": 2.37
     },
     {
       "route_key": "18-1",
@@ -5448,7 +5656,6 @@
         "1503",
         "1678",
         "1679",
-        "1680",
         "1703",
         "1732",
         "1733",
@@ -5457,22 +5664,27 @@
         "1736"
       ],
       "declared_repeat_segment_ids": [
+        "1493",
         "1501",
         "1502",
         "1503",
+        "1655",
         "1679",
+        "1680",
         "1703",
         "1713",
-        "1732"
+        "1732",
+        "1750"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1553",
         "1655",
+        "1680",
         "1713",
         "1721",
         "1750"
       ],
-      "official_miles": 5.58,
+      "official_miles": 4.43,
       "on_foot_miles": 15.3,
       "audit_status": "passed",
       "activity_point_count": 1746,
@@ -5498,9 +5710,7 @@
       ],
       "partial_segment_ids": [
         "1492",
-        "1493",
-        "1540",
-        "1554"
+        "1493"
       ],
       "non_credit_full_segment_ids": [
         "1501",
@@ -5508,6 +5718,7 @@
         "1503",
         "1553",
         "1655",
+        "1680",
         "1713",
         "1750"
       ],
@@ -5518,19 +5729,18 @@
       "avoidable_post_credit_repeat_instances": [],
       "post_credit_repeat_advisories": [
         {
-          "seq": 6,
-          "cue_type": "junction_turn",
+          "seq": 7,
+          "cue_type": "overlap_repeat",
           "repeated_segment_ids": [
-            "1501"
+            "1501",
+            "1502",
+            "1503"
           ],
           "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.514,
-          "source_route_leg_miles": 1.514,
-          "savings_threshold_miles": 0.1514,
-          "reason": "alternate_would_drop_claimed_geometry_coverage",
-          "would_miss_claimed_segment_ids": [
-            "1503"
-          ]
+          "current_route_leg_miles": 1.49,
+          "source_route_leg_miles": 1.49,
+          "savings_threshold_miles": 0.149,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
         },
         {
           "seq": 11,
@@ -5581,186 +5791,45 @@
         {
           "code": "high_non_credit_miles",
           "severity": "optimization_warning",
-          "value": 9.72,
+          "value": 10.87,
           "message": "More than 5 miles of this outing is non-credit movement."
+        },
+        {
+          "code": "high_on_foot_to_official_ratio",
+          "severity": "optimization_warning",
+          "value": 3.45,
+          "message": "On-foot miles are more than 3x official miles."
         },
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 3.46,
-          "message": "Declared official repeat mileage is above 2 miles."
-        }
-      ],
-      "non_credit_miles": 9.72,
-      "on_foot_to_official_ratio": 2.74,
-      "declared_repeat_miles": 3.46
-    },
-    {
-      "route_key": "15-2",
-      "outing_id": "15-2",
-      "label": "15-2: 15B",
-      "trailhead": "Bob's",
-      "candidate_ids": [
-        "multi-start-15-15-ms-15-2-highlands-trail-dry-creek-trail-connector"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/dry-creek-highlands-15b.gpx",
-      "claimed_segment_ids": [
-        "1523",
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1576",
-        "1577"
-      ],
-      "declared_repeat_segment_ids": [
-        "1542",
-        "1546",
-        "1576",
-        "1577"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1527",
-        "1528"
-      ],
-      "official_miles": 9.33,
-      "on_foot_miles": 25.39,
-      "audit_status": "passed",
-      "activity_point_count": 3096,
-      "candidate_segment_count": 26,
-      "actual_full_segment_ids": [
-        "1523",
-        "1527",
-        "1528",
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1576",
-        "1577"
-      ],
-      "partial_segment_ids": [
-        "1498",
-        "1526",
-        "1653",
-        "1656",
-        "1665",
-        "1690"
-      ],
-      "non_credit_full_segment_ids": [
-        "1527",
-        "1528",
-        "1542",
-        "1546",
-        "1576",
-        "1577"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "avoidable_post_credit_repeat_ids": [],
-      "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [
-        {
-          "seq": 5,
-          "cue_type": "overlap_repeat",
-          "repeated_segment_ids": [
-            "1546"
-          ],
-          "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 1.539,
-          "source_route_leg_miles": 1.539,
-          "savings_threshold_miles": 0.1539,
-          "reason": "repeat_exit_no_alternate_graph_path_proven"
-        },
-        {
-          "seq": 7,
-          "cue_type": "connector_road",
-          "repeated_segment_ids": [
-            "1542"
-          ],
-          "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 2.48,
-          "source_route_leg_miles": 2.48,
-          "savings_threshold_miles": 0.248,
-          "reason": "repeat_exit_no_alternate_graph_path_proven"
-        },
-        {
-          "seq": 9,
-          "cue_type": "exit_access",
-          "repeated_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "already_credited_source": "prior_route_cue",
-          "current_route_leg_miles": 2.069,
-          "source_route_leg_miles": 2.069,
-          "savings_threshold_miles": 2.539,
-          "alternate_distance_miles": 4.0256,
-          "graph_alternate_distance_miles": 3.8584,
-          "estimated_savings_miles": -1.9566,
-          "alternate_connector_miles": 3.61,
-          "alternate_official_repeat_miles": 0.25,
-          "alternate_connector_names": [
-            "#30 Bob's",
-            "#31 Corrals",
-            "Corrals",
-            "East Hearthstone Drive",
-            "North Bogus Basin Road",
-            "OSM footway connector 24296",
-            "OSM footway connector 24301",
-            "OSM footway connector 51185",
-            "OSM footway connector 70456",
-            "OSM footway connector 70457",
-            "OSM footway connector 70609",
-            "OSM footway connector 70610"
-          ],
-          "alternate_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "osm_public_road",
-            "r2r_trail"
-          ],
-          "reason": "alternate_savings_below_route_threshold"
-        }
-      ],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": [],
-        "avoidable_post_credit_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_non_credit_miles",
-          "severity": "optimization_warning",
-          "value": 16.06,
-          "message": "More than 5 miles of this outing is non-credit movement."
-        },
-        {
-          "code": "high_declared_repeat_miles",
-          "severity": "optimization_warning",
-          "value": 3.91,
+          "value": 6.18,
           "message": "Declared official repeat mileage is above 2 miles."
         },
         {
-          "code": "same_trailhead_bundle_candidate",
+          "code": "cross_route_tail_opportunity",
           "severity": "optimization_warning",
-          "trailhead": "Bob's",
-          "route_count": 2,
-          "labels": [
-            "4-1: 4A",
-            "15-2: 15B"
+          "repeated_owned_segment_id": "1680",
+          "adjacent_candidate_segment_id": "1678",
+          "adjacent_segment_miles": 0.29,
+          "endpoint_gap_miles": 0.0,
+          "owner_routes": [
+            {
+              "route_key": "17-1",
+              "outing_id": "17-1",
+              "label": "17",
+              "candidate_ids": [
+                "block-bogus_atm_deer_elk_sunshine"
+              ],
+              "found_in_field_tool_data": true
+            }
           ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
+          "message": "A later route repeats an official segment owned elsewhere next to a short claimed segment. Review whether the owner route should carry that adjacent edge instead."
         }
       ],
-      "non_credit_miles": 16.06,
-      "on_foot_to_official_ratio": 2.72,
-      "declared_repeat_miles": 3.91
+      "non_credit_miles": 10.87,
+      "on_foot_to_official_ratio": 3.45,
+      "declared_repeat_miles": 6.18
     },
     {
       "route_key": "10-1",
@@ -5827,9 +5896,7 @@
         "1661",
         "1662",
         "1687",
-        "1706",
-        "1707",
-        "1708"
+        "1706"
       ],
       "hidden_self_repeat_ids": [],
       "latent_credit_ids": [],
@@ -5867,13 +5934,13 @@
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 9.66,
+          "value": 2.12,
           "message": "Declared official repeat mileage is above 2 miles."
         }
       ],
       "non_credit_miles": 14.54,
       "on_foot_to_official_ratio": 2.99,
-      "declared_repeat_miles": 9.66
+      "declared_repeat_miles": 2.12
     },
     {
       "route_key": "17-1",
@@ -5900,7 +5967,11 @@
       ],
       "declared_repeat_segment_ids": [
         "1553",
-        "1713"
+        "1655",
+        "1679",
+        "1703",
+        "1713",
+        "1721"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1655",
@@ -5930,10 +6001,7 @@
       "partial_segment_ids": [
         "1490",
         "1493",
-        "1501",
-        "1502",
-        "1678",
-        "1703"
+        "1501"
       ],
       "non_credit_full_segment_ids": [
         "1553",
@@ -5946,7 +6014,23 @@
       "unpriced_repeat_ids": [],
       "avoidable_post_credit_repeat_ids": [],
       "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
+      "post_credit_repeat_advisories": [
+        {
+          "seq": 9,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1553"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.269,
+          "source_route_leg_miles": 0.269,
+          "savings_threshold_miles": 0.1,
+          "reason": "alternate_geometry_still_completes_repeated_segments",
+          "alternate_completed_repeat_ids": [
+            "1553"
+          ]
+        }
+      ],
       "unpriced_repeat_rows": [],
       "segments": {
         "hidden_self_repeat": [],
@@ -5955,6 +6039,12 @@
         "avoidable_post_credit_repeat": []
       },
       "optimization_warnings": [
+        {
+          "code": "high_declared_repeat_miles",
+          "severity": "optimization_warning",
+          "value": 2.92,
+          "message": "Declared official repeat mileage is above 2 miles."
+        },
         {
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
@@ -5969,7 +6059,7 @@
       ],
       "non_credit_miles": 4.73,
       "on_foot_to_official_ratio": 1.42,
-      "declared_repeat_miles": 1.25
+      "declared_repeat_miles": 2.92
     },
     {
       "route_key": "6-1",
@@ -5991,10 +6081,18 @@
         "1709"
       ],
       "declared_repeat_segment_ids": [
+        "1497",
         "1508",
         "1509",
         "1516",
-        "1597"
+        "1541",
+        "1597",
+        "1599",
+        "1603",
+        "1604",
+        "1610",
+        "1624",
+        "1666"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1541",
@@ -6024,18 +6122,9 @@
         "1709"
       ],
       "partial_segment_ids": [
-        "1482",
-        "1495",
         "1497",
-        "1538",
-        "1598",
-        "1601",
-        "1602",
         "1603",
-        "1623",
-        "1624",
-        "1665",
-        "1667"
+        "1624"
       ],
       "non_credit_full_segment_ids": [
         "1508",
@@ -6051,7 +6140,32 @@
       "unpriced_repeat_ids": [],
       "avoidable_post_credit_repeat_ids": [],
       "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
+      "post_credit_repeat_advisories": [
+        {
+          "seq": 12,
+          "cue_type": "connector_road",
+          "repeated_segment_ids": [
+            "1508"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 4.078,
+          "source_route_leg_miles": 4.078,
+          "savings_threshold_miles": 0.4078,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 14,
+          "cue_type": "exit_access",
+          "repeated_segment_ids": [
+            "1516"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 2.417,
+          "source_route_leg_miles": 2.417,
+          "savings_threshold_miles": 0.2417,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        }
+      ],
       "unpriced_repeat_rows": [],
       "segments": {
         "hidden_self_repeat": [],
@@ -6069,7 +6183,7 @@
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 7.13,
+          "value": 6.26,
           "message": "Declared official repeat mileage is above 2 miles."
         },
         {
@@ -6086,7 +6200,7 @@
       ],
       "non_credit_miles": 8.74,
       "on_foot_to_official_ratio": 1.64,
-      "declared_repeat_miles": 7.13
+      "declared_repeat_miles": 6.26
     },
     {
       "route_key": "13-1",
@@ -6119,15 +6233,20 @@
         "1558",
         "1563",
         "1564",
+        "1592",
         "1593",
         "1594",
+        "1627",
         "1629",
+        "1630",
+        "1631",
         "1650",
         "1651",
         "1652",
         "1681",
         "1682",
         "1685",
+        "1695",
         "1710",
         "1711"
       ],
@@ -6169,13 +6288,8 @@
       ],
       "partial_segment_ids": [
         "1486",
-        "1510",
-        "1590",
-        "1592",
         "1627",
-        "1694",
-        "1711",
-        "1720"
+        "1711"
       ],
       "non_credit_full_segment_ids": [
         "1558",
@@ -6199,7 +6313,135 @@
       "unpriced_repeat_ids": [],
       "avoidable_post_credit_repeat_ids": [],
       "avoidable_post_credit_repeat_instances": [],
-      "post_credit_repeat_advisories": [],
+      "post_credit_repeat_advisories": [
+        {
+          "seq": 3,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1685"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 1.697,
+          "source_route_leg_miles": 1.697,
+          "savings_threshold_miles": 0.1697,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 5,
+          "cue_type": "connector_named_trail",
+          "repeated_segment_ids": [
+            "1558"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 2.797,
+          "source_route_leg_miles": 2.797,
+          "savings_threshold_miles": 0.2797,
+          "reason": "alternate_geometry_still_completes_repeated_segments",
+          "alternate_completed_repeat_ids": [
+            "1558"
+          ]
+        },
+        {
+          "seq": 7,
+          "cue_type": "connector_road",
+          "repeated_segment_ids": [
+            "1682"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.855,
+          "source_route_leg_miles": 0.855,
+          "savings_threshold_miles": 0.1,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 9,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1651"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 0.424,
+          "source_route_leg_miles": 0.424,
+          "savings_threshold_miles": 3.247,
+          "alternate_distance_miles": 2.0354,
+          "graph_alternate_distance_miles": 1.5246,
+          "estimated_savings_miles": -1.6114,
+          "alternate_connector_miles": 1.02,
+          "alternate_official_repeat_miles": 0.51,
+          "alternate_connector_names": [
+            "#26 Three Bears",
+            "#26A Shane's",
+            "Shane's",
+            "Three Bears"
+          ],
+          "alternate_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
+        },
+        {
+          "seq": 11,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1650",
+            "1652"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 1.522,
+          "source_route_leg_miles": 1.522,
+          "savings_threshold_miles": 0.1522,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 13,
+          "cue_type": "overlap_repeat",
+          "repeated_segment_ids": [
+            "1563",
+            "1681"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 2.603,
+          "source_route_leg_miles": 2.603,
+          "savings_threshold_miles": 0.2603,
+          "reason": "repeat_exit_no_alternate_graph_path_proven"
+        },
+        {
+          "seq": 16,
+          "cue_type": "exit_access",
+          "repeated_segment_ids": [
+            "1563",
+            "1564",
+            "1681"
+          ],
+          "already_credited_source": "prior_route_cue",
+          "current_route_leg_miles": 5.881,
+          "source_route_leg_miles": 5.881,
+          "savings_threshold_miles": 3.247,
+          "alternate_distance_miles": 5.6561,
+          "graph_alternate_distance_miles": 3.872,
+          "estimated_savings_miles": 0.2249,
+          "alternate_connector_miles": 2.36,
+          "alternate_official_repeat_miles": 1.51,
+          "alternate_connector_names": [
+            "#20 Ridgecrest",
+            "#26 Three Bears",
+            "#26A Shane's",
+            "#3 Watchman",
+            "Central Ridge",
+            "Shane's",
+            "Three Bears",
+            "Watchman"
+          ],
+          "alternate_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "reason": "alternate_savings_below_route_threshold"
+        }
+      ],
       "unpriced_repeat_rows": [],
       "segments": {
         "hidden_self_repeat": [],
@@ -6217,7 +6459,7 @@
         {
           "code": "high_declared_repeat_miles",
           "severity": "optimization_warning",
-          "value": 12.09,
+          "value": 14.26,
           "message": "Declared official repeat mileage is above 2 miles."
         },
         {
@@ -6254,7 +6496,7 @@
       ],
       "non_credit_miles": 18.12,
       "on_foot_to_official_ratio": 2.26,
-      "declared_repeat_miles": 12.09
+      "declared_repeat_miles": 14.26
     }
   ]
 }

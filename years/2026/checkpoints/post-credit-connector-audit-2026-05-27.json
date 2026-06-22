@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-21T14:33:44Z",
+  "generated_at": "2026-06-22T01:51:47Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {
     "route_count": 28,
     "failed_route_count": 0,
     "finding_count": 0,
-    "warning_count": 9,
-    "post_credit_connector_proof_count": 87,
+    "warning_count": 7,
+    "post_credit_connector_proof_count": 95,
     "hidden_exit_finding_count": 0,
-    "hidden_exit_warning_count": 9,
+    "hidden_exit_warning_count": 7,
     "shorter_connector_finding_count": 0,
     "stale_connector_savings_finding_count": 0,
     "unproved_connector_finding_count": 0,
@@ -134,46 +134,6 @@
       "actual_route_leg_miles": 0.56,
       "hidden_exit_miles": 0.12,
       "hidden_exit_feet": 634,
-      "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-    },
-    {
-      "code": "official_credit_cue_hides_post_credit_exit",
-      "status": "warning",
-      "route_key": "2-1",
-      "label": "2-1: 2",
-      "outing_id": "2-1",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "seq": 3,
-      "cue_type": "junction_turn",
-      "official_segment_ids": [
-        "1585"
-      ],
-      "official_basis_miles": 0.22,
-      "actual_route_leg_miles": 0.29,
-      "hidden_exit_miles": 0.07,
-      "hidden_exit_feet": 370,
-      "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-    },
-    {
-      "code": "official_credit_cue_hides_post_credit_exit",
-      "status": "warning",
-      "route_key": "2-1",
-      "label": "2-1: 2",
-      "outing_id": "2-1",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "seq": 5,
-      "cue_type": "junction_turn",
-      "official_segment_ids": [
-        "1535"
-      ],
-      "official_basis_miles": 0.47,
-      "actual_route_leg_miles": 0.5,
-      "hidden_exit_miles": 0.03,
-      "hidden_exit_feet": 158,
       "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
     },
     {
@@ -3625,6 +3585,760 @@
       "warnings": []
     },
     {
+      "route_key": "2-1",
+      "outing_id": "2-1",
+      "label": "2-1: 2",
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "audit_status": "passed",
+      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
+      "segment_ids": [
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616",
+        "1725",
+        "1726",
+        "1727",
+        "1728",
+        "1729",
+        "1730",
+        "1751"
+      ],
+      "post_credit_connector_proofs": [
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 4,
+          "cue_type": "connector_named_trail",
+          "signed_as": [
+            "Hull's Gulch Interpretive Trail"
+          ],
+          "target": "Hull's Gulch Interpretive",
+          "actual_miles": 0.08,
+          "credited_segment_ids_before_cue": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1728",
+            "1730"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1615",
+            "1616",
+            "1727",
+            "1729",
+            "1751"
+          ],
+          "shortest_miles": 0.0753,
+          "savings_miles": 0.0047,
+          "savings_feet": 25,
+          "shortest_connector_names": [
+            "Hull's Gulch Interpretive Trail"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1725"
+          ],
+          "snap_start_miles": 0.0021,
+          "snap_end_miles": 0.003,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 6,
+          "cue_type": "overlap_repeat",
+          "signed_as": [
+            "#0 Hull's Gulch Interpretive Trail",
+            "Hull's Gulch Interpretive Trail"
+          ],
+          "target": "Hull's Gulch Interpretive",
+          "actual_miles": 1.01,
+          "credited_segment_ids_before_cue": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1730"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1615",
+            "1616",
+            "1729",
+            "1751"
+          ],
+          "shortest_miles": 1.0068,
+          "savings_miles": 0.0032,
+          "savings_feet": 17,
+          "shortest_connector_names": [
+            "#0 Hull's Gulch Interpretive Trail",
+            "Hull's Gulch Interpretive Trail"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1728",
+            "1730"
+          ],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 8,
+          "cue_type": "connector_road",
+          "signed_as": [
+            "#0 Hull's Gulch Interpretive Trail",
+            "#4 8th Street Motorcycle",
+            "8th Street Motorcycle",
+            "Connector Trail",
+            "Hull's Gulch Interpretive Trail",
+            "OSM service connector 12945",
+            "OSM service connector 12946"
+          ],
+          "target": "Crestline Trail",
+          "actual_miles": 0.59,
+          "credited_segment_ids_before_cue": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.5876,
+          "savings_miles": 0.0024,
+          "savings_feet": 13,
+          "shortest_connector_names": [
+            "#0 Hull's Gulch Interpretive Trail",
+            "#4 8th Street Motorcycle",
+            "8th Street Motorcycle",
+            "Connector Trail",
+            "Hull's Gulch Interpretive Trail",
+            "OSM service connector 12945",
+            "OSM service connector 12946"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1483",
+            "1484"
+          ],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 10,
+          "cue_type": "connector_named_trail",
+          "signed_as": [
+            "Kestrel"
+          ],
+          "target": "Kestral Trail",
+          "actual_miles": 0.06,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1583",
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.0597,
+          "savings_miles": 0.0003,
+          "savings_feet": 2,
+          "shortest_connector_names": [
+            "Kestrel"
+          ],
+          "shortest_connector_classes": [
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 12,
+          "cue_type": "repeat_official_noncredit",
+          "signed_as": [
+            "#39A Kestrel",
+            "Kestrel"
+          ],
+          "target": "Gold Finch",
+          "actual_miles": 0.53,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.5271,
+          "savings_miles": 0.0029,
+          "savings_feet": 15,
+          "shortest_connector_names": [
+            "#39A Kestrel",
+            "Kestrel"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1583",
+            "1596"
+          ],
+          "snap_start_miles": 0.0009,
+          "snap_end_miles": 0.0027,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 13,
+          "cue_type": "repeat_official_noncredit",
+          "signed_as": [
+            "OSM path connector 83483"
+          ],
+          "target": "15th St. Trail",
+          "actual_miles": 0.27,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.2721,
+          "savings_miles": -0.0021,
+          "savings_feet": -11,
+          "shortest_connector_names": [
+            "OSM path connector 83483"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1567",
+            "1568",
+            "1596"
+          ],
+          "snap_start_miles": 0.0027,
+          "snap_end_miles": 0.0028,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 14,
+          "cue_type": "connector_named_trail",
+          "signed_as": [
+            "#34 Hulls Pond",
+            "Hull's Pond",
+            "Hulls Pond #34",
+            "Red Fox (Dog On-Leash)"
+          ],
+          "target": "15th St. Trail",
+          "actual_miles": 0.17,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.1747,
+          "savings_miles": -0.0047,
+          "savings_feet": -25,
+          "shortest_connector_names": [
+            "Hull's Pond",
+            "Hulls Pond #34",
+            "Red Fox (Dog On-Leash)"
+          ],
+          "shortest_connector_classes": [
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 15,
+          "cue_type": "repeat_official_noncredit",
+          "signed_as": [
+            "#41 15th Street",
+            "15th Street #41",
+            "Red Fox (Dog On-Leash)"
+          ],
+          "target": "Chickadee Ridge Trail",
+          "actual_miles": 0.28,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.2843,
+          "savings_miles": -0.0043,
+          "savings_feet": -23,
+          "shortest_connector_names": [
+            "15th Street #41",
+            "Red Fox (Dog On-Leash)"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1481"
+          ],
+          "snap_start_miles": 0.0001,
+          "snap_end_miles": 0.0027,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 16,
+          "cue_type": "overlap_repeat",
+          "signed_as": [
+            "#41 15th Street",
+            "15th Street #41",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "target": "Chickadee Ridge Trail",
+          "actual_miles": 0.48,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.4761,
+          "savings_miles": 0.0039,
+          "savings_feet": 20,
+          "shortest_connector_names": [
+            "15th Street #41",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1481"
+          ],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 17,
+          "cue_type": "repeat_official_noncredit",
+          "signed_as": [
+            "#36A Chickadee Ridge",
+            "Chickadee Ridge",
+            "Chickadee Ridge #36A",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "target": "Red Cliffs",
+          "actual_miles": 0.41,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.4132,
+          "savings_miles": -0.0032,
+          "savings_feet": -17,
+          "shortest_connector_names": [
+            "Chickadee Ridge",
+            "Chickadee Ridge #36A",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1517",
+            "1518"
+          ],
+          "snap_start_miles": 0.0002,
+          "snap_end_miles": 0.0018,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 18,
+          "cue_type": "connector_road",
+          "signed_as": [
+            "#29 Lower Hulls Gulch",
+            "Lower Hull's Gulch",
+            "North Sunset Peak Road",
+            "OSM service connector 19868",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "target": "Red Cliffs",
+          "actual_miles": 0.29,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [
+            "1615",
+            "1616"
+          ],
+          "shortest_miles": 0.2895,
+          "savings_miles": 0.0005,
+          "savings_feet": 3,
+          "shortest_connector_names": [
+            "#29 Lower Hulls Gulch",
+            "Lower Hull's Gulch",
+            "North Sunset Peak Road",
+            "OSM service connector 19868",
+            "Red Fox (Dog Off-Leash)"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1585"
+          ],
+          "snap_start_miles": 0.0,
+          "snap_end_miles": 0.0,
+          "status": "passed"
+        },
+        {
+          "code": "post_credit_exit_shortest_connector",
+          "route_key": "2-1",
+          "label": "2-1: 2",
+          "outing_id": "2-1",
+          "candidate_ids": [
+            "block-camels_lower_hulls_even_day"
+          ],
+          "seq": 20,
+          "cue_type": "exit_access",
+          "signed_as": [
+            "#39 Connector",
+            "#39A Kestrel",
+            "Connector",
+            "Kestrel"
+          ],
+          "target": "Hulls Gulch Trailhead",
+          "actual_miles": 0.97,
+          "credited_segment_ids_before_cue": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1615",
+            "1616",
+            "1725",
+            "1726",
+            "1727",
+            "1728",
+            "1729",
+            "1730",
+            "1751"
+          ],
+          "avoided_unearned_route_segment_ids": [],
+          "shortest_miles": 0.9737,
+          "savings_miles": -0.0037,
+          "savings_feet": -20,
+          "shortest_connector_names": [
+            "#39 Connector",
+            "#39A Kestrel",
+            "Connector",
+            "Kestrel"
+          ],
+          "shortest_connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "r2r_trail"
+          ],
+          "shortest_official_repeat_segment_ids": [
+            "1583",
+            "1596",
+            "1615"
+          ],
+          "snap_start_miles": 0.0034,
+          "snap_end_miles": 0.0032,
+          "status": "passed"
+        }
+      ],
+      "findings": [],
+      "warnings": []
+    },
+    {
       "route_key": "16-3",
       "outing_id": "16-3",
       "label": "16-3: 16A-D1",
@@ -3690,344 +4404,6 @@
       ],
       "findings": [],
       "warnings": []
-    },
-    {
-      "route_key": "2-1",
-      "outing_id": "2-1",
-      "label": "2-1: 2",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "audit_status": "passed",
-      "gpx_path": "docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-2.gpx",
-      "segment_ids": [
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1583",
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
-      ],
-      "post_credit_connector_proofs": [
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "2-1",
-          "label": "2-1: 2",
-          "outing_id": "2-1",
-          "candidate_ids": [
-            "block-camels_lower_hulls_even_day"
-          ],
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "signed_as": [
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle"
-          ],
-          "target": "Lower Hull's Gulch Trail",
-          "actual_miles": 0.19,
-          "credited_segment_ids_before_cue": [
-            "1532",
-            "1533",
-            "1534",
-            "1535",
-            "1583",
-            "1585",
-            "1615",
-            "1616"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1586",
-            "1587",
-            "1588",
-            "1589",
-            "1725",
-            "1726",
-            "1727",
-            "1728",
-            "1729",
-            "1730",
-            "1751"
-          ],
-          "shortest_miles": 0.1913,
-          "savings_miles": -0.0013,
-          "savings_feet": -7,
-          "shortest_connector_names": [
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "r2r_trail"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1484"
-          ],
-          "snap_start_miles": 0.0026,
-          "snap_end_miles": 0.0036,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "2-1",
-          "label": "2-1: 2",
-          "outing_id": "2-1",
-          "candidate_ids": [
-            "block-camels_lower_hulls_even_day"
-          ],
-          "seq": 9,
-          "cue_type": "overlap_repeat",
-          "signed_as": [
-            "#0 Hull's Gulch Interpretive Trail",
-            "#29 Lower Hulls Gulch",
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle",
-            "Connector Trail",
-            "Hull's Gulch Interpretive Trail",
-            "Lower Hull's Gulch",
-            "Lower Hull's Gulch (STM)",
-            "OSM service connector 12945",
-            "OSM service connector 12946"
-          ],
-          "target": "Hull's Gulch Interpretive",
-          "actual_miles": 2.04,
-          "credited_segment_ids_before_cue": [
-            "1532",
-            "1533",
-            "1534",
-            "1535",
-            "1583",
-            "1585",
-            "1586",
-            "1587",
-            "1588",
-            "1589",
-            "1615",
-            "1616"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1725",
-            "1726",
-            "1727",
-            "1728",
-            "1729",
-            "1730",
-            "1751"
-          ],
-          "shortest_miles": 2.0365,
-          "savings_miles": 0.0035,
-          "savings_feet": 18,
-          "shortest_connector_names": [
-            "#0 Hull's Gulch Interpretive Trail",
-            "#29 Lower Hulls Gulch",
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle",
-            "Connector Trail",
-            "Hull's Gulch Interpretive Trail",
-            "Lower Hull's Gulch",
-            "Lower Hull's Gulch (STM)",
-            "OSM service connector 12945",
-            "OSM service connector 12946"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "osm_public_road",
-            "r2r_trail"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1483",
-            "1585",
-            "1586",
-            "1587",
-            "1589"
-          ],
-          "snap_start_miles": 0.0005,
-          "snap_end_miles": 0.0026,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "2-1",
-          "label": "2-1: 2",
-          "outing_id": "2-1",
-          "candidate_ids": [
-            "block-camels_lower_hulls_even_day"
-          ],
-          "seq": 13,
-          "cue_type": "connector_named_trail",
-          "signed_as": [
-            "Hull's Gulch Interpretive Trail"
-          ],
-          "target": "Hull's Gulch Interpretive",
-          "actual_miles": 0.08,
-          "credited_segment_ids_before_cue": [
-            "1532",
-            "1533",
-            "1534",
-            "1535",
-            "1583",
-            "1585",
-            "1586",
-            "1587",
-            "1588",
-            "1589",
-            "1615",
-            "1616",
-            "1725",
-            "1727",
-            "1728",
-            "1729",
-            "1751"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1726",
-            "1730"
-          ],
-          "shortest_miles": 0.075,
-          "savings_miles": 0.005,
-          "savings_feet": 26,
-          "shortest_connector_names": [
-            "Hull's Gulch Interpretive Trail"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "r2r_trail"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1725"
-          ],
-          "snap_start_miles": 0.0017,
-          "snap_end_miles": 0.003,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "2-1",
-          "label": "2-1: 2",
-          "outing_id": "2-1",
-          "candidate_ids": [
-            "block-camels_lower_hulls_even_day"
-          ],
-          "seq": 15,
-          "cue_type": "exit_access",
-          "signed_as": [
-            "#28 Crestline",
-            "#39 Red Cliffs",
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle",
-            "Crestline",
-            "Kestrel"
-          ],
-          "target": "Hulls Gulch Trailhead",
-          "actual_miles": 1.71,
-          "credited_segment_ids_before_cue": [
-            "1532",
-            "1533",
-            "1534",
-            "1535",
-            "1583",
-            "1585",
-            "1586",
-            "1587",
-            "1588",
-            "1589",
-            "1615",
-            "1616",
-            "1725",
-            "1726",
-            "1727",
-            "1728",
-            "1729",
-            "1730",
-            "1751"
-          ],
-          "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 1.7055,
-          "savings_miles": 0.0045,
-          "savings_feet": 24,
-          "shortest_connector_names": [
-            "#28 Crestline",
-            "#39 Red Cliffs",
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle",
-            "Crestline",
-            "Kestrel"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "r2r_trail"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1484",
-            "1532",
-            "1533",
-            "1534",
-            "1535"
-          ],
-          "snap_start_miles": 0.0036,
-          "snap_end_miles": 0.0034,
-          "status": "passed"
-        }
-      ],
-      "findings": [],
-      "warnings": [
-        {
-          "code": "official_credit_cue_hides_post_credit_exit",
-          "status": "warning",
-          "route_key": "2-1",
-          "label": "2-1: 2",
-          "outing_id": "2-1",
-          "candidate_ids": [
-            "block-camels_lower_hulls_even_day"
-          ],
-          "seq": 3,
-          "cue_type": "junction_turn",
-          "official_segment_ids": [
-            "1585"
-          ],
-          "official_basis_miles": 0.22,
-          "actual_route_leg_miles": 0.29,
-          "hidden_exit_miles": 0.07,
-          "hidden_exit_feet": 370,
-          "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-        },
-        {
-          "code": "official_credit_cue_hides_post_credit_exit",
-          "status": "warning",
-          "route_key": "2-1",
-          "label": "2-1: 2",
-          "outing_id": "2-1",
-          "candidate_ids": [
-            "block-camels_lower_hulls_even_day"
-          ],
-          "seq": 5,
-          "cue_type": "junction_turn",
-          "official_segment_ids": [
-            "1535"
-          ],
-          "official_basis_miles": 0.47,
-          "actual_route_leg_miles": 0.5,
-          "hidden_exit_miles": 0.03,
-          "hidden_exit_feet": 158,
-          "message": "Official-credit cue source geometry includes extra movement; review cue splitting, but connector shortest-path proof is handled by explicit post-credit connector cues."
-        }
-      ]
     },
     {
       "route_key": "18-1",

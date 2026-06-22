@@ -20,6 +20,7 @@ YEAR_DIR = SCRIPT_DIR.parent
 REPO_ROOT = YEAR_DIR.parent.parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
+from block_day_packager import build_outing_menu  # noqa: E402
 from special_management_rule_audit import build_special_management_audit  # noqa: E402
 
 DEFAULT_FIELD_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
@@ -650,6 +651,11 @@ def canonical_route_metric_failures(
     if canonical_map_data is None:
         return ["canonical field menu source unavailable"]
     canonical_components = canonical_route_component_index(canonical_map_data)
+    canonical_outings = {
+        str(outing.get("outing_id")): outing
+        for outing in build_outing_menu(canonical_map_data)
+        if outing.get("outing_id") is not None
+    }
     completed_segment_ids = set(
         normalized_ids((canonical_map_data.get("progress") or {}).get("completed_segment_ids"))
     )
@@ -681,8 +687,13 @@ def canonical_route_metric_failures(
             continue
         components = [canonical_components[candidate_id] for candidate_id in candidate_ids]
         comparison_label = "+".join(candidate_ids)
+        canonical_outing = canonical_outings.get(str(route.get("outing_id") or ""))
         for field_name in ("official_miles", "on_foot_miles"):
-            canonical_value = numeric_sum_or_none([component.get(field_name) for component in components])
+            canonical_value = (
+                canonical_outing.get(field_name)
+                if canonical_outing is not None
+                else numeric_sum_or_none([component.get(field_name) for component in components])
+            )
             field_value = (
                 route.get("source_card_on_foot_miles")
                 if field_name == "on_foot_miles" and route.get("source_card_on_foot_miles") is not None
@@ -700,7 +711,11 @@ def canonical_route_metric_failures(
                     f"{comparison_label}: {field_name} field packet {field_float:.2f} "
                     f"!= canonical {canonical_value:.2f}"
                 )
-        canonical_minutes = numeric_sum_or_none([component.get("total_minutes") for component in components])
+        canonical_minutes = (
+            canonical_outing.get("total_minutes")
+            if canonical_outing is not None
+            else numeric_sum_or_none([component.get("total_minutes") for component in components])
+        )
         field_minutes = route.get("door_to_door_minutes_p75")
         if canonical_minutes is None or field_minutes is None:
             failures.append(

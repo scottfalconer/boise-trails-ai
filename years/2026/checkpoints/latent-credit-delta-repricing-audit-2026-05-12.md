@@ -1,17 +1,17 @@
 # Latent-Credit Delta Repricing Audit
 
-Generated: 2026-05-13T04:42:20Z
+Generated: 2026-06-22T01:56:58Z
 Status: `pairwise_savings_only`
 
 ## Summary
 
-- Routes audited: 44
-- Latent route relationships: 33
-- Unique latent official segments: 38
+- Routes audited: 28
+- Latent route relationships: 20
+- Unique latent official segments: 36
 - Pairwise full-removal relationships: 2
-- Pairwise partial-shrink relationships: 31
+- Pairwise partial-shrink relationships: 18
 - Current-calendar removed routes: 0
-- Current-calendar partial reprices needed: 10
+- Current-calendar partial reprices needed: 7
 - Current-calendar proven savings: 0.00 on-foot mi, 0 p75 min, 0 p90 min
 
 ## Current Calendar Route Removals
@@ -22,23 +22,20 @@ Status: `pairwise_savings_only`
 
 | Source route | Future/owner route | Order status | Latent ids | Saved on-foot mi | Saved p75 | Saved p90 |
 |---|---|---|---:|---:|---:|---:|
-| 104-1: FD04A | 119-3: FD19C | owner_scheduled_before_source | 1649, 1650, 1651 | 4.76 | 109 | 123 |
-| 114-2: FD14B | 114-1: FD14A | owner_scheduled_before_source | 1541 | 1.08 | 58 | 65 |
+| 17-1: 17 | 18-2: 18B | owner_scheduled_before_source | 1655, 1721 | 6.82 | 165 | 185 |
+| 18-1: 18A | 18-2: 18B | owner_scheduled_before_source | 1655, 1721 | 6.82 | 165 | 185 |
 
 ## Partial Shrink Candidates
 
 | Route | Date | Already credited ids | Remaining ids | Current on-foot mi | Current p75 |
 |---|---|---:|---:|---:|---:|
-| 118-1: FD18A | 2026-07-14 | 1599, 1604 | 1597, 1598, 1600, 1601, 1602, 1603 | 13.32 | 254 |
-| 120-1: FD20A | 2026-07-15 | 1564, 1683, 1684, 1685 | 1563, 1681, 1682 | 13.10 | 255 |
-| 123-1: 12 | 2026-06-20 | 1484 | 1483, 1485, 1486, 1524, 1525, 1526, 1527, 1528, 1576, 1577, 1660 | 12.86 | 262 |
-| 115-1: 3 | 2026-07-09 | 1593, 1594, 1629, 1630, 1631 | 1510, 1511, 1512, 1513, 1514, 1515, 1522, 1529, 1530, 1531, 1548, 1549, 1550, 1551, 1552, 1574, 1575, 1590, 1591, 1592, 1627, 1628, 1720 | 12.13 | 250 |
-| 131-1: 18 | 2026-07-18 | 1655, 1679 | 1501, 1502, 1503, 1678, 1703, 1721, 1732, 1733, 1734, 1735, 1736 | 11.25 | 320 |
-| 111-1: 14 | 2026-07-03 | 1695 | 1560, 1561, 1562, 1595, 1694 | 10.74 | 242 |
-| 104-1: FD04A | 2026-06-24 | 1748 | 1558, 1652 | 9.55 | 204 |
-| 116-2: 15B | 2026-07-10 | 1619, 1624 | 1584, 1618, 1620, 1621, 1622, 1623 | 4.87 | 148 |
-| 122-1: FD22B | 2026-07-17 | 1532, 1533 | 1534, 1535 | 4.46 | 104 |
-| 105-2: 4A | 2026-06-25 | 1498 | 1499, 1500, 1690 | 4.07 | 97 |
+| 13-1: 13 |  | 1558, 1685, 1748 | 1555, 1563, 1564, 1649, 1650, 1651, 1652, 1681, 1682, 1683, 1684, 1710, 1711 | 32.47 | 497 |
+| 6-1: 6 |  | 1520 | 1508, 1509, 1516, 1519, 1521, 1597, 1709 | 22.41 | 409 |
+| 2-1: 2 |  | 1532 | 1533, 1534, 1535, 1583, 1585, 1586, 1587, 1588, 1589, 1615, 1616, 1725, 1726, 1727, 1728, 1729, 1730, 1751 | 18.80 | 332 |
+| 17-1: 17 |  | 1553, 1554, 1680, 1713, 1750 | 1488, 1489, 1490, 1491, 1492, 1493, 1540 | 16.02 | 386 |
+| 18-1: 18A |  | 1679 | 1501, 1502, 1503, 1678, 1703, 1732, 1733, 1734, 1735, 1736 | 15.30 | 357 |
+| 12-1: 12 |  | 1528 | 1483, 1484, 1485, 1486, 1524, 1525, 1526, 1527, 1660 | 13.44 | 243 |
+| 15-2: 15B |  | 1577 | 1523, 1576 | 8.43 | 147 |
 
 ## Scope Boundary
 

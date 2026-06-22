@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-21T14:33:49.481192+00:00",
+  "audited_at": "2026-06-22T01:52:08.741141+00:00",
   "status": "passed",
   "summary": {
     "route_count": 28,
@@ -12,7 +12,7 @@
     "claimed_elsewhere_segment_count": 0,
     "reconciled_claimed_elsewhere_segment_count": 36,
     "unclaimed_uncompleted_segment_count": 0,
-    "repeat_completed_segment_count": 1,
+    "repeat_completed_segment_count": 7,
     "dual_claimed_exact_credit_segment_count": 0
   },
   "dual_claimed_exact_credit_segments": [],
@@ -757,14 +757,20 @@
         "1730",
         "1751"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-2.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 3790,
-      "review_point_count": 949,
-      "candidate_segment_count": 44,
+      "activity_point_count": 3014,
+      "review_point_count": 1006,
+      "candidate_segment_count": 51,
       "latent_completed_segment_ids": [
+        "1481",
         "1483",
-        "1484"
+        "1484",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
+        "1596"
       ],
       "unexpected_latent_segment_ids": [
         "1483",
@@ -776,11 +782,27 @@
         "1484"
       ],
       "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
+      "repeat_completed_segment_ids": [
+        "1481",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
+        "1596"
+      ],
       "partial_segment_ids": [
         "1485"
       ],
       "segments": [
+        {
+          "seg_id": "1481",
+          "seg_name": "15th St. Trail 1",
+          "trail_name": "15th St. Trail",
+          "direction": "both",
+          "official_miles": 0.45,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
         {
           "seg_id": "1483",
           "seg_name": "8th Street Motorcycle Trail 1",
@@ -818,6 +840,51 @@
               "ownership_status": "active_route"
             }
           ]
+        },
+        {
+          "seg_id": "1517",
+          "seg_name": "Chickadee Ridge Trail 1",
+          "trail_name": "Chickadee Ridge Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1518",
+          "seg_name": "Chickadee Ridge Trail 2",
+          "trail_name": "Chickadee Ridge Trail",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1567",
+          "seg_name": "Gold Finch 1",
+          "trail_name": "Gold Finch",
+          "direction": "both",
+          "official_miles": 0.23,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1568",
+          "seg_name": "Gold Finch 2",
+          "trail_name": "Gold Finch",
+          "direction": "both",
+          "official_miles": 0.11,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1596",
+          "seg_name": "Owl's Roost 1",
+          "trail_name": "Owl's Roost",
+          "direction": "both",
+          "official_miles": 0.64,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
         }
       ]
     },
@@ -2611,36 +2678,6 @@
       ]
     },
     {
-      "route_key": "16-3",
-      "outing_id": "16-3",
-      "label": "16-3: 16A-D1",
-      "candidate_ids": [
-        "manual-16a-d1"
-      ],
-      "planned_segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1653",
-        "1656"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 1515,
-      "review_point_count": 758,
-      "candidate_segment_count": 12,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
-    },
-    {
       "route_key": "2-1",
       "outing_id": "2-1",
       "label": "2-1: 2",
@@ -2668,14 +2705,20 @@
         "1730",
         "1751"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-2.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 3790,
-      "review_point_count": 949,
-      "candidate_segment_count": 44,
+      "activity_point_count": 3014,
+      "review_point_count": 1006,
+      "candidate_segment_count": 51,
       "latent_completed_segment_ids": [
+        "1481",
         "1483",
-        "1484"
+        "1484",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
+        "1596"
       ],
       "unexpected_latent_segment_ids": [
         "1483",
@@ -2687,11 +2730,27 @@
         "1484"
       ],
       "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
+      "repeat_completed_segment_ids": [
+        "1481",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
+        "1596"
+      ],
       "partial_segment_ids": [
         "1485"
       ],
       "segments": [
+        {
+          "seg_id": "1481",
+          "seg_name": "15th St. Trail 1",
+          "trail_name": "15th St. Trail",
+          "direction": "both",
+          "official_miles": 0.45,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
         {
           "seg_id": "1483",
           "seg_name": "8th Street Motorcycle Trail 1",
@@ -2729,8 +2788,83 @@
               "ownership_status": "active_route"
             }
           ]
+        },
+        {
+          "seg_id": "1517",
+          "seg_name": "Chickadee Ridge Trail 1",
+          "trail_name": "Chickadee Ridge Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1518",
+          "seg_name": "Chickadee Ridge Trail 2",
+          "trail_name": "Chickadee Ridge Trail",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1567",
+          "seg_name": "Gold Finch 1",
+          "trail_name": "Gold Finch",
+          "direction": "both",
+          "official_miles": 0.23,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1568",
+          "seg_name": "Gold Finch 2",
+          "trail_name": "Gold Finch",
+          "direction": "both",
+          "official_miles": 0.11,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
+        },
+        {
+          "seg_id": "1596",
+          "seg_name": "Owl's Roost 1",
+          "trail_name": "Owl's Roost",
+          "direction": "both",
+          "official_miles": 0.64,
+          "status": "repeat_completed",
+          "claimed_by_other_routes": []
         }
       ]
+    },
+    {
+      "route_key": "16-3",
+      "outing_id": "16-3",
+      "label": "16-3: 16A-D1",
+      "candidate_ids": [
+        "manual-16a-d1"
+      ],
+      "planned_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 1515,
+      "review_point_count": 758,
+      "candidate_segment_count": 12,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [],
+      "segments": []
     },
     {
       "route_key": "18-1",

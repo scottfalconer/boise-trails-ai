@@ -1,19 +1,19 @@
 {
   "run_id": "route-repeat-optimization-audit-2026-05-12",
-  "generated_at": "2026-06-09T23:55:22Z",
+  "generated_at": "2026-06-22T14:33:16Z",
   "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
   "inputs": [
     {
       "path": "docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 5197402,
-      "sha256": "42f1df72f678ec7c90c34e279fd83201821cbe26f6f5a0b45d2277941d460353"
+      "size_bytes": 4492394,
+      "sha256": "e87df0422a1decc521fb80b9d4c779e7e98d234157f564a48a493cdd809619c7"
     },
     {
-      "path": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+      "path": "years/2026/inputs/official/api-pull-2026-06-13/official_foot_segments.geojson",
       "exists": true,
-      "size_bytes": 2414760,
-      "sha256": "4078e8fbc829f0aaa9c031b270b445209b6fd648b1fdb3680778e07ab31ee871"
+      "size_bytes": 2352572,
+      "sha256": "64f55d053e934b1456b90241c0176ec17d63fe3fe9f82ca0c9621cc3afc10c37"
     },
     {
       "path": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
@@ -26,14 +26,14 @@
     {
       "path": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 186975,
-      "sha256": "f8dcf0943d53178257e26abff2ef3fa7503697f818fc48482d59f3ccae6f2be8"
+      "size_bytes": 194812,
+      "sha256": "05e19ac1135e4051e68d2ad83538fe884bd2cba60a5cd4756a2f27c479cb4065"
     },
     {
       "path": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 4659,
-      "sha256": "9a5e66ef30063932b9fdc92032d543079c1d6ed16b3f156a55e440e26b19f327"
+      "size_bytes": 4426,
+      "sha256": "ee5e77cb44ee1715a69baf1bcab9cf0f35aaad07cda4d37604f846989ede6dfb"
     }
   ],
   "metadata": {

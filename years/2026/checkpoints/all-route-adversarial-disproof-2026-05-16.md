@@ -39,7 +39,7 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 - Candidate id: `multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 3.13 official mi / 4.86 on-foot mi / p75 107 min
+- Metrics: 2.99 official mi / 4.86 on-foot mi / p75 107 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -159,7 +159,7 @@ This public-safe registry is refreshed from the deterministic route-review domin
 
 - Candidate id: `manual-16a-1`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 6.09 official mi / 14.2 on-foot mi / p75 249 min
+- Metrics: 3.14 official mi / 14.2 on-foot mi / p75 249 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
@@ -179,19 +179,19 @@ This public-safe registry is refreshed from the deterministic route-review domin
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 
+### 2 - Camels Back / Hulls Gulch
+
+- Candidate id: `block-camels_lower_hulls_even_day`
+- Decision: `HOLD_CURRENT_RECERTIFIED`
+- Metrics: 11.08 official mi / 18.8 on-foot mi / p75 332 min
+- Result: Kept as the current recertified field-packet route.
+- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
+
 ### 16A-D1 - Dry Creek
 
 - Candidate id: `manual-16a-d1`
 - Decision: `HOLD_CURRENT_RECERTIFIED`
 - Metrics: 12.5 official mi / 15.61 on-foot mi / p75 347 min
-- Result: Kept as the current recertified field-packet route.
-- Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
-
-### 2 - Camels Back / Hulls Gulch
-
-- Candidate id: `block-camels_lower_hulls_even_day`
-- Decision: `HOLD_CURRENT_RECERTIFIED`
-- Metrics: 11.08 official mi / 20.62 on-foot mi / p75 349 min
 - Result: Kept as the current recertified field-packet route.
 - Later disproof: A certified replacement that covers the same required official segments from accepted access with lower runnable cost and no coverage, legality, timing, or future-day regression.
 

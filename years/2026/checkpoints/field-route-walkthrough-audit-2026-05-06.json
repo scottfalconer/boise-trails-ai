@@ -11998,79 +11998,17 @@
           "source_class": "r2r_trail",
           "segment_id": null,
           "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.123,
+          "traversal_direction": "reverse",
+          "distance_miles": 0.007,
           "route_miles_start": 0.0,
-          "route_miles_end": 0.123,
+          "route_miles_end": 0.007,
           "start_coordinate": [
-            -116.185043,
-            43.64221
+            -116.1849,
+            43.6422
           ],
           "end_coordinate": [
-            -116.183324,
-            43.641146
-          ]
-        },
-        {
-          "edge_id": "official:1583:94:0",
-          "name": "Kestral Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1583",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.753,
-          "route_miles_start": 0.123,
-          "route_miles_end": 0.877,
-          "start_coordinate": [
-            -116.183324,
-            43.641146
-          ],
-          "end_coordinate": [
-            -116.173176,
-            43.635518
-          ]
-        },
-        {
-          "edge_id": "official:1583:94:0",
-          "name": "Kestral Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1583",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.759,
-          "route_miles_start": 0.877,
-          "route_miles_end": 1.636,
-          "start_coordinate": [
-            -116.173176,
-            43.635518
-          ],
-          "end_coordinate": [
-            -116.183452,
-            43.641162
-          ]
-        },
-        {
-          "edge_id": "connector:264:2",
-          "name": "#39A Kestrel",
-          "signposts": [
-            "39A"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.108,
-          "route_miles_start": 1.636,
-          "route_miles_end": 1.745,
-          "start_coordinate": [
-            -116.183452,
-            43.641162
-          ],
-          "end_coordinate": [
-            -116.184851,
-            43.642292
+            -116.1849,
+            43.6423
           ]
         },
         {
@@ -12083,16 +12021,16 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.045,
-          "route_miles_start": 1.745,
-          "route_miles_end": 1.789,
+          "distance_miles": 0.049,
+          "route_miles_start": 0.007,
+          "route_miles_end": 0.056,
           "start_coordinate": [
-            -116.184851,
-            43.642292
+            -116.1849,
+            43.6423
           ],
           "end_coordinate": [
-            -116.18423,
-            43.642499
+            -116.1842,
+            43.6425
           ]
         },
         {
@@ -12103,16 +12041,1036 @@
           "segment_id": "1585",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.221,
-          "route_miles_start": 1.789,
-          "route_miles_end": 2.011,
+          "distance_miles": 0.222,
+          "route_miles_start": 0.056,
+          "route_miles_end": 0.278,
           "start_coordinate": [
-            -116.18423,
-            43.642499
+            -116.1842,
+            43.6425
           ],
           "end_coordinate": [
-            -116.180411,
-            43.643547
+            -116.180351,
+            43.643551
+          ]
+        },
+        {
+          "edge_id": "official:1586:97:0",
+          "name": "Lower Hull's Gulch Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1586",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.042,
+          "route_miles_start": 0.278,
+          "route_miles_end": 0.32,
+          "start_coordinate": [
+            -116.180351,
+            43.643551
+          ],
+          "end_coordinate": [
+            -116.179672,
+            43.643887
+          ]
+        },
+        {
+          "edge_id": "official:1587:98:0",
+          "name": "Lower Hull's Gulch Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1587",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.306,
+          "route_miles_start": 0.32,
+          "route_miles_end": 0.625,
+          "start_coordinate": [
+            -116.179672,
+            43.643887
+          ],
+          "end_coordinate": [
+            -116.174232,
+            43.642838
+          ]
+        },
+        {
+          "edge_id": "official:1588:99:0",
+          "name": "Lower Hull's Gulch Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1588",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.187,
+          "route_miles_start": 0.625,
+          "route_miles_end": 0.812,
+          "start_coordinate": [
+            -116.174232,
+            43.642838
+          ],
+          "end_coordinate": [
+            -116.171516,
+            43.644203
+          ]
+        },
+        {
+          "edge_id": "official:1589:100:0",
+          "name": "Lower Hull's Gulch Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1589",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 1.398,
+          "route_miles_start": 0.812,
+          "route_miles_end": 2.21,
+          "start_coordinate": [
+            -116.171516,
+            43.644203
+          ],
+          "end_coordinate": [
+            -116.146225,
+            43.64716
+          ]
+        },
+        {
+          "edge_id": "official:1483:2:0",
+          "name": "8th Street Motorcycle Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1483",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.016,
+          "route_miles_start": 2.21,
+          "route_miles_end": 2.227,
+          "start_coordinate": [
+            -116.146225,
+            43.64716
+          ],
+          "end_coordinate": [
+            -116.145926,
+            43.647066
+          ]
+        },
+        {
+          "edge_id": "official:1730:235:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1730",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.636,
+          "route_miles_start": 2.227,
+          "route_miles_end": 2.863,
+          "start_coordinate": [
+            -116.145926,
+            43.647066
+          ],
+          "end_coordinate": [
+            -116.13584,
+            43.650978
+          ]
+        },
+        {
+          "edge_id": "official:1728:233:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1728",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 1.48,
+          "route_miles_start": 2.863,
+          "route_miles_end": 4.343,
+          "start_coordinate": [
+            -116.13584,
+            43.650978
+          ],
+          "end_coordinate": [
+            -116.117787,
+            43.664957
+          ]
+        },
+        {
+          "edge_id": "official:1726:231:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1726",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.208,
+          "route_miles_start": 4.343,
+          "route_miles_end": 4.551,
+          "start_coordinate": [
+            -116.117787,
+            43.664957
+          ],
+          "end_coordinate": [
+            -116.115449,
+            43.666931
+          ]
+        },
+        {
+          "edge_id": "official:1726:231:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1726",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.006,
+          "route_miles_start": 4.551,
+          "route_miles_end": 4.557,
+          "start_coordinate": [
+            -116.115449,
+            43.666931
+          ],
+          "end_coordinate": [
+            -116.115423,
+            43.667018
+          ]
+        },
+        {
+          "edge_id": "official:1726:231:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1726",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.335,
+          "route_miles_start": 4.557,
+          "route_miles_end": 4.892,
+          "start_coordinate": [
+            -116.115423,
+            43.667018
+          ],
+          "end_coordinate": [
+            -116.113657,
+            43.668663
+          ]
+        },
+        {
+          "edge_id": "official:1726:231:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1726",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.007,
+          "route_miles_start": 4.892,
+          "route_miles_end": 4.899,
+          "start_coordinate": [
+            -116.113657,
+            43.668663
+          ],
+          "end_coordinate": [
+            -116.113686,
+            43.668763
+          ]
+        },
+        {
+          "edge_id": "official:1726:231:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1726",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.764,
+          "route_miles_start": 4.899,
+          "route_miles_end": 5.663,
+          "start_coordinate": [
+            -116.113686,
+            43.668763
+          ],
+          "end_coordinate": [
+            -116.117481,
+            43.668947
+          ]
+        },
+        {
+          "edge_id": "official:1725:230:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1725",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.182,
+          "route_miles_start": 5.663,
+          "route_miles_end": 5.845,
+          "start_coordinate": [
+            -116.117481,
+            43.668947
+          ],
+          "end_coordinate": [
+            -116.118443,
+            43.670535
+          ]
+        },
+        {
+          "edge_id": "official:1725:230:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1725",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.072,
+          "route_miles_start": 5.845,
+          "route_miles_end": 5.917,
+          "start_coordinate": [
+            -116.118443,
+            43.670535
+          ],
+          "end_coordinate": [
+            -116.117552,
+            43.670453
+          ]
+        },
+        {
+          "edge_id": "official:1725:230:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1725",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.002,
+          "route_miles_start": 5.917,
+          "route_miles_end": 5.919,
+          "start_coordinate": [
+            -116.117552,
+            43.670453
+          ],
+          "end_coordinate": [
+            -116.117581,
+            43.670439
+          ]
+        },
+        {
+          "edge_id": "official:1725:230:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1725",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.099,
+          "route_miles_start": 5.919,
+          "route_miles_end": 6.017,
+          "start_coordinate": [
+            -116.117581,
+            43.670439
+          ],
+          "end_coordinate": [
+            -116.117449,
+            43.66908
+          ]
+        },
+        {
+          "edge_id": "official:1727:232:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1727",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.531,
+          "route_miles_start": 6.017,
+          "route_miles_end": 6.548,
+          "start_coordinate": [
+            -116.117449,
+            43.66908
+          ],
+          "end_coordinate": [
+            -116.1178,
+            43.665
+          ]
+        },
+        {
+          "edge_id": "official:1728:233:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1728",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 1.506,
+          "route_miles_start": 6.548,
+          "route_miles_end": 8.055,
+          "start_coordinate": [
+            -116.1178,
+            43.665
+          ],
+          "end_coordinate": [
+            -116.1359,
+            43.651
+          ]
+        },
+        {
+          "edge_id": "official:1729:234:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1729",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.544,
+          "route_miles_start": 8.055,
+          "route_miles_end": 8.599,
+          "start_coordinate": [
+            -116.1359,
+            43.651
+          ],
+          "end_coordinate": [
+            -116.143664,
+            43.65032
+          ]
+        },
+        {
+          "edge_id": "official:1751:244:0",
+          "name": "Hull's Gulch Interpretive",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1751",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.179,
+          "route_miles_start": 8.599,
+          "route_miles_end": 8.778,
+          "start_coordinate": [
+            -116.143664,
+            43.65032
+          ],
+          "end_coordinate": [
+            -116.1464,
+            43.6507
+          ]
+        },
+        {
+          "edge_id": "connector:1505:0",
+          "name": "OSM service connector 12945",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.049,
+          "route_miles_start": 8.778,
+          "route_miles_end": 8.826,
+          "start_coordinate": [
+            -116.1464,
+            43.6507
+          ],
+          "end_coordinate": [
+            -116.1472,
+            43.6508
+          ]
+        },
+        {
+          "edge_id": "connector:1506:0",
+          "name": "OSM service connector 12946",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.012,
+          "route_miles_start": 8.826,
+          "route_miles_end": 8.839,
+          "start_coordinate": [
+            -116.1472,
+            43.6508
+          ],
+          "end_coordinate": [
+            -116.1474,
+            43.6507
+          ]
+        },
+        {
+          "edge_id": "connector:320:1",
+          "name": "#4 8th Street Motorcycle",
+          "signposts": [
+            "4"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.017,
+          "route_miles_start": 8.839,
+          "route_miles_end": 8.855,
+          "start_coordinate": [
+            -116.1474,
+            43.6507
+          ],
+          "end_coordinate": [
+            -116.1477,
+            43.6506
+          ]
+        },
+        {
+          "edge_id": "official:1483:2:0",
+          "name": "8th Street Motorcycle Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1483",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.445,
+          "route_miles_start": 8.855,
+          "route_miles_end": 9.3,
+          "start_coordinate": [
+            -116.1477,
+            43.6506
+          ],
+          "end_coordinate": [
+            -116.146,
+            43.6471
+          ]
+        },
+        {
+          "edge_id": "official:1484:3:0",
+          "name": "8th Street Motorcycle Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1484",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.233,
+          "route_miles_start": 9.3,
+          "route_miles_end": 9.533,
+          "start_coordinate": [
+            -116.146,
+            43.6471
+          ],
+          "end_coordinate": [
+            -116.150227,
+            43.646641
+          ]
+        },
+        {
+          "edge_id": "official:1532:50:0",
+          "name": "Crestline Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1532",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.75,
+          "route_miles_start": 9.533,
+          "route_miles_end": 10.283,
+          "start_coordinate": [
+            -116.150227,
+            43.646641
+          ],
+          "end_coordinate": [
+            -116.15786,
+            43.643379
+          ]
+        },
+        {
+          "edge_id": "official:1533:51:0",
+          "name": "Crestline Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1533",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.482,
+          "route_miles_start": 10.283,
+          "route_miles_end": 10.766,
+          "start_coordinate": [
+            -116.15786,
+            43.643379
+          ],
+          "end_coordinate": [
+            -116.164192,
+            43.640076
+          ]
+        },
+        {
+          "edge_id": "official:1534:52:0",
+          "name": "Crestline Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1534",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.108,
+          "route_miles_start": 10.766,
+          "route_miles_end": 10.874,
+          "start_coordinate": [
+            -116.164192,
+            43.640076
+          ],
+          "end_coordinate": [
+            -116.164635,
+            43.638592
+          ]
+        },
+        {
+          "edge_id": "official:1535:53:0",
+          "name": "Crestline Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1535",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.478,
+          "route_miles_start": 10.874,
+          "route_miles_end": 11.351,
+          "start_coordinate": [
+            -116.164635,
+            43.638592
+          ],
+          "end_coordinate": [
+            -116.1717,
+            43.6354
+          ]
+        },
+        {
+          "edge_id": "connector:264:1",
+          "name": "#39A Kestrel",
+          "signposts": [
+            "39A"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.075,
+          "route_miles_start": 11.351,
+          "route_miles_end": 11.426,
+          "start_coordinate": [
+            -116.1717,
+            43.6354
+          ],
+          "end_coordinate": [
+            -116.173,
+            43.6354
+          ]
+        },
+        {
+          "edge_id": "official:1583:94:0",
+          "name": "Kestral Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1583",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.76,
+          "route_miles_start": 11.426,
+          "route_miles_end": 12.186,
+          "start_coordinate": [
+            -116.173,
+            43.6354
+          ],
+          "end_coordinate": [
+            -116.183222,
+            43.641143
+          ]
+        },
+        {
+          "edge_id": "official:1596:107:0",
+          "name": "Owl's Roost",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1596",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.631,
+          "route_miles_start": 12.186,
+          "route_miles_end": 12.817,
+          "start_coordinate": [
+            -116.183222,
+            43.641143
+          ],
+          "end_coordinate": [
+            -116.194351,
+            43.638901
+          ]
+        },
+        {
+          "edge_id": "official:1567:81:0",
+          "name": "Gold Finch",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1567",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.23,
+          "route_miles_start": 12.817,
+          "route_miles_end": 13.047,
+          "start_coordinate": [
+            -116.194351,
+            43.638901
+          ],
+          "end_coordinate": [
+            -116.197797,
+            43.636859
+          ]
+        },
+        {
+          "edge_id": "official:1568:82:0",
+          "name": "Gold Finch",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1568",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.109,
+          "route_miles_start": 13.047,
+          "route_miles_end": 13.156,
+          "start_coordinate": [
+            -116.197797,
+            43.636859
+          ],
+          "end_coordinate": [
+            -116.199394,
+            43.636017
+          ]
+        },
+        {
+          "edge_id": "official:1568:82:0",
+          "name": "Gold Finch",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1568",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.013,
+          "route_miles_start": 13.156,
+          "route_miles_end": 13.169,
+          "start_coordinate": [
+            -116.199394,
+            43.636017
+          ],
+          "end_coordinate": [
+            -116.1994,
+            43.6362
+          ]
+        },
+        {
+          "edge_id": "connector:114:0",
+          "name": "#36 Red Fox (Dog On-Leash)",
+          "signposts": [
+            "36"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.035,
+          "route_miles_start": 13.169,
+          "route_miles_end": 13.204,
+          "start_coordinate": [
+            -116.1994,
+            43.6362
+          ],
+          "end_coordinate": [
+            -116.1993,
+            43.6367
+          ]
+        },
+        {
+          "edge_id": "connector:92:1",
+          "name": "#34 Hull's Pond",
+          "signposts": [
+            "34"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.083,
+          "route_miles_start": 13.204,
+          "route_miles_end": 13.287,
+          "start_coordinate": [
+            -116.1993,
+            43.6367
+          ],
+          "end_coordinate": [
+            -116.1985,
+            43.6375
+          ]
+        },
+        {
+          "edge_id": "connector:92:2",
+          "name": "#34 Hull's Pond",
+          "signposts": [
+            "34"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.009,
+          "route_miles_start": 13.287,
+          "route_miles_end": 13.296,
+          "start_coordinate": [
+            -116.1985,
+            43.6375
+          ],
+          "end_coordinate": [
+            -116.1984,
+            43.6376
+          ]
+        },
+        {
+          "edge_id": "connector:92:1",
+          "name": "#34 Hull's Pond",
+          "signposts": [
+            "34"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.043,
+          "route_miles_start": 13.296,
+          "route_miles_end": 13.338,
+          "start_coordinate": [
+            -116.1984,
+            43.6376
+          ],
+          "end_coordinate": [
+            -116.1984,
+            43.6382
+          ]
+        },
+        {
+          "edge_id": "connector:114:0",
+          "name": "#36 Red Fox (Dog On-Leash)",
+          "signposts": [
+            "36"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.041,
+          "route_miles_start": 13.338,
+          "route_miles_end": 13.38,
+          "start_coordinate": [
+            -116.1984,
+            43.6382
+          ],
+          "end_coordinate": [
+            -116.1984,
+            43.6388
+          ]
+        },
+        {
+          "edge_id": "official:1481:0:0",
+          "name": "15th St. Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1481",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.015,
+          "route_miles_start": 13.38,
+          "route_miles_end": 13.395,
+          "start_coordinate": [
+            -116.1984,
+            43.6388
+          ],
+          "end_coordinate": [
+            -116.1983,
+            43.639
+          ]
+        },
+        {
+          "edge_id": "official:1481:0:0",
+          "name": "15th St. Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1481",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.441,
+          "route_miles_start": 13.395,
+          "route_miles_end": 13.836,
+          "start_coordinate": [
+            -116.1983,
+            43.639
+          ],
+          "end_coordinate": [
+            -116.2055,
+            43.6407
+          ]
+        },
+        {
+          "edge_id": "official:1481:0:0",
+          "name": "15th St. Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1481",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.476,
+          "route_miles_start": 13.836,
+          "route_miles_end": 14.312,
+          "start_coordinate": [
+            -116.2055,
+            43.6407
+          ],
+          "end_coordinate": [
+            -116.1981,
+            43.6392
+          ]
+        },
+        {
+          "edge_id": "connector:103:0",
+          "name": "#36 Red Fox (Dog Off-Leash)",
+          "signposts": [
+            "36"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.149,
+          "route_miles_start": 14.312,
+          "route_miles_end": 14.461,
+          "start_coordinate": [
+            -116.1981,
+            43.6392
+          ],
+          "end_coordinate": [
+            -116.1967,
+            43.6411
+          ]
+        },
+        {
+          "edge_id": "official:1517:35:0",
+          "name": "Chickadee Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1517",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.173,
+          "route_miles_start": 14.461,
+          "route_miles_end": 14.634,
+          "start_coordinate": [
+            -116.1967,
+            43.6411
+          ],
+          "end_coordinate": [
+            -116.194466,
+            43.64064
+          ]
+        },
+        {
+          "edge_id": "official:1518:36:0",
+          "name": "Chickadee Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1518",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.468,
+          "route_miles_start": 14.634,
+          "route_miles_end": 15.102,
+          "start_coordinate": [
+            -116.194466,
+            43.64064
+          ],
+          "end_coordinate": [
+            -116.1864,
+            43.643
+          ]
+        },
+        {
+          "edge_id": "connector:103:0",
+          "name": "#36 Red Fox (Dog Off-Leash)",
+          "signposts": [
+            "36"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.095,
+          "route_miles_start": 15.102,
+          "route_miles_end": 15.197,
+          "start_coordinate": [
+            -116.1864,
+            43.643
+          ],
+          "end_coordinate": [
+            -116.1847,
+            43.6426
+          ]
+        },
+        {
+          "edge_id": "connector:158:0",
+          "name": "#29 Lower Hull's Gulch",
+          "signposts": [
+            "29"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.02,
+          "route_miles_start": 15.197,
+          "route_miles_end": 15.217,
+          "start_coordinate": [
+            -116.1847,
+            43.6426
+          ],
+          "end_coordinate": [
+            -116.1843,
+            43.6426
+          ]
+        },
+        {
+          "edge_id": "official:1585:96:0",
+          "name": "Lower Hull's Gulch Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1585",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.234,
+          "route_miles_start": 15.217,
+          "route_miles_end": 15.451,
+          "start_coordinate": [
+            -116.1843,
+            43.6426
+          ],
+          "end_coordinate": [
+            -116.1804,
+            43.6435
+          ]
+        },
+        {
+          "edge_id": "official:1616:127:0",
+          "name": "Red Cliffs",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1616",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.009,
+          "route_miles_start": 15.451,
+          "route_miles_end": 15.46,
+          "start_coordinate": [
+            -116.1804,
+            43.6435
+          ],
+          "end_coordinate": [
+            -116.1803,
+            43.6436
           ]
         },
         {
@@ -12123,12 +13081,12 @@
           "segment_id": "1616",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.375,
-          "route_miles_start": 2.011,
-          "route_miles_end": 2.386,
+          "distance_miles": 0.374,
+          "route_miles_start": 15.46,
+          "route_miles_end": 15.833,
           "start_coordinate": [
-            -116.180411,
-            43.643547
+            -116.1803,
+            43.6436
           ],
           "end_coordinate": [
             -116.17818,
@@ -12143,864 +13101,118 @@
           "segment_id": "1615",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.89,
-          "route_miles_start": 2.386,
-          "route_miles_end": 3.276,
+          "distance_miles": 0.875,
+          "route_miles_start": 15.833,
+          "route_miles_end": 16.708,
           "start_coordinate": [
             -116.17818,
             43.642397
           ],
           "end_coordinate": [
-            -116.165325,
-            43.63962
+            -116.16545,
+            43.63982
           ]
         },
         {
-          "edge_id": "connector:229:1",
-          "name": "#39 Red Cliffs",
+          "edge_id": "official:1615:126:0",
+          "name": "Red Cliffs",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1615",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.463,
+          "route_miles_start": 16.708,
+          "route_miles_end": 17.172,
+          "start_coordinate": [
+            -116.16545,
+            43.63982
+          ],
+          "end_coordinate": [
+            -116.172074,
+            43.640707
+          ]
+        },
+        {
+          "edge_id": "official:1615:126:0",
+          "name": "Red Cliffs",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1615",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.011,
+          "route_miles_start": 17.172,
+          "route_miles_end": 17.183,
+          "start_coordinate": [
+            -116.172074,
+            43.640707
+          ],
+          "end_coordinate": [
+            -116.171857,
+            43.64074
+          ]
+        },
+        {
+          "edge_id": "official:1615:126:0",
+          "name": "Red Cliffs",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1615",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.391,
+          "route_miles_start": 17.183,
+          "route_miles_end": 17.573,
+          "start_coordinate": [
+            -116.171857,
+            43.64074
+          ],
+          "end_coordinate": [
+            -116.178008,
+            43.642464
+          ]
+        },
+        {
+          "edge_id": "official:1615:126:0",
+          "name": "Red Cliffs",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1615",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.034,
+          "route_miles_start": 17.573,
+          "route_miles_end": 17.608,
+          "start_coordinate": [
+            -116.178008,
+            43.642464
+          ],
+          "end_coordinate": [
+            -116.17751,
+            43.642153
+          ]
+        },
+        {
+          "edge_id": "connector:228:0",
+          "name": "#39 Connector",
           "signposts": [
             "39"
           ],
           "source_class": "r2r_trail",
           "segment_id": null,
           "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.059,
-          "route_miles_start": 3.276,
-          "route_miles_end": 3.335,
-          "start_coordinate": [
-            -116.165325,
-            43.63962
-          ],
-          "end_coordinate": [
-            -116.164813,
-            43.638862
-          ]
-        },
-        {
-          "edge_id": "official:1534:52:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1534",
-          "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.025,
-          "route_miles_start": 3.335,
-          "route_miles_end": 3.36,
+          "distance_miles": 0.123,
+          "route_miles_start": 17.608,
+          "route_miles_end": 17.731,
           "start_coordinate": [
-            -116.164813,
-            43.638862
+            -116.17751,
+            43.642153
           ],
           "end_coordinate": [
-            -116.164655,
-            43.638522
-          ]
-        },
-        {
-          "edge_id": "official:1535:53:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1535",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.455,
-          "route_miles_start": 3.36,
-          "route_miles_end": 3.814,
-          "start_coordinate": [
-            -116.164655,
-            43.638522
-          ],
-          "end_coordinate": [
-            -116.171386,
-            43.635371
-          ]
-        },
-        {
-          "edge_id": "official:1535:53:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1535",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.461,
-          "route_miles_start": 3.814,
-          "route_miles_end": 4.276,
-          "start_coordinate": [
-            -116.171386,
-            43.635371
-          ],
-          "end_coordinate": [
-            -116.164635,
-            43.638592
-          ]
-        },
-        {
-          "edge_id": "official:1534:52:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1534",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.108,
-          "route_miles_start": 4.276,
-          "route_miles_end": 4.383,
-          "start_coordinate": [
-            -116.164635,
-            43.638592
-          ],
-          "end_coordinate": [
-            -116.164192,
-            43.640076
-          ]
-        },
-        {
-          "edge_id": "official:1533:51:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1533",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.474,
-          "route_miles_start": 4.383,
-          "route_miles_end": 4.858,
-          "start_coordinate": [
-            -116.164192,
-            43.640076
-          ],
-          "end_coordinate": [
-            -116.157997,
-            43.643398
-          ]
-        },
-        {
-          "edge_id": "official:1532:50:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1532",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.753,
-          "route_miles_start": 4.858,
-          "route_miles_end": 5.61,
-          "start_coordinate": [
-            -116.157997,
-            43.643398
-          ],
-          "end_coordinate": [
-            -116.15021,
-            43.646658
-          ]
-        },
-        {
-          "edge_id": "official:1484:3:0",
-          "name": "8th Street Motorcycle Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1484",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.214,
-          "route_miles_start": 5.61,
-          "route_miles_end": 5.824,
-          "start_coordinate": [
-            -116.15021,
-            43.646658
-          ],
-          "end_coordinate": [
-            -116.146228,
-            43.64702
-          ]
-        },
-        {
-          "edge_id": "official:1589:100:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1589",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.402,
-          "route_miles_start": 5.824,
-          "route_miles_end": 7.226,
-          "start_coordinate": [
-            -116.146228,
-            43.64702
-          ],
-          "end_coordinate": [
-            -116.171417,
-            43.644279
-          ]
-        },
-        {
-          "edge_id": "official:1588:99:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1588",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.189,
-          "route_miles_start": 7.226,
-          "route_miles_end": 7.415,
-          "start_coordinate": [
-            -116.171417,
-            43.644279
-          ],
-          "end_coordinate": [
-            -116.174156,
-            43.642864
-          ]
-        },
-        {
-          "edge_id": "official:1587:98:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1587",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.313,
-          "route_miles_start": 7.415,
-          "route_miles_end": 7.728,
-          "start_coordinate": [
-            -116.174156,
-            43.642864
-          ],
-          "end_coordinate": [
-            -116.179749,
-            43.643867
-          ]
-        },
-        {
-          "edge_id": "official:1586:97:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1586",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.04,
-          "route_miles_start": 7.728,
-          "route_miles_end": 7.768,
-          "start_coordinate": [
-            -116.179749,
-            43.643867
-          ],
-          "end_coordinate": [
-            -116.180397,
-            43.643536
-          ]
-        },
-        {
-          "edge_id": "official:1585:96:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1585",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.207,
-          "route_miles_start": 7.768,
-          "route_miles_end": 7.975,
-          "start_coordinate": [
-            -116.180397,
-            43.643536
-          ],
-          "end_coordinate": [
-            -116.183941,
-            43.642503
-          ]
-        },
-        {
-          "edge_id": "official:1585:96:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1585",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.207,
-          "route_miles_start": 7.975,
-          "route_miles_end": 8.182,
-          "start_coordinate": [
-            -116.183941,
-            43.642503
-          ],
-          "end_coordinate": [
-            -116.180411,
-            43.643547
-          ]
-        },
-        {
-          "edge_id": "official:1586:97:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1586",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.044,
-          "route_miles_start": 8.182,
-          "route_miles_end": 8.226,
-          "start_coordinate": [
-            -116.180411,
-            43.643547
-          ],
-          "end_coordinate": [
-            -116.179672,
-            43.643887
-          ]
-        },
-        {
-          "edge_id": "official:1587:98:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1587",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.311,
-          "route_miles_start": 8.226,
-          "route_miles_end": 8.538,
-          "start_coordinate": [
-            -116.179672,
-            43.643887
-          ],
-          "end_coordinate": [
-            -116.174127,
-            43.642841
-          ]
-        },
-        {
-          "edge_id": "official:1588:99:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1588",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.021,
-          "route_miles_start": 8.538,
-          "route_miles_end": 8.558,
-          "start_coordinate": [
-            -116.174127,
-            43.642841
-          ],
-          "end_coordinate": [
-            -116.173729,
-            43.6429
-          ]
-        },
-        {
-          "edge_id": "connector:144:0",
-          "name": "#29 Lower Hull's Gulch (STM)",
-          "signposts": [
-            "29"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.128,
-          "route_miles_start": 8.558,
-          "route_miles_end": 8.686,
-          "start_coordinate": [
-            -116.173729,
-            43.6429
-          ],
-          "end_coordinate": [
-            -116.171914,
-            43.644058
-          ]
-        },
-        {
-          "edge_id": "official:1588:99:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1588",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.022,
-          "route_miles_start": 8.686,
-          "route_miles_end": 8.708,
-          "start_coordinate": [
-            -116.171914,
-            43.644058
-          ],
-          "end_coordinate": [
-            -116.171529,
-            43.644204
-          ]
-        },
-        {
-          "edge_id": "official:1589:100:0",
-          "name": "Lower Hull's Gulch Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1589",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 1.407,
-          "route_miles_start": 8.708,
-          "route_miles_end": 10.115,
-          "start_coordinate": [
-            -116.171529,
-            43.644204
-          ],
-          "end_coordinate": [
-            -116.146129,
-            43.647091
-          ]
-        },
-        {
-          "edge_id": "official:1730:235:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1730",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.011,
-          "route_miles_start": 10.115,
-          "route_miles_end": 10.126,
-          "start_coordinate": [
-            -116.146129,
-            43.647091
-          ],
-          "end_coordinate": [
-            -116.145916,
-            43.647074
-          ]
-        },
-        {
-          "edge_id": "official:1483:2:0",
-          "name": "8th Street Motorcycle Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1483",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.425,
-          "route_miles_start": 10.126,
-          "route_miles_end": 10.552,
-          "start_coordinate": [
-            -116.145916,
-            43.647074
-          ],
-          "end_coordinate": [
-            -116.147768,
-            43.650526
-          ]
-        },
-        {
-          "edge_id": "connector:320:1",
-          "name": "#4 8th Street Motorcycle",
-          "signposts": [
-            "4"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.013,
-          "route_miles_start": 10.552,
-          "route_miles_end": 10.565,
-          "start_coordinate": [
-            -116.147768,
-            43.650526
-          ],
-          "end_coordinate": [
-            -116.147576,
-            43.650656
-          ]
-        },
-        {
-          "edge_id": "connector:1506:0",
-          "name": "OSM service connector 12946",
-          "signposts": [],
-          "source_class": "osm_public_road",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.028,
-          "route_miles_start": 10.565,
-          "route_miles_end": 10.593,
-          "start_coordinate": [
-            -116.147576,
-            43.650656
-          ],
-          "end_coordinate": [
-            -116.147118,
-            43.650686
-          ]
-        },
-        {
-          "edge_id": "connector:1505:0",
-          "name": "OSM service connector 12945",
-          "signposts": [],
-          "source_class": "osm_public_road",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.029,
-          "route_miles_start": 10.593,
-          "route_miles_end": 10.622,
-          "start_coordinate": [
-            -116.147118,
-            43.650686
-          ],
-          "end_coordinate": [
-            -116.146555,
-            43.650656
-          ]
-        },
-        {
-          "edge_id": "official:1751:244:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1751",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.193,
-          "route_miles_start": 10.622,
-          "route_miles_end": 10.815,
-          "start_coordinate": [
-            -116.146555,
-            43.650656
-          ],
-          "end_coordinate": [
-            -116.143463,
-            43.650323
-          ]
-        },
-        {
-          "edge_id": "official:1729:234:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1729",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.533,
-          "route_miles_start": 10.815,
-          "route_miles_end": 11.348,
-          "start_coordinate": [
-            -116.143463,
-            43.650323
-          ],
-          "end_coordinate": [
-            -116.135867,
-            43.651007
-          ]
-        },
-        {
-          "edge_id": "official:1728:233:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1728",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.478,
-          "route_miles_start": 11.348,
-          "route_miles_end": 12.826,
-          "start_coordinate": [
-            -116.135867,
-            43.651007
-          ],
-          "end_coordinate": [
-            -116.117783,
-            43.664974
-          ]
-        },
-        {
-          "edge_id": "official:1727:232:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1727",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.538,
-          "route_miles_start": 12.826,
-          "route_miles_end": 13.365,
-          "start_coordinate": [
-            -116.117783,
-            43.664974
-          ],
-          "end_coordinate": [
-            -116.117449,
-            43.669045
-          ]
-        },
-        {
-          "edge_id": "official:1725:230:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1725",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.179,
-          "route_miles_start": 13.365,
-          "route_miles_end": 13.544,
-          "start_coordinate": [
-            -116.117449,
-            43.669045
-          ],
-          "end_coordinate": [
-            -116.118438,
-            43.670545
-          ]
-        },
-        {
-          "edge_id": "official:1725:230:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1725",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.073,
-          "route_miles_start": 13.544,
-          "route_miles_end": 13.617,
-          "start_coordinate": [
-            -116.118438,
-            43.670545
-          ],
-          "end_coordinate": [
-            -116.117526,
-            43.670456
-          ]
-        },
-        {
-          "edge_id": "official:1725:230:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1725",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.007,
-          "route_miles_start": 13.617,
-          "route_miles_end": 13.624,
-          "start_coordinate": [
-            -116.117526,
-            43.670456
-          ],
-          "end_coordinate": [
-            -116.117593,
-            43.670373
-          ]
-        },
-        {
-          "edge_id": "official:1725:230:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1725",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.104,
-          "route_miles_start": 13.624,
-          "route_miles_end": 13.727,
-          "start_coordinate": [
-            -116.117593,
-            43.670373
-          ],
-          "end_coordinate": [
-            -116.117481,
-            43.668947
-          ]
-        },
-        {
-          "edge_id": "official:1726:231:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1726",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 1.315,
-          "route_miles_start": 13.727,
-          "route_miles_end": 15.042,
-          "start_coordinate": [
-            -116.117481,
-            43.668947
-          ],
-          "end_coordinate": [
-            -116.117643,
-            43.665051
-          ]
-        },
-        {
-          "edge_id": "official:1728:233:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1728",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 1.492,
-          "route_miles_start": 15.042,
-          "route_miles_end": 16.534,
-          "start_coordinate": [
-            -116.117643,
-            43.665051
-          ],
-          "end_coordinate": [
-            -116.135867,
-            43.651007
-          ]
-        },
-        {
-          "edge_id": "official:1730:235:0",
-          "name": "Hull's Gulch Interpretive",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1730",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.653,
-          "route_miles_start": 16.534,
-          "route_miles_end": 17.187,
-          "start_coordinate": [
-            -116.135867,
-            43.651007
-          ],
-          "end_coordinate": [
-            -116.14617,
-            43.647041
-          ]
-        },
-        {
-          "edge_id": "official:1484:3:0",
-          "name": "8th Street Motorcycle Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1484",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.219,
-          "route_miles_start": 17.187,
-          "route_miles_end": 17.406,
-          "start_coordinate": [
-            -116.14617,
-            43.647041
-          ],
-          "end_coordinate": [
-            -116.150233,
-            43.64663
-          ]
-        },
-        {
-          "edge_id": "official:1532:50:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1532",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.743,
-          "route_miles_start": 17.406,
-          "route_miles_end": 18.15,
-          "start_coordinate": [
-            -116.150233,
-            43.64663
-          ],
-          "end_coordinate": [
-            -116.15786,
-            43.643379
-          ]
-        },
-        {
-          "edge_id": "official:1533:51:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1533",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.475,
-          "route_miles_start": 18.15,
-          "route_miles_end": 18.625,
-          "start_coordinate": [
-            -116.15786,
-            43.643379
-          ],
-          "end_coordinate": [
-            -116.164135,
-            43.640138
-          ]
-        },
-        {
-          "edge_id": "official:1534:52:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1534",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.111,
-          "route_miles_start": 18.625,
-          "route_miles_end": 18.736,
-          "start_coordinate": [
-            -116.164135,
-            43.640138
-          ],
-          "end_coordinate": [
-            -116.164649,
-            43.638618
-          ]
-        },
-        {
-          "edge_id": "official:1535:53:0",
-          "name": "Crestline Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1535",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.475,
-          "route_miles_start": 18.736,
-          "route_miles_end": 19.212,
-          "start_coordinate": [
-            -116.164649,
-            43.638618
-          ],
-          "end_coordinate": [
-            -116.171661,
-            43.635377
-          ]
-        },
-        {
-          "edge_id": "connector:264:1",
-          "name": "#39A Kestrel",
-          "signposts": [
-            "39A"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.071,
-          "route_miles_start": 19.212,
-          "route_miles_end": 19.283,
-          "start_coordinate": [
-            -116.171661,
-            43.635377
-          ],
-          "end_coordinate": [
-            -116.172991,
-            43.635414
+            -116.178124,
+            43.641249
           ]
         },
         {
@@ -13011,12 +13223,32 @@
           "segment_id": "1583",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.767,
-          "route_miles_start": 19.283,
-          "route_miles_end": 20.05,
+          "distance_miles": 0.269,
+          "route_miles_start": 17.731,
+          "route_miles_end": 18.0,
           "start_coordinate": [
-            -116.172991,
-            43.635414
+            -116.178124,
+            43.641249
+          ],
+          "end_coordinate": [
+            -116.183188,
+            43.641141
+          ]
+        },
+        {
+          "edge_id": "official:1596:107:0",
+          "name": "Owl's Roost",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1596",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.009,
+          "route_miles_start": 18.0,
+          "route_miles_end": 18.009,
+          "start_coordinate": [
+            -116.183188,
+            43.641141
           ],
           "end_coordinate": [
             -116.183365,
@@ -13033,50 +13265,53 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.12,
-          "route_miles_start": 20.05,
-          "route_miles_end": 20.169,
+          "distance_miles": 0.111,
+          "route_miles_start": 18.009,
+          "route_miles_end": 18.12,
           "start_coordinate": [
             -116.183365,
             43.641151
           ],
           "end_coordinate": [
-            -116.185043,
-            43.64221
+            -116.184865,
+            43.642238
           ]
         }
       ],
       "cue_vocabulary_summary": {
         "signposts": [
           "#0",
-          "#28",
           "#29",
+          "#34",
+          "#36",
+          "#36A",
           "#39",
           "#39A",
-          "#4"
+          "#4",
+          "#41"
         ],
-        "normalized_text_count": 74,
+        "normalized_text_count": 111,
         "sample_normalized_text": [
-          "01 0 00 mi 0 87 start access follow kestrel until signed junction with kestral",
-          "02 0 87 mi 0 93 follow kestral until signed junction with red cliffs",
-          "03 1 80 mi 0 22 jct take lower hulls gulch kestrel kestrel lower hull's gulch until signed junction with red cliffs",
-          "04 2 02 mi 1 36 jct turn left red cliffs until signed junction with crestline",
-          "05 3 38 mi 0 06 jct take crestline crestline red cliffs until signed junction with crestline",
-          "06 3 44 mi 2 22 jct continue straight crestline until signed junction with lower hull's gulch",
-          "07 5 66 mi 0 22 connector follow 8th street motorcycle 8th street motorcycle until signed junction with lower hull's gulch",
-          "08 5 88 mi 1 97 jct take lower hull's gulch until signed junction with hull's gulch interpretive",
-          "09 8 06 mi 2 73 overlap double back hull's gulch interpretive lower hulls gulch 8th street motorcycle 8th street motorcycle connector hull's gulch interpretive lower hull's gulch lower hull's gulch stm osm service connector 12945 osm service connector 12946 until signed junction with hull's gulch interpretive",
-          "10 10 79 mi 0 73 jct take hull's gulch interpretive until signed junction with hull's gulch interpretive",
-          "11 11 52 mi 1 50 jct take hull's gulch interpretive hull's gulch interpretive until signed junction with hull's gulch interpretive",
-          "12 13 03 mi 0 79 jct take hull's gulch interpretive until signed junction with hull's gulch interpretive",
-          "13 13 82 mi 0 19 connector follow hull's gulch interpretive until signed junction with hull's gulch interpretive",
-          "14 14 01 mi 3 54 jct take hull's gulch interpretive until end of hull's gulch interpretive for this route",
-          "15 17 56 mi 3 07 exit follow crestline red cliffs 8th street motorcycle 8th street motorcycle crestline kestrel until parked car trailhead",
-          "8th street motorcycle",
-          "after hull's gulch interpretive you are not fully back at car use crestline red cliffs 8th street motorcycle 8th street motorcycle crestline kestrel back toward hulls gulch trailhead expect about 3 01 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with crestline continue straight onto crestline use named connector road for 0 5 mi look for signs crestline this earns crestline official segments 1532 1535 section estimate 1 83 official mi 33 min moving 444 ft climb next decision look for signs to lower hull's gulch",
-          "at signed junction with hull's gulch interpretive turn onto hull's gulch interpretive use hull's gulch interpretive for 0 1 mi this earns hull's gulch interpretive official segments 1726 1728 and 1730 section estimate 3 55 official mi 56 min moving 1035 ft climb 2269 ft descent",
-          "at signed junction with hull's gulch interpretive turn onto hull's gulch interpretive use hull's gulch interpretive hull's gulch interpretive for 1 06 mi look for signs hull's gulch interpretive this earns hull's gulch interpretive official segments 1725 and 1727 section estimate 0 8 official mi 19 min moving 724 ft climb next decision look for signs to hull's gulch interpretive"
+          "01 0 00 mi 0 04 start access follow kestrel until signed junction with lower hull's gulch",
+          "02 0 04 mi 2 17 follow lower hull's gulch until signed junction with hull's gulch interpretive",
+          "03 2 21 mi 3 74 jct bear right hull's gulch interpretive until signed junction with hull's gulch interpretive",
+          "04 5 95 mi 0 19 connector follow hull's gulch interpretive until signed junction with hull's gulch interpretive",
+          "05 6 14 mi 0 56 jct turn right hull's gulch interpretive until signed junction with hull's gulch interpretive",
+          "06 6 71 mi 1 71 overlap double back hull's gulch interpretive hull's gulch interpretive until signed junction with hull's gulch interpretive",
+          "07 8 41 mi 0 72 jct continue straight hull's gulch interpretive until signed junction with crestline",
+          "08 9 14 mi 0 81 road follow hull's gulch interpretive 8th street motorcycle 8th street motorcycle connector hull's gulch interpretive osm service connector 12945 osm service connector 12946 until signed junction with crestline",
+          "09 9 94 mi 1 83 jct take crestline until signed junction with kestral",
+          "10 11 78 mi 0 10 connector follow kestrel until signed junction with kestral",
+          "11 11 88 mi 0 76 jct take kestral until signed junction with owl's roost",
+          "12 12 64 mi 0 64 repeat bear left kestrel kestrel until signed junction with gold finch",
+          "13 13 28 mi 0 27 repeat continue straight osm path connector 83483 until signed junction with 15th st",
+          "14 13 62 mi 0 24 connector follow hulls pond hull's pond hulls pond red fox dog on leash until signed junction with 15th st",
+          "15 13 88 mi 0 43 repeat follow 15th street 15th street red fox dog on leash until signed junction with chickadee ridge",
+          "15th st",
+          "15th street",
+          "16 14 31 mi 0 71 overlap double back 15th street 15th street red fox dog off leash until signed junction with chickadee ridge",
+          "17 15 03 mi 0 61 repeat continue straight chickadee ridge chickadee ridge chickadee ridge red fox dog off leash until signed junction with red cliffs",
+          "18 15 63 mi 0 41 road follow lower hulls gulch lower hull's gulch north sunset peak road osm service connector 19868 red fox dog off leash until signed junction with red cliffs"
         ]
       },
       "failures": []

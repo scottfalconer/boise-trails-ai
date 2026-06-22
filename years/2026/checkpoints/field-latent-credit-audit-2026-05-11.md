@@ -8,7 +8,7 @@
 - Unreconciled latent segments claimed by another active route: 0
 - Reconciled latent segments claimed by another active route: 36
 - Unclaimed uncompleted latent segments: 0
-- Repeat-only latent completed segments: 1
+- Repeat-only latent completed segments: 7
 
 ## Scope
 
@@ -74,7 +74,7 @@
   - 1685 Three Bears Trail; claimed by 13-1: 13
 
 ### 2-1: 2
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-2.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-2.gpx`
 - Declared owned by other active routes: 1483, 1484
 - Segment details:
   - 1483 8th Street Motorcycle Trail; claimed by 12-1: 12

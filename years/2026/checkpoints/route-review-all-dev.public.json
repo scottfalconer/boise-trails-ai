@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_review_pack_v1",
-  "generated_at": "2026-06-21T14:34:12Z",
+  "generated_at": "2026-06-22T03:12:21Z",
   "thresholds": {
     "material_on_foot_savings_miles": 0.25,
     "material_p75_savings_minutes": 10
@@ -241,7 +241,7 @@
     },
     {
       "route_label": "1A-2",
-      "route_source_hash": "327f40c47b4dd600c2ef0be888c41a8f7c6534c47445c05dea915f2ee3c82d75",
+      "route_source_hash": "15cf7e8430f25449e058f64b52f5f3af97e59f19e25b0b293cbe281cc9748bb3",
       "current_start": "West Climb",
       "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because West Climb Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "official_segment_ids": [
@@ -267,11 +267,11 @@
         "parking_confidence": "inferred_from_trailhead_layer",
         "cue_complexity": 11,
         "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 3.13,
-        "on_foot_to_official_ratio": 1.55,
+        "official_miles": 2.99,
+        "on_foot_to_official_ratio": 1.63,
         "start_access_gap_miles": 0.04,
         "return_access_gap_miles": 0.129,
-        "repeat_or_non_credit_burden_miles": 1.73
+        "repeat_or_non_credit_burden_miles": 1.87
       },
       "parking": {
         "name": "West Climb Trailhead",
@@ -1290,7 +1290,7 @@
     },
     {
       "route_label": "16A-1",
-      "route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
+      "route_source_hash": "7550bc70992bfe01ab1370b85e596a603952eb117056abb3bccdaf42ad6b5ee9",
       "current_start": "Dry Creek / Sweet Connie roadside parking",
       "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
       "official_segment_ids": [
@@ -1309,11 +1309,11 @@
         "parking_confidence": "source_verified_roadside_plus_strava_seen",
         "cue_complexity": 3,
         "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 6.09,
-        "on_foot_to_official_ratio": 2.33,
+        "official_miles": 3.14,
+        "on_foot_to_official_ratio": 4.52,
         "start_access_gap_miles": 0.0,
         "return_access_gap_miles": 1.543,
-        "repeat_or_non_credit_burden_miles": 8.11
+        "repeat_or_non_credit_burden_miles": 11.06
       },
       "parking": {
         "name": "Dry Creek / Sweet Connie roadside parking",
@@ -1485,6 +1485,79 @@
       }
     },
     {
+      "route_label": "2",
+      "route_source_hash": "a3cd0c17523918bc08301d5e073c62fbc52ad47208962d065f814d30c9a6e42d",
+      "current_start": "Hulls Gulch",
+      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "official_segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1730",
+        "1728",
+        "1726",
+        "1725",
+        "1727",
+        "1729",
+        "1751",
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1616",
+        "1615"
+      ],
+      "trail_names": [
+        "Lower Hull's Gulch Trail",
+        "Hull's Gulch Interpretive",
+        "Crestline Trail",
+        "Kestral Trail",
+        "Red Cliffs"
+      ],
+      "metrics": {
+        "on_foot_miles": 18.8,
+        "p75_minutes": 332,
+        "p90_minutes": 372,
+        "drive_minutes": 0,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "cue_complexity": 20,
+        "anchor_to_credit_endpoint_distance_miles": null,
+        "official_miles": 11.08,
+        "on_foot_to_official_ratio": 1.7,
+        "start_access_gap_miles": 0.042,
+        "return_access_gap_miles": 0.459,
+        "repeat_or_non_credit_burden_miles": 7.72
+      },
+      "parking": {
+        "name": "Hulls Gulch Trailhead",
+        "display_name": "Hulls Gulch Trailhead",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "source": "city_parks_facilities",
+        "field_ready": null,
+        "nearest_open_trail_name": "Kestrel",
+        "nearest_open_trail_label": "#39A Kestrel"
+      },
+      "accepted_replacement_id": null,
+      "route_card_status": null,
+      "certified_route_card": null,
+      "requires_field_walkthrough": null,
+      "same_credit_alternatives": [],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0299,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    },
+    {
       "route_label": "16A-D1",
       "route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
       "current_start": "Dry Creek / Sweet Connie roadside parking",
@@ -1544,79 +1617,6 @@
       }
     },
     {
-      "route_label": "2",
-      "route_source_hash": "3a30e384d63ddba2271540e7df9efbcbf525f2169eb6ceb06ff67c1b3d247f9c",
-      "current_start": "Hulls Gulch",
-      "start_justification": "PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1583",
-        "1616",
-        "1615",
-        "1535",
-        "1534",
-        "1533",
-        "1532",
-        "1589",
-        "1588",
-        "1587",
-        "1586",
-        "1585",
-        "1751",
-        "1729",
-        "1727",
-        "1725",
-        "1726",
-        "1728",
-        "1730"
-      ],
-      "trail_names": [
-        "Kestral Trail",
-        "Red Cliffs",
-        "Crestline Trail",
-        "Lower Hull's Gulch Trail",
-        "Hull's Gulch Interpretive"
-      ],
-      "metrics": {
-        "on_foot_miles": 20.62,
-        "p75_minutes": 349,
-        "p90_minutes": 391,
-        "drive_minutes": 0,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "cue_complexity": 15,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 11.08,
-        "on_foot_to_official_ratio": 1.86,
-        "start_access_gap_miles": 0.1,
-        "return_access_gap_miles": 3.009,
-        "repeat_or_non_credit_burden_miles": 9.54
-      },
-      "parking": {
-        "name": "Hulls Gulch Trailhead",
-        "display_name": "Hulls Gulch Trailhead",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Kestrel",
-        "nearest_open_trail_label": "#39A Kestrel"
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.036,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "18A",
       "route_source_hash": "9fb44003623436c3da215f3c32515e32e4bebcbc0a65795559f9fc3f47a64e9e",
       "current_start": "Bogus Basin Base Area",
@@ -1638,7 +1638,6 @@
         "Brewer's Byway Extension",
         "Tempest Trail",
         "Brewers Byway",
-        "The Face Trail",
         "Mores Mtn Interpretive"
       ],
       "metrics": {
@@ -1706,9 +1705,9 @@
         "Harlow's Hollows Connector",
         "Ricochet",
         "Shooting Range",
-        "Spring Creek",
+        "Whistling Pig",
         "Twisted Spring",
-        "Whistling Pig"
+        "Spring Creek"
       ],
       "metrics": {
         "on_foot_miles": 21.84,
@@ -2056,7 +2055,7 @@
       "schema": "boise_trails_route_review_v1",
       "route_id": "1A-2",
       "route_label": "1A-2",
-      "route_source_hash": "327f40c47b4dd600c2ef0be888c41a8f7c6534c47445c05dea915f2ee3c82d75",
+      "route_source_hash": "15cf7e8430f25449e058f64b52f5f3af97e59f19e25b0b293cbe281cc9748bb3",
       "segment_ids": [
         "1566",
         "1565",
@@ -2071,7 +2070,7 @@
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1566, 1565, 1504, 1505, 1506, 1507, 1718, 1719.",
       "start_anchor_assessment": "Current start is West Climb. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because West Climb Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "4.86 on-foot miles for 3.13 official miles; non-credit/repeat burden is 1.73 miles.",
+      "human_footmile_assessment": "4.86 on-foot miles for 2.99 official miles; non-credit/repeat burden is 1.87 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -2604,7 +2603,7 @@
       "schema": "boise_trails_route_review_v1",
       "route_id": "16A-1",
       "route_label": "16A-1",
-      "route_source_hash": "ffb471deefb345265047b9a739fffd80be4a2fe023b3e807d646245d88f6cb1d",
+      "route_source_hash": "7550bc70992bfe01ab1370b85e596a603952eb117056abb3bccdaf42ad6b5ee9",
       "segment_ids": [
         "1665",
         "1666",
@@ -2614,7 +2613,7 @@
       "confidence": "high",
       "official_credit_summary": "Route buys exact official segment set 1665, 1666, 1667.",
       "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "14.2 on-foot miles for 6.09 official miles; non-credit/repeat burden is 8.11 miles.",
+      "human_footmile_assessment": "14.2 on-foot miles for 3.14 official miles; non-credit/repeat burden is 11.06 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -2730,23 +2729,35 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "16A-D1",
-      "route_label": "16A-D1",
-      "route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
+      "route_id": "2",
+      "route_label": "2",
+      "route_source_hash": "a3cd0c17523918bc08301d5e073c62fbc52ad47208962d065f814d30c9a6e42d",
       "segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1653",
-        "1656"
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1730",
+        "1728",
+        "1726",
+        "1725",
+        "1727",
+        "1729",
+        "1751",
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1616",
+        "1615"
       ],
       "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1542, 1543, 1544, 1545, 1546, 1653, 1656.",
-      "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "15.61 on-foot miles for 12.5 official miles; non-credit/repeat burden is 3.11 miles.",
+      "official_credit_summary": "Route buys exact official segment set 1585, 1586, 1587, 1588, 1589, 1730, 1728, 1726, 1725, 1727, 1729, 1751, 1532, 1533, 1534, 1535, 1583, 1616, 1615.",
+      "start_anchor_assessment": "Current start is Hulls Gulch. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "18.8 on-foot miles for 11.08 official miles; non-credit/repeat burden is 7.72 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -2767,35 +2778,23 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "2",
-      "route_label": "2",
-      "route_source_hash": "3a30e384d63ddba2271540e7df9efbcbf525f2169eb6ceb06ff67c1b3d247f9c",
+      "route_id": "16A-D1",
+      "route_label": "16A-D1",
+      "route_source_hash": "db55a8700bfff9095b906680e4fe783c8a006681bca95d3217de2171c93fabeb",
       "segment_ids": [
-        "1583",
-        "1616",
-        "1615",
-        "1535",
-        "1534",
-        "1533",
-        "1532",
-        "1589",
-        "1588",
-        "1587",
-        "1586",
-        "1585",
-        "1751",
-        "1729",
-        "1727",
-        "1725",
-        "1726",
-        "1728",
-        "1730"
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656"
       ],
       "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1583, 1616, 1615, 1535, 1534, 1533, 1532, 1589, 1588, 1587, 1586, 1585, 1751, 1729, 1727, 1725, 1726, 1728, 1730.",
-      "start_anchor_assessment": "Current start is Hulls Gulch. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Hulls Gulch Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "20.62 on-foot miles for 11.08 official miles; non-credit/repeat burden is 9.54 miles.",
+      "official_credit_summary": "Route buys exact official segment set 1542, 1543, 1544, 1545, 1546, 1653, 1656.",
+      "start_anchor_assessment": "Current start is Dry Creek / Sweet Connie roadside parking. Start justification: PLACEHOLDER_START_JUSTIFICATION_REQUIRED: Chosen because Dry Creek / Sweet Connie roadside parking is the current field-packet parking/start anchor for this exact official segment set, with source_verified_roadside_plus_strava_seen parking evidence from historical_strava_anchor_plus_swimba_and_local_parking_sources; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "15.61 on-foot miles for 12.5 official miles; non-credit/repeat burden is 3.11 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,

@@ -1,33 +1,33 @@
 {
   "run_id": "field-official-repeat-audit-2026-05-11",
-  "generated_at": "2026-05-28T12:00:35Z",
+  "generated_at": "2026-06-22T14:28:43Z",
   "command": "python years/2026/scripts/field_official_repeat_audit.py",
   "inputs": [
     {
       "path": "outing-menu-map-data.json",
       "exists": true,
-      "size_bytes": 6274475,
-      "sha256": "dcc4f05d433a8431353ce08e23061bc09ebcc7a1e9e9b250797a464d9ded8cd4"
+      "size_bytes": 4992008,
+      "sha256": "c81339727fb836c78d8134b7032ae20c4c21c7e7a82822fee52288d487caa84f"
     },
     {
       "path": "docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 2753064,
-      "sha256": "40d4ae11fbe6f5933412781652fe1262285af9e8827a3bcbb8fd1204354a7371"
+      "size_bytes": 4492394,
+      "sha256": "e87df0422a1decc521fb80b9d4c779e7e98d234157f564a48a493cdd809619c7"
     }
   ],
   "outputs": [
     {
       "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-11.json",
       "exists": true,
-      "size_bytes": 200051,
-      "sha256": "f2dc940616b123cd22cca62fb5db8baa220d5c9e9e646212cd72a774e691fd77"
+      "size_bytes": 175000,
+      "sha256": "8c038189ce39e060e4abb0cd082bff5a4c22c758358f21594f97daccc668543c"
     },
     {
       "path": "years/2026/checkpoints/field-official-repeat-audit-2026-05-11.md",
       "exists": true,
-      "size_bytes": 3232,
-      "sha256": "f97fe4589eb0f1ae841dd38da866f45bdaf7cc82fd2a109ec7826b7b20aa96b8"
+      "size_bytes": 2928,
+      "sha256": "446751d1ccfecf692a98aa2e07d2a0ac7cdf8005d5b983a1d1b4ac4022172c88"
     }
   ],
   "metadata": {

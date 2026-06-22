@@ -4,7 +4,7 @@
   "repairs": [
     {
       "repair_id": "camels-lower-hulls-progress-prune-2026-06-21",
-      "status": "active",
+      "status": "inactive",
       "repair_type": "pruned_component_route",
       "package_number": 2,
       "block_name": "Camel's Back / Kestrel / Crestline / Lower Hulls even-day",
@@ -41,8 +41,8 @@
         1615
       ],
       "field_notes": [
-        "After the 2026-06-20 dashboard sync, Owl's Roost, Gold Finch, 15th Street, and Chickadee Ridge are completed credit and must not remain inside the route 2 source geometry as stale repeat mileage.",
-        "Rebuild the current route card from only the remaining Lower Hulls / Hulls Interpretive / Crestline / Kestral / Red Cliffs official segments; completed frontside segments may appear later only if connector audits prove they are unavoidable."
+        "Deactivated after cost review: removing the completed Owl's Roost / Gold Finch / 15th Street / Chickadee Ridge frontside segments rebuilt route 2 into a longer physical outing.",
+        "Keep completed frontside segments available as repeat/connector mileage when they preserve the lower-cost car-to-car route; generated outing summaries must filter claimed credit and trail labels to remaining official segment ids."
       ]
     },
     {

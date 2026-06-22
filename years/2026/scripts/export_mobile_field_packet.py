@@ -1612,6 +1612,7 @@ def apply_segment_ownership_reconciliation(
     segments_by_id: dict[str, dict[str, Any]],
     *,
     ownership_cards: list[dict[str, Any]] | None = None,
+    completed_segment_ids: list[Any] | tuple[Any, ...] | set[Any] | None = None,
     elevation_sampler: Any = None,
     threshold_miles: float = 0.045,
     max_activity_points: int = 1200,
@@ -1627,6 +1628,7 @@ def apply_segment_ownership_reconciliation(
     official_by_id = {str(segment["seg_id"]): segment for segment in official_segments}
     claims = route_claim_index(routes, ownership_cards=ownership_cards)
     all_claimed_ids = set(claims)
+    completed_progress_ids = set(normalized_segment_ids(completed_segment_ids or []))
     for route in routes:
         outing = route.get("outing") or {}
         route_key = str(outing.get("outing_id") or route.get("outing_id") or "")
@@ -1645,6 +1647,7 @@ def apply_segment_ownership_reconciliation(
             elevation_sampler=elevation_sampler,
         )
         declared_owned_elsewhere = []
+        completed_at_export = []
         unclaimed_completed = []
         for segment_id in normalized_segment_ids(review.get("extra_completed_segment_ids") or []):
             other_owners = [
@@ -1654,20 +1657,26 @@ def apply_segment_ownership_reconciliation(
             ]
             if other_owners:
                 declared_owned_elsewhere.append(segment_review_brief(official_by_id.get(segment_id, {}), other_owners))
+            elif segment_id in completed_progress_ids:
+                completed_at_export.append(segment_review_brief(official_by_id.get(segment_id, {}), []))
             elif segment_id not in all_claimed_ids:
                 unclaimed_completed.append(segment_review_brief(official_by_id.get(segment_id, {}), []))
-        if declared_owned_elsewhere or unclaimed_completed:
+        if declared_owned_elsewhere or completed_at_export or unclaimed_completed:
             route["segment_ownership_reconciliation"] = {
                 "schema": "boise_trails_segment_ownership_reconciliation_v1",
                 "status": "needs_source_repair" if unclaimed_completed else "reconciled",
-                "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
+                "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners_or_completed_progress",
                 "declared_owned_elsewhere_segment_ids": normalized_segment_ids(
                     [row["seg_id"] for row in declared_owned_elsewhere]
+                ),
+                "completed_at_export_segment_ids": normalized_segment_ids(
+                    [row["seg_id"] for row in completed_at_export]
                 ),
                 "unclaimed_completed_segment_ids": normalized_segment_ids(
                     [row["seg_id"] for row in unclaimed_completed]
                 ),
                 "segments_owned_elsewhere": declared_owned_elsewhere,
+                "segments_completed_at_export": completed_at_export,
                 "unclaimed_completed_segments": unclaimed_completed,
                 "candidate_segment_count": len(candidates),
                 "review_point_count": len(review_coords),
@@ -1677,8 +1686,10 @@ def apply_segment_ownership_reconciliation(
                 "schema": "boise_trails_segment_ownership_reconciliation_v1",
                 "status": "no_latent_official_segments",
                 "declared_owned_elsewhere_segment_ids": [],
+                "completed_at_export_segment_ids": [],
                 "unclaimed_completed_segment_ids": [],
                 "segments_owned_elsewhere": [],
+                "segments_completed_at_export": [],
                 "unclaimed_completed_segments": [],
                 "candidate_segment_count": len(candidates),
                 "review_point_count": len(review_coords),
@@ -4155,7 +4166,7 @@ def apply_non_credit_claimed_repeat_declarations(
         discoverable_repeat_ids = (
             credited_claimed_ids
             if len(credited_claimed_ids) <= MAX_AUTOMATIC_REPEAT_DISCOVERY_IDS
-            and cue_route_leg_miles(cue) <= MAX_AUTOMATIC_REPEAT_DISCOVERY_CUE_MILES
+            and (existing_ids or cue_route_leg_miles(cue) <= MAX_AUTOMATIC_REPEAT_DISCOVERY_CUE_MILES)
             else set()
         )
         review_ids = discoverable_repeat_ids | existing_ids
@@ -9769,6 +9780,7 @@ def export_field_packet(
         routes,
         segments_by_id,
         ownership_cards=manual_holds,
+        completed_segment_ids=(map_data.get("progress") or {}).get("completed_segment_ids") or [],
         elevation_sampler=dem_context.get("sampler"),
     )
     apply_navigation_source_audit_to_routes(routes)

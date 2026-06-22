@@ -159,6 +159,8 @@ def public_repeat_cue_rows(route: dict[str, Any] | None) -> list[dict[str, Any]]
                 "cue_text_mentions_repeat": "repeat" in text,
                 "cue_text_mentions_no_new_credit": (
                     "no new credit" in text
+                    or "do not count as new credit" in text
+                    or "do not count as new official challenge credit" in text
                     or "not official challenge credit" in text
                     or "does not count" in text
                 ),
@@ -195,6 +197,16 @@ def route_bucket_c_rows(route: dict[str, Any]) -> list[dict[str, Any]]:
                 "official_miles": segment.get("official_miles"),
                 "owned_by_routes": [],
                 "reconciliation_status": "unclaimed_completed_segment",
+            }
+        )
+    for segment in reconciliation.get("segments_completed_at_export") or []:
+        rows.append(
+            {
+                "seg_id": str(segment.get("seg_id")),
+                "trail_name": segment.get("trail_name"),
+                "official_miles": segment.get("official_miles"),
+                "owned_by_routes": [],
+                "reconciliation_status": "completed_at_export",
             }
         )
     return rows

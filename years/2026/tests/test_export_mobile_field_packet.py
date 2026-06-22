@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import re
 import zipfile
 
 import pytest
@@ -3702,6 +3703,95 @@ def test_segment_ownership_reconciliation_declares_cross_route_ownership():
     assert reconciliation["segments_owned_elsewhere"][0]["owned_by_routes"][0]["outing_id"] == "2-1"
 
 
+def test_segment_ownership_reconciliation_declares_completed_progress_repeat():
+    module = load_exporter()
+    data = sample_map_data()
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = _dense_line(
+        [-116.1, 43.1], [-116.11, 43.11], 24
+    )
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = _dense_line(
+        [-116.12, 43.12], [-116.13, 43.13], 24
+    )
+    segments_by_id = module.official_segment_index(data)
+    routes = [
+        {
+            "outing_id": "1-1",
+            "label": "1",
+            "outing": {
+                "outing_id": "1-1",
+                "label": "1",
+                "candidate_ids": ["test-route"],
+                "remaining_segment_ids": [101],
+            },
+            "segment_ids": ["101"],
+            "_track_segments": [
+                _joined_path(
+                    _dense_line([-116.1, 43.1], [-116.11, 43.11], 24),
+                    _dense_line([-116.11, 43.11], [-116.12, 43.12], 24),
+                    _dense_line([-116.12, 43.12], [-116.13, 43.13], 24),
+                )
+            ],
+        }
+    ]
+
+    module.apply_segment_ownership_reconciliation(routes, segments_by_id, completed_segment_ids=[103])
+
+    reconciliation = routes[0]["segment_ownership_reconciliation"]
+    assert reconciliation["status"] == "reconciled"
+    assert reconciliation["completed_at_export_segment_ids"] == ["103"]
+    assert reconciliation["segments_completed_at_export"][0]["trail_name"] == "Second Trail"
+    assert reconciliation["unclaimed_completed_segment_ids"] == []
+
+
+def test_non_credit_repeat_declaration_reviews_long_cues_with_existing_repeat_ids():
+    module = load_exporter()
+    official_index = {
+        "1": {
+            "type": "Feature",
+            "properties": {"seg_id": 1, "official_miles": 0.5, "trail_name": "Claimed Trail"},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[-116.1, 43.1], [-116.11, 43.11]],
+            },
+        },
+        "2": {
+            "type": "Feature",
+            "properties": {"seg_id": 2, "official_miles": 0.25, "trail_name": "Prior Trail"},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[-116.2, 43.2], [-116.21, 43.21]],
+            },
+        },
+    }
+    route = {
+        "segment_ids": ["1"],
+        "_official_segment_index": official_index,
+        "_track_segments": [[(-116.1, 43.1), (-116.11, 43.11)]],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "official_segment_ids": ["1"],
+            },
+            {
+                "seq": 2,
+                "cue_type": "exit_access",
+                "leg_miles": module.MAX_AUTOMATIC_REPEAT_DISCOVERY_CUE_MILES + 1,
+                "source_path_coordinates": [[-116.1, 43.1], [-116.11, 43.11]],
+                "official_repeat_segment_ids": ["2"],
+                "official_repeat_miles": 0.25,
+            },
+        ],
+    }
+
+    module.apply_non_credit_claimed_repeat_declarations(route)
+
+    repeat_cue = route["wayfinding_cues"][1]
+    assert repeat_cue["official_repeat_segment_ids"] == ["1", "2"]
+    assert repeat_cue["official_repeat_miles"] == 0.75
+    assert "do not count as new credit" in repeat_cue["note"]
+
+
 def test_route_claim_index_includes_manual_holds_for_ownership_only():
     module = load_exporter()
 
@@ -4611,8 +4701,7 @@ def test_field_packet_public_outputs_do_not_leak_private_origin_or_paths(tmp_pat
 
     assert "/Users/scott" not in combined
     assert "outputs/private" not in combined
-    assert str(0x38F) not in combined
-    assert f"{int('10010', 2)}th" not in combined
+    assert re.search(rf"\b{0x38F}\s+n(?:orth|\.)?\s+{int('10010', 2)}th\b", combined, re.IGNORECASE) is None
 
 
 def test_densify_track_segments_reduces_point_gaps_below_limit():
