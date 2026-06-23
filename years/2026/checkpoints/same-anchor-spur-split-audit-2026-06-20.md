@@ -4,11 +4,11 @@ Status: `passed`
 
 ## Summary
 
-- Routes reviewed: 28
+- Routes reviewed: 25
 - Blocking findings: 0
 - Manual-review advisories: 0
 - Skipped over max combined miles: 0
-- Skipped over host p90: 2
+- Skipped over host p90: 1
 - Endpoint threshold: 0.045 mi
 - Parking threshold: 0.1 mi
 - Minimum savings threshold: 0.25 mi

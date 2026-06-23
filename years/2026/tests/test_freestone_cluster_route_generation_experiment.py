@@ -44,6 +44,44 @@ def test_segment_orientation_options_preserve_required_ascent_direction():
     assert module.segment_orientation_options({"direction": "ascent"}, preserve_ascent_direction=False) == [False, True]
 
 
+def test_choose_segment_orientation_repairs_short_target_snap_gap(monkeypatch):
+    module = load_module()
+    calls = []
+
+    def fake_graph_path(start, end, connector_graph, avoid_official_segment_ids):
+        calls.append(set(avoid_official_segment_ids))
+        if "target-segment" in avoid_official_segment_ids:
+            return (
+                {"source": "direct_gap_fallback", "distance_miles": 0.08},
+                [start, end],
+            )
+        return (
+            {
+                "distance_miles": 0.09,
+                "connector_miles": 0.04,
+                "official_repeat_miles": 0.05,
+            },
+            [start, (0.5, 0.5), end],
+        )
+
+    monkeypatch.setattr(module, "graph_path", fake_graph_path)
+
+    _reversed_direction, path, path_coords, _segment_coords = module.choose_segment_orientation(
+        (0.0, 0.0),
+        {
+            "seg_id": "target-segment",
+            "direction": "ascent",
+            "coordinates": [(1.0, 1.0), (2.0, 2.0)],
+        },
+        connector_graph={},
+        avoid_official_segment_ids={"other-segment", "target-segment"},
+    )
+
+    assert calls == [{"other-segment", "target-segment"}, {"other-segment"}]
+    assert path.get("source") != "direct_gap_fallback"
+    assert path_coords == [(0.0, 0.0), (0.5, 0.5), (1.0, 1.0)]
+
+
 def test_candidate_summary_keeps_replacement_blockers_and_scaled_time_visible():
     module = load_module()
     candidate = {

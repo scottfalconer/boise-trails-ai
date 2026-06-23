@@ -3,26 +3,26 @@
 - Status: `passed`
 - Requirements: 21 / 21 passed
 - Advisory optimization actions surfaced: 46
-- Field-ready route cards: 28
+- Field-ready route cards: 25
 - Held route cards: 0
-- Total route cards: 28
-- Official segment accounting: 250 / 250 (231 active field-menu ids, 19 completed, 0 blocked)
+- Total route cards: 25
+- Official segment accounting: 250 / 250 (213 active field-menu ids, 37 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a; canonical map hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a |
+| Phone page and map share the canonical field-menu source | Pass | field source hash b0efa1a4208d4a65bdfc7ac19eb671c72b4fd2e405561fb6536bcb2d8d837408; canonical map hash b0efa1a4208d4a65bdfc7ac19eb671c72b4fd2e405561fb6536bcb2d8d837408 |
 | Field packet route records match canonical outing menu metrics | Pass | field packet route miles, p75 minutes, and segment ids match canonical menu components |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 28 route cards passed field-structure checks; 0 held by legality/certification gates |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 25 route cards passed field-structure checks; 0 held by legality/certification gates |
 | Field cues and live-map cue spans agree per movement leg | Pass | all movement cues have matching written mileage and live-map route spans |
 | Live map default cue starts at the first field cue | Pass | no route has a clustered start cue sequence that would make live map open on cue 2+ |
 | Source routes have no hidden unstitched gaps | Pass | canonical map source has no source_gap_warning routes |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
-| Active field packet accounts for every official segment geometry id | Pass | field menu 231 ids; held 0 ids; completed 19 ids; blocked 0 ids; accounted 250 ids; official target 250 ids |
-| GPX validation passed for every exported route card | Pass | {"failed": 0, "navigation": 28, "passed": true} |
+| Active field packet accounts for every official segment geometry id | Pass | field menu 213 ids; held 0 ids; completed 37 ids; blocked 0 ids; accounted 250 ids; official target 250 ids |
+| GPX validation passed for every exported route card | Pass | {"failed": 0, "navigation": 25, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |

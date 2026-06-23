@@ -1,18 +1,18 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-06-22T01:52:08.741141+00:00",
+  "audited_at": "2026-06-23T16:37:24.439492+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 28,
+    "route_count": 25,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 12,
-    "repeat_only_routes": 1,
-    "unexpected_latent_segment_count": 36,
+    "routes_reconciled": 13,
+    "repeat_only_routes": 0,
+    "unexpected_latent_segment_count": 34,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 36,
+    "reconciled_claimed_elsewhere_segment_count": 34,
     "unclaimed_uncompleted_segment_count": 0,
-    "repeat_completed_segment_count": 7,
+    "repeat_completed_segment_count": 6,
     "dual_claimed_exact_credit_segment_count": 0
   },
   "dual_claimed_exact_credit_segments": [],
@@ -201,7 +201,7 @@
               "outing_id": "6-1",
               "label": "6-1: 6",
               "candidate_ids": [
-                "block-cartwright_peggy_interface"
+                "route-truth-6-cartwright-peggy-minus-chbh"
               ],
               "ownership_status": "active_route"
             }
@@ -397,6 +397,84 @@
               "label": "17-1: 17",
               "candidate_ids": [
                 "block-bogus_atm_deer_elk_sunshine"
+              ],
+              "ownership_status": "active_route"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "1-1",
+      "outing_id": "1-1",
+      "label": "1-1: 1A-1",
+      "candidate_ids": [
+        "route-truth-1a-1-chute-chbh-polecat5"
+      ],
+      "planned_segment_ids": [
+        "1482",
+        "1516",
+        "1601"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-36th-street-chute-1a-1.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1509,
+      "review_point_count": 755,
+      "candidate_segment_count": 10,
+      "latent_completed_segment_ids": [
+        "1541",
+        "1610"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1541",
+        "1610"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1541",
+        "1610"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1601",
+        "1603",
+        "1604"
+      ],
+      "segments": [
+        {
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "5-2",
+              "outing_id": "5-2",
+              "label": "5-2: 5B",
+              "candidate_ids": [
+                "route-truth-5b-polecat-minus-p5"
+              ],
+              "ownership_status": "active_route"
+            }
+          ]
+        },
+        {
+          "seg_id": "1610",
+          "seg_name": "Quick Draw 1",
+          "trail_name": "Quick Draw",
+          "direction": "both",
+          "official_miles": 0.48,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "5-2",
+              "outing_id": "5-2",
+              "label": "5-2: 5B",
+              "candidate_ids": [
+                "route-truth-5b-polecat-minus-p5"
               ],
               "ownership_status": "active_route"
             }
@@ -1175,129 +1253,40 @@
       "outing_id": "6-1",
       "label": "6-1: 6",
       "candidate_ids": [
-        "block-cartwright_peggy_interface"
+        "route-truth-6-cartwright-peggy-minus-chbh"
       ],
       "planned_segment_ids": [
         "1508",
         "1509",
-        "1516",
         "1519",
         "1520",
         "1521",
         "1597",
         "1709"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-peggy-s-6.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-cartwright-ridge-6.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 4212,
-      "review_point_count": 1054,
-      "candidate_segment_count": 27,
+      "activity_point_count": 3012,
+      "review_point_count": 1005,
+      "candidate_segment_count": 19,
       "latent_completed_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
         "1666"
       ],
       "unexpected_latent_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
         "1666"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
         "1666"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
         "1497",
-        "1603",
+        "1599",
         "1624"
       ],
       "segments": [
-        {
-          "seg_id": "1541",
-          "seg_name": "Doe Ridge 1",
-          "trail_name": "Doe Ridge",
-          "direction": "both",
-          "official_miles": 0.46,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1599",
-          "seg_name": "Polecat Loop 1",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1604",
-          "seg_name": "Polecat Loop 7",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.23,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1610",
-          "seg_name": "Quick Draw 1",
-          "trail_name": "Quick Draw",
-          "direction": "both",
-          "official_miles": 0.48,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
         {
           "seg_id": "1666",
           "seg_name": "Sweet Connie Trail 2",
@@ -1499,53 +1488,7 @@
       ]
     }
   ],
-  "repeat_only_routes": [
-    {
-      "route_key": "1-2",
-      "outing_id": "1-2",
-      "label": "1-2: 1A-2",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-      ],
-      "planned_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1718",
-        "1719"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
-      "audit_status": "repeat_only",
-      "activity_point_count": 1589,
-      "review_point_count": 795,
-      "candidate_segment_count": 13,
-      "latent_completed_segment_ids": [
-        "1755"
-      ],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [
-        "1755"
-      ],
-      "partial_segment_ids": [],
-      "segments": [
-        {
-          "seg_id": "1755",
-          "seg_name": "Buena Vista Trail 5",
-          "trail_name": "Buena Vista Trail",
-          "direction": "both",
-          "official_miles": 0.14,
-          "status": "repeat_completed",
-          "claimed_by_other_routes": []
-        }
-      ]
-    }
-  ],
+  "repeat_only_routes": [],
   "missing_gpx_routes": [],
   "route_reviews": [
     {
@@ -1629,51 +1572,6 @@
       "segments": []
     },
     {
-      "route_key": "1-2",
-      "outing_id": "1-2",
-      "label": "1-2: 1A-2",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-      ],
-      "planned_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1718",
-        "1719"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
-      "audit_status": "repeat_only",
-      "activity_point_count": 1589,
-      "review_point_count": 795,
-      "candidate_segment_count": 13,
-      "latent_completed_segment_ids": [
-        "1755"
-      ],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [
-        "1755"
-      ],
-      "partial_segment_ids": [],
-      "segments": [
-        {
-          "seg_id": "1755",
-          "seg_name": "Buena Vista Trail 5",
-          "trail_name": "Buena Vista Trail",
-          "direction": "both",
-          "official_miles": 0.14,
-          "status": "repeat_completed",
-          "claimed_by_other_routes": []
-        }
-      ]
-    },
-    {
       "route_key": "4-1",
       "outing_id": "4-1",
       "label": "4-1: 4A",
@@ -1725,56 +1623,6 @@
           ]
         }
       ]
-    },
-    {
-      "route_key": "1-1",
-      "outing_id": "1-1",
-      "label": "1-1: 1A-1",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-1-36th-street-chute"
-      ],
-      "planned_segment_ids": [
-        "1482"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/13-36th-street-chute-1a-1.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 425,
-      "review_point_count": 425,
-      "candidate_segment_count": 2,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
-    },
-    {
-      "route_key": "8-1",
-      "outing_id": "8-1",
-      "label": "8-1: 8",
-      "candidate_ids": [
-        "block-oregon_trail_harris_peace_valley"
-      ],
-      "planned_segment_ids": [
-        "1722",
-        "1723",
-        "1724"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 989,
-      "review_point_count": 989,
-      "candidate_segment_count": 3,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
     },
     {
       "route_key": "15-1",
@@ -1952,7 +1800,7 @@
               "outing_id": "6-1",
               "label": "6-1: 6",
               "candidate_ids": [
-                "block-cartwright_peggy_interface"
+                "route-truth-6-cartwright-peggy-minus-chbh"
               ],
               "ownership_status": "active_route"
             }
@@ -2035,6 +1883,39 @@
           ]
         }
       ]
+    },
+    {
+      "route_key": "5-2",
+      "outing_id": "5-2",
+      "label": "5-2: 5B",
+      "candidate_ids": [
+        "route-truth-5b-polecat-minus-p5"
+      ],
+      "planned_segment_ids": [
+        "1541",
+        "1598",
+        "1599",
+        "1600",
+        "1602",
+        "1603",
+        "1604",
+        "1610"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-doe-ridge-5b.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 969,
+      "review_point_count": 969,
+      "candidate_segment_count": 11,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1603"
+      ],
+      "segments": []
     },
     {
       "route_key": "18-2",
@@ -2240,39 +2121,82 @@
       "segments": []
     },
     {
-      "route_key": "5-2",
-      "outing_id": "5-2",
-      "label": "5-2: 5B",
+      "route_key": "1-1",
+      "outing_id": "1-1",
+      "label": "1-1: 1A-1",
       "candidate_ids": [
-        "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+        "route-truth-1a-1-chute-chbh-polecat5"
       ],
       "planned_segment_ids": [
+        "1482",
+        "1516",
+        "1601"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-36th-street-chute-1a-1.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1509,
+      "review_point_count": 755,
+      "candidate_segment_count": 10,
+      "latent_completed_segment_ids": [
         "1541",
-        "1598",
-        "1599",
-        "1600",
-        "1601",
-        "1602",
-        "1603",
-        "1604",
         "1610"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-polecat-loop-5b.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 1600,
-      "review_point_count": 801,
-      "candidate_segment_count": 11,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
+      "unexpected_latent_segment_ids": [
+        "1541",
+        "1610"
+      ],
       "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1541",
+        "1610"
+      ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
         "1601",
-        "1603"
+        "1603",
+        "1604"
       ],
-      "segments": []
+      "segments": [
+        {
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "5-2",
+              "outing_id": "5-2",
+              "label": "5-2: 5B",
+              "candidate_ids": [
+                "route-truth-5b-polecat-minus-p5"
+              ],
+              "ownership_status": "active_route"
+            }
+          ]
+        },
+        {
+          "seg_id": "1610",
+          "seg_name": "Quick Draw 1",
+          "trail_name": "Quick Draw",
+          "direction": "both",
+          "official_miles": 0.48,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "5-2",
+              "outing_id": "5-2",
+              "label": "5-2: 5B",
+              "candidate_ids": [
+                "route-truth-5b-polecat-minus-p5"
+              ],
+              "ownership_status": "active_route"
+            }
+          ]
+        }
+      ]
     },
     {
       "route_key": "3-1",
@@ -2837,36 +2761,6 @@
       ]
     },
     {
-      "route_key": "16-3",
-      "outing_id": "16-3",
-      "label": "16-3: 16A-D1",
-      "candidate_ids": [
-        "manual-16a-d1"
-      ],
-      "planned_segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1653",
-        "1656"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 1515,
-      "review_point_count": 758,
-      "candidate_segment_count": 12,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
-    },
-    {
       "route_key": "18-1",
       "outing_id": "18-1",
       "label": "18-1: 18A",
@@ -3189,129 +3083,40 @@
       "outing_id": "6-1",
       "label": "6-1: 6",
       "candidate_ids": [
-        "block-cartwright_peggy_interface"
+        "route-truth-6-cartwright-peggy-minus-chbh"
       ],
       "planned_segment_ids": [
         "1508",
         "1509",
-        "1516",
         "1519",
         "1520",
         "1521",
         "1597",
         "1709"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-peggy-s-6.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-cartwright-ridge-6.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 4212,
-      "review_point_count": 1054,
-      "candidate_segment_count": 27,
+      "activity_point_count": 3012,
+      "review_point_count": 1005,
+      "candidate_segment_count": 19,
       "latent_completed_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
         "1666"
       ],
       "unexpected_latent_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
         "1666"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
         "1666"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
         "1497",
-        "1603",
+        "1599",
         "1624"
       ],
       "segments": [
-        {
-          "seg_id": "1541",
-          "seg_name": "Doe Ridge 1",
-          "trail_name": "Doe Ridge",
-          "direction": "both",
-          "official_miles": 0.46,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1599",
-          "seg_name": "Polecat Loop 1",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1604",
-          "seg_name": "Polecat Loop 7",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.23,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
-        {
-          "seg_id": "1610",
-          "seg_name": "Quick Draw 1",
-          "trail_name": "Quick Draw",
-          "direction": "both",
-          "official_miles": 0.48,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
-              ],
-              "ownership_status": "active_route"
-            }
-          ]
-        },
         {
           "seg_id": "1666",
           "seg_name": "Sweet Connie Trail 2",

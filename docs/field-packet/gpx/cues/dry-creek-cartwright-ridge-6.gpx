@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Dry Creek: Cartwright Ridge (6) cues</name>
+    <desc>6. Cartwright | Official 12.86 mi; On-foot 17.82 mi; Door-to-door p75 6h 42m; Segments left 7 / 7. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.689730" lon="-116.219917">
+    <name>PARK/START Cartwright Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.695837" lon="-116.205471">
+    <name>CUE 01 Peggy's Trail</name>
+    <desc>Follow Peggy's Trail. First official segment here: Peggy's Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.713565" lon="-116.208118">
+    <name>CUE 02 Chukar Butte Trail</name>
+    <desc>Follow Chukar Butte Trail. First official segment here: Chukar Butte Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.704522" lon="-116.235935">
+    <name>CUE 03 Cartwright Connector</name>
+    <desc>Follow Cartwright Connector. First official segment here: Cartwright Connector. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.699405" lon="-116.242628">
+    <name>CUE 04 Cartwright Ridge</name>
+    <desc>Follow Cartwright Ridge. First official segment here: Cartwright Ridge. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.689720" lon="-116.219872">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

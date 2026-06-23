@@ -250,6 +250,17 @@ def choose_segment_orientation(
     for reversed_direction in segment_orientation_options(segment, preserve_ascent_direction=preserve_ascent_direction):
         segment_coords = list(reversed(segment["coordinates"])) if reversed_direction else list(segment["coordinates"])
         path, path_coords = graph_path(current, segment_coords[0], connector_graph, avoid_official_segment_ids)
+        if path.get("source") == "direct_gap_fallback" and float_value(path.get("distance_miles")) <= 0.12:
+            target_id = str(segment.get("seg_id"))
+            target_allowed_avoid_ids = {str(segment_id) for segment_id in avoid_official_segment_ids if str(segment_id) != target_id}
+            repaired_path, repaired_path_coords = graph_path(
+                current,
+                segment_coords[0],
+                connector_graph,
+                target_allowed_avoid_ids,
+            )
+            if repaired_path.get("source") != "direct_gap_fallback":
+                path, path_coords = repaired_path, repaired_path_coords
         options.append((float_value(path.get("distance_miles")), reversed_direction, path, path_coords, segment_coords))
     _, reversed_direction, path, path_coords, segment_coords = min(options, key=lambda item: item[0])
     return reversed_direction, path, path_coords, segment_coords
@@ -321,6 +332,7 @@ def build_generated_route(
                 "connector_names": sorted(set(str(name) for name in path.get("connector_names") or []))[:12],
                 "connector_classes": sorted(set(str(name) for name in path.get("connector_classes") or [])),
                 "path_source": path.get("source") or "mapped_graph",
+                "path_coordinates": [[float(lon), float(lat)] for lon, lat in path_coords],
             }
         )
         current = segment_coords[-1]
@@ -345,6 +357,7 @@ def build_generated_route(
             "connector_names": sorted(set(str(name) for name in return_path.get("connector_names") or []))[:12],
             "connector_classes": sorted(set(str(name) for name in return_path.get("connector_classes") or [])),
             "path_source": return_path.get("source") or "mapped_graph",
+            "path_coordinates": [[float(lon), float(lat)] for lon, lat in return_coords],
         }
     )
     dense_coords = densify_coordinates(coords, max_gap_miles=0.03)

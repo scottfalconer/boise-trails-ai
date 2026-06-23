@@ -1,7 +1,7 @@
 # Route Edge-Cover Audit
 
 - Status: `passed`
-- Routes: 28
+- Routes: 25
 - Failed routes: 0
 - Depot phase-reset failures: 0
 - Advisory routes: 0

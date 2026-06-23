@@ -1,14 +1,14 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 28
+- Routes audited: 25
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 12
-- Unexpected latent official segments: 36
+- Routes with reconciled latent credit: 13
+- Unexpected latent official segments: 34
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 36
+- Reconciled latent segments claimed by another active route: 34
 - Unclaimed uncompleted latent segments: 0
-- Repeat-only latent completed segments: 7
+- Repeat-only latent completed segments: 6
 
 ## Scope
 
@@ -48,6 +48,13 @@
   - 1554 Elk Meadows Trail; claimed by 17-1: 17
   - 1679 Tempest Trail; claimed by 18-1: 18A
   - 1680 The Face Trail; claimed by 17-1: 17
+
+### 1-1: 1A-1
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-36th-street-chute-1a-1.gpx`
+- Declared owned by other active routes: 1541, 1610
+- Segment details:
+  - 1541 Doe Ridge; claimed by 5-2: 5B
+  - 1610 Quick Draw; claimed by 5-2: 5B
 
 ### 3-1: 3
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-military-reserve-connection-3.gpx`
@@ -100,13 +107,9 @@
   - 1721 Lodge Trail; claimed by 18-2: 18B
 
 ### 6-1: 6
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-peggy-s-6.gpx`
-- Declared owned by other active routes: 1541, 1599, 1604, 1610, 1666
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-cartwright-ridge-6.gpx`
+- Declared owned by other active routes: 1666
 - Segment details:
-  - 1541 Doe Ridge; claimed by 5-2: 5B
-  - 1599 Polecat Loop; claimed by 5-2: 5B
-  - 1604 Polecat Loop; claimed by 5-2: 5B
-  - 1610 Quick Draw; claimed by 5-2: 5B
   - 1666 Sweet Connie Trail (ascent); claimed by 16-1: 16A-1
 
 ### 13-1: 13
@@ -119,7 +122,3 @@
   - 1630 Ridge Crest; claimed by 3-1: 3
   - 1631 Ridge Crest; claimed by 3-1: 3
   - 1695 Watchman Trail; claimed by 14-1: 14
-
-## Repeat-only latent credit
-
-- 1-2: 1A-2: 1755

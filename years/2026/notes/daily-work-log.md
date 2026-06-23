@@ -4,6 +4,162 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-23 - CHBH and Polecat 5 recomposition into 36th Street Chute
+
+- Objective: evaluate whether CHBH Connector and Polecat Loop 5 should remain
+  embedded in the Peggy's / Cartwright mega-card, become a separate Cartwright
+  mini-card, or move into the lower 36th Street Chute card; include drive,
+  re-parking, and prep cost rather than judging only map miles.
+- Result:
+  - Selected the 36th Street Chute absorption. The original decision review
+    compared the current Chute + Polecat + Route 6 scope at 34.45 on-foot miles
+    and 739 p75 minutes against a Chute-absorption scope at 31.00 on-foot miles
+    and 764 p75 minutes, and a separate Cartwright mini-card at 33.16 on-foot
+    miles and 835 p75 minutes. After repairing the Cartwright Ridge source-gap
+    geometry, the final generated affected-card scope is 31.02 on-foot miles
+    and 760 p75 minutes.
+  - Route `1A-1` is now
+    `route-truth-1a-1-chute-chbh-polecat5`, covering 36th Street Chute, CHBH
+    Connector, and Polecat Loop 5 (`1482`, `1516`, `1601`) from the lower
+    36th Street start.
+  - Package 5 keeps Barn Owl and replaces its Polecat core card with
+    `route-truth-5b-polecat-minus-p5`, removing Polecat Loop 5 from that card.
+  - Route 6 is now `route-truth-6-cartwright-peggy-minus-chbh`, removing CHBH
+    from the Peggy's / Cartwright mega-card.
+  - Added a generated-route repair for short target-segment snap gaps so
+    Cartwright Ridge 2 -> Cartwright Ridge 1 uses mapped graph geometry instead
+    of a 0.08-mile direct fallback.
+  - Regenerated the canonical private map/menu, sanitized example map/menu,
+    mobile field packet, and GPX bundle from the private replacement source.
+- Validation:
+  - `python -m py_compile years/2026/scripts/promote_chbh_polecat_recomposition.py`
+    passed.
+  - `python -m py_compile years/2026/scripts/freestone_cluster_route_generation_experiment.py`
+    passed.
+  - `python years/2026/scripts/promote_chbh_polecat_recomposition.py` passed
+    and updated the ignored private field-menu replacement source.
+  - `python3 years/2026/scripts/human_loop_plan.py` passed and regenerated the
+    canonical private outing map/menu.
+  - `python3 years/2026/scripts/export_example_map.py` passed and regenerated
+    the sanitized public/example map and menu.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py --progress-json years/2026/outputs/private/progress/versions/challenge-2026/days/2026-06-23-dashboard-sync-full-sail/progress-input.json`
+    passed and wrote 75 GPX files plus the phone packet.
+  - JSON validation passed for the private map data, example map data,
+    `docs/field-packet/field-tool-data.json`, `docs/field-packet/manifest.json`,
+    and the CHBH/Polecat promotion summary.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed all 21
+    requirements with 25 field-ready routes and 0 held routes.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py`,
+    `python3 years/2026/scripts/field_progress_report.py`,
+    `python3 years/2026/scripts/field_recertification_report.py`,
+    `python3 years/2026/scripts/same_anchor_spur_split_audit.py`,
+    `python3 years/2026/scripts/route_edge_cover_audit.py`,
+    `python3 years/2026/scripts/field_route_walkthrough_audit.py`,
+    `python3 years/2026/scripts/post_credit_connector_audit.py`, and
+    `python3 years/2026/scripts/special_management_rule_audit.py` passed.
+  - `pytest -q years/2026/tests/test_freestone_cluster_route_generation_experiment.py`
+    passed 5 tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_field_progress_report.py years/2026/tests/test_field_recertification_report.py`
+    passed 171 tests in 1779.57 seconds.
+- Current blocker:
+  - No route-source, packet, or certification blocker remains from the
+    recomposition. Ridge to Rivers showed no Polecat-specific closure in the
+    live area page checked today, and the special-management audit passed; the
+    standard day-of heat, water, mud/closure, and signage check still applies
+    before running the route.
+
+## 2026-06-23 - Full Sail dashboard progress sync
+
+- Objective: pull the current read-only BTC dashboard data after the user's
+  reported Full Sail completion on 2026-06-22, then apply only
+  dashboard-proven segment progress to the challenge-2026 private ledger and
+  regenerate the active field maps.
+- Result:
+  - Captured a fresh ignored dashboard snapshot under
+    `years/2026/inputs/official/private/api-pull-2026-06-23-081150/`.
+    The dashboard reported 37 completed official segments, 24.634 official
+    miles, and 15.4931% complete.
+  - Joined all dashboard `CompletedSegmentIds` against the June 13 official
+    foot segment GeoJSON; all 37 matched current official segments.
+  - Applied the eight new dashboard ids beyond the existing private ledger:
+    `1504`, `1505`, `1506`, `1507`, `1565`, `1566`, `1718`, and `1719`.
+    These match active route `1A-2` Hillside to Hollow: Full Sail.
+  - Regenerated the canonical private outing map/menu, sanitized example map,
+    phone field packet, and GPX bundle. Completed route `1A-2` is now removed
+    from the active field menu; 25 routes remain field-ready, with 213
+    remaining official segments and 0 manual holds.
+- Validation:
+  - `python3 years/2026/scripts/field_progress_versions.py apply-day --epoch challenge-2026 --day-id 2026-06-23-dashboard-sync-full-sail --review-json years/2026/outputs/private/progress/dashboard-review-2026-06-23-full-sail.json`
+    passed, regenerated reports, and wrote 75 GPX files plus the phone packet.
+  - `python3 years/2026/scripts/human_loop_plan.py` passed and regenerated the
+    canonical private outing map/menu.
+  - `python3 years/2026/scripts/export_example_map.py` passed and regenerated
+    the sanitized public/example maps and menu.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py --progress-json years/2026/outputs/private/progress/versions/challenge-2026/days/2026-06-23-dashboard-sync-full-sail/progress-input.json`
+    passed from the refreshed map source and wrote 75 GPX files plus the phone
+    packet.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 37
+    completed segments, 213 remaining, and coverage preserved.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed with 25
+    routes and 0 routes needing repair.
+  - `python3 years/2026/scripts/same_anchor_spur_split_audit.py`,
+    `python3 years/2026/scripts/route_edge_cover_audit.py`,
+    `python3 years/2026/scripts/field_route_walkthrough_audit.py`, and
+    `python3 years/2026/scripts/post_credit_connector_audit.py` passed.
+  - `python3 years/2026/scripts/field_recertification_report.py --run-heavy-optimizer`
+    passed and reported remaining full completion feasible.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed all 21
+    requirements.
+- Current blocker:
+  - No progress-state or packet certification blocker remains from this sync.
+    Standard same-day trail condition, closure, signage, heat, and water checks
+    still apply before running any remaining route.
+
+## 2026-06-22 - Dry Creek and Harris Ridge dashboard progress sync
+
+- Objective: pull the current read-only BTC dashboard data after the user's
+  reported Dry Creek completion on 2026-06-21 and Harris Ridge completion on
+  2026-06-22, then apply only dashboard-proven segment progress to the
+  challenge-2026 private ledger.
+- Result:
+  - Captured a fresh ignored dashboard snapshot under
+    `years/2026/inputs/official/private/api-pull-2026-06-22-112255/`.
+    The dashboard reported 29 completed official segments, 21.645 official
+    miles, and 13.6134% complete.
+  - Joined all dashboard `CompletedSegmentIds` against the June 13 official
+    foot segment GeoJSON; all 29 matched current official segments.
+  - Applied the 10 new dashboard ids beyond the existing private ledger:
+    `1542`, `1543`, `1544`, `1545`, `1546`, `1653`, `1656`, `1722`, `1723`,
+    and `1724`.
+  - Regenerated the phone field packet and GPX bundle. Completed routes
+    `16A-D1` Dry Creek and `8` Harris Ridge are now removed from the active
+    field menu; 26 routes remain field-ready, with 221 remaining official
+    segments and 0 manual holds.
+- Validation:
+  - `python3 years/2026/scripts/field_progress_versions.py apply-day --epoch challenge-2026 --day-id 2026-06-22-dashboard-sync-dry-creek-harris-ridge --review-json years/2026/outputs/private/progress/dashboard-review-2026-06-22-dry-creek-harris-ridge.json`
+    passed, regenerated reports, and wrote 78 GPX files plus the phone packet.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed with 26
+    routes and 0 routes needing repair.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 29
+    completed segments, 221 remaining, and coverage preserved.
+  - `python3 years/2026/scripts/field_recertification_report.py --skip-heavy-optimizer`
+    passed the lightweight coverage checks but left the adaptive feasibility
+    gate not run.
+  - `python3 years/2026/scripts/field_recertification_report.py --run-heavy-optimizer`
+    passed and reported remaining full completion feasible.
+  - `python3 years/2026/scripts/same_anchor_spur_split_audit.py`,
+    `python3 years/2026/scripts/route_edge_cover_audit.py`,
+    `python3 years/2026/scripts/field_tool_completion_audit.py`,
+    `python3 years/2026/scripts/field_route_walkthrough_audit.py`, and
+    `python3 years/2026/scripts/post_credit_connector_audit.py` passed.
+  - JSON validation passed for the changed private state/ledger, dashboard
+    review, latest progress/recertification reports, field-packet manifest,
+    completion audit, and fresh ignored raw dashboard snapshot.
+- Current blocker:
+  - No progress-state or packet certification blocker remains from this sync.
+    Standard same-day trail condition, closure, signage, heat, and water checks
+    still apply before running any remaining route.
+
 ## 2026-06-22 - Route 2 progress-prune cost regression repair
 
 - Objective: fix the route `2-1` regression introduced by pruning completed
@@ -5291,6 +5447,53 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - No known packet/source certification blocker remains in the generated field
     packet. Standard same-day condition and closure checks still apply before
     running any route.
+
+## 2026-06-23 - 36th Street Chute and CHBH/Polecat ownership check
+
+- Objective: inspect the current 36th Street Chute map/cue anomaly and identify
+  which active route owns CHBH Connector.
+- Result:
+  - Current active route data still assigns CHBH Connector segment `1516` to
+    Package 6 / `6-1` (`Dry Creek: Peggy's`, Cartwright / Peggy's / lower Dry
+    Creek interface).
+  - The 36th Street Chute card `1A-1` claims only segment `1482`, but its
+    current field-packet cue data incorrectly carries CHBH Connector `1516` as
+    official repeat mileage in the start/access leg. Treat this as route-truth
+    drift, not a field-ready 36th map.
+  - Current bridge audit output still reports optimization debt between Package
+    6 and Package 5B: Package 6 bridges/repeats Polecat/Doe/Quick Draw segments
+    currently owned by `5B`, including strict bridge rows for Polecat Loop 1
+    `1599` and Polecat Loop 6 `1603`, plus near bridge rows for Doe Ridge 1
+    `1541`, Polecat Loop 7 `1604`, and Quick Draw 1 `1610`.
+  - Added a private CHBH/Polecat recomposition audit. Against the active
+    `1A-1` + `5B` + `6` packet scope, moving CHBH out of Route 6 looks right:
+    the active scope is 33.96 mi / 739 scaled p75 minutes; the user-suggested
+    Chute + CHBH + Polecat 5 split is 31.00 mi / 674 scaled p75; the separate
+    Cartwright CHBH + Polecat 5 mini-card is 30.16 mi / 655 scaled p75; and the
+    raw shortest generated plan moves CHBH into Polecat core at 29.24 mi / 635
+    scaled p75. These are generated review seeds, not promoted route cards.
+- Validation:
+  - `python years/2026/scripts/same_anchor_spur_split_audit.py --output-json /tmp/btc-same-anchor-spur-split-audit.json --output-md /tmp/btc-same-anchor-spur-split-audit.md`
+    passed with 25 routes and 0 findings.
+  - `python years/2026/scripts/special_management_rule_audit.py --output-json /tmp/btc-special-management-audit.json --output-md /tmp/btc-special-management-audit.md`
+    passed with 25 routes and 0 failed routes.
+  - `python years/2026/scripts/route_edge_cover_audit.py --output-json /tmp/btc-route-edge-cover-audit.json --output-md /tmp/btc-route-edge-cover-audit.md`
+    passed with 25 routes, 0 failed routes, and 0 advisories.
+  - `python years/2026/scripts/route_bridge_duplication_audit.py --output-json /tmp/btc-route-bridge-audit.json --output-md /tmp/btc-route-bridge-audit.md --manifest-json /tmp/btc-route-bridge-audit-manifest.json --report-only`
+    reported `actionable_bridge_debt` with 57 findings, 6 unwaived strict
+    bridges, and 37.472 duplicate bridge miles.
+  - `python -m py_compile years/2026/scripts/chbh_polecat_recomposition_audit.py`
+    passed.
+  - `python years/2026/scripts/chbh_polecat_recomposition_audit.py` passed and
+    wrote the private comparison report under
+    `years/2026/outputs/private/chbh-polecat-recomposition-2026-06-23/`.
+  - `python -m json.tool years/2026/outputs/private/chbh-polecat-recomposition-2026-06-23/chbh-polecat-recomposition-audit.json`
+    passed.
+- Current blocker:
+  - 36th Street Chute should be repaired back to the accepted lower-36th anchor
+    route truth before use. CHBH should not stay buried in the mega Route 6
+    shape by default, but every generated recomposition still has direct-gap
+    review or full route-certification work before promotion.
 
 ## 2026-06-20 - Remove route holds after dashboard progress sync
 

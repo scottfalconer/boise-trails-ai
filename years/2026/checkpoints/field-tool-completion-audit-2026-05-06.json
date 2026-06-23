@@ -1,18 +1,18 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-06-22T14:33:22.450993+00:00",
+  "generated_at": "2026-06-23T16:36:35.534516+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
     "passed_requirement_count": 21,
     "requirement_count": 21,
-    "route_count": 28,
-    "field_ready_route_count": 28,
+    "route_count": 25,
+    "field_ready_route_count": 25,
     "held_route_count": 0,
     "official_segment_count": 250,
-    "field_menu_segment_count": 231,
+    "field_menu_segment_count": 213,
     "held_segment_count": 0,
-    "completed_segment_count_at_export": 19,
+    "completed_segment_count_at_export": 37,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 250,
     "canonical_route_metric_failure_count": 0,
@@ -27,7 +27,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a; canonical map hash 12f44565f4517036a4deb8246053838d3a5ac62f4a5d8d4aae7b2175d9b7e44a"
+      "evidence": "field source hash b0efa1a4208d4a65bdfc7ac19eb671c72b4fd2e405561fb6536bcb2d8d837408; canonical map hash b0efa1a4208d4a65bdfc7ac19eb671c72b4fd2e405561fb6536bcb2d8d837408"
     },
     {
       "requirement": "Field packet route records match canonical outing menu metrics",
@@ -47,7 +47,7 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "28 route cards passed field-structure checks; 0 held by legality/certification gates"
+      "evidence": "25 route cards passed field-structure checks; 0 held by legality/certification gates"
     },
     {
       "requirement": "Field cues and live-map cue spans agree per movement leg",
@@ -72,12 +72,12 @@
     {
       "requirement": "Active field packet accounts for every official segment geometry id",
       "passed": true,
-      "evidence": "field menu 231 ids; held 0 ids; completed 19 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
+      "evidence": "field menu 213 ids; held 0 ids; completed 37 ids; blocked 0 ids; accounted 250 ids; official target 250 ids"
     },
     {
       "requirement": "GPX validation passed for every exported route card",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 28, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 25, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
@@ -158,7 +158,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-06-22T14:33:20.604446+00:00",
+    "generated_at": "2026-06-23T16:36:33.954426+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
@@ -166,8 +166,8 @@
       "rule_count": 4
     },
     "summary": {
-      "route_count": 28,
-      "passed_route_count": 28,
+      "route_count": 25,
+      "passed_route_count": 25,
       "failed_route_count": 0,
       "failure_counts": {},
       "date_context_required_route_count": 1
@@ -198,32 +198,8 @@
         "failures": []
       },
       {
-        "label": "1A-2",
-        "outing_id": "1-2",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "4A",
         "outing_id": "4-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "1A-1",
-        "outing_id": "1-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
-        "label": "8",
-        "outing_id": "8-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -262,6 +238,71 @@
         "failures": []
       },
       {
+        "label": "5B",
+        "outing_id": "5-2",
+        "passed": true,
+        "checked_segments": [
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1602",
+            "segment_name": "Polecat Loop 2",
+            "observed_directions": {
+              "forward": 2.016
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          },
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1600",
+            "segment_name": "Polecat Loop 3",
+            "observed_directions": {
+              "forward": 1.217
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          },
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1598",
+            "segment_name": "Polecat Loop 4",
+            "observed_directions": {
+              "reverse": 0.501
+            },
+            "allowed_directions": [
+              "reverse"
+            ]
+          },
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1603",
+            "segment_name": "Polecat Loop 6",
+            "observed_directions": {
+              "forward": 0.169
+            },
+            "allowed_directions": [
+              "forward"
+            ]
+          },
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1604",
+            "segment_name": "Polecat Loop 7",
+            "observed_directions": {
+              "forward": 0.465
+            },
+            "allowed_directions": [
+              "forward",
+              "reverse"
+            ]
+          }
+        ],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "18B",
         "outing_id": "18-2",
         "passed": true,
@@ -294,49 +335,16 @@
         "failures": []
       },
       {
-        "label": "5B",
-        "outing_id": "5-2",
+        "label": "1A-1",
+        "outing_id": "1-1",
         "passed": true,
         "checked_segments": [
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1602",
-            "segment_name": "Polecat Loop 2",
-            "observed_directions": {
-              "forward": 2.065
-            },
-            "allowed_directions": [
-              "forward"
-            ]
-          },
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1600",
-            "segment_name": "Polecat Loop 3",
-            "observed_directions": {
-              "forward": 1.217
-            },
-            "allowed_directions": [
-              "forward"
-            ]
-          },
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1598",
-            "segment_name": "Polecat Loop 4",
-            "observed_directions": {
-              "reverse": 0.502
-            },
-            "allowed_directions": [
-              "reverse"
-            ]
-          },
           {
             "rule_id": "r2r-polecat-81-clockwise-through-2026",
             "segment_id": "1601",
             "segment_name": "Polecat Loop 5",
             "observed_directions": {
-              "forward": 1.419
+              "forward": 1.422
             },
             "allowed_directions": [
               "forward"
@@ -347,23 +355,10 @@
             "segment_id": "1603",
             "segment_name": "Polecat Loop 6",
             "observed_directions": {
-              "forward": 0.167
+              "forward": 0.168
             },
             "allowed_directions": [
               "forward"
-            ]
-          },
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1604",
-            "segment_name": "Polecat Loop 7",
-            "observed_directions": {
-              "forward": 0.538,
-              "reverse": 0.311
-            },
-            "allowed_directions": [
-              "forward",
-              "reverse"
             ]
           }
         ],
@@ -418,14 +413,6 @@
         "date_context_required": [
           "r2r-lower-hulls-29-even-day-foot-access"
         ],
-        "failures": []
-      },
-      {
-        "label": "16A-D1",
-        "outing_id": "16-3",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
         "failures": []
       },
       {
@@ -557,21 +544,7 @@
         "label": "6",
         "outing_id": "6-1",
         "passed": true,
-        "checked_segments": [
-          {
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1604",
-            "segment_name": "Polecat Loop 7",
-            "observed_directions": {
-              "forward": 0.311,
-              "reverse": 0.303
-            },
-            "allowed_directions": [
-              "forward",
-              "reverse"
-            ]
-          }
-        ],
+        "checked_segments": [],
         "date_context_required": [],
         "failures": []
       },

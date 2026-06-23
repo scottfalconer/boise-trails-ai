@@ -1,10 +1,10 @@
 {
   "schema": "boise_trails_route_edge_cover_audit_v1",
-  "generated_at": "2026-06-22T01:56:24Z",
+  "generated_at": "2026-06-23T16:37:39Z",
   "objective": "verify one-car route cards behave as closed required-edge tours from their selected depot",
   "status": "passed",
   "summary": {
-    "route_count": 28,
+    "route_count": 25,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "phase_reset_failure_count": 0,
@@ -106,39 +106,6 @@
       ]
     },
     {
-      "label": "1-2: 1A-2",
-      "outing_id": "1-2",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-full-sail-trail-buena-vista-trail-bob-smylie"
-      ],
-      "trailhead": "West Climb",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 2.99,
-        "generated_miles": 4.86,
-        "lower_bound_miles": 3.86,
-        "efficiency_ratio": 1.259,
-        "required_component_count": 1,
-        "odd_required_node_count": 6,
-        "parity_add_on_miles": 0.81,
-        "depot_component_attachment_miles": 0.06
-      },
-      "gpx_path": "docs/field-packet/gpx/official/hillside-to-hollow-full-sail-1a-2.gpx",
-      "segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1718",
-        "1719"
-      ]
-    },
-    {
       "label": "4-1: 4A",
       "outing_id": "4-1",
       "candidate_ids": [
@@ -165,60 +132,6 @@
         "1499",
         "1500",
         "1690"
-      ]
-    },
-    {
-      "label": "1-1: 1A-1",
-      "outing_id": "1-1",
-      "candidate_ids": [
-        "multi-start-1a-1a-ms-04-1-36th-street-chute"
-      ],
-      "trailhead": "prior parking anchor 13",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 0.74,
-        "generated_miles": 3.17,
-        "lower_bound_miles": 1.44,
-        "efficiency_ratio": 2.203,
-        "required_component_count": 1,
-        "odd_required_node_count": 2,
-        "parity_add_on_miles": 0.7,
-        "depot_component_attachment_miles": 0.0
-      },
-      "gpx_path": "docs/field-packet/gpx/official/13-36th-street-chute-1a-1.gpx",
-      "segment_ids": [
-        "1482"
-      ]
-    },
-    {
-      "label": "8-1: 8",
-      "outing_id": "8-1",
-      "candidate_ids": [
-        "block-oregon_trail_harris_peace_valley"
-      ],
-      "trailhead": "Homestead",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 2.26,
-        "generated_miles": 3.64,
-        "lower_bound_miles": 3.62,
-        "efficiency_ratio": 1.005,
-        "required_component_count": 2,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 0.92,
-        "depot_component_attachment_miles": 0.45
-      },
-      "gpx_path": "docs/field-packet/gpx/official/boise-river-wma-harris-ridge-trail-8.gpx",
-      "segment_ids": [
-        "1722",
-        "1723",
-        "1724"
       ]
     },
     {
@@ -340,6 +253,39 @@
       ]
     },
     {
+      "label": "5-2: 5B",
+      "outing_id": "5-2",
+      "candidate_ids": [
+        "route-truth-5b-polecat-minus-p5"
+      ],
+      "trailhead": "Cartwright",
+      "audit_status": "passed",
+      "hard_failures": [],
+      "advisory_findings": [],
+      "route_quality": {
+        "status": "passed",
+        "required_miles": 5.14,
+        "generated_miles": 5.59,
+        "lower_bound_miles": 5.34,
+        "efficiency_ratio": 1.047,
+        "required_component_count": 1,
+        "odd_required_node_count": 4,
+        "parity_add_on_miles": 0.2,
+        "depot_component_attachment_miles": 0.0
+      },
+      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-doe-ridge-5b.gpx",
+      "segment_ids": [
+        "1541",
+        "1598",
+        "1599",
+        "1600",
+        "1602",
+        "1603",
+        "1604",
+        "1610"
+      ]
+    },
+    {
       "label": "18-2: 18B",
       "outing_id": "18-2",
       "candidate_ids": [
@@ -457,37 +403,31 @@
       ]
     },
     {
-      "label": "5-2: 5B",
-      "outing_id": "5-2",
+      "label": "1-1: 1A-1",
+      "outing_id": "1-1",
       "candidate_ids": [
-        "multi-start-5-5-ms-04-2-polecat-loop-doe-ridge-quick-draw"
+        "route-truth-1a-1-chute-chbh-polecat5"
       ],
-      "trailhead": "Cartwright",
+      "trailhead": "prior parking anchor 13",
       "audit_status": "passed",
       "hard_failures": [],
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 6.56,
-        "generated_miles": 8.38,
-        "lower_bound_miles": 7.11,
-        "efficiency_ratio": 1.179,
+        "required_miles": 2.97,
+        "generated_miles": 7.58,
+        "lower_bound_miles": 4.76,
+        "efficiency_ratio": 1.592,
         "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 0.55,
+        "odd_required_node_count": 2,
+        "parity_add_on_miles": 1.79,
         "depot_component_attachment_miles": 0.0
       },
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-polecat-loop-5b.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-36th-street-chute-1a-1.gpx",
       "segment_ids": [
-        "1541",
-        "1598",
-        "1599",
-        "1600",
-        "1601",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
+        "1482",
+        "1516",
+        "1601"
       ]
     },
     {
@@ -736,38 +676,6 @@
       ]
     },
     {
-      "label": "16-3: 16A-D1",
-      "outing_id": "16-3",
-      "candidate_ids": [
-        "manual-16a-d1"
-      ],
-      "trailhead": "Dry Creek / Sweet Connie roadside parking",
-      "audit_status": "passed",
-      "hard_failures": [],
-      "advisory_findings": [],
-      "route_quality": {
-        "status": "passed",
-        "required_miles": 12.5,
-        "generated_miles": 15.61,
-        "lower_bound_miles": 14.46,
-        "efficiency_ratio": 1.08,
-        "required_component_count": 1,
-        "odd_required_node_count": 4,
-        "parity_add_on_miles": 1.93,
-        "depot_component_attachment_miles": 0.02
-      },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-16a-d1.gpx",
-      "segment_ids": [
-        "1542",
-        "1543",
-        "1544",
-        "1545",
-        "1546",
-        "1653",
-        "1656"
-      ]
-    },
-    {
       "label": "18-1: 18A",
       "outing_id": "18-1",
       "candidate_ids": [
@@ -882,7 +790,7 @@
       "label": "6-1: 6",
       "outing_id": "6-1",
       "candidate_ids": [
-        "block-cartwright_peggy_interface"
+        "route-truth-6-cartwright-peggy-minus-chbh"
       ],
       "trailhead": "Cartwright",
       "audit_status": "passed",
@@ -890,20 +798,19 @@
       "advisory_findings": [],
       "route_quality": {
         "status": "passed",
-        "required_miles": 13.67,
-        "generated_miles": 22.41,
-        "lower_bound_miles": 20.33,
-        "efficiency_ratio": 1.102,
-        "required_component_count": 6,
-        "odd_required_node_count": 12,
-        "parity_add_on_miles": 4.56,
-        "depot_component_attachment_miles": 2.09
+        "required_miles": 12.86,
+        "generated_miles": 17.82,
+        "lower_bound_miles": 17.94,
+        "efficiency_ratio": 0.994,
+        "required_component_count": 5,
+        "odd_required_node_count": 10,
+        "parity_add_on_miles": 3.85,
+        "depot_component_attachment_miles": 1.22
       },
-      "gpx_path": "docs/field-packet/gpx/official/dry-creek-peggy-s-6.gpx",
+      "gpx_path": "docs/field-packet/gpx/official/dry-creek-cartwright-ridge-6.gpx",
       "segment_ids": [
         "1508",
         "1509",
-        "1516",
         "1519",
         "1520",
         "1521",
