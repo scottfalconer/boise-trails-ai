@@ -13,14 +13,15 @@ activity geometry stay out of this committed note.
 ## Current Reviewed State
 
 - Epoch: `challenge-2026`
-- Reviewed completion events: 4
-- Completed official segments: 37 / 250
-- Remaining official segments: 213 / 250
-- Latest reviewed event: `2026-06-23-dashboard-sync-full-sail`
-- BTC dashboard proof: refreshed 2026-06-23 from the read-only dashboard API.
-  The ignored raw snapshot reported 37 completed segments, 24.634 official
-  miles, and 15.4931% complete; all completed ids matched the official June 13
-  segment data.
+- Reviewed completion events: 5
+- Completed official segments: 45 / 250
+- Remaining official segments: 205 / 250
+- Latest reviewed event: `2026-06-24-user-report-polecat-minus-chbh`
+- BTC dashboard proof: latest refreshed snapshot is still 2026-06-23 from the
+  read-only dashboard API. The ignored raw snapshot reported 37 completed
+  segments, 24.634 official miles, and 15.4931% complete; all completed ids
+  matched the official June 13 segment data. The 2026-06-24 Polecat update is
+  user-reported and should be checked against the next fresh dashboard snapshot.
 
 ## Events
 
@@ -30,6 +31,7 @@ activity geometry stay out of this committed note.
 | 2026-06-20 | `2026-06-20-dashboard-sync` | BTC dashboard sync | Read-only BTC dashboard API snapshot in ignored `years/2026/inputs/official/private/api-pull-2026-06-20-191248/dashboard_raw.json` | Added six dashboard-completed segment ids beyond the private ledger: `1481`, `1517`, `1518`, `1567`, `1568`, and `1596` | Private planner state now marks 19 segment ids complete; canonical maps and phone packet were regenerated. The post-progress Camel's Back / Hulls Gulch card `2` moved into the route-truth manual hold because its stale cue/GPX source no longer certifies after Owl's Roost / Gold Finch / 15th St. / Chickadee Ridge credit was removed from new-credit planning |
 | 2026-06-22 | `2026-06-22-dashboard-sync-dry-creek-harris-ridge` | BTC dashboard sync after user-reported Dry Creek on 2026-06-21 and Harris Ridge on 2026-06-22 | Read-only BTC dashboard API snapshot in ignored `years/2026/inputs/official/private/api-pull-2026-06-22-112255/dashboard_raw.json` | Added 10 dashboard-completed segment ids beyond the private ledger: Dry Creek `1542`-`1546`, Sheep Camp `1653`, Shingle Creek `1656`, Peace Valley Overlook `1722`-`1723`, and Harris Ridge `1724` | Private planner state now marks 29 segment ids complete; phone packet and GPX bundle were regenerated with completed routes `16A-D1` and `8` removed from the active field menu. Remaining menu has 26 field-ready routes, 221 remaining official segments, and no manual holds |
 | 2026-06-23 | `2026-06-23-dashboard-sync-full-sail` | BTC dashboard sync after user-reported Full Sail on 2026-06-22 | Read-only BTC dashboard API snapshot in ignored `years/2026/inputs/official/private/api-pull-2026-06-23-081150/dashboard_raw.json` | Added eight dashboard-completed segment ids beyond the private ledger: Buena Vista `1504`-`1507`, Full Sail `1565`-`1566`, and Bob Smylie `1718`-`1719` | Private planner state now marks 37 segment ids complete; phone packet and GPX bundle were regenerated with completed route `1A-2` removed from the active field menu. Remaining menu has 25 field-ready routes, 213 remaining official segments, and no manual holds |
+| 2026-06-24 | `2026-06-24-user-report-polecat-minus-chbh` | User-reported Polecat completion except CHBH side trail | User report in the Codex session; private review JSON in ignored `years/2026/outputs/private/progress/user-report-2026-06-24-polecat-minus-chbh.json` | Added active route `5-2` segment ids: Doe Ridge `1541`, Polecat Loop `1598`-`1600` and `1602`-`1604`, and Quick Draw `1610`. Did not count 36th Street Chute `1482`, CHBH Connector `1516`, or Polecat Loop 5 `1601`; those remain on route `1A-1` | Private planner state now marks 45 segment ids complete; phone packet and GPX bundle were regenerated with completed route `5-2` removed from the active field menu. Remaining menu has 24 field-ready routes, 205 remaining official segments, and no manual holds |
 
 ## Completed Segment Ids
 
@@ -99,6 +101,25 @@ Dashboard-completed segment ids added to the private ledger:
 - `1718` - Bob Smylie 1
 - `1719` - Bob Smylie 2
 
+### 2026-06-24 - User-reported Polecat minus CHBH side trail
+
+User-reported segment ids added to the private ledger:
+
+- `1541` - Doe Ridge 1
+- `1598` - Polecat Loop 4
+- `1599` - Polecat Loop 1
+- `1600` - Polecat Loop 3
+- `1602` - Polecat Loop 2
+- `1603` - Polecat Loop 6
+- `1604` - Polecat Loop 7
+- `1610` - Quick Draw 1
+
+Remaining for the chute outing:
+
+- `1482` - 36th Street Chute 1
+- `1516` - CHBH Connector 1
+- `1601` - Polecat Loop 5
+
 ## Evidence Rules
 
 - Segment completion requires endpoint-to-endpoint geometry coverage in one
@@ -106,5 +127,8 @@ Dashboard-completed segment ids added to the private ledger:
 - Strava activity geometry is acceptable local reconstruction evidence for this
   planner ledger. Current official BTC app/dashboard proof should still be
   checked separately when a fresh dashboard snapshot is available.
+- User-reported segment events can keep the private planner moving, but they
+  should be reconciled against the official BTC dashboard on the next read-only
+  refresh.
 - Phone completed-outing state is not proof; this document follows reviewed
   segment ids only.

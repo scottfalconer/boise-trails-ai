@@ -4,6 +4,45 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-06-24 - Polecat progress prune, CHBH left on chute
+
+- Objective: apply the user's report that Polecat is done except the side trail
+  to CHBH, while preserving CHBH Connector and Polecat Loop 5 on the 36th Street
+  Chute card.
+- Result:
+  - Added a private user-report review for active route `5-2`, completing
+    `1541`, `1598`, `1599`, `1600`, `1602`, `1603`, `1604`, and `1610`.
+  - Left `1482`, `1516`, and `1601` on route `1A-1`
+    (36th Street Chute / CHBH Connector / Polecat Loop 5).
+  - Applied the review through the `challenge-2026` progress ledger and
+    regenerated the phone field packet. Completed route `5-2` is removed from
+    the active field menu; 24 routes remain field-ready, with 205 remaining
+    official segments and 0 manual holds.
+  - The latest BTC dashboard snapshot is still the 2026-06-23 read-only pull;
+    this user-reported event should be reconciled against the next dashboard
+    refresh.
+- Validation:
+  - `python3 years/2026/scripts/field_progress_versions.py apply-day --epoch challenge-2026 --day-id 2026-06-24-user-report-polecat-minus-chbh --review-json years/2026/outputs/private/progress/user-report-2026-06-24-polecat-minus-chbh.json`
+    passed, regenerated reports, and wrote 72 GPX files plus the phone packet.
+  - `python3 years/2026/scripts/field_recertification_report.py --run-heavy-optimizer --progress-json years/2026/outputs/private/progress/versions/challenge-2026/days/2026-06-24-user-report-polecat-minus-chbh/progress-input.json --output-json years/2026/outputs/private/progress/versions/challenge-2026/days/2026-06-24-user-report-polecat-minus-chbh/field-recertification-heavy.json --output-md years/2026/outputs/private/progress/versions/challenge-2026/days/2026-06-24-user-report-polecat-minus-chbh/field-recertification-heavy.md`
+    passed and reported remaining full completion feasible.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 45
+    completed segments, 205 remaining, and coverage preserved.
+  - `python3 years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py`,
+    `python3 years/2026/scripts/same_anchor_spur_split_audit.py`,
+    `python3 years/2026/scripts/route_edge_cover_audit.py`,
+    `python3 years/2026/scripts/field_tool_completion_audit.py`,
+    `python3 years/2026/scripts/field_route_walkthrough_audit.py`, and
+    `python3 years/2026/scripts/post_credit_connector_audit.py` passed on the
+    regenerated 24-route packet.
+- Current blocker:
+  - No progress-state or packet certification blocker remains from this update.
+    Standard same-day trail condition, closure, signage, heat, and water checks
+    still apply before running `1A-1`; official dashboard readback is still
+    pending for the user-reported Polecat event.
+
 ## 2026-06-23 - CHBH and Polecat 5 recomposition into 36th Street Chute
 
 - Objective: evaluate whether CHBH Connector and Polecat Loop 5 should remain

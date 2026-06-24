@@ -1,14 +1,14 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 25
+- Routes audited: 24
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 13
-- Unexpected latent official segments: 34
+- Routes with reconciled latent credit: 12
+- Unexpected latent official segments: 32
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 34
+- Reconciled latent segments claimed by another active route: 32
 - Unclaimed uncompleted latent segments: 0
-- Repeat-only latent completed segments: 6
+- Repeat-only latent completed segments: 8
 
 ## Scope
 
@@ -48,13 +48,6 @@
   - 1554 Elk Meadows Trail; claimed by 17-1: 17
   - 1679 Tempest Trail; claimed by 18-1: 18A
   - 1680 The Face Trail; claimed by 17-1: 17
-
-### 1-1: 1A-1
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-36th-street-chute-1a-1.gpx`
-- Declared owned by other active routes: 1541, 1610
-- Segment details:
-  - 1541 Doe Ridge; claimed by 5-2: 5B
-  - 1610 Quick Draw; claimed by 5-2: 5B
 
 ### 3-1: 3
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-military-reserve-connection-3.gpx`
@@ -122,3 +115,7 @@
   - 1630 Ridge Crest; claimed by 3-1: 3
   - 1631 Ridge Crest; claimed by 3-1: 3
   - 1695 Watchman Trail; claimed by 14-1: 14
+
+## Repeat-only latent credit
+
+- 1-1: 1A-1: 1541, 1610

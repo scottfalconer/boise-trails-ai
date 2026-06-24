@@ -1,14 +1,14 @@
 {
   "schema": "boise_trails_post_credit_connector_audit_v1",
-  "generated_at": "2026-06-23T16:37:25Z",
+  "generated_at": "2026-06-24T15:28:17Z",
   "objective": "prove each post-credit exit uses the shortest legal connector graph path",
   "status": "passed",
   "summary": {
-    "route_count": 25,
+    "route_count": 24,
     "failed_route_count": 0,
     "finding_count": 0,
     "warning_count": 6,
-    "post_credit_connector_proof_count": 88,
+    "post_credit_connector_proof_count": 86,
     "hidden_exit_finding_count": 0,
     "hidden_exit_warning_count": 6,
     "shorter_connector_finding_count": 0,
@@ -995,118 +995,6 @@
       "warnings": []
     },
     {
-      "route_key": "5-2",
-      "outing_id": "5-2",
-      "label": "5-2: 5B",
-      "candidate_ids": [
-        "route-truth-5b-polecat-minus-p5"
-      ],
-      "audit_status": "passed",
-      "gpx_path": "docs/field-packet/gpx/official/polecat-gulch-doe-ridge-5b.gpx",
-      "segment_ids": [
-        "1541",
-        "1598",
-        "1599",
-        "1600",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
-      ],
-      "post_credit_connector_proofs": [
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "5-2",
-          "label": "5-2: 5B",
-          "outing_id": "5-2",
-          "candidate_ids": [
-            "route-truth-5b-polecat-minus-p5"
-          ],
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "signed_as": [
-            "connector/access"
-          ],
-          "target": "#81 Polecat Loop",
-          "actual_miles": 0.13,
-          "credited_segment_ids_before_cue": [
-            "1541",
-            "1598",
-            "1599",
-            "1600",
-            "1602",
-            "1604",
-            "1610"
-          ],
-          "avoided_unearned_route_segment_ids": [
-            "1603"
-          ],
-          "shortest_miles": 0.1287,
-          "savings_miles": 0.0013,
-          "savings_feet": 7,
-          "shortest_connector_names": [],
-          "shortest_connector_classes": [
-            "official_repeat"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1604"
-          ],
-          "snap_start_miles": 0.0015,
-          "snap_end_miles": 0.0027,
-          "status": "passed"
-        },
-        {
-          "code": "post_credit_exit_shortest_connector",
-          "route_key": "5-2",
-          "label": "5-2: 5B",
-          "outing_id": "5-2",
-          "candidate_ids": [
-            "route-truth-5b-polecat-minus-p5"
-          ],
-          "seq": 9,
-          "cue_type": "exit_access",
-          "signed_as": [
-            "North Cartwright Road",
-            "OSM service connector 69243",
-            "OSM track connector 106931"
-          ],
-          "target": "Cartwright Trailhead",
-          "actual_miles": 0.21,
-          "credited_segment_ids_before_cue": [
-            "1541",
-            "1598",
-            "1599",
-            "1600",
-            "1602",
-            "1603",
-            "1604",
-            "1610"
-          ],
-          "avoided_unearned_route_segment_ids": [],
-          "shortest_miles": 0.2069,
-          "savings_miles": 0.0031,
-          "savings_feet": 17,
-          "shortest_connector_names": [
-            "North Cartwright Road",
-            "OSM service connector 69243",
-            "OSM track connector 106931"
-          ],
-          "shortest_connector_classes": [
-            "official_repeat",
-            "osm_public_road"
-          ],
-          "shortest_official_repeat_segment_ids": [
-            "1601"
-          ],
-          "snap_start_miles": 0.003,
-          "snap_end_miles": 0.002,
-          "status": "passed"
-        }
-      ],
-      "findings": [],
-      "warnings": []
-    },
-    {
       "route_key": "18-2",
       "outing_id": "18-2",
       "label": "18-2: 18B",
@@ -1631,9 +1519,9 @@
           "avoided_unearned_route_segment_ids": [
             "1601"
           ],
-          "shortest_miles": 0.8139,
-          "savings_miles": -0.0039,
-          "savings_feet": -20,
+          "shortest_miles": 0.8141,
+          "savings_miles": -0.0041,
+          "savings_feet": -22,
           "shortest_connector_names": [
             "#81 Polecat Loop",
             "Polecat Loop (STM)"
@@ -1649,7 +1537,7 @@
             "1610"
           ],
           "snap_start_miles": 0.003,
-          "snap_end_miles": 0.003,
+          "snap_end_miles": 0.0033,
           "status": "passed"
         },
         {

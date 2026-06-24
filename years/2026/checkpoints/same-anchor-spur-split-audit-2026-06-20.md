@@ -4,7 +4,7 @@ Status: `passed`
 
 ## Summary
 
-- Routes reviewed: 25
+- Routes reviewed: 24
 - Blocking findings: 0
 - Manual-review advisories: 0
 - Skipped over max combined miles: 0

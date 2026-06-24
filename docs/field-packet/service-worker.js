@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v25-f56f1ca35db2fce7ca";
+const CACHE_NAME = "boise-trails-field-packet-v24-f9f0ec9b4c096a13a8";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -33,9 +33,6 @@ const PRECACHE_URLS = [
   "gpx/official/hidden-springs-bitterbrush-10b.gpx",
   "gpx/cues/hidden-springs-bitterbrush-10b.gpx",
   "gpx/audit/hidden-springs-bitterbrush-10b.gpx",
-  "gpx/official/polecat-gulch-doe-ridge-5b.gpx",
-  "gpx/cues/polecat-gulch-doe-ridge-5b.gpx",
-  "gpx/audit/polecat-gulch-doe-ridge-5b.gpx",
   "gpx/official/bogus-basin-shindig-18b.gpx",
   "gpx/cues/bogus-basin-shindig-18b.gpx",
   "gpx/audit/bogus-basin-shindig-18b.gpx",
